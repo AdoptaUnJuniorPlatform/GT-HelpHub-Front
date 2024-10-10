@@ -18,7 +18,6 @@ export default {
         'blue-gray-500': '#607D8B',
         'blue-primary': '#1945E3',
         'green-10': '#43A047',
-        'gray': '#90919299',
         'gray-900': '#212121',
         'black-6': '#AEAEAE1A',
         'black-50': '#B8B8B8',
@@ -28,7 +27,8 @@ export default {
         'neutral-black': '#434242',
       },
       fontFamily: {
-        'roboto': ["Roboto"]
+        'roboto': ["Roboto"],
+        'poppins': ["Poppins"]
       }
     },
   },
