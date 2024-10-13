@@ -1,10 +1,11 @@
 import './App.css'
+import Register from './pages/Register'
 
 function App() {
 
   return (
     <>
-      <h1 className=' h-screen w-full flex justify-center items-center text-violet-700'>Help Hub</h1>
+      <Register />
     </>
   )
 }
