@@ -3,12 +3,18 @@ export interface Input {
   title?: string;
   placeholder?: string;
   style?: React.CSSProperties; 
-  className?: string
+  className?: string,
+  positionStyles?: string
 }
-
 export interface TitleProps {
   title: string;
   className?: string;
+}
+
+export interface showPasswordProps{
+  showPassword: boolean,
+  onClick: () => void,
+  className: string
 }
 export interface ButtonProps {
   label: string; 

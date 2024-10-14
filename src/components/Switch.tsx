@@ -12,14 +12,14 @@ function Switch({ initialState = false }: SwitchProps) {
   
   return (
     <div
-      className={`relative inline-flex items-center h-9 w-16 sm:h-8 sm:w-14 md:h-10 md:w-18 lg:h-12 lg:w-20 rounded-full cursor-pointer transition-colors duration-700 ${
+      className={`relative inline-flex items-center h-7 w-12 sm:h-7 sm:w-12 md:h-8 md:w-14 lg:h-10 lg:w-[68px] rounded-full cursor-pointer transition-colors duration-700 ${
         enabled ? "bg-violeta-100" : "bg-blue-gray-50"
       }`}
       onClick={toggleSwitch}
     >
       <span
-        className={`inline-block w-7 h-7 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 transform bg-white rounded-full transition-transform duration-700 ${
-          enabled ? "translate-x-5 sm:translate-x-7 md:translate-x-5 lg:translate-x-10" : "translate-x-1"
+        className={`inline-block w-5 h-5 sm:w-4 sm:h-4 md:w-6 md:h-6 lg:w-7 lg:h-7 transform bg-white rounded-full transition-transform duration-700 ${
+          enabled ? "translate-x-6 sm:translate-x-8 md:translate-x-7 lg:translate-x-9" : "translate-x-1"
         }`}
       />
     </div>

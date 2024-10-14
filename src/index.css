@@ -5,3 +5,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.loginInput {
+    @apply bg-white rounded-[3px] placeholder:font-medium placeholder:text-sm placeholder:leading-normal
+}
+  

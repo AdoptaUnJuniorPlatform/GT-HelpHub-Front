@@ -8,23 +8,23 @@ import RegisterOptional from "../components/RegisterOptional"
 import Switch from "../components/Switch"
 import Title from "../components/Title"
 import UserInput from "../components/UserInput"
-import Welcome from "../components/Welcome"
+import RegisterAside from "../components/RegisterAside"
 
 function Register() {
   return (
     <>
       <main className="flex justify-center items-center w-screen min-h-screen">
-        <div className="flex flex-col lg:flex-row lg:justify-around w-10/12 lg:h-auto h-full">
+        <div className="flex flex-col lg:flex-row lg:justify-around w-11/12 lg:h-auto h-full">
 
-          <Welcome />
+          <RegisterAside />
 
-          <section className="flex flex-col items-center justify-center pt-14 lg:ml-32  w-full lg:items-start lg:justify-between">
+          <section className="flex flex-col items-center justify-center pt-9 lg:ml-28 w-full lg:w-9/12 lg:items-start lg:justify-between">
 
             <div className="flex md:ml-0 lg:ml-0 flex-col w-full lg:-mb-7">
-              <div className="w-full mb-6">
+              <div className="w-full mb-3">
                 <Title title="Registro" className="flex" />
               </div>
-              <div className="flex lg:flex-row w-full lg:space-x-6 mb-6" >
+              <div className="flex lg:flex-row w-full lg:space-x-6 lg:mb-14" >
 
                 <RegisterName 
                   title="Nombre" 
@@ -35,17 +35,17 @@ function Register() {
                 <RegisterName 
                   title="Apellidos" 
                   placeholder="Apellidos" 
-                  className="w-full lg:w-[450px] "
+                  className="w-full lg:w-[450px]"
                 />
 
               </div>
             </div>
 
-            <div className="w-full lg:-mt-6">
+            <div className="w-full lg:-mt-5">
               <PhoneSelect />
             </div>
 
-            <div className="flex flex-col w-full mt-3">
+            <div className="flex flex-col w-full mt-6">
               <RegisterOptional />
               <article className="flex items-center mt-3">
                 <Switch />
@@ -53,16 +53,16 @@ function Register() {
               </article>
             </div>
 
-            <div className="w-full mt-14 lg:-mt-5">
-              <Title title="Usuario" className="pb-5"/>
-              <UserInput type="email" title="Email" placeholder="ejemplo@gmail.com" />
-              <UserInput type="password" title="Contraseña" placeholder="********" />
+            <div className="w-full ">
+              <Title title="Usuario" className="pb-2"/>
+              <UserInput type="email" title="Email" placeholder="ejemplo@gmail.com" className="w-[400px] h-[55px]  border-blue-gray-100"/>
+              <UserInput type="password" title="Contraseña" placeholder="********" className="w-[400px] h-[55px]  border-blue-gray-100"/>
               <Note />
             </div>
 
-            <div className="w-full ">
+            <div className="w-full mt-8">
               <AgreementCheckbox type="checkbox" />
-              <PrimaryButton label="Registrarse" className="w-full mt-3" />
+              <PrimaryButton label="Registrarse" className="w-full  hover:bg-[#3259e8]" />
             </div>
           </section>
         </div>

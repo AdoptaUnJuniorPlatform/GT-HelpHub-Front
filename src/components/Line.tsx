@@ -1,6 +1,6 @@
-function Line() {
+function Line({ className }: { className: string }) {
   return (
-    <div className="ml-3 h-[2px] w-full bg-black-80 flex-grow"></div>
+    <div className={`h-[2px] w-full bg-black-80 ${className}`}></div>
   )
 }
 

@@ -10,7 +10,7 @@ function RegisterOptional() {
           <BsFillQuestionCircleFill />
         </div>
         <p className="ml-2">Opcional</p>
-        <Line />
+        <Line  className="ml-3"/>
       </section>
     </>
   )

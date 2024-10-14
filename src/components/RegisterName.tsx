@@ -10,7 +10,7 @@ function RegisterName( { title, placeholder, style, className }: Input ) {
       <span className={`text-slate-900 text-sm md:text-base ${className}`}>
         {title}
       </span>
-      <label className="">
+      <label className="w-full">
         <input
           required
           type="text"
