@@ -3,7 +3,7 @@ function RegisterAside() {
   return (
     <aside className="flex justify-center items-center w-full lg:w-[600px] lg:h-[90vh] sm:h-[95vh] bg-violeta-100 flex-shrink-0 text-white p-4 lg:p-0 
   rounded-b-[40px] lg:rounded-l-[40px] lg:rounded-b-none">
-      <section className="flex flex-col justify-between items-center lg:items-start w-full lg:w-[70%] h-full lg:h-[70%] lg:ml-[70px] lg:-mt-8">
+      <section className="flex flex-col justify-between items-center lg:items-start w-full lg:w-[72%] h-full lg:h-[70%] lg:ml-[70px] lg:-mt-8">
 
         <div className="w-3/4 sm:flex sm:justify-center lg:w-auto">
           <img src="../src/assets/HelpHubFull.svg" alt="HelpHub Logo" className="max-w-full h-auto sm:h-[70px] lg:h-24" />

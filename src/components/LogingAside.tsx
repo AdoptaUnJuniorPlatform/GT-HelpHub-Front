@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import Line from "./Line"
 import PasswordCheckbox from "./PasswordCheckbox"
 import PrimaryButton from "./PrimaryButton"
@@ -23,13 +24,15 @@ function LogingAside() {
           <div className="w-full">
             <Title title="Inicia Sesión"/>
             <UserInput type="email" placeholder="ejemplo@gmail.com" className="loginInput h-[45px]  border-blue-gray-300"/>
-            <a className="flex justify-end text-violeta-100 -mb-2">¿Olvidaste tu contraseña?</a>
-            <UserInput type="password" placeholder="Contraseña" className="loginInput h-[45px]  border-blue-gray-300" positionStyles="right-5 top-[28px]"/>
+            <a className="flex justify-end text-violeta-100 -mb-2 cursor-pointer">¿Olvidaste tu contraseña?</a>
+            <UserInput type="password" placeholder="Contraseña" className="loginInput h-[45px]  border-blue-gray-300" positionStyles="right-5 top-[27px]"/>
             <PasswordCheckbox label="Recuerdame"/>
           </div>
 
           <div className="w-full py-3">
-            <PrimaryButton label="Inicia Sesión" className="bg-violeta-100 hover:bg-[#6D6DD1]"/>
+            <Link to={"/register"}>
+              <PrimaryButton label="Inicia Sesión" className="bg-violeta-100 hover:bg-[#6D6DD1]"/>
+            </Link>
           </div>
 
           <div className="flex justify-center mt-3 w-full">

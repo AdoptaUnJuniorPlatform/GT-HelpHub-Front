@@ -9,6 +9,7 @@ import Switch from "../components/Switch"
 import Title from "../components/Title"
 import UserInput from "../components/UserInput"
 import RegisterAside from "../components/RegisterAside"
+import { Link } from "react-router-dom"
 
 function Register() {
   return (
@@ -62,7 +63,9 @@ function Register() {
 
             <div className="w-full mt-8">
               <AgreementCheckbox type="checkbox" />
-              <PrimaryButton label="Registrarse" className="w-full  hover:bg-[#3259e8]" />
+              <Link to={"/"}>
+                <PrimaryButton label="Registrarse" className="w-full  hover:bg-[#3259e8]" />
+              </Link>
             </div>
           </section>
         </div>
