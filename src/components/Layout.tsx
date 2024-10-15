@@ -9,16 +9,16 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ rightContent, title, description }) => {
     return (
-        <div className="flex h-screen bg-gray-50"> 
+        <div className="flex h-screen bg-white">
             {/* Columna Izquierda */}
-            <div className="w-1/3 p-10 flex items-start justify-start">
-                <LeftColumn title={title} description={description} />
+                <div className="w-1/3 p-10 bg-gray-50 flex items-start justify-start">
+                 <LeftColumn title={title} description={description} />
             </div>
-            
-            {/* Columna Derecha */}
-            <div className="w-2/3 p-10 bg-gray-100 flex items-center justify-center">
-                {rightContent}
-            </div>
+
+           {/* Columna Derecha */}
+             <div className="w-2/3 p-10 bg-gray-100 flex items-center justify-center">
+                    {rightContent}
+             </div>
         </div>
     );
 };
