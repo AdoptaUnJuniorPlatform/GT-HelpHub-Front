@@ -8,22 +8,24 @@ interface LeftColumnProps {
 
 const LeftColumn: React.FC<LeftColumnProps> = ({ title, description }) => {
     return (
-        <div className="relative w-full h-full bg-[#FBFBFF] p-5">
+        <>
+        <div className="w-1/3 p-10 bg-gray-50 flex items-start justify-start relative bg-[#FBFBFF] p-5">
             {/* Logo */}
-            <div className="absolute top-5 left-5">
-                <OfficialLogo />
-            </div>
+            <div className="absolute top-[100px] left-[100px]">
+                    <OfficialLogo />
+                </div>
 
             {/* Título */}
-            <div className="absolute top-[180px] left-5 text-[#434242] text-[60px] font-light leading-[70px]">
+            <div className="absolute top-[200px] left-20 text-[#434242] text-[50px] font-light leading-[70px] max-w-[350px]">
                 {title}
             </div>
 
             {/* Descripción */}
-            <div className="absolute top-[450px] left-5 w-[421px] text-[#434242] text-[24px] font-normal">
+            <div className="absolute top-[450px] left-20 w-[421px] text-[#434242] text-[20px] font-normal max-w-[350px]">
                 {description}
             </div>
-        </div>
+            </div>
+        </>
     );
 };
 
