@@ -1,25 +1,33 @@
-import { FC, ReactNode } from 'react';
+import { FC} from 'react';
 import LeftColumn from './LeftColumn'; 
+import RightColumn from './RightColumn';
 
 interface LayoutProps {
-    rightContent: ReactNode;
     title: string;        
-    description: string;  
+    description: string;
+    stepTitle: string;
+    stepDescription: string;
+    onBackClick: () => void;
+    onNextClick: () => void;
 }
 
-const Layout: FC<LayoutProps> = ({ rightContent, title, description }) => {
+const Layout: FC<LayoutProps> = ({ title, description, stepTitle, stepDescription, onBackClick, onNextClick  }) => {
     return (
         <div className="flex h-screen bg-white">
             {/* Columna Izquierda */}
-                <div className="w-1/3 p-10 bg-gray-50 flex items-start justify-start">
+                
                  <LeftColumn title={title} description={description} />
-            </div>
+                 
 
-           {/* Columna Derecha */}
-             <div className="w-2/3 p-10 bg-gray-100 flex items-center justify-center">
-                    {rightContent}
-             </div>
-        </div>
+            {/* Columna Derecha */}
+                
+                <RightColumn
+                    stepTitle={stepTitle}
+                    stepDescription={stepDescription}
+                    onBackClick={onBackClick}
+                    onNextClick={onNextClick}
+                    />
+                </div>
     );
 };
 
