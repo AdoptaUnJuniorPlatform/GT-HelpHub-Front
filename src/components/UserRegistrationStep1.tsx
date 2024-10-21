@@ -28,7 +28,7 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
     setPostalCode(value); // Actualizamos el valor con solo números
     // Validar si el código postal tiene exactamente 5 dígitos
     if (value.length === 5) {
-      setPostalCodeError(false); // Sin error si tiene 5 dígitos
+      setPostalCodeError(false); // No hay error si tiene 5 dígitos
     } else {
       setPostalCodeError(true); // Error si tiene menos o más de 5 dígitos
     }
@@ -71,7 +71,7 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
       </div>
     </div>
 
-    {/* Nuevo input: Código postal */}
+    {/* Código postal */}
     <div className="relative w-[571px] top-[-50px] mt-8 left-[-160px] mx-auto">
       <label className="text-[#434242] text-2xl font-normal font-['Roboto']">Ubicación</label>
       <input 
