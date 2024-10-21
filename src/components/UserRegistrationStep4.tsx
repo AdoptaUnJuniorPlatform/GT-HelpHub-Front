@@ -16,10 +16,10 @@ interface UserRegistrationStep4Props{
    }) => {
     return(
       <Layout
-      title="Selecciona tus horarios"
-      description="Para que podamos ayudarte a coordinar horarios con nuestros otros usuarios, necesitaremos que nos brindes tu disponibilidad horaria y días disponiles."
+      title="¡Ya casi terminamos!"
+      description="Carga tu primera habilidad."
       stepTitle="Paso 4"
-      stepDescription="¿Qué día sestás disponible?"
+      stepDescription="Nueva habilidad"
       onBackClick={onBackClick}
       onNextClick={onNextClick}
       steps={steps}
