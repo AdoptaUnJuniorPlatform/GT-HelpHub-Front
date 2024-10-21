@@ -24,7 +24,7 @@ const LeftColumn: React.FC<LeftColumnProps> = ({ title, description }) => {
             <div className="absolute top-[450px] left-20 w-[421px] text-[#434242] text-[20px] font-normal max-w-[350px]">
                 {description}
             </div>
-            </div>
+        </div>
         </>
     );
 };
