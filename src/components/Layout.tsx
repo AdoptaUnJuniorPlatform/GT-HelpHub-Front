@@ -1,4 +1,4 @@
-import { FC} from 'react';
+import { FC, useState} from 'react';
 import LeftColumn from './LeftColumn'; 
 import RightColumn from './RightColumn';
 
@@ -9,9 +9,12 @@ interface LayoutProps {
     stepDescription: string;
     onBackClick: () => void;
     onNextClick: () => void;
+    currentStep: number;
+    steps: string[];
+    children: React.ReactNode;
 }
 
-const Layout: FC<LayoutProps> = ({ title, description, stepTitle, stepDescription, onBackClick, onNextClick  }) => {
+const Layout: FC<LayoutProps> = ({ title, description, stepTitle, stepDescription, onBackClick, onNextClick, currentStep, steps, children }) => {
     return (
         <div className="flex h-screen bg-white">
             {/* Columna Izquierda */}
@@ -26,7 +29,12 @@ const Layout: FC<LayoutProps> = ({ title, description, stepTitle, stepDescriptio
                     stepDescription={stepDescription}
                     onBackClick={onBackClick}
                     onNextClick={onNextClick}
-                    />
+                    currentStep={currentStep}
+                    steps={steps}
+                    >
+                      { children }
+                    </RightColumn>
+                    
                 </div>
     );
 };
