@@ -1,4 +1,4 @@
-import { FC, useState} from 'react';
+import { FC} from 'react';
 import LeftColumn from './LeftColumn'; 
 import RightColumn from './RightColumn';
 
@@ -21,7 +21,6 @@ const Layout: FC<LayoutProps> = ({ title, description, stepTitle, stepDescriptio
                 
                  <LeftColumn title={title} description={description} />
                  
-
             {/* Columna Derecha */}
                 
                 <RightColumn
@@ -34,7 +33,6 @@ const Layout: FC<LayoutProps> = ({ title, description, stepTitle, stepDescriptio
                     >
                       { children }
                     </RightColumn>
-                    
                 </div>
     );
 };
