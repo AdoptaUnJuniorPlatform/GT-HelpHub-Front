@@ -1,12 +1,12 @@
-import './App.css'
+import React from 'react';
+import RegistrationProcess from './components/RegistrationProcess';  // Asegúrate de que la ruta sea correcta
 
-function App() {
-
+const App: React.FC = () => {
   return (
-    <>
-      <h1 className=' h-screen w-full flex justify-center items-center text-violet-700'>Help Hub</h1>
-    </>
-  )
-}
+    <div>
+      <RegistrationProcess />
+    </div>
+  );
+};
 
-export default App
+export default App;
