@@ -109,24 +109,63 @@ interface UserRegistrationStep2Props{
           </div>
       </div>
 
-      {/* Contenedor para los avatares */}
-      <div className="relative flex justify-center items-center gap-4 top-[70px] left-[-330px] ">
-      {/* Cada avatar */}
-        <div className="w-[60px] h-[60px] rounded-full border-2 border-[#496ceb]">
-          <img
-          src="https://s3-alpha-sig.figma.com/img/2f09/4793/05ddb2118e0012df1f640008804acdeb?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=IPy6RNPgUG1m8EUAjeAtl51Zwi9VD2FL8wgreuoOY0uZBWhuO1FFEKAXBxGGCSF5ANHgwBwNg8TIubS8YO-008uXVLqKsuwnOCDDLujAVEPY7hVd1bby2DpFjy7I9xabG3gKFZpgwjlEdhtYFkSzfkgoERmc3DHmduUtEURc1EwsJ7romgXPTC9vppHyx4MXCQG5OBZT0bEdhuUZmjbJXAkhgnUl9HXKLdWyS72~oQlJfdtW9yH6aK9NqKFvfyjrQ1E3hnJhIkzK2BmoHOIy1R-VsBZL5610rFOIoQu42Ek~Ww3uo9aGP-MYePeunRG~Q4opeKtyazy172qHJKJWdg_"
-          alt="Avatar 1"
-          className="w-full h-full rounded-full object-cover "
-        />
-        </div>
+        {/* Contenedor para los avatares */}
+<div className="relative flex justify-center items-center gap-4 top-[70px] left-[-330px]">
+  {/* Primer avatar */}
+  <div className="relative w-[60px] h-[60px] rounded-full border-2 border-[#496ceb]">
+    {/* Imagen del avatar */}
+    <img
+      src="https://s3-alpha-sig.figma.com/img/2f09/4793/05ddb2118e0012df1f640008804acdeb?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=IPy6RNPgUG1m8EUAjeAtl51Zwi9VD2FL8wgreuoOY0uZBWhuO1FFEKAXBxGGCSF5ANHgwBwNg8TIubS8YO-008uXVLqKsuwnOCDDLujAVEPY7hVd1bby2DpFjy7I9xabG3gKFZpgwjlEdhtYFkSzfkgoERmc3DHmduUtEURc1EwsJ7romgXPTC9vppHyx4MXCQG5OBZT0bEdhuUZmjbJXAkhgnUl9HXKLdWyS72~oQlJfdtW9yH6aK9NqKFvfyjrQ1E3hnJhIkzK2BmoHOIy1R-VsBZL5610rFOIoQu42Ek~Ww3uo9aGP-MYePeunRG~Q4opeKtyazy172qHJKJWdg_"
+      alt="Avatar 1"
+      className="w-full h-full rounded-full object-cover"
+    />
 
-        <div className="w-[60px] h-[60px] rounded-full border-2 border-[#496ceb]">
-          <img
-          src="https://s3-alpha-sig.figma.com/img/0dc8/9a80/811ce0ee0838d47c79b082f9baa874bd?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=O81av02qPwthy3fD77xgQ0NEGD3fsOtXYEGks4KMyMz2OE4ceJ9tOKPb~4EHNRLO-7ptEbDOHGlw4uCVNbqX1ndjDmJ86cAxTYnM9j-2HmauD93fy32vLJlxGcl3eqsoygCaG~mPm5CpjUp6EkjbXxNB07CkIm9amFTvmIU9lWR1o31iIr~m8cez-JADkESBtq8310SzFMvSq6Eo2hkNnnG9u5yLvAsSv7RWvUZmHHPa~O8KJ1iiB1ZddcTVZLWx5OJNlvPFPadqTY0Rv47NV-2WbGfHmTNXiRXcXmsO42gqP52n~Qhwf0Xk8wyaGVsMjh-~IQWGQQrQaFafgGtgSQ__"
-          alt="Avatar 2"
-          className="w-full h-full rounded-full object-cover"
+    {/* Círculo morado con check */}
+    <div className="absolute bottom-10 left-10 w-[20px] h-[20px] bg-[#7166d2] rounded-full flex justify-center items-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth="2"
+        stroke="white"
+        className="w-4 h-4"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M5 13l4 4L19 7"
         />
-        </div>
+      </svg>
+    </div>
+  </div>
+
+  {/* Segundo avatar */}
+  <div className="relative w-[60px] h-[60px] rounded-full border-2 border-[#496ceb]">
+    {/* Imagen del avatar */}
+    <img
+      src="https://s3-alpha-sig.figma.com/img/0dc8/9a80/811ce0ee0838d47c79b082f9baa874bd?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=O81av02qPwthy3fD77xgQ0NEGD3fsOtXYEGks4KMyMz2OE4ceJ9tOKPb~4EHNRLO-7ptEbDOHGlw4uCVNbqX1ndjDmJ86cAxTYnM9j-2HmauD93fy32vLJlxGcl3eqsoygCaG~mPm5CpjUp6EkjbXxNB07CkIm9amFTvmIU9lWR1o31iIr~m8cez-JADkESBtq8310SzFMvSq6Eo2hkNnnG9u5yLvAsSv7RWvUZmHHPa~O8KJ1iiB1ZddcTVZLWx5OJNlvPFPadqTY0Rv47NV-2WbGfHmTNXiRXcXmsO42gqP52n~Qhwf0Xk8wyaGVsMjh-~IQWGQQrQaFafgGtgSQ__"
+      alt="Avatar 2"
+      className="w-full h-full rounded-full object-cover"
+    />
+
+    {/* Círculo morado con check */}
+    <div className="absolute bottom-10 left-10 w-[20px] h-[20px] bg-[#7166d2] rounded-full flex justify-center items-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth="2"
+        stroke="white"
+        className="w-4 h-4"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M5 13l4 4L19 7"
+        />
+      </svg>
+    </div>
+  </div>
 
         <div className="w-[60px] h-[60px] rounded-full border-2 border-[#496ceb]">
           <img
@@ -135,7 +174,8 @@ interface UserRegistrationStep2Props{
           className="w-full h-full rounded-full object-cover"
         />
         </div>
-      </div>
+        </div>
+
       </Layout>
     )};
 
