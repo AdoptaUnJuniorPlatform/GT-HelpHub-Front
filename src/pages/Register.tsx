@@ -63,7 +63,7 @@ function Register() {
 
             <div className="w-full mt-8">
               <AgreementCheckbox type="checkbox" />
-              <Link to={"/"}>
+              <Link to={"/register/personal-data"}>
                 <PrimaryButton label="Registrarse" className="w-full  hover:bg-[#3259e8]" />
               </Link>
             </div>
