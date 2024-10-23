@@ -19,7 +19,7 @@ function Register() {
 
           <RegisterAside />
 
-          <section className="flex flex-col items-center justify-center mt-9 lg:ml-28 w-full lg:w-10/12 lg:items-start lg:justify-between">
+          <form className="flex flex-col items-center justify-center mt-9 lg:ml-28 w-full lg:w-10/12 lg:items-start lg:justify-between">
 
             <div className="flex md:ml-0 lg:ml-0 flex-col w-full lg:-mb-7">
               <div className="w-full mb-3">
@@ -43,7 +43,7 @@ function Register() {
             </div>
 
             <div className="w-full lg:-mt-5">
-              <PhoneSelect />
+              <PhoneSelect type="tel" placeholder="Teléfono móvil"/>
             </div>
 
             <div className="flex flex-col w-full mt-6">
@@ -67,7 +67,7 @@ function Register() {
                 <PrimaryButton label="Registrarse" className="w-full  hover:bg-[#3259e8]" />
               </Link>
             </div>
-          </section>
+          </form>
         </div>
       </main>
     </>

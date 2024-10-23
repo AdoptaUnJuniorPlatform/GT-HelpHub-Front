@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Flag from 'react-world-flags';
+import { Input } from '../types/types';
 
-function PhoneSelect() {
+function PhoneSelect( {type, placeholder}: Input ) {
   const [phoneNumber, setPhoneNumber] = useState('');
 
   function handlePhoneChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -18,10 +19,12 @@ function PhoneSelect() {
           <Flag code="ES" className="w-6 h-auto" />
           <span>+34</span>
         </div>
-
+        <label htmlFor='phoneNumber' className='sr-only'>Número de teléfono móvil</label>
         <input
-          type="tel"
-          placeholder="Teléfono móvil"
+          id='phoneNumber'
+          required
+          type={type}
+          placeholder={placeholder}
           value={phoneNumber}
           onChange={handlePhoneChange}
           inputMode="numeric"

@@ -12,10 +12,11 @@ function UserInput({ type, title, placeholder, style, className='', positionStyl
   const inputType = type === "password" && showPassword ? "text" : type;
 
   return (
-    <form name={title} className="font-normal not-italic font-poppins w-full pt-1">
+    <section className="font-normal not-italic font-poppins w-full pt-1">
       <span className="text-slate-900">{title}</span>
-      <label className="relative w-full">
+      <label htmlFor={title} className="relative w-full">
         <input
+          id={title}
           required
           type={inputType}
           name={title}
@@ -31,7 +32,7 @@ function UserInput({ type, title, placeholder, style, className='', positionStyl
             className={`absolute transform -translate-y-1/2 text-xl text-slate-600 ${positionStyles}`}/>
         )}
       </label>
-    </form>
+    </section>
   );
 }
 

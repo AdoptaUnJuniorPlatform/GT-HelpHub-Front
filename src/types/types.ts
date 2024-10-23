@@ -1,9 +1,9 @@
 export interface Input {
-  type?: 'text'| 'password' | 'email' | 'checkbox';
+  type?: 'text'| 'password' | 'email' | 'checkbox' | 'tel';
   title?: string;
   placeholder?: string;
   style?: React.CSSProperties; 
-  className?: string,
+  className?: string;
   positionStyles?: string
 }
 export interface TitleProps {
@@ -12,9 +12,9 @@ export interface TitleProps {
 }
 
 export interface showPasswordProps{
-  showPassword: boolean,
-  onClick: () => void,
-  className: string
+  showPassword: boolean;
+  onClick: () => void;
+  className: string;
 }
 export interface ButtonProps {
   label: string; 
@@ -27,8 +27,8 @@ export interface Country {
   dialCode: string;
 }
 export interface InfoProps {
-  header?: string
-  info: string
+  header?: string;
+  info: string;
 }
 
 export interface SwitchProps {
@@ -41,8 +41,8 @@ export interface Menu {
   icon: JSX.Element;
 }
 export interface ModalityProps {
-  label: string,
-  className: string
+  label: string;
+  className: string;
 }
 
 export interface CardHeaderProps {
@@ -78,7 +78,7 @@ export interface ProfileData {
   service: string;
   location: string;
   rating: number;
-  reviewsCount: number,
+  reviewsCount: number;
   levels: Array<{ name: string; active: boolean }>;
   reviews: Array<{ name: string; city: string; review: string; photo: string}>;
   availability: string;
