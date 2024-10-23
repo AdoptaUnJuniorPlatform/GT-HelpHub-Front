@@ -20,6 +20,8 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
   // Estado para almacenar el archivo seleccionado
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false); // Estado para controlar la visibilidad del modal
+
 
   // Manejador del cambio del archivo
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +31,11 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
       setPreviewUrl(URL.createObjectURL(file)); // Crear una URL temporal de la imagen seleccionada
     }
   };
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible); // Cambia la visibilidad del modal
+  };
+
 
   return (
     <Layout
@@ -92,15 +99,16 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
       </div>
       </div>
 
-      {/* Texto y ejemplos */}
+      {/* Texto y botón de información */}
       <div className="relative top-[90px] text-center left-[-115px]">
         <div className="w-[454px] h-[27px] text-[#434242] text-sm font-normal font-['Roboto']">
           Si no lo tienes claro, aquí tienes unos ejemplos:
         </div>
-        <div className="w-6 h-6 relative left-[385px] top-[-30px]">
+        <div className="w-6 h-6 relative left-[385px] top-[-30px] cursor-pointer" onClick={toggleModal}>
           <img src={InformationCircle} alt="Información" />
         </div>
       </div>
+
 
       {/* Contenedor para los avatares */}
       <div className="relative flex justify-center items-center gap-4 top-[70px] left-[-330px]">
@@ -143,6 +151,34 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
           />
         </div>
       </div>
+            {/* Modal (pantalla emergente) */}
+            {isModalVisible && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="w-[800px] h-[300px] bg-[#fbfbff] rounded-md shadow flex flex-col justify-start items-start p-5">
+            <div className="w-full flex justify-between items-center">
+              <div className="text-[#434242] text-2xl font-normal">
+                Cómo escoger una gran foto
+              </div>
+              <button onClick={toggleModal} className="text-[#434242] text-2xl">&times;</button>
+            </div>
+            <div className="mt-5 text-[#696868] text-xl font-normal">
+              <p>Preferentemente no escojas fotos donde tengas que recortar a otras personas.</p>
+              <p>Tu cara debe estar en el centro y bien enfocada.</p>
+              <p>Un fondo limpio y sin distracciones hará que te destaques más.</p>
+              <p>Mantén la edición de la foto al mínimo.</p>
+              <p>Asegúrate de que la foto sea reciente y refleje cómo te ves actualmente.</p>
+            </div>
+            <div className="mt-5 mr-15 w-full flex justify-center">
+              <Button
+                texto="Entendido"
+                color="text-white"
+                className="h-8 px-3.5 py-2 bg-[#1945e3] rounded-lg shadow"
+                onClick={toggleModal}
+              />
+            </div>
+          </div>
+        </div>
+            )}
     </Layout>
   );
 };
