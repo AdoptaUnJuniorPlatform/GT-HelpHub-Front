@@ -10,4 +10,14 @@
 .loginInput {
     @apply bg-white rounded-[3px] placeholder:font-medium placeholder:text-sm placeholder:leading-normal
 }
+
+/* Estilos para ocultar la barra de desplazamiento */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, Opera */
+  }
   

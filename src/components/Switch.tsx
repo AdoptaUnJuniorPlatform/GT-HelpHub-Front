@@ -19,7 +19,7 @@ function Switch({ initialState = false }: SwitchProps) {
     >
       <span
         className={`inline-block w-5 h-5 sm:w-4 sm:h-4 md:w-6 md:h-6 lg:w-7 lg:h-7 transform bg-white rounded-full transition-transform duration-700 ${
-          enabled ? "translate-x-6 sm:translate-x-8 md:translate-x-7 lg:translate-x-9" : "translate-x-1"
+          enabled ? "translate-x-5 sm:translate-x-8 md:translate-x-7 lg:translate-x-9" : "translate-x-1"
         }`}
       />
     </div>

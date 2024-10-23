@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 
 function RegisterAside() {
   return (
@@ -21,7 +22,9 @@ function RegisterAside() {
 
         <div className="flex flex-col lg:flex-row w-full mt-6 lg:-mt-3 justify-center lg:justify-start items-center lg:items-start font-normal">
           <p className="font-normal">¿Ya tienes una cuenta?</p>
-          <a href="#" className="underline font-normal mt-2 lg:mt-0 lg:ml-6">Ingresar</a>
+          <Link to={"/"}>
+            <p className="underline font-normal mt-2 lg:mt-0 lg:ml-6">Ingresar</p>
+          </Link>
         </div>
       </section>
     </aside>

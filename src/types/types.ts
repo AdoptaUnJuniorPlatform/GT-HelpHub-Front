@@ -34,3 +34,64 @@ export interface InfoProps {
 export interface SwitchProps {
   initialState?: boolean;
 }
+export interface Menu {
+  name: string;
+  link: string;
+  position: string;
+  icon: JSX.Element;
+}
+export interface ModalityProps {
+  label: string,
+  className: string
+}
+
+export interface CardHeaderProps {
+  photo: string;
+  name: string;
+}
+
+export interface ServiceInfoProps {
+  service: string;
+  location: string;
+}
+
+export interface ExperienceLevelProps {
+  levels: Array<{ name: string; active: boolean }>;
+}
+
+export interface AvailabilityProps {
+  availability: string;
+}
+
+export interface DescriptionProps {
+  description: string;
+}
+
+export interface SkillsProps {
+  skills: string[];
+}
+
+export interface ProfileData {
+  id: number,
+  photo: string;
+  name: string;
+  service: string;
+  location: string;
+  rating: number;
+  reviewsCount: number,
+  levels: Array<{ name: string; active: boolean }>;
+  reviews: Array<{ name: string; city: string; review: string; photo: string}>;
+  availability: string;
+  description: string;
+  skills: string[];
+}
+
+export type PaginationProps = {
+  totalPages?: number;
+  currentPage: number;
+};
+
+export interface SeeMoreProps {
+  isOpen: boolean;
+  onClose: () => void;
+}

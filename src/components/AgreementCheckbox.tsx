@@ -3,7 +3,7 @@ import { Input } from "../types/types"
 function AgreementCheckbox( { type }: Input ) {
   return (
     <>
-      <div className="flex items-start w-[376px] text-neutral-black pb-6">
+      <div className="flex items-start w-full sm:w-[376px] text-neutral-black pb-6">
         <input
           type={type}
           id="agreement-checkbox"

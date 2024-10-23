@@ -14,12 +14,12 @@ import { Link } from "react-router-dom"
 function Register() {
   return (
     <>
-      <main className="flex justify-center items-center w-screen min-h-screen">
+      <main className="flex justify-center items-center w-screen min-h-screen lg:min-h-[100vh]">
         <div className="flex flex-col lg:flex-row lg:justify-around w-11/12 lg:h-auto h-full">
 
           <RegisterAside />
 
-          <section className="flex flex-col items-center justify-center pt-9 lg:ml-28 w-full lg:w-9/12 lg:items-start lg:justify-between">
+          <section className="flex flex-col items-center justify-center mt-9 lg:ml-28 w-full lg:w-10/12 lg:items-start lg:justify-between">
 
             <div className="flex md:ml-0 lg:ml-0 flex-col w-full lg:-mb-7">
               <div className="w-full mb-3">
@@ -36,7 +36,7 @@ function Register() {
                 <RegisterName 
                   title="Apellidos" 
                   placeholder="Apellidos" 
-                  className="w-full lg:w-[450px]"
+                  className="w-full"
                 />
 
               </div>
@@ -48,7 +48,7 @@ function Register() {
 
             <div className="flex flex-col w-full mt-6">
               <RegisterOptional />
-              <article className="flex items-center mt-3">
+              <article className="flex items-center mt-2">
                 <Switch />
                 <RegisterAtivate />
               </article>
@@ -56,8 +56,8 @@ function Register() {
 
             <div className="w-full ">
               <Title title="Usuario" className="pb-2"/>
-              <UserInput type="email" title="Email" placeholder="ejemplo@gmail.com" className="w-[400px] h-[55px]  border-blue-gray-100"/>
-              <UserInput type="password" title="Contraseña" placeholder="********" className="w-[400px] h-[55px]  border-blue-gray-100"/>
+              <UserInput type="email" title="Email" placeholder="ejemplo@gmail.com" className="w-[400px] h-[2.4rem]  border-blue-gray-100"/>
+              <UserInput type="password" title="Contraseña" placeholder="********" className="w-[400px] h-[2.5rem]  border-blue-gray-100" positionStyles="right-4 top-[70%]"/>
               <Note />
             </div>
 
