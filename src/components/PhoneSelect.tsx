@@ -1,16 +1,7 @@
-import React, { useState } from 'react';
 import Flag from 'react-world-flags';
 import { Input } from '../types/types';
 
-function PhoneSelect( {type, placeholder}: Input ) {
-  const [phoneNumber, setPhoneNumber] = useState('');
-
-  function handlePhoneChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    const numericValue = value.replace(/\D/g, '');
-    setPhoneNumber(numericValue);
-  }
-
+function PhoneSelect( {type, placeholder, value, onChange, name}: Input ) {
   return (
     <div className="flex flex-col w-full font-normal not-italic font-poppins">
       <div className="flex flex-wrap items-center py-3 pd-4 pl-1 relative w-full text-slate-700 text-sm/[17.5px] rounded-lg p-3 h-auto gap-[10px] border-[1px] border-blue-gray-100 mt-1.5 focus-within:border-violeta-100 focus-within:ring-1 focus-within:ring-blue-500 transition-all">
@@ -19,14 +10,15 @@ function PhoneSelect( {type, placeholder}: Input ) {
           <Flag code="ES" className="w-6 h-auto" />
           <span>+34</span>
         </div>
-        <label htmlFor='phoneNumber' className='sr-only'>Número de teléfono móvil</label>
+        <label htmlFor='phone' className='sr-only'>Número de teléfono móvil</label>
         <input
-          id='phoneNumber'
+          id='phone'
           required
           type={type}
           placeholder={placeholder}
-          value={phoneNumber}
-          onChange={handlePhoneChange}
+          name={name}
+          value={value}
+          onChange={onChange}
           inputMode="numeric"
           pattern="\d*"
           maxLength={9}

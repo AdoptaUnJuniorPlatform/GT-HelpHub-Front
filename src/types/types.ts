@@ -1,10 +1,16 @@
+import { ChangeEvent } from "react";
 export interface Input {
+  id?:string;
   type?: 'text'| 'password' | 'email' | 'checkbox' | 'tel';
   title?: string;
   placeholder?: string;
+  name?: string;
+  value?: string;
+  checked?: boolean;
   style?: React.CSSProperties; 
   className?: string;
   positionStyles?: string
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 export interface TitleProps {
   title: string;
@@ -33,6 +39,7 @@ export interface InfoProps {
 
 export interface SwitchProps {
   initialState?: boolean;
+  onChange: (data: { optionCall: boolean; showPhone: boolean }) => void;
 }
 export interface Menu {
   name: string;
@@ -94,4 +101,15 @@ export type PaginationProps = {
 export interface SeeMoreProps {
   isOpen: boolean;
   onClose: () => void;
+}
+
+export interface FormData {
+  email: string;
+  password: string;
+  nameUser: string;
+  surnameUser: string;
+  phone: string;
+  optionCall: boolean;
+  showPhone: boolean;
+  blockemailed: boolean;
 }

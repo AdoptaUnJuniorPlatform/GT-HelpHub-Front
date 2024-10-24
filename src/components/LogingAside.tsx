@@ -23,9 +23,18 @@ function LogingAside() {
 
           <div className="w-full">
             <Title title="Inicia Sesión"/>
-            <UserInput type="email" placeholder="ejemplo@gmail.com" className="loginInput h-[45px]  border-blue-gray-300"/>
+            <UserInput
+              type="email" 
+              placeholder="ejemplo@gmail.com"
+              name="email" 
+              className="loginInput h-[45px]  border-blue-gray-300"/>
             <a className="flex justify-end text-violeta-100 -mb-2 cursor-pointer p-1 ">¿Olvidaste tu contraseña?</a>
-            <UserInput type="password" placeholder="Contraseña" className="loginInput h-[45px]  border-blue-gray-300" positionStyles="right-5 top-[22px]"/>
+            <UserInput 
+              type="password" 
+              placeholder="Contraseña"
+              name="password" 
+              className="loginInput h-[45px]  border-blue-gray-300" 
+              positionStyles="right-5 top-[22px]"/>
             <PasswordCheckbox label="Recuerdame"/>
           </div>
 
