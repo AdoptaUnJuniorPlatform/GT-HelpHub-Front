@@ -9,8 +9,9 @@ function Checkbox({ label }: { label: string }) {
   }
 
   return (
-    <label className="flex items-center cursor-pointer space-x-2">
+    <label htmlFor="rememberPassword" className="flex items-center cursor-pointer space-x-2">
       <input
+        id="rememberPassword"
         type="checkbox"
         checked={isChecked}
         onChange={handleCheckboxChange}

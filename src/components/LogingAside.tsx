@@ -1,16 +1,32 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Line from "./Line"
 import PasswordCheckbox from "./PasswordCheckbox"
 import PrimaryButton from "./PrimaryButton"
 import Title from "./Title"
 import UserInput from "./UserInput"
+import useForm from "../hooks/useForm"
+import { LoginFormData } from "../types/types"
 
 function LogingAside() {
+  const navigate = useNavigate();
+
+  const sendData = (data: LoginFormData) => {
+    console.log(data)
+
+    navigate('/home')
+  }
+
+  const { input, handleInputChange, handleSubmit } = useForm(sendData, {
+    email: '',
+    password: '',
+  })
   return (
     <>
       <aside className="flex justify-center items-center w-full lg:w-[650px] lg:h-[90vh] sm:h-[95vh] bg-violeta-20 flex-shrink-0 text-neutral-black p-4 lg:p-0 
   rounded-b-[40px] lg:rounded-l-[40px] lg:rounded-b-none">
-        <section className="flex flex-col items-center justify-around lg:items-start w-full lg:w-[72%] h-full lg:h-[90%] lg:ml-14 font-roboto not-italic">
+        <form 
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center justify-around lg:items-start w-full lg:w-[72%] h-full lg:h-[90%] lg:ml-14 font-roboto not-italic">
 
           <article className="w-full">
             <h1 className="text-6xl font-light tracking-tight mb-3">Te invitamos a nuestra </h1>
@@ -23,16 +39,30 @@ function LogingAside() {
 
           <div className="w-full">
             <Title title="Inicia Sesión"/>
-            <UserInput type="email" placeholder="ejemplo@gmail.com" className="loginInput h-[45px]  border-blue-gray-300"/>
+            <UserInput
+              id="email"
+              type="email" 
+              placeholder="ejemplo@gmail.com"
+              name="email" 
+              value={input.email}
+              onChange={handleInputChange}
+              className="loginInput h-[45px]  border-blue-gray-300"/>
             <a className="flex justify-end text-violeta-100 -mb-2 cursor-pointer p-1 ">¿Olvidaste tu contraseña?</a>
-            <UserInput type="password" placeholder="Contraseña" className="loginInput h-[45px]  border-blue-gray-300" positionStyles="right-5 top-[22px]"/>
+
+            <UserInput 
+              id="password"
+              type="password" 
+              placeholder="Contraseña"
+              name="password" 
+              value={input.password}
+              onChange={handleInputChange}
+              className="loginInput h-[45px]  border-blue-gray-300" 
+              positionStyles="right-5 top-[22px]"/>
             <PasswordCheckbox label="Recuerdame"/>
           </div>
 
           <div className="w-full py-3">
-            <Link to={"/home"}>
-              <PrimaryButton label="Inicia Sesión" className="bg-violeta-100 hover:bg-[#6D6DD1]"/>
-            </Link>
+            <PrimaryButton label="Inicia Sesión" className="bg-violeta-100 hover:bg-[#6D6DD1]"/>
           </div>
 
           <div className="flex justify-center mt-3 w-full">
@@ -41,7 +71,7 @@ function LogingAside() {
               <p className=" font-normal text-celeste-20 ml-5 ">Regístrate</p>
             </Link>
           </div>
-        </section>
+        </form>
       </aside>
     </>
 
