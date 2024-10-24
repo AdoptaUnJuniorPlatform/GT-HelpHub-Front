@@ -103,9 +103,11 @@ export interface SeeMoreProps {
   onClose: () => void;
 }
 
-export interface FormData {
+export interface LoginFormData {
   email: string;
   password: string;
+}
+export interface RegisterFormData extends LoginFormData {
   nameUser: string;
   surnameUser: string;
   phone: string;

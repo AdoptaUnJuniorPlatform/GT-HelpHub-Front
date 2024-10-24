@@ -10,14 +10,14 @@ import Title from "../components/Title"
 import UserInput from "../components/UserInput"
 import RegisterAside from "../components/RegisterAside"
 import useForm from "../hooks/useForm"
-import { FormData } from "../types/types"
+import { RegisterFormData } from "../types/types"
 import { useNavigate } from 'react-router-dom';
 
 function Register() {
   const navigate = useNavigate();
 
 
-  const sendData = (data: FormData) => {
+  const sendData = (data: RegisterFormData) => {
   
     const phoneWithPrefix = data.phone ? `+34${data.phone}` : '';
   
