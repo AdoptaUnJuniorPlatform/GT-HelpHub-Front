@@ -10,30 +10,28 @@ interface UserRegistrationStep3Props{
   currentStep: number;  
 }
   
-  const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({ 
-    onBackClick,
-    onNextClick,
-    steps,
-    currentStep,
-   }) => {
+const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({ 
+  onBackClick,
+  onNextClick,
+  steps,
+  currentStep, }) => {
 
-    const [selectedHorario, setSelectedHorario] = useState<number | null>(null);
-    const [selectedDays, setSelectedDays] = useState<string[]>([]);
+  const [selectedHorario, setSelectedHorario] = useState<number | null>(null);
+  const [selectedDays, setSelectedDays] = useState<string[]>([]);
 
-    const horarios = [
-      { id: 1, text: '8:00 a 14:00' },
-      { id: 2, text: '17:00 a 21:00' },
-      { id: 3, text: '8:00 a 17:00' },
-      { id: 4, text: '15:00 a 17:00' },
-      { id: 5, text: 'Flexibilidad horaria' },
-    ];
+  const horarios = [
+    { id: 1, text: '8:00 a 14:00' },
+    { id: 2, text: '17:00 a 21:00' },
+    { id: 3, text: '8:00 a 17:00' },
+    { id: 4, text: '15:00 a 17:00' },
+    { id: 5, text: 'Flexibilidad horaria' }, ];
 
-    const handleSelectHorario = (id: number) => {
-      setSelectedHorario(id);
-    };
+  const handleSelectHorario = (id: number) => {
+    setSelectedHorario(id);
+  };
   
-    return(
-      <Layout
+  return(
+    <Layout
       title="Selecciona tus horarios"
       description="Para que podamos ayudarte a coordinar horarios con nuestros otros usuarios, necesitaremos que nos brindes tu disponibilidad horaria y días disponiles."
       stepTitle="Paso 3"
@@ -44,10 +42,8 @@ interface UserRegistrationStep3Props{
       currentStep={currentStep}
     >
 
-    {/*Contenido específico del Paso 3*/}
-    <div className="relative w-[450px] h-14 left-[-40px] top-[80px] text-[#434242] text-m font-normal font-['Roboto']">
-        En HelpHubby, queremos facilitar a los usuarios la coordinación de horarios.
-      </div>
+      {/*Contenido específico del Paso 3*/}
+      <div className="relative w-[450px] h-14 left-[-40px] top-[80px] text-[#434242] text-m font-normal font-['Roboto']">En HelpHub, queremos facilitar a los usuarios la coordinación de horarios.</div>
 
       {/*Horarios*/}
       <div className="relative w-[83px] h-[21px] text-[#434242] left-[-40px] top-[80px] text-l font-medium font-['Roboto'] tracking-tight">Horarios</div>
@@ -71,10 +67,10 @@ interface UserRegistrationStep3Props{
       <div className="relative w-[83px] h-[21px] text-[#434242] left-[-40px] top-[120px] text-l font-medium font-['Roboto'] tracking-tight">Días</div>
       <div className="relative w-[324px] h-[29px] text-[#434242] left-[-40px] top-[130px] text-m font-normal font-['Roboto'] tracking-tight">Puedes seccionar más de un día.</div>
       <div className='relative left-[-40px] top-[140px]'>
-      <div className="text-[#696868] text-sm font-normal font-['Roboto'] leading-normal tracking-wide">Seleccionar días</div>
-      <DaySelector selectedDays={selectedDays} onDaySelect={setSelectedDays} />
-    </div>
-      </Layout>
-    )};
+        <div className="text-[#696868] text-sm font-normal font-['Roboto'] leading-normal tracking-wide">Seleccionar días</div>
+        <DaySelector selectedDays={selectedDays} onDaySelect={setSelectedDays} />
+      </div>
+    </Layout>
+  )};
 
 export default UserRegistrationStep3;
