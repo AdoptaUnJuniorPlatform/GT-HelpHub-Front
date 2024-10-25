@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import DropdownIconTemp from '../assets/DropdownIconTemp.svg'
 
 interface DaySelectorProps {
@@ -7,7 +7,6 @@ interface DaySelectorProps {
 }
 
 const DaySelector: React.FC<DaySelectorProps> = ({ selectedDays, onDaySelect }) => {
-
   const daysOfWeek = [
     { id: 1, name: 'Lunes' },
     { id: 2, name: 'Martes' },
@@ -15,7 +14,8 @@ const DaySelector: React.FC<DaySelectorProps> = ({ selectedDays, onDaySelect }) 
     { id: 4, name: 'Jueves' },
     { id: 5, name: 'Viernes' },
     { id: 6, name: 'Sábado' },
-    { id: 7, name: 'Domingo' }];
+    { id: 7, name: 'Domingo' },
+  ];
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -23,19 +23,18 @@ const DaySelector: React.FC<DaySelectorProps> = ({ selectedDays, onDaySelect }) 
   const toggleDaySelection = (day: string) => {
     const isSelected = selectedDays.includes(day);
     if (isSelected) {
-      onDaySelect(selectedDays.filter(selectedDay => selectedDay !== day));
+      onDaySelect(selectedDays.filter((selectedDay) => selectedDay !== day));
     } else {
       onDaySelect([...selectedDays, day]);
     }
   };
 
-
   return (
     <div className="relative">
       {/* Contenedor del botón que abre el desplegable */}
       <div
-        className="w-[326px] h-[59px] bg-[#fbfbff] rounded-md border border-[#aeaeae]/10 flex items-center justify-between px-4 cursor-pointer"
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        className="w-[300px] h-[40px] bg-[#fbfbff] rounded-md border border-[#aeaeae]/10 flex items-center justify-between px-4 cursor-pointer"
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}  // Toggle del dropdown
       >
         {/* Texto de "Seleccionar días" */}
         <div className="text-[#696868] text-sm font-normal font-['Roboto'] leading-normal tracking-wide">
@@ -49,25 +48,33 @@ const DaySelector: React.FC<DaySelectorProps> = ({ selectedDays, onDaySelect }) 
 
       {/* Menú desplegable */}
       {isDropdownOpen && (
-        <div className="absolute top-[70px] left-0 w-[326px] bg-white rounded-md border border-[#d6d6d6] shadow-md">
+        <div className="absolute top-[45px] left-0 w-[300px] bg-white rounded-md border border-[#d6d6d6] shadow-md z-50">
           {/* Lista de días de la semana */}
-          {daysOfWeek.map((day) => (<div
-            key={day.id}
-            className={`w-[314px] h-11 flex items-center justify-center cursor-pointer
-          ${selectedDays.includes(day.name) ? 'bg-[#496ceb]/20 border-[#496ceb]/20' : 'bg-white border-[#d6d6d6]'} 
-          border rounded-md my-1`}
-            onClick={() => toggleDaySelection(day.name)}>
+          {daysOfWeek.map((day) => (
             <div
-              className={`text-center text-base font-normal font-['Roboto'] tracking-tight ${
-                selectedDays.includes(day.name) ? 'text-[#496ceb]' : 'text-[#1d192b]'}`}>
-              {day.name}
+              key={day.id}
+              className={`w-full h-9 flex items-center justify-between px-4 cursor-pointer border ${
+                selectedDays.includes(day.name)
+                  ? 'border-[#496ceb]/20 bg-[#496ceb]/20'  // Cambia el fondo y borde si está seleccionado
+                  : 'border-[#d6d6d6] bg-white'
+              }`}
+              onClick={() => toggleDaySelection(day.name)}
+            >
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={selectedDays.includes(day.name)}
+                  onChange={() => toggleDaySelection(day.name)}
+                  className="form-checkbox h-5 w-5 text-[#7166d2] focus:ring-[#7166d2]"  // El checkbox con el color correcto (violeta)
+                />
+                <span className="ml-2 text-sm">{day.name}</span>
+              </label>
             </div>
-          </div>
           ))}
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default DaySelector;
