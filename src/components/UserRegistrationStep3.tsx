@@ -1,7 +1,7 @@
 import  React, { useState } from  'react';
 import Layout from './Layout';
 import HorarioOption from './HorarioOption';
-
+import DaySelector from './DaySelector';
 
 interface UserRegistrationStep3Props{
   onBackClick: () => void;
@@ -18,6 +18,7 @@ interface UserRegistrationStep3Props{
    }) => {
 
     const [selectedHorario, setSelectedHorario] = useState<number | null>(null);
+    const [selectedDays, setSelectedDays] = useState<string[]>([]);
 
     const horarios = [
       { id: 1, text: '8:00 a 14:00' },
@@ -44,7 +45,7 @@ interface UserRegistrationStep3Props{
     >
 
     {/*Contenido específico del Paso 3*/}
-    <div className="relative w-[450px] h-14 left-[-40px] top-[80px] text-[#434242] text-sm font-normal font-['Roboto']">
+    <div className="relative w-[450px] h-14 left-[-40px] top-[80px] text-[#434242] text-m font-normal font-['Roboto']">
         En HelpHub, queremos facilitar a los usuarios la coordinación de horarios.
       </div>
 
@@ -65,6 +66,14 @@ interface UserRegistrationStep3Props{
           ))}
         </div>
       </div>
+
+      {/*Días*/}
+      <div className="relative w-[83px] h-[21px] text-[#434242] left-[-40px] top-[120px] text-l font-medium font-['Roboto'] tracking-tight">Días</div>
+      <div className="relative w-[324px] h-[29px] text-[#434242] left-[-40px] top-[130px] text-m font-normal font-['Roboto'] tracking-tight">Puedes seccionar más de un día.</div>
+      <div className='relative left-[-40px] top-[140px]'>
+      <div className="text-[#696868] text-sm font-normal font-['Roboto'] leading-normal tracking-wide">Seleccionar días</div>
+      <DaySelector selectedDays={selectedDays} onDaySelect={setSelectedDays} />
+    </div>
       </Layout>
     )};
 
