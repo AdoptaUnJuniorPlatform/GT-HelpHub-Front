@@ -67,7 +67,6 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
       <div className="relative w-[83px] h-[21px] text-[#434242] left-[-40px] top-[120px] text-l font-medium font-['Roboto'] tracking-tight">Días</div>
       <div className="relative w-[324px] h-[29px] text-[#434242] left-[-40px] top-[130px] text-m font-normal font-['Roboto'] tracking-tight">Puedes seccionar más de un día.</div>
       <div className='relative left-[-40px] top-[140px]'>
-        <div className="text-[#696868] text-sm font-normal font-['Roboto'] leading-normal tracking-wide">Seleccionar días</div>
         <DaySelector selectedDays={selectedDays} onDaySelect={setSelectedDays} />
       </div>
     </Layout>
