@@ -28,14 +28,13 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
     const file = event.target.files?.[0];
     if (file) {
       setSelectedFile(file);
-      setPreviewUrl(URL.createObjectURL(file)); // Crear una URL temporal de la imagen seleccionada
+      setPreviewUrl(URL.createObjectURL(file));
     }
   };
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible); // Cambia la visibilidad del modal
   };
-
 
   return (
     <Layout
@@ -61,42 +60,40 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
 
       {/* Rectángulo para la imagen o el icono de subida */}
       <div className="relative w-[450px] h-[200px] rounded-[10px] left-[-40px] top-[80px] border border-dashed border-[#434242] flex flex-col justify-center items-center gap-4">
-      <div className="w-full flex flex-col items-center">
-        {!previewUrl ? (
-          <>
-            {/* Icono de subida y botón de subida */}
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              style={{ display: 'none' }}
-              id="fileInput"
-            />
-            <label htmlFor="fileInput" className="cursor-pointer">
-            <img src={UploadPhoto} alt="Subir foto" className="w-12 h-12" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </label>
-            <div className="text-[#434242] text-1xl font-normal mb-2">Subir foto</div>
-            <div className="text-[#696868] text-base font-normal">
-              Selecciona una foto de perfil de tu equipo.
-            </div>
-          </>
-        ) : (
-          <>
-            {/* Vista previa de la imagen cargada */}
-            <img src={previewUrl} alt="Vista previa" className="w-[100px] h-[100px] rounded-full object-cover" />
-            <div className="text-[#434242] text-l font-normal mt-1">Foto subida</div>
-          </>
-        )}
+        <div className="w-full flex flex-col items-center">
+          {!previewUrl ? (
+            <>
+              {/* Icono de subida y botón de subida */}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+                id="fileInput"
+              />
+              <label htmlFor="fileInput" className="cursor-pointer">
+                <img src={UploadPhoto} alt="Subir foto" className="w-12 h-12" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </label>
+              <div className="text-[#434242] text-1xl font-normal mb-2">Subir foto</div>
+              <div className="text-[#696868] text-base font-normal">Selecciona una foto de perfil.</div>
+            </>
+          ) : (
+            <>
+              {/* Vista previa de la imagen cargada */}
+              <img src={previewUrl} alt="Vista previa" className="w-[100px] h-[100px] rounded-full object-cover" />
+              <div className="text-[#434242] text-l font-normal mt-1">Foto subida</div>
+            </>
+          )}
 
-        {/* Botón "Subir foto" o "Cambiar foto" */}
-        <Button
-          texto={previewUrl ? 'Cambiar foto' : 'Subir foto'}
-          color="text-white"
-          className="h-8 px-3.5 py-2 bg-[#1945e3] rounded-lg shadow mt-3"
-          onClick={() => document.getElementById('fileInput')?.click()} // Activar el input de archivo
-        />
-      </div>
+          {/* Botón "Subir foto" o "Cambiar foto" */}
+          <Button
+            texto={previewUrl ? 'Cambiar foto' : 'Subir foto'}
+            color="text-white"
+            className="h-8 px-3.5 py-2 bg-[#1945e3] rounded-lg shadow mt-3"
+            onClick={() => document.getElementById('fileInput')?.click()}
+          />
+        </div>
       </div>
 
       {/* Texto y botón de información */}
@@ -151,8 +148,8 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
           />
         </div>
       </div>
-            {/* Modal (pantalla emergente) */}
-            {isModalVisible && (
+      {/* Modal (pantalla emergente) */}
+      {isModalVisible && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="w-[800px] h-[300px] bg-[#fbfbff] rounded-md shadow flex flex-col justify-start items-start p-5">
             <div className="w-full flex justify-between items-center">
@@ -178,7 +175,7 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
             </div>
           </div>
         </div>
-            )}
+      )}
     </Layout>
   );
 };
