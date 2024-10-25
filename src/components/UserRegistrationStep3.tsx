@@ -46,7 +46,7 @@ interface UserRegistrationStep3Props{
 
     {/*Contenido específico del Paso 3*/}
     <div className="relative w-[450px] h-14 left-[-40px] top-[80px] text-[#434242] text-m font-normal font-['Roboto']">
-        En HelpHub, queremos facilitar a los usuarios la coordinación de horarios.
+        En HelpHubby, queremos facilitar a los usuarios la coordinación de horarios.
       </div>
 
       {/*Horarios*/}
