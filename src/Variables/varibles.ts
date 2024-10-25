@@ -1,4 +1,4 @@
-import { InfoProps, ProfileData } from "../types/types";
+import { InfoProps, Notificacion, ProfileData } from "../types/types";
 
 export const Information: InfoProps[] = [
   {
@@ -106,5 +106,24 @@ export const profiles: ProfileData[] = [
     availability: "10:00hs a 18:00hs",
     description: "Especialista en aseo y cuidado de mascotas con 5 años de experiencia. Ofrezco servicios de peluquería y baños para perros y gatos.",
     skills: ["Animales", "Peluquería"]
+  }
+];
+
+export const mockNotifications: Notificacion[] = [
+  {
+    id: 1,
+    tipo: "completada",
+    usuario: "Laura González",
+    mensaje: "La cadena de favores está llegando a su fin. Cuéntanos tu experiencia.",
+    hora: "12:44 pm",
+    imagenUsuario: "https://s3-alpha-sig.figma.com/img/e770/1743/70f48b588224adfd9d1c4c3ae9b06873?Expires=1730678400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=B72LHQPNYQ~ipcoK16EJi27PP0IZXA0Mb~0ZeZk4GUfVDk3dPhEE8xhSm9YVaRL8jxXs6ev2oi9ck8fq6uaLQeK~hP~WrE44qXgPYa-1kzh27aUDZFcU4XMf3rF4v5P47WB0zgY4pIIq8QL~Hg05PzaMm3TfiWmKOMkJr1e4MNQiPHiJUY7dpQ76bvTaVVDUNEuAqFY4Fe~5F0I8~zx-aOnnKAyhWKDjTz3zaob2EDX9Vf4VZhKycPrIPPba0O11yzLSWnM905AEEfSFdZI9B9LZMrpaXefxXRyBYYwBxvQRco5ucnD5kByoD5znmUMmJRBW-fc3Yzb4DNp~v45jJA__" 
+  },
+  {
+    id: 2,
+    tipo: "solicitud",
+    usuario: "Alberto Zuñiga",
+    mensaje: "Un usuario quiere iniciar un intercambio y ha enviado una solicitud.",
+    hora: "1:30 pm",
+    imagenUsuario: "https://s3-alpha-sig.figma.com/img/d2b4/7434/0cf0b35e03856e3b9d399657ad1a7ec4?Expires=1730678400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=eZbbl1okwjAsCqY4gF0K0yvGAn8SYLPARtQYqwttFuVz8jW2z7K7QxY93b1q4CYh6N~8QwYtU9u5wWoZqZ~HakP3ucHZLYUSujqF8Nlx00HsLkib4bMzIfQdW3y~kFU3R1HKUMwdHfh~GGbdLjLw4o6cDrXCURgb5ldDeK1LZIZ7xzIIioxO-Vj2TjGcFGLbTSVOZIF6KlD78ckffK-lc3X~FdlfcaOA~-yiYhzq6kgcDuwKkC53~H9jtpLniW1pk4N7~a0x6kPs6gOD7XrDnurRPRfxCmW1JnhtP-wzfMXVDe6WDr7PYjS7pmsPrCVX70AKwCmC8oCoV~Oa6XeJEQ__"
   }
 ];

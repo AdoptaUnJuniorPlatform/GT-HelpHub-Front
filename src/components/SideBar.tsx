@@ -5,9 +5,13 @@ import Logo from "./Logo";
 import { VscBellDot } from "react-icons/vsc";
 import { RxExit } from "react-icons/rx";
 import { CgProfile } from "react-icons/cg";
+import Notifications from "./Notifications";
+import { mockNotifications } from "../Variables/varibles";
+
 
 function SideBar() {
   const [open, setOpen] = useState<boolean>(false);
+  const [showNotifications, setShowNotifications] = useState<boolean>(false);
 
   const sideBarMenu: Menu[] = [
     {
@@ -42,13 +46,35 @@ function SideBar() {
     },
   ];
 
+  const handleNotificationClick = () => {
+    if (open && showNotifications) {
+
+      setOpen(false);
+      setShowNotifications(false);
+    } else {
+
+      setOpen(true);
+      setShowNotifications(true);
+    }
+  };
+
+  const handleMenuClick = () => {
+    setShowNotifications(false);
+    setOpen(!open);
+  };
+
+  const closeSidebarAndNotifications = () => {
+    setOpen(false);
+    setShowNotifications(false);
+  };
+
   return (
     <>
       <div
         className={`fixed inset-0 bg-black bg-opacity-50 transition-all duration-700 backdrop-blur-[2px] z-10 ${
           open ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
-        onClick={() => setOpen(false)}
+        onClick={closeSidebarAndNotifications}
       ></div>
 
       <nav
@@ -75,8 +101,18 @@ function SideBar() {
               .map((menu, index) => (
                 <li
                   key={index}
-                  className="text-white flex p-3 w-full mt-4 h-16 rounded-lg my-1 cursor-pointer hover:-translate-y-1 hover:scale-100 duration-700 hover:bg-white hover:text-indigo-400 items-center"
-                  onClick={() => setOpen(!open)}
+                  className={`text-white flex p-3 w-full mt-4 h-16 rounded-lg my-1 cursor-pointer hover:-translate-y-1 hover:scale-100 duration-700 hover:bg-white hover:text-indigo-400 items-center ${
+                    menu.name === 'Notificación' && showNotifications
+                      ? 'bg-white text-indigo-400'
+                      : ''
+                  }`}
+                  onClick={() => {
+                    if (menu.name === 'Notificación') {
+                      handleNotificationClick();
+                    } else {
+                      handleMenuClick();
+                    }
+                  }}
                 >
                   <p className="text-3xl ml-[6px]">{menu.icon}</p>
                   <p
@@ -97,7 +133,7 @@ function SideBar() {
                 <li
                   key={index}
                   className="text-white flex p-3 w-full mt-4 h-16 rounded-lg my-1 cursor-pointer hover:-translate-y-1 hover:scale-100 duration-700 hover:bg-white hover:text-indigo-400 items-center"
-                  onClick={() => setOpen(!open)}
+                  onClick={handleMenuClick}
                 >
                   <p className="text-3xl ml-[6px]">{menu.icon}</p>
                   <p
@@ -111,6 +147,13 @@ function SideBar() {
               ))}
           </ul>
         </section>
+
+        {showNotifications && (
+          <div className="absolute top-[12.5rem] left-[110%] z-30">
+            <Notifications notificaciones={mockNotifications} />
+          </div>
+        )}
+
       </nav>
     </>
   );

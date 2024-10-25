@@ -46,6 +46,7 @@ export interface Menu {
   link: string;
   position: string;
   icon: JSX.Element;
+  onClick?: () => void; 
 }
 export interface ModalityProps {
   label: string;
@@ -114,4 +115,17 @@ export interface RegisterFormData extends LoginFormData {
   optionCall: boolean;
   showPhone: boolean;
   blockemailed: boolean;
+}
+
+export interface Notificacion {
+  id: number;
+  tipo: 'completada' | 'solicitud';
+  usuario: string;
+  mensaje: string;
+  hora: string;
+  imagenUsuario: string;
+}
+
+export interface NotificacionesProps {
+  notificaciones: Notificacion[];
 }
