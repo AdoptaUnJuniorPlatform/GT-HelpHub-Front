@@ -1,13 +1,23 @@
 import { NotificacionesProps } from "../types/types";
 
 function Notificaciones({ notificaciones }: NotificacionesProps) {
+
+  const getContainerHeight = () => {
+    switch (notificaciones.length) {
+      case 1: return "h-[16rem]";
+      case 2: return "h-[33.4em]";
+      case 3: return "h-[50.4rem]";
+      default: return "max-h-[68.5rem] overflow-y-auto";
+    }
+  };
+
   return (
-    <main className={`px-9  bg-[#FAFAFA] rounded-md shadow-lg font-roboto not-italic shrink-0 
-        ${notificaciones.length > 0 ? 'w-[36.7rem] h-[37.8rem py-5' : 'w-[26.4rem] h-[31.2rem] pt-6'}`}
+    <main className={`pl-2 bg-[#FAFAFA] rounded-md shadow-lg font-roboto not-italic shrink-0 
+        ${notificaciones.length > 0 ? 'w-[36.7rem] mx-h-[55rem] py-5' : 'w-[26.4rem] h-[31.2rem] pt-6'} }`}
     >
-      <h1 className={`text-3xl font-medium leading-6 tracking-wide  ${notificaciones.length > 0 ? 'mb-3 mt-2' : 'mb-8 mt-1'}`}>Notificaciones</h1>
+      <h1 className={`text-3xl font-medium leading-6 tracking-wide pl-4 ${notificaciones.length > 0 ? 'mb-3 mt-2' : 'mb-8 mt-1'}`}>Notificaciones</h1>
       {notificaciones.length > 0 ? (
-        <section>
+        <section className={`px-4 ${notificaciones.length > 4 ? "overflow-y-auto" : "pr-[22px]" } ${getContainerHeight()}`}>
           {notificaciones.map((notif) => (
             <div 
               key={notif.id}> 
