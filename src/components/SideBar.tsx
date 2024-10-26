@@ -101,10 +101,10 @@ function SideBar() {
               .map((menu, index) => (
                 <li
                   key={index}
-                  className={`text-white flex p-3 w-full mt-4 h-16 rounded-lg my-1 cursor-pointer hover:-translate-y-1 hover:scale-100 duration-700 hover:bg-white hover:text-indigo-400 items-center ${
+                  className={`flex p-3 w-full mt-4 h-16 rounded-lg my-1 cursor-pointer duration-700 items-center ${
                     menu.name === 'Notificación' && showNotifications
                       ? 'bg-white text-indigo-400'
-                      : ''
+                      : 'text-white hover:bg-white hover:text-indigo-400 hover:-translate-y-1 hover:scale-100'
                   }`}
                   onClick={() => {
                     if (menu.name === 'Notificación') {
@@ -118,7 +118,7 @@ function SideBar() {
                   <p
                     className={`text-base font-semibold ml-3 origin-left duration-1000 ${
                       !open ? 'scale-0' : 'scale-100'
-                    }`}
+                    }` }
                   >
                     {menu.name}
                   </p>
