@@ -150,7 +150,7 @@ function SideBar() {
 
         {showNotifications && (
           <div className="absolute top-[12.5rem] left-[110%] z-30">
-            <Notifications notificaciones={mockNotifications} />
+            <Notifications notifications={mockNotifications} />
           </div>
         )}
 

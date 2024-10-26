@@ -117,15 +117,50 @@ export interface RegisterFormData extends LoginFormData {
   blockemailed: boolean;
 }
 
-export interface Notificacion {
+export interface Notification {
   id: number;
-  tipo: 'completada' | 'solicitud';
-  usuario: string;
-  mensaje: string;
-  hora: string;
-  imagenUsuario: string;
+  type: 'completed' | 'request'| 'rejectedExchange' | 'rejectedRequest' | 'accepted';
+  user: string;
+  message: string;
+  date: string;
+  imageUser: string;
 }
 
-export interface NotificacionesProps {
-  notificaciones: Notificacion[];
+export interface NotificationsProps {
+  notifications: Notification[];
+}
+
+export interface ExchangeAcceptedProps {
+  user: string;
+  userImage: string;
+  date: string;
+  onSendMessage?: () => void;
+}
+
+export interface RejectedExchangeProps {
+  user: string;
+  userImage: string;
+  date: string;
+  onViewProfile?: () => void;
+}
+
+export interface RejectedRequestProps {
+  user: string;
+  userImage: string;
+  date: string;
+}
+
+export interface RequestProps {
+  user: string;
+  userImage: string;
+  onAccept?: () => void;
+  onDecline?: () => void;
+  date: string;
+}
+
+export interface CompletedProps {
+  user: string;
+  message: string;
+  userImage: string;
+  date: string;
 }

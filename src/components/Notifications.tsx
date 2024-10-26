@@ -1,81 +1,87 @@
-import { NotificacionesProps } from "../types/types";
+import { NotificationsProps } from "../types/types";
+import AcceptedExchange from "./AcceptedExchange";
+import Completed from "./Completed";
+import RejectedExchange from "./RejectedExchange";
+import RejectedRequest from "./RejectedRequest";
+import Request from "./Request";
 
-function Notificaciones({ notificaciones }: NotificacionesProps) {
+function Notifications({ notifications }: NotificationsProps) {
 
   const getContainerHeight = () => {
-    switch (notificaciones.length) {
-      case 1: return "h-[16rem]";
+    switch (notifications.length) {
+      case 1: return "h-[16.2rem]";
       case 2: return "h-[33.4em]";
       case 3: return "h-[50.4rem]";
-      default: return "max-h-[68.5rem] overflow-y-auto";
+      default: return "max-h-[61em] overflow-y-auto";
     }
   };
 
   return (
-    <main className={`pl-2 bg-[#FAFAFA] rounded-md shadow-lg font-roboto not-italic shrink-0 
-        ${notificaciones.length > 0 ? 'w-[36.7rem] mx-h-[55rem] py-5' : 'w-[26.4rem] h-[31.2rem] pt-6'} }`}
+    <main className={` bg-[#FAFAFA] rounded-md shadow-lg font-roboto not-italic shrink-0 
+        ${notifications.length > 0 ? 'w-[36.7rem] mx-h-[55rem] py-5 pl-2' : 'w-[26.4rem] h-[31.2rem] pt-6 px-5'} }`}
     >
-      <h1 className={`text-3xl font-medium leading-6 tracking-wide pl-4 ${notificaciones.length > 0 ? 'mb-3 mt-2' : 'mb-8 mt-1'}`}>Notificaciones</h1>
-      {notificaciones.length > 0 ? (
-        <section className={`px-4 ${notificaciones.length > 4 ? "overflow-y-auto" : "pr-[22px]" } ${getContainerHeight()}`}>
-          {notificaciones.map((notif) => (
-            <div 
-              key={notif.id}> 
-              <div 
-                className="flex justify-end items-center pb-2 pr-1">
-                <span className="text-gray-500 text-sm">{notif.hora}</span>
-              </div>
-              <div
-                className="flex p-5 bg-white mb-4 rounded-lg border border-gray-300 shadow-sm"
-              >
-                <div className="overflow-hidden">
-                  <img
-                    src={notif.imagenUsuario}
-                    alt={`${notif.usuario} avatar`}
-                    className="w-[3.7rem] h-[3.7rem] rounded-full object-cover mr-14 ml-2 "
-                  />                   
+      <h1 className={`text-3xl font-medium leading-6 tracking-wide pl-4 ${notifications.length > 0 ? 'mb-3 mt-2' : 'mb-8 mt-1'}`}>Notificaciones</h1>
+      {notifications.length > 0 ? (
+        <section className={`px-4 font-roboto not-italic ${notifications.length > 4 ? "overflow-y-auto" : "pr-[22px]" } ${getContainerHeight()}`}>
+          {notifications.map((notif) => {
+            if (notif.type === 'accepted') {
+              return (
+                <div key={notif.id}>
+                  <AcceptedExchange
+                    user={notif.user}
+                    userImage={notif.imageUser}
+                    date={notif.date}
+                  />
                 </div>
-
-                <div>
-
-                  <div className="flex justify-between">
-                    <p className="font-normal text-2xl leading-normal text-neutral-black">
-                      {notif.tipo === 'completada'
-                        ? 'Intercambio completado'
-                        : 'Nueva solicitud de intercambio'}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center text-2xl font-normal leading-normal mb-2">
-                    <p className="font-normal text-2xl leading-normal">{notif.usuario}</p>
-                  </div>
-
-                  <p className="text-gray-500 text-base font-normal leading-normal tracking-wide mb-4">{notif.mensaje}</p>
-
-                  <div className="flex justify-end">
-                    {notif.tipo === 'completada' ? (
-                      <button className="bg-pink-500 text-white px-[1em] py-[0.625em] text-base font-medium leading-5 rounded-lg hover:bg-pink-600 transition-all">
-                        Valorar intercambio
-                      </button>
-                    ) : (
-                      <div className="flex space-x-2">
-                        <button className="bg-transparent border-2 text-base text-black font-medium border-gray-500 px-[1em] py-[0.625em] rounded-lg hover:bg-gray-100 transition-all">
-                          Declinar
-                        </button>
-                        <button className="bg-blue-500 text-base font-medium text-white px-[1em] py-[0.625em] rounded-lg hover:bg-blue-600 transition-all">
-                          Aceptar
-                        </button>
-                      </div>
-                    )}
-                  </div>
-
+              );
+            } else if (notif.type === 'rejectedExchange') {
+              return (
+                <div key={notif.id}>
+                  <RejectedExchange
+                    user={notif.user}
+                    userImage={notif.imageUser}
+                    date={notif.date}
+                  />
                 </div>
-              </div>
-            </div>
-          ))}
+              );
+            } else if (notif.type === 'rejectedRequest') {
+              return (
+                <div key={notif.id}>
+                  <RejectedRequest
+                    user={notif.user}
+                    userImage={notif.imageUser}
+                    date={notif.date}
+                  />
+                </div>
+              );
+            } else if (notif.type === 'request') {
+              return (
+                <div key={notif.id}>
+                  <Request
+                    user={notif.user}
+                    userImage={notif.imageUser}
+                    date={notif.date}
+                  />
+                </div>
+              );
+            } else if (notif.type === 'completed') {
+              return (
+                <div key={notif.id}>
+                  <Completed
+                    user={notif.user}
+                    message={notif.message}
+                    date={notif.date}
+                    userImage={notif.imageUser}
+                  />
+                </div>
+              );
+            } else {
+              return null;
+            }
+          })}
         </section>
       ) : (
-        <div className="flex flex-col items-center justify-center bg-white rounded-xl border-[1px] border-[#E2E2E2] h-[23.5rem] w-[22rem]">
+        <div className="flex flex-col items-center justify-center bg-white rounded-xl border-[1px] border-[#E2E2E2] h-[24.5rem] w-[24rem]">
 
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
@@ -96,7 +102,7 @@ function Notificaciones({ notificaciones }: NotificacionesProps) {
               </clipPath>
             </defs>
           </svg>
-          <h2 className="text-xl font-medium leading-normal tracking-wide mb-2">Aún no hay notificaciones</h2>
+          <h2 className="text-xl font-medium leading-normal tracking-wide mb-2">Aún no hay notifications</h2>
           <div className="flex flex-col justify-center items-center w-52">
             <h3 className="text-black text-base font-normal leading-normal tracking-wide text-center">
               De momento no tienes ninguna notificación.
@@ -108,4 +114,4 @@ function Notificaciones({ notificaciones }: NotificacionesProps) {
   );
 }
 
-export default Notificaciones;
+export default Notifications;
