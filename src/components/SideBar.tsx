@@ -4,9 +4,9 @@ import { Menu } from "../types/types";
 import Logo from "./Logo";
 import { VscBellDot } from "react-icons/vsc";
 import { RxExit } from "react-icons/rx";
-import { CgProfile } from "react-icons/cg";
 import Notifications from "./Notifications";
-import { mockNotifications } from "../Variables/varibles";
+import { mockNotifications, profiles } from "../Variables/varibles";
+import ProfileImg from "./ProfileImg";
 
 
 function SideBar() {
@@ -36,7 +36,10 @@ function SideBar() {
       name: 'Mi perfil',
       link: 'perfil',
       position: 'bottom',
-      icon: <CgProfile />,
+      icon: <ProfileImg 
+        src={profiles[0].photo} 
+        className="w-[3.25rem] h-[3.25rem] rounded-lg overflow-hidden shadow-[4px_4px_4px_0_rgba(0,0,0,0.25)]" 
+      />,
     },
     {
       name: 'Cerrar sesión',
@@ -78,12 +81,12 @@ function SideBar() {
       ></div>
 
       <nav
-        className={`h-[95.1rem] rounded-xl duration-1000 transition-all ease-in-out absolute z-20 ${
+        className={`flex flex-col h-[95.1rem] rounded-xl duration-1000 transition-all ease-in-out absolute z-20 ${
           open ? 'w-56 top-0 duration-1000' : 'w-20'
         } group`}
       >
         <section
-          className={`h-[6.375rem] flex flex-col justify-center items-center bg-white rounded-t-xl transition-all duration-700 ${
+          className={`h-[6.375rem] flex justify-center items-center bg-white rounded-t-xl transition-all duration-700 ${
             open ? 'flex w-full translate-x-0' : 'hidden -translate-x-full'
           }`}
         >
@@ -95,13 +98,13 @@ function SideBar() {
         </section>
 
         <section className="flex-col bg-indigo-400 h-full rounded-b-xl w-full flex justify-between items-center">
-          <ul className="flex flex-col items-center w-[80%] mb-5">
+          <ul className="flex flex-col items-center w-[80%] mt-7">
             {sideBarMenu
               .filter((menu) => menu.position === 'top')
               .map((menu, index) => (
                 <li
                   key={index}
-                  className={`flex p-3 w-full mt-4 h-16 rounded-lg my-1 cursor-pointer duration-700 items-center ${
+                  className={`flex w-full pl-[10px] h-16 rounded-lg my-3 cursor-pointer duration-700 items-center ${
                     menu.name === 'Notificación' && showNotifications
                       ? 'bg-white text-indigo-400'
                       : 'text-white hover:bg-white hover:text-indigo-400 hover:-translate-y-1 hover:scale-100'
@@ -132,12 +135,22 @@ function SideBar() {
               .map((menu, index) => (
                 <li
                   key={index}
-                  className="text-white flex p-3 w-full mt-4 h-16 rounded-lg my-1 cursor-pointer hover:-translate-y-1 hover:scale-100 duration-700 hover:bg-white hover:text-indigo-400 items-center"
+                  className={`text-white flex w-full mt-4 h-16 rounded-lg my-1 cursor-pointer hover:-translate-y-1 hover:scale-100 duration-700 hover:bg-white hover:text-indigo-400 items-center 
+                    ${!open &&  menu.name === 'Mi perfil' 
+                  ? 'hover:bg-transparent' 
+                  : ''
+                }`}
                   onClick={handleMenuClick}
                 >
-                  <p className="text-3xl ml-[6px]">{menu.icon}</p>
+                  <figure className={`text-3xl 
+                  ${menu.name === 'Mi perfil' 
+                  ? 'p-2 -ml-[2px] ' 
+                  :  'ml-2 p-2'}`} 
+                  >
+                    {menu.icon}
+                  </figure>
                   <p
-                    className={`text-base font-semibold ml-3 origin-left duration-1000 ${
+                    className={`text-base font-semibold ml-2 origin-left duration-1000 ${
                       !open ? 'scale-0' : 'scale-100'
                     }`}
                   >
