@@ -19,9 +19,12 @@ function SeeMore({
   const { photo, name, reviewsCount, rating, reviews, description } = profileData;
 
   const handleScroll = (e: React.WheelEvent<HTMLDivElement>) => {
-
     const container = e.currentTarget as HTMLDivElement; 
-    container.scrollLeft += e.deltaY; 
+
+    if (e.deltaY !== 0) {
+      container.scrollLeft += e.deltaY; 
+
+    }
   };
 
   return (

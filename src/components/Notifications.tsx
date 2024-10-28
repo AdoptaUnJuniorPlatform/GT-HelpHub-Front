@@ -12,7 +12,7 @@ function Notifications({ notifications }: NotificationsProps) {
       case 1: return "h-[16.2rem]";
       case 2: return "h-[33.4em]";
       case 3: return "h-[50.4rem]";
-      default: return "max-h-[61em] overflow-y-auto";
+      default: return "max-h-[62.5em] overflow-y-auto";
     }
   };
 
@@ -102,7 +102,7 @@ function Notifications({ notifications }: NotificationsProps) {
               </clipPath>
             </defs>
           </svg>
-          <h2 className="text-xl font-medium leading-normal tracking-wide mb-2">Aún no hay notifications</h2>
+          <h2 className="text-xl font-medium leading-normal tracking-wide mb-2">Aún no hay notificaciones</h2>
           <div className="flex flex-col justify-center items-center w-52">
             <h3 className="text-black text-base font-normal leading-normal tracking-wide text-center">
               De momento no tienes ninguna notificación.

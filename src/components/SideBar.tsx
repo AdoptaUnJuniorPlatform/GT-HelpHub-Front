@@ -7,6 +7,7 @@ import { RxExit } from "react-icons/rx";
 import Notifications from "./Notifications";
 import { mockNotifications, profiles } from "../Variables/varibles";
 import ProfileImg from "./ProfileImg";
+import { Link } from "react-router-dom";
 
 
 function SideBar() {
@@ -34,7 +35,7 @@ function SideBar() {
     },
     {
       name: 'Mi perfil',
-      link: 'perfil',
+      link: '/',
       position: 'bottom',
       icon: <ProfileImg 
         src={profiles[0].photo} 
@@ -86,7 +87,7 @@ function SideBar() {
         } group`}
       >
         <section
-          className={`h-[6.375rem] flex justify-center items-center bg-white rounded-t-xl transition-all duration-700 ${
+          className={`h-[6.5rem] flex justify-center items-center bg-white rounded-t-xl transition-all duration-700 ${
             open ? 'flex w-full translate-x-0' : 'hidden -translate-x-full'
           }`}
         >
@@ -117,7 +118,11 @@ function SideBar() {
                     }
                   }}
                 >
-                  <p className="text-3xl ml-[6px]">{menu.icon}</p>
+                  <p className="relative text-3xl ml-[6px]">{menu.icon}
+                    {menu.name === 'Notificación' && mockNotifications.length > 0 && (
+                      <span className="absolute top-[0.12rem] right-[0.12rem] w-[11.5px] h-[11.5px] bg-red-500 rounded-full"></span>
+                    )}
+                  </p>
                   <p
                     className={`text-base font-semibold ml-3 origin-left duration-1000 ${
                       !open ? 'scale-0' : 'scale-100'
@@ -133,36 +138,42 @@ function SideBar() {
             {sideBarMenu
               .filter((menu) => menu.position === 'bottom')
               .map((menu, index) => (
-                <li
+                <Link 
+                  to={menu.link}
                   key={index}
-                  className={`text-white flex w-full mt-4 h-16 rounded-lg my-1 cursor-pointer hover:-translate-y-1 hover:scale-100 duration-700 hover:bg-white hover:text-indigo-400 items-center 
-                    ${!open &&  menu.name === 'Mi perfil' 
-                  ? 'hover:bg-transparent' 
-                  : ''
-                }`}
-                  onClick={handleMenuClick}
+                  className={`text-white mt-3 flex w-full h-16 rounded-lg my-3 cursor-pointer hover:scale-100 items-center 
+                    ${open &&  menu.name === 'Mi perfil' 
+                  ? 'hover:bg-white hover:text-indigo-400 hover:-translate-y-1 duration-700' 
+                  : 'hover:-translate-y-1 duration-700 '}
+                    ${menu.name !== 'Mi perfil' ? 'hover:bg-white hover:text-indigo-400' : ''}
+                  `}
                 >
-                  <figure className={`text-3xl 
+                  <li
+                    onClick={handleMenuClick}
+                    className="flex items-center"
+                  >
+                    <figure className={`text-3xl
                   ${menu.name === 'Mi perfil' 
                   ? 'p-2 -ml-[2px] ' 
                   :  'ml-2 p-2'}`} 
-                  >
-                    {menu.icon}
-                  </figure>
-                  <p
-                    className={`text-base font-semibold ml-2 origin-left duration-1000 ${
-                      !open ? 'scale-0' : 'scale-100'
-                    }`}
-                  >
-                    {menu.name}
-                  </p>
-                </li>
+                    >
+                      {menu.icon}
+                    </figure>
+                    <p
+                      className={`text-base font-semibold ml-2 origin-left duration-1000 ${
+                        !open ? 'scale-0' : 'scale-100'
+                      }`}
+                    >
+                      {menu.name}
+                    </p>
+                  </li>
+                </Link>
               ))}
           </ul>
         </section>
 
         {showNotifications && (
-          <div className="absolute top-[12.5rem] left-[110%] z-30">
+          <div className={`absolute top-[14rem] left-[110%] z-30`}>
             <Notifications notifications={mockNotifications} />
           </div>
         )}

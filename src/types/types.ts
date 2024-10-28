@@ -51,6 +51,8 @@ export interface Menu {
 export interface ModalityProps {
   label: string;
   className: string;
+  active: boolean;
+  onClick: () => void;
 }
 
 export interface CardHeaderProps {
@@ -103,7 +105,6 @@ export interface SeeMoreProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
 export interface LoginFormData {
   email: string;
   password: string;
