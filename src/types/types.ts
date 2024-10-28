@@ -46,7 +46,6 @@ export interface Menu {
   link: string;
   position: string;
   icon: JSX.Element;
-  onClick?: () => void; 
 }
 export interface ModalityProps {
   label: string;
@@ -81,6 +80,10 @@ export interface SkillsProps {
   skills: string[];
 }
 
+export interface InterestSkillsProps {
+  interestSkills: string[];
+}
+
 export interface ProfileData {
   id: number,
   photo: string;
@@ -94,6 +97,7 @@ export interface ProfileData {
   availability: string;
   description: string;
   skills: string[];
+  interestSkills?: string[];
 }
 
 export type PaginationProps = {
@@ -105,6 +109,7 @@ export interface SeeMoreProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
 export interface LoginFormData {
   email: string;
   password: string;
@@ -117,7 +122,6 @@ export interface RegisterFormData extends LoginFormData {
   showPhone: boolean;
   blockemailed: boolean;
 }
-
 export interface Notification {
   id: number;
   type: 'completed' | 'request'| 'rejectedExchange' | 'rejectedRequest' | 'accepted';

@@ -40,11 +40,12 @@ export const profiles: ProfileData[] = [
     ],
     availability: "9:00hs a 14:00hs",
     description: "Tengo una amplia experiencia en cuidar animales, he trabajado en una guardería de mascotas por 2 años.",
-    skills: ["Animales", "Pintura"]
+    skills: ["Animales", "Pintura"],
+    interestSkills: ["Informática", "Idiomas", "Tutorias"]
   },
   {
     id: 2,
-    photo: "https://s3-alpha-sig.figma.com/img/579b/b647/277f60d43c33a8814c60a8b79d718888?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Ow6dCv5-bOMdfenaDaAAx8nhRbm6V16OadgK4EqodZR56jIuywmRdjX6Lm8iVJbb7eVds~wN4yT3TeBvt8H8SfFvmSHr1edIFs2JgzlPjR5cNlKnk8q5qgvApKxZOX3~67rO98bfryFSUcGSg9ysvluqoTZaPWHqU8uXaUDRrLJwDFHv3WI~3e91YSkG6KVYtcFAjQqnaTevWDIJVjUWIQlC0SJ2puEp~C7YWikiYMYdADHPPR6PxGO3LBteHWD9dJWkduPK8wWTbSjLzPZ1muMqLbryvvkpTmJjMqD6AFuVR6-HLJpuipSmdwM3Mq1i40a~O7ylOdpMgBdaPzhEBw__",
+    photo: "https://s3-alpha-sig.figma.com/img/579b/b647/277f60d43c33a8814c60a8b79d718888?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Z4Mdz1DpyM8qwlZaOJCe9TyeDtg2Q5S7hXqKsWElm6RdH4aqAF2CgCEoPc1TCfy-yERPqaMrJjOCYKPktUNOstL3cDLJ80ifTGtaEebOd90BI2LTZHq2~X1AFLl3OPU5v1doNZVTqyXnbnBTqZ86JDKAhRe8Llok1ImO1Bbicn-yCQCZaFpbsVZWyEUQUA55Vdk7foTeU-LOIrsfkxtmoDFtQJhS60~vt83FwjcwIzoMOv~6EiVIwXzdI3NvHDn~jLyQ-oUZVlfU4BONgYEnKQSNe33Lz7mXgOUbBXn60ZVXMJjCxNBTVZIzX-ZphRiWXpdelVCqMjb5J2Jeh25GZQ__",
     name: "Aina Pons",
     service: "Paseo de animales",
     location: "14011 Córdoba, Córdoba provincia",

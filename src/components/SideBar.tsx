@@ -17,25 +17,25 @@ function SideBar() {
   const sideBarMenu: Menu[] = [
     {
       name: 'Inicio',
-      link: 'inicio',
+      link: '/home',
       position: 'top',
       icon: <MdOutlineHouse />,
     },
     {
       name: 'Notificación',
-      link: 'notificacion',
+      link: '#',
       position: 'top',
       icon: <VscBellDot />,
     },
     {
       name: 'Mensajes',
-      link: 'mensajes',
+      link: '#',
       position: 'top',
       icon: <MdOutlineMarkEmailUnread />,
     },
     {
       name: 'Mi perfil',
-      link: '/',
+      link: '/profile',
       position: 'bottom',
       icon: <ProfileImg 
         src={profiles[0].photo} 
@@ -103,34 +103,39 @@ function SideBar() {
             {sideBarMenu
               .filter((menu) => menu.position === 'top')
               .map((menu, index) => (
-                <li
+                <Link 
                   key={index}
+                  to={menu.link}
                   className={`flex w-full pl-[10px] h-16 rounded-lg my-3 cursor-pointer duration-700 items-center ${
                     menu.name === 'Notificación' && showNotifications
                       ? 'bg-white text-indigo-400'
                       : 'text-white hover:bg-white hover:text-indigo-400 hover:-translate-y-1 hover:scale-100'
                   }`}
-                  onClick={() => {
-                    if (menu.name === 'Notificación') {
-                      handleNotificationClick();
-                    } else {
-                      handleMenuClick();
-                    }
-                  }}
                 >
-                  <p className="relative text-3xl ml-[6px]">{menu.icon}
-                    {menu.name === 'Notificación' && mockNotifications.length > 0 && (
-                      <span className="absolute top-[0.12rem] right-[0.12rem] w-[11.5px] h-[11.5px] bg-red-500 rounded-full"></span>
-                    )}
-                  </p>
-                  <p
-                    className={`text-base font-semibold ml-3 origin-left duration-1000 ${
-                      !open ? 'scale-0' : 'scale-100'
-                    }` }
+                  <li
+                    className="flex items-center"
+                    onClick={() => {
+                      if (menu.name === 'Notificación') {
+                        handleNotificationClick();
+                      } else {
+                        handleMenuClick();
+                      }
+                    }}
                   >
-                    {menu.name}
-                  </p>
-                </li>
+                    <p className="relative text-3xl ml-[6px]">{menu.icon}
+                      {menu.name === 'Notificación' && mockNotifications.length > 0 && (
+                        <span className="absolute top-[0.12rem] right-[0.12rem] w-[11.5px] h-[11.5px] bg-red-500 rounded-full"></span>
+                      )}
+                    </p>
+                    <p
+                      className={`text-base font-semibold ml-3 origin-left duration-1000 ${
+                        !open ? 'scale-0' : 'scale-100'
+                      }` }
+                    >
+                      {menu.name}
+                    </p>
+                  </li>
+                </Link>
               ))}
           </ul>
 
