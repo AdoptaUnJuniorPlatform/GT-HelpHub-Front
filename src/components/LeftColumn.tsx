@@ -4,28 +4,35 @@ import OfficialLogo from './OfficialLogo';
 interface LeftColumnProps {
   title: string;
   description: string;
+  showExtraContent?: boolean; // Controla si se muestra el contenido extra
+  extraContent?: React.ReactNode; // Contenido adicional específico
 }
 
-const LeftColumn: React.FC<LeftColumnProps> = ({ title, description }) => {
+const LeftColumn: React.FC<LeftColumnProps> = ({ title, description, showExtraContent = false, extraContent }) => {
   return (
-    <>
-      <div className="w-1/3 p-10 bg-gray-50 flex items-start justify-start relative bg-[#FBFBFF] p-5">
-        {/* Logo */}
-        <div className="absolute top-[100px] left-[100px]">
-          <OfficialLogo />
-        </div>
-
-        {/* Título */}
-        <div className="absolute top-[200px] left-20 text-[#434242] text-[50px] font-light leading-[70px] max-w-[350px]">
-          {title}
-        </div>
-
-        {/* Descripción */}
-        <div className="absolute top-[450px] left-20 w-[421px] text-[#434242] text-[20px] font-normal max-w-[350px]">
-          {description}
-        </div>
+    <div className="w-1/3 h-full p-10 bg-gray-50 flex flex-col items-start justify-start px-20 space-y-8" >
+      {/* Logo */}
+      <div>
+        <OfficialLogo />
       </div>
-    </>
+
+      {/* Título */}
+      <div className="text-[#434242] text-[50px] font-light leading-[60px] max-w-[350px]">
+        {title}
+      </div>
+
+      {/* Descripción */}
+      <div className="text-[#434242] text-[20px] font-normal max-w-[350px]">
+        {description}
+      </div>
+
+      {/* Contenido Extra Condicional */}
+      {showExtraContent && extraContent && (
+        <div className="extra-content mt-6"> {/* Agrega estilos específicos si es necesario */}
+          {extraContent}
+        </div>
+      )}
+    </div>
   );
 };
 
