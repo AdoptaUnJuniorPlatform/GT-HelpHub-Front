@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState} from 'react';
 import Layout from './Layout';
+import TextInputWithCounter from './TextInputWithCounter';
+import NivelRadioButtons from './NivelRadioButtons';
+import ModalidadRadioButtons from './ModalidadRadioButtons';
 
 interface UserRegistrationStep4Props {
   onBackClick: () => void;
@@ -56,6 +59,12 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
     </div>
   );
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <Layout
       title="¡Ya casi terminamos!"
@@ -69,12 +78,67 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
       showExtraContent={true}
       extraContent={exampleSkillContent}
     >
-      <div>
-        {/* Aquí puedes agregar el formulario o campos específicos de la habilidad */}
-        <p className="relative text-[#434242] text-lg font-medium font-['Roboto'] top-[200px]">
-          Carga una nueva habilidad en esta sección.
-        </p>
+      {/*Contenido específico para el paso 4*/}
+      <div className="relative w-[450px] h-14 left-[-40px] top-[80px] text-[#434242] text-m font-normal font-['Roboto']">En HelpHub, queremos facilitar a los usuarios la coordinación de horarios.</div>
+
+      <div className=" relative w-[503px] h-[34px] left-[-40px] top-[90px] text-[#434242] text-2xl font-normal font-['Roboto']">Escribe el titulo de tu publicación</div>
+
+      {/* Input con contador de caracteres */}
+      <div className="relative left-[-40px] top-[100px]">
+        <TextInputWithCounter />
       </div>
+
+      {/* Botón que abre el modal */}
+      <div className="relative w-[206px] text-[#434242] left-[-40px] top-[100px] text-base font-normal font-['Roboto'] underline tracking-tight cursor-pointer mt-4" onClick={toggleModal}>
+        Ejemplos para crear tu título
+      </div>
+
+      {/* Modal emergente */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="w-[619px] h-80 bg-[#fbfbff] rounded-md shadow flex-col justify-start items-start gap-[25px] p-5">
+            <div className="flex justify-between w-full">
+              <div className="text-[#434242] text-[34px] font-normal font-['Roboto'] tracking-tight">
+                Ejemplos para crear tu título
+              </div>
+              <button onClick={toggleModal} className="text-[#434242] text-xl">
+                &times;
+              </button>
+            </div>
+
+            <div className="pl-5 pr-[17px] mt-5 text-[#696868] text-2xl font-normal font-['Roboto'] leading-relaxed">
+              • Sesión grupal de meditación al aire libre.<br/>
+              • Revisión de currículum vitae.<br/>
+              • Clases de cocina italiana tradicional.<br/>
+              • Entrenamiento personal en gimnasio.
+            </div>
+
+            <div className="w-full flex justify-end border-t border-gray-300 pt-5 mt-5">
+              <button onClick={toggleModal} className="text-center text-[#434242] text-sm font-normal font-['Roboto'] uppercase tracking-tight">
+                Entiendo
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/*Nivel*/}
+      <div className="relative w-[503px] h-[34px] left-[-40px] top-[120px] text-[#434242] text-2xl font-normal font-['Roboto']">Nivel</div>
+
+      {/* Radio buttons para Nivel */}
+      <div className="relative left-[-40px] top-[130px]">
+        <NivelRadioButtons />
+      </div>
+
+      {/* Título para Modalidad */}
+      <div className="relative w-[503px] h-[34px] left-[-40px] top-[145px] text-[#434242] text-2xl font-normal font-['Roboto']">
+        Modalidad
+      </div>
+
+      {/* Radio buttons para Modalidad */}
+      <div className="relative left-[-40px] top-[150px]">
+        <ModalidadRadioButtons />
+      </div>
+
     </Layout>
   );
 };
