@@ -46,10 +46,13 @@ export interface Menu {
   link: string;
   position: string;
   icon: JSX.Element;
+  onClick?: () => void; 
 }
 export interface ModalityProps {
   label: string;
   className: string;
+  active: boolean;
+  onClick: () => void;
 }
 
 export interface CardHeaderProps {
@@ -102,7 +105,6 @@ export interface SeeMoreProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
 export interface LoginFormData {
   email: string;
   password: string;
@@ -114,4 +116,52 @@ export interface RegisterFormData extends LoginFormData {
   optionCall: boolean;
   showPhone: boolean;
   blockemailed: boolean;
+}
+
+export interface Notification {
+  id: number;
+  type: 'completed' | 'request'| 'rejectedExchange' | 'rejectedRequest' | 'accepted';
+  user: string;
+  message: string;
+  date: string;
+  imageUser: string;
+}
+
+export interface NotificationsProps {
+  notifications: Notification[];
+}
+
+export interface ExchangeAcceptedProps {
+  user: string;
+  userImage: string;
+  date: string;
+  onSendMessage?: () => void;
+}
+
+export interface RejectedExchangeProps {
+  user: string;
+  userImage: string;
+  date: string;
+  onViewProfile?: () => void;
+}
+
+export interface RejectedRequestProps {
+  user: string;
+  userImage: string;
+  date: string;
+}
+
+export interface RequestProps {
+  user: string;
+  userImage: string;
+  onAccept?: () => void;
+  onDecline?: () => void;
+  date: string;
+}
+
+export interface CompletedProps {
+  user: string;
+  message: string;
+  userImage: string;
+  date: string;
 }

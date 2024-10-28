@@ -9,13 +9,15 @@ import Title from "../components/Title"
 import { categories, profiles, subcategories } from "../Variables/varibles"
 import Card from "../components/Card"
 import Pagination from "../components/Pagination"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 
 function Home() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null); 
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null); 
   const [filteredSubcategories, setFilteredSubcategories] = useState<string[]>([]); 
+  const [cardsToShow, setCardsToShow] = useState(profiles.length);
+  const [selectedModality, setSelectedModality] = useState("TODOS");
 
  
   function handleCategorySelect(category: string) {
@@ -32,12 +34,35 @@ function Home() {
     }
   }
 
+  const handleModalityClick = (label: string) => {
+    setSelectedModality(label);
+  };
+
+  const updateCardsToShow = () => {
+    const width = window.innerWidth;
+    if (width >= 1690) {
+      setCardsToShow(4);
+    } else if (width >= 1450) {
+      setCardsToShow(3); 
+    } else if (width >= 998) {
+      setCardsToShow(2); 
+    } else {
+      setCardsToShow(1);
+    }
+  };
+
+  useEffect(() => {
+    updateCardsToShow();
+    window.addEventListener('resize', updateCardsToShow);
+    return () => window.removeEventListener('resize', updateCardsToShow);
+  }, []);
+
   return (
-    <main className="flex flex-col justify-center items-center w-full">
+    <main className="flex flex-col justify-center items-center w-full min-h-dvh">
       <section className="w-[90%] mt-7 relative">
         <div className="flex items-center justify-between h-[10vh] w-full">
           <Logo className="ml-2 " />
-          <div>
+          <div className="mt-4 ">
             <SearchBar />
           </div>
         </div>
@@ -49,48 +74,64 @@ function Home() {
           <div className="h-full">
             <SideBar />
           </div>
-          <div className="flex flex-col w-[90%] ml-[10%] mt-12">
+          <div className="flex flex-col w-full ml-[12rem] mt-12">
             <Title title="Filtros" className="tracking-[0.01em] z-0 pb-4" />
-            <div className="flex w-full justify-between">
-              <div className="flex">
-
+            <div className="flex w-full h-auto justify-between">
+              <div className="flex  w-full items-center">
+                
                 <FilterDrop 
                   placeholder="Categoría" 
                   options={categories} 
-                  className="w-[15rem]" 
+                  className="w-full sm:w-[45%] lg:w-[15rem]" 
                   onSelect={handleCategorySelect}
                   selectedOption={selectedCategory} 
                 />
 
-
                 <FilterDrop 
                   placeholder="Sub categoría" 
                   options={filteredSubcategories} 
-                  className="ml-2 w-[15rem]" 
+                  className="w-[15rem] ml-0 lg:ml-2" 
                   onSelect={handleSubcategorySelect}
                   selectedOption={selectedSubcategory}
                 />
-
+                  
                 <FilterDrop
                   placeholder="Ubicación (CP)"
                   options={categories} 
-                  className="w-[23rem] ml-20"
+                  className="w-full lg:w-[23rem] ml-20"
                   onSelect={() => {}}
                 />
+
               </div>
-              <div className="flex">
-                <Modality label="TODOS" className="rounded-l-md" />
-                <Modality label="ONLINE" className=""/>
-                <Modality label="PRESENCIAL" className="rounded-r-md" />
+              <div className="flex w-full lg:w-auto">
+                <Modality 
+                  label="TODOS" 
+                  className="rounded-l-md" 
+                  active={selectedModality === "TODOS"} 
+                  onClick={() => handleModalityClick("TODOS")}
+                />
+                <Modality 
+                  label="ONLINE" 
+                  className=""
+                  active={selectedModality === "ONLINE"} 
+                  onClick={() => handleModalityClick("ONLINE")} 
+
+                />
+                <Modality 
+                  label="PRESENCIAL" 
+                  className="rounded-r-md" 
+                  active={selectedModality === "PRESENCIAL"} 
+                  onClick={() => handleModalityClick("PRESENCIAL")} 
+                />
               </div>
             </div>
 
-            <div className="flex flex-col">
-              <Title title="Categorías y habilidades" className="text-[55px] mt-11 tracking-tight" />
-              <div className="mt-11">
+            <div className="flex flex-col w-full mt-5">
+              <Title title="Categorías y habilidades" className="sm:text-4xl lg:text-[55px] mt-11 tracking-tight" />
+              <div className="mt-11 w-full">
                 <Title title="Animales" />
-                <div className="flex flex-wrap gap-8 mt-10">
-                  {profiles.map((profile, index) => (
+                <div className="flex flex-wrap gap-8 mt-10 w-full">
+                  {profiles.slice(0, cardsToShow).map((profile, index) => (
                     <Card key={index} profileData={profile} />
                   ))}
                 </div>
@@ -100,8 +141,8 @@ function Home() {
             <div className="flex flex-col">
               <div className="mt-14">
                 <Title title="Tutorías" />
-                <div className="flex flex-wrap gap-8 mt-10">
-                  {profiles.map((profile, index) => (
+                <div className="flex flex-wrap gap-8 mt-10 w-full">
+                  {profiles.slice(0, cardsToShow).map((profile, index) => (
                     <Card key={index} profileData={profile} />
                   ))}
                 </div>
@@ -110,7 +151,7 @@ function Home() {
           </div>
         </div>
         <div className="flex justify-center items-center pt-12 pb-20">
-          <Pagination currentPage={1} />
+          <Pagination/>
         </div>
       </section>
       <Footer />
