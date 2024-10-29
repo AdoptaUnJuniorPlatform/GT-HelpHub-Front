@@ -1,7 +1,7 @@
 import FilterDrop from "../components/FilterDrop"
 import Line from "../components/Line"
 import Logo from "../components/Logo"
-import Modality from "../components/Modality"
+import BorderButton from "../components/BorderButton"
 import SearchBar from "../components/SearchBar"
 import SideBar from "../components/SideBar"
 import Title from "../components/Title"
@@ -10,6 +10,7 @@ import Card from "../components/Card"
 import Pagination from "../components/Pagination"
 import { useEffect, useState } from "react"
 import MainLayout from "../layouts/MainLayout"
+import useBorderButton from "../hooks/useBorderButton"
 
 
 function Home() {
@@ -17,7 +18,7 @@ function Home() {
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null); 
   const [filteredSubcategories, setFilteredSubcategories] = useState<string[]>([]); 
   const [cardsToShow, setCardsToShow] = useState(profiles.length);
-  const [selectedModality, setSelectedModality] = useState("TODOS");
+  const { selectedBorderButton, handleBorderButtonClick } = useBorderButton("TODOS", ["TODOS", "ONLINE", "PRESENCIAL"]);
 
  
   function handleCategorySelect(category: string) {
@@ -33,10 +34,6 @@ function Home() {
       setSelectedSubcategory(subcategory);
     }
   }
-
-  const handleModalityClick = (label: string) => {
-    setSelectedModality(label);
-  };
 
   const updateCardsToShow = () => {
     const width = window.innerWidth;
@@ -104,24 +101,24 @@ function Home() {
 
             </div>
             <div className="flex w-full lg:w-auto">
-              <Modality 
+              <BorderButton
                 label="TODOS" 
-                className="rounded-l-md" 
-                active={selectedModality === "TODOS"} 
-                onClick={() => handleModalityClick("TODOS")}
+                className="rounded-l-md w-[7em] h-[3em]" 
+                active={selectedBorderButton=== "TODOS"} 
+                onClick={() => handleBorderButtonClick("TODOS")}
               />
-              <Modality 
+              <BorderButton
                 label="ONLINE" 
-                className=""
-                active={selectedModality === "ONLINE"} 
-                onClick={() => handleModalityClick("ONLINE")} 
+                className="w-[7em] h-[3em]"
+                active={selectedBorderButton=== "ONLINE"} 
+                onClick={() => handleBorderButtonClick("ONLINE")} 
 
               />
-              <Modality 
+              <BorderButton
                 label="PRESENCIAL" 
-                className="rounded-r-md" 
-                active={selectedModality === "PRESENCIAL"} 
-                onClick={() => handleModalityClick("PRESENCIAL")} 
+                className="rounded-r-md w-[7em] h-[3em]" 
+                active={selectedBorderButton=== "PRESENCIAL"} 
+                onClick={() => handleBorderButtonClick("PRESENCIAL")} 
               />
             </div>
           </div>

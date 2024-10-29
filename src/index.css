@@ -11,13 +11,17 @@
     @apply bg-white rounded-[3px] placeholder:font-medium placeholder:text-sm placeholder:leading-normal
 }
 
-/* Estilos para ocultar la barra de desplazamiento */
+.btn-click {
+  @apply transition-transform transform active:scale-90 hover:bg-[#1945e3ea]
+}
+
 .scrollbar-hide {
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
   
   .scrollbar-hide::-webkit-scrollbar {
-    display: none;  /* Chrome, Safari, Opera */
+    display: none;
   }
+
   

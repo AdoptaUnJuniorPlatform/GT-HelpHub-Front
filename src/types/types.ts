@@ -27,6 +27,13 @@ export interface ButtonProps {
   className?: string; 
   disabled?: boolean; 
 }
+
+export interface CardBtnBorderProps {
+  onClick?: (id?: number) => void;
+  id?: number;
+  className: string;
+  label: string;
+};
 export interface Country {
   name: string;
   code: string;
@@ -47,11 +54,12 @@ export interface Menu {
   position: string;
   icon: JSX.Element;
 }
-export interface ModalityProps {
+export interface BorderButtonProps {
   label: string;
   className: string;
   active: boolean;
   onClick: () => void;
+  variant?: 'home' | 'profile'
 }
 
 export interface CardHeaderProps {
@@ -168,4 +176,9 @@ export interface CompletedProps {
   message: string;
   userImage: string;
   date: string;
+}
+
+export interface SecondayButtonProps {
+  label: string;
+  className: string;
 }

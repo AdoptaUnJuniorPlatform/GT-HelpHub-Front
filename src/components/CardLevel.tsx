@@ -9,7 +9,7 @@ function CardLevel(props: ExperienceLevelProps) {
         {levels.map((level, index) => (
           <span
             key={index}
-            className={`flex items-center justify-center px-2 h-6 rounded-[30px] ${level.active ? 'bg-celeste-100 text-white' : 'bg-gray-200 text-gray-600'}`}
+            className={`flex items-center justify-center px-2 h-6 rounded-[30px] leading-5 text-xs ${level.active ? 'bg-celeste-100 text-white' : 'bg-black-6 text-gray-400'}`}
           >
             {level.name}
           </span>
