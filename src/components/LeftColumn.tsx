@@ -28,7 +28,7 @@ const LeftColumn: React.FC<LeftColumnProps> = ({ title, description, showExtraCo
 
       {/* Contenido Extra Condicional */}
       {showExtraContent && extraContent && (
-        <div className="extra-content mt-6"> {/* Agrega estilos específicos si es necesario */}
+        <div className="extra-content mt-6"> 
           {extraContent}
         </div>
       )}
