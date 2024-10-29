@@ -12,8 +12,9 @@ interface LayoutProps {
   currentStep: number;
   steps: string[];
   children: React.ReactNode;
-  showExtraContent?: boolean; // Nueva prop para controlar si se muestra contenido extra en LeftColumn
-  extraContent?: React.ReactNode; // Nueva prop para pasar contenido adicional específico
+  showExtraContent?: boolean; 
+  extraContent?: React.ReactNode; 
+  isExtended?: boolean;
 }
 
 const Layout: FC<LayoutProps> = ({ 
@@ -27,10 +28,10 @@ const Layout: FC<LayoutProps> = ({
   steps, 
   children, 
   showExtraContent = false, 
-  extraContent 
+  extraContent,
 }) => {
   return (
-    <div className="flex h-screen">
+    <div className={`flex ${currentStep === 4 ? "custom-layout-class-for-step-4" : "h-screen"}`}>
       {/* Columna Izquierda */}
       <LeftColumn 
         title={title} 
