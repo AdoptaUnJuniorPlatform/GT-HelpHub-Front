@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, ComponentType } from "react";
 export interface Input {
   id?:string;
   type?: 'text'| 'password' | 'email' | 'checkbox' | 'tel';
@@ -184,5 +184,5 @@ export interface SecondayButtonProps {
 }
 
 export interface ComponentMap {
-  [key: string]: JSX.Element
+  [key: string]: ComponentType | undefined
 }

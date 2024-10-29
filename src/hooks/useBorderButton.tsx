@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import { ElementType, useState } from 'react';
 import { ComponentMap } from '../types/types';
 
-function useBorderButton(initialValue: string, options: string[], componentMap: ComponentMap) {
+function useBorderButton(
+  initialValue: string, 
+  options: string[], 
+  componentMap?: ComponentMap
+) {
   const [selectedBorderButton, setSelectedBorderButton] = useState(initialValue);
 
   const handleBorderButtonClick = (label: string) => {
@@ -10,7 +14,7 @@ function useBorderButton(initialValue: string, options: string[], componentMap: 
     }
   };
 
-  const SelectedComponent = componentMap[selectedBorderButton];
+  const SelectedComponent: ElementType | null = componentMap?.[selectedBorderButton] || null;
   
   return { selectedBorderButton, handleBorderButtonClick, SelectedComponent };
 }

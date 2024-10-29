@@ -14,13 +14,13 @@ function Profile() {
     handleBorderButtonClick,
     SelectedComponent 
   } = useBorderButton("HABILIDADES", ["HABILIDADES", "VALORACIONES"], 
-    { HABILIDADES: <MySkills />, VALORACIONES: <MyReviews /> }
+    { HABILIDADES: MySkills, VALORACIONES: MyReviews}
   );
   return (
     <>
       <MainLayout>
         <section className="h-full">
-          <SideBar />
+          <SideBar />s
         </section>
         <section className="flex flex-col h-[100rem] ml-[12rem] mt-5 font-roboto not-italic">
           <UserProfile />
@@ -40,7 +40,7 @@ function Profile() {
               onClick={() => handleBorderButtonClick("VALORACIONES")}
             />
           </div>
-          {SelectedComponent}
+          {SelectedComponent && <SelectedComponent />}
         </section>
       </MainLayout>
     </>
