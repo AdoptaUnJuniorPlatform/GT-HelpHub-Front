@@ -1,5 +1,6 @@
 
 import BorderButton from "../components/BorderButton"
+import MyReviews from "../components/MyReviews";
 import MySkills from "../components/MySkills";
 import SideBar from "../components/SideBar"
 import UserProfile from "../components/UserProfile"
@@ -8,7 +9,13 @@ import MainLayout from "../layouts/MainLayout"
 
 
 function Profile() {
-  const { selectedBorderButton, handleBorderButtonClick } = useBorderButton("HABILIDADES", ["HABILIDADES", "VALORACIONES"]);
+  const { 
+    selectedBorderButton, 
+    handleBorderButtonClick,
+    SelectedComponent 
+  } = useBorderButton("HABILIDADES", ["HABILIDADES", "VALORACIONES"], 
+    { HABILIDADES: <MySkills />, VALORACIONES: <MyReviews /> }
+  );
   return (
     <>
       <MainLayout>
@@ -33,7 +40,7 @@ function Profile() {
               onClick={() => handleBorderButtonClick("VALORACIONES")}
             />
           </div>
-          <MySkills />
+          {SelectedComponent}
         </section>
       </MainLayout>
     </>

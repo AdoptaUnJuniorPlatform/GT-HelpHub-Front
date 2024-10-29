@@ -182,3 +182,7 @@ export interface SecondayButtonProps {
   label: string;
   className: string;
 }
+
+export interface ComponentMap {
+  [key: string]: JSX.Element
+}
