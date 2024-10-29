@@ -17,6 +17,10 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
   steps,
   currentStep,
 }) => {
+  const [text, setText] = useState<string>('');
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+  };
   const exampleSkillContent = (
     <div className="w-full bg-gray-50 p-8">
       {/* Título de ejemplo de habilidad */}
@@ -137,6 +141,36 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
       {/* Radio buttons para Modalidad */}
       <div className="relative left-[-40px] top-[150px]">
         <ModalidadRadioButtons />
+      </div>
+
+      {/* Texto "¿Qué ofreces?" */}
+      <div className="relative w-[503px] h-[34px] left-[-40px] top-[165px] text-[#434242] text-2xl font-normal font-['Roboto']">
+        ¿Qué ofreces?
+      </div>
+
+      {/* Texto "Descripción" en el rectángulo pequeño */}
+      <div className="relative w-[526px] mt-[10px] mx-auto left-[-40px] top-[170px]">
+
+        
+        <div className="absolute top-[-10px] left-[10px] bg-gray-100 px-2" >
+          <div className="text-[#696868] text-[15px] font-normal leading-normal tracking-wide">
+            Descripción
+          </div>
+        </div>
+
+        {/* Textarea en el rectángulo grande */}
+        <textarea
+          className="w-full h-[150px] p-4 border border-gray-300 rounded-md text-[#696868] text-base font-normal tracking-tight resize-none overflow-hidden bg-transparent"
+          placeholder="Ej: Clases de pintura al óleo desde cero, Nivel inicial y avanzado"
+          maxLength={255}
+          onChange={handleTextareaChange}
+          value={text}
+        />
+        
+        {/* Contador de caracteres */}
+        <div className="absolute right-[15px] bottom-[10px] text-[#b7b7b7] text-base font-normal">
+          {text.length}/255
+        </div>
       </div>
 
     </Layout>
