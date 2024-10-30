@@ -3,7 +3,7 @@ import OfficialLogo from './OfficialLogo';
 
 interface LeftColumnProps {
   title: string;
-  description: string;
+  description: string | React.ReactNode;
   showExtraContent?: boolean; // Controla si se muestra el contenido extra
   extraContent?: React.ReactNode; // Contenido adicional específico
 }
