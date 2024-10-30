@@ -9,7 +9,7 @@ import CardLevel from "./CardLevel";
 import CardSkills from "./CardSkills";
 
 
-function ProfileCard(props: { profileData: ProfileData }) {
+function SkillsCard(props: { profileData: ProfileData }) {
   const { profileData } = props;
   const { service, location, levels, availability, description, skills } = profileData;
   return (
@@ -19,7 +19,18 @@ function ProfileCard(props: { profileData: ProfileData }) {
       <CardLevel levels={levels} />
       <CardAvailability availability={availability} />
       <CardDescription description={description} />
-      <CardSkills skills={skills} />
+      <div className="border-b border-[rgba(174,174,174,0.10)] w-full">
+        <CardSkills>
+          {skills.map((skill, index) => (
+            <span
+              key={index}
+              className="flex justify-center items-center px-3 py-1 h-[1.4rem] text-[12px] border border-black-80 rounded-full text-sm text-black-80"
+            >
+              {skill}
+            </span>
+          ))}
+        </CardSkills>
+      </div>
       <div className="flex gap-2 text-[0.9em] justify-start items-center w-full px-4 pt-4">
         <CardBtnBorder  label="Borrar" className="border-2"/>
         <CardBtnPrimary label="Editar" className="w-[5rem]"/>
@@ -30,4 +41,4 @@ function ProfileCard(props: { profileData: ProfileData }) {
   )
 }
 
-export default ProfileCard
+export default SkillsCard

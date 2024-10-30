@@ -31,7 +31,18 @@ function Card(props: { profileData: ProfileData }) {
       <CardLevel levels={levels} />
       <CardAvailability availability={availability} />
       <CardDescription description={description} />
-      <CardSkills skills={skills} />
+      <div className="border-b border-[rgba(174,174,174,0.10)] w-full">
+        <CardSkills>
+          {skills.map((skill, index) => (
+            <span
+              key={index}
+              className="flex justify-center items-center px-3 py-1 h-[1.4rem] text-[12px] border border-black-80 rounded-full text-sm text-black-80"
+            >
+              {skill}
+            </span>
+          ))}
+        </CardSkills>
+      </div>
       <div className="flex gap-2 text-[0.9em] justify-end w-full px-4 py-4">
         <CardBtnBorder 
           label="Ver más" 

@@ -20,9 +20,9 @@ function Profile() {
     <>
       <MainLayout>
         <section className="h-full">
-          <SideBar />s
+          <SideBar />
         </section>
-        <section className="flex flex-col h-[100rem] ml-[12rem] mt-5 font-roboto not-italic">
+        <section className="flex flex-col min-h-[100rem] ml-[12rem] mt-5 mb-20 font-roboto not-italic">
           <UserProfile />
           <div className="flex mt-10">
             <BorderButton 

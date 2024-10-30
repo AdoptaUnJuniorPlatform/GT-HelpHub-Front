@@ -1,4 +1,4 @@
-import { ChangeEvent, ComponentType } from "react";
+import { ChangeEvent } from "react";
 export interface Input {
   id?:string;
   type?: 'text'| 'password' | 'email' | 'checkbox' | 'tel';
@@ -101,7 +101,14 @@ export interface ProfileData {
   rating: number;
   reviewsCount: number;
   levels: Array<{ name: string; active: boolean }>;
-  reviews: Array<{ name: string; city: string; review: string; photo: string}>;
+  reviews: Array<{ 
+    name: string; 
+    city: string; 
+    review: string; 
+    givenSkill?: string; 
+    recivedSkill?: string; 
+    photo: string}
+  >;
   availability: string;
   description: string;
   skills: string[];
@@ -180,9 +187,22 @@ export interface CompletedProps {
 
 export interface SecondayButtonProps {
   label: string;
-  className: string;
 }
 
-export interface ComponentMap {
-  [key: string]: ComponentType | undefined
+export interface Review {
+  name: string;
+  city: string;
+  review: string;
+  givenSkill?: string;
+  recivedSkill?: string;
+  photo: string;
+}
+
+export interface ReviewsCardProps {
+  review: Review
+  showSkills: boolean;
+}
+
+export interface MyReviewsProps {
+  reviews: Review[];
 }

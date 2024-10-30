@@ -10,7 +10,7 @@ function UserProfile() {
   
   return (
     <div className="flex flex-col w-full px-[6em] py-[2em] bg-[#F7F7F7]">
-      <div className="flex justify-start items-start gap-20">
+      <div className="flex justify-start items-start gap-10">
         <div className="flex flex-col items-center gap-9">
           <ProfileImg 
             src={user.photo} 

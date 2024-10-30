@@ -1,19 +1,10 @@
-import { SkillsProps } from "../types/types";
 
-function CardSkills(props: SkillsProps) {
-  const { skills } = props;
+function CardSkills({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-full px-4 py-3 border-b border-[rgba(174,174,174,0.10)] flex gap-2">
-      {skills.map((skill, index) => (
-        <span
-          key={index}
-          className="flex justify-center items-center px-3 py-1 h-[1.4rem] text-[12px] border border-black-80 rounded-full text-sm text-black-80"
-        >
-          {skill}
-        </span>
-      ))}
+    <div className="px-4 py-3 flex gap-2">
+      {children}
     </div>
   );
 }
 
-export default CardSkills
+export default CardSkills;
