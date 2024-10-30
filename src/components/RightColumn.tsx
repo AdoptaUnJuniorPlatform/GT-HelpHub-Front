@@ -4,7 +4,7 @@ import ProgressBar from './ProgressBar';
 
 interface RightColumnProps {
   stepTitle: string;
-  stepDescription: string;
+  stepDescription: string | React.ReactNode;
   onBackClick: () => void;
   onNextClick: () => void;
   steps: string[];

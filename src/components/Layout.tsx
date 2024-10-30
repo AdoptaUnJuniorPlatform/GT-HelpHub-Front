@@ -4,9 +4,9 @@ import RightColumn from './RightColumn';
 
 interface LayoutProps {
   title: string;        
-  description: string;
+  description: string | React.ReactNode;
   stepTitle: string;
-  stepDescription: string;
+  stepDescription: string | React.ReactNode;
   onBackClick: () => void;
   onNextClick: () => void;
   currentStep: number;
@@ -30,6 +30,7 @@ const Layout: FC<LayoutProps> = ({
   showExtraContent = false, 
   extraContent,
 }) => {
+  
   return (
     <div className={`flex ${currentStep === 4 ? "custom-layout-class-for-step-4" : "h-screen"}`}>
       {/* Columna Izquierda */}
