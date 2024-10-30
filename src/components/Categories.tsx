@@ -11,11 +11,11 @@ const Category: React.FC<CategoryProps> = ({ label, isSelected, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className={`h-7 px-3 py-1.5 rounded-[28px] cursor-pointer flex items-center justify-center gap-2.5 ${
+      className={`h-10 px-4 py-2 rounded-[28px] cursor-pointer flex items-center justify-center gap-2.5 ${
         isSelected ? 'bg-[#496ceb] text-white' : 'border border-[#b7b7b7] text-[#434242]'
       }`}
     >
-      <span className="text-xs font-medium font-['Roboto'] leading-[18px]">
+      <span className="text-sm font-medium font-['Roboto'] leading-[18px]">
         {label}
       </span>
     </div>
@@ -29,9 +29,11 @@ const Categories: React.FC = () => {
 
   // Lista de nombres de categorías
   const categoryList = [
-    'Animales', 'Idiomas', 'Salud', 'Tutorías', 'Ayuda', 'Informática', 
-    'Otros', 'Consultoría', 'Reparaciones', 'Diseño'
+    'Animales', 'Ayuda', 'Consultoría', 'Diseño', 
+    'Idiomas', 'Informática', 'Reparaciones', 
+    'Salud', 'Tutorías', 'Otros'
   ];
+  
 
   // Maneja el clic en una categoría
   const handleCategoryClick = (label: string) => {
@@ -45,7 +47,7 @@ const Categories: React.FC = () => {
   };
 
   return (
-    <div className="w-[313px] h-[104px] flex flex-wrap gap-2.5">
+    <div className="w-full max-w-[400px] flex flex-wrap gap-2.5">
       {categoryList.map((category) => (
         <Category
           key={category}
