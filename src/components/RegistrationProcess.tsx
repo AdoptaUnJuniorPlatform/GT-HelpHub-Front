@@ -4,6 +4,7 @@ import UserRegistrationStep2 from './UserRegistrationStep2';
 import UserRegistrationStep3 from './UserRegistrationStep3';
 import UserRegistrationStep4 from './UserRegistrationStep4';
 import UserRegistrationStep5 from './UserRegistrationStep5';
+import UserRegistrationStep6 from './UserRegistrationStep6';
 
 const RegistrationProcess: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1); // Estado para controlar el paso actual
@@ -72,7 +73,15 @@ const RegistrationProcess: React.FC = () => {
             currentStep={currentStep}
           />
         );
-      
+      case 6:
+        return (
+          <UserRegistrationStep6
+            onBackClick={goToPreviousStep}
+            onNextClick={goToNextStep}
+            steps={steps}
+            currentStep={currentStep}
+          />
+        );
       default:
         return <div>Algo salió mal</div>;
     }
