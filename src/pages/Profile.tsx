@@ -8,6 +8,7 @@ import SideBar from "../components/SideBar"
 import UserProfile from "../components/UserProfile"
 import useBorderButton from "../hooks/useBorderButton";
 import MainLayout from "../layouts/MainLayout"
+import { profiles } from "../Variables/varibles";
 
 
 function Profile() {
@@ -49,7 +50,7 @@ function Profile() {
               <h1 className="text-3xl text-neutral-black leading-6 tracking-wide font-medium mb-7">Valoraciones</h1>
               <div className="flex gap-3">
                 <AverageStars />
-                <Ratings />
+                <Ratings reviews={profiles[0].reviews.length} />
               </div>
             </section>
           )}
