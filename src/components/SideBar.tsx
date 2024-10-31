@@ -7,12 +7,14 @@ import { RxExit } from "react-icons/rx";
 import Notifications from "./Notifications";
 import { mockNotifications, profiles } from "../Variables/varibles";
 import ProfileImg from "./ProfileImg";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 
 function SideBar() {
   const [open, setOpen] = useState<boolean>(false);
   const [showNotifications, setShowNotifications] = useState<boolean>(false);
+  const location = useLocation();
+  const isHome = location.pathname === '/home';
 
   const sideBarMenu: Menu[] = [
     {
@@ -88,17 +90,18 @@ function SideBar() {
       >
         <section
           className={`h-[6.5rem] flex justify-center items-center bg-white rounded-t-xl transition-all duration-700 ${
-            open ? 'flex w-full translate-x-0' : 'hidden -translate-x-full'
+            open || !open && !isHome ? 'flex w-full translate-x-0' : 'hidden -translate-x-full'
           }`}
         >
           <Logo
+            showInitial={!open}
             className={`transition-all delay-700 ease-in-out transform ${
-              open ? 'scale-100 opacity-100' : 'scale-50 opacity-0'
+              open ? 'scale-100 opacity-100' : 'scale-50 opacity-100'
             }`}
           />
         </section>
 
-        <section className="flex-col bg-indigo-400 h-full rounded-b-xl w-full flex justify-between items-center">
+        <section className="flex-col bg-violeta-100 h-full rounded-b-xl w-full flex justify-between items-center">
           <ul className="flex flex-col items-center w-[80%] mt-7">
             {sideBarMenu
               .filter((menu) => menu.position === 'top')
@@ -108,8 +111,8 @@ function SideBar() {
                   to={menu.link}
                   className={`flex w-full pl-[10px] h-16 rounded-lg my-3 cursor-pointer duration-700 items-center ${
                     menu.name === 'Notificación' && showNotifications
-                      ? 'bg-white text-indigo-400'
-                      : 'text-white hover:bg-white hover:text-indigo-400 hover:-translate-y-1 hover:scale-100'
+                      ? 'bg-white text-violeta-100'
+                      : 'text-white hover:bg-white hover:text-violeta-100 hover:-translate-y-1 hover:scale-100'
                   }`}
                 >
                   <li
@@ -148,9 +151,9 @@ function SideBar() {
                   key={index}
                   className={`text-white mt-3 flex w-full h-16 rounded-lg my-3 cursor-pointer hover:scale-100 items-center 
                     ${open &&  menu.name === 'Mi perfil' 
-                  ? 'hover:bg-white hover:text-indigo-400 hover:-translate-y-1 duration-700' 
+                  ? 'hover:bg-white hover:text-violeta-100 hover:-translate-y-1 duration-700' 
                   : 'hover:-translate-y-1 duration-700 '}
-                    ${menu.name !== 'Mi perfil' ? 'hover:bg-white hover:text-indigo-400' : ''}
+                    ${menu.name !== 'Mi perfil' ? 'hover:bg-white hover:text-violeta-100' : ''}
                   `}
                 >
                   <li
