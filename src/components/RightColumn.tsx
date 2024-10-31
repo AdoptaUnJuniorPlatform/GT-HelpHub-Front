@@ -4,7 +4,7 @@ import ProgressBar from './ProgressBar';
 
 interface RightColumnProps {
   stepTitle: string;
-  stepDescription: string;
+  stepDescription: string | React.ReactNode;
   onBackClick: () => void;
   onNextClick: () => void;
   steps: string[];
@@ -16,7 +16,7 @@ const RightColumn: React.FC<RightColumnProps> = ({ onBackClick, onNextClick, ste
   
   return (
     <>
-      <div className="w-2/3 p-10 bg-gray-100 flex items-center justify-center relative bg-[#FBFBFF] p-10">
+      <div className="w-2/3 p-10 bg-gray-100 flex items-center justify-center relative p-10">
         {/* Barra de progreso */}
         <ProgressBar currentStep={currentStep} steps={steps}/>
 

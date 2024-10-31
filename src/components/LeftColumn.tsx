@@ -3,7 +3,7 @@ import OfficialLogo from './OfficialLogo';
 
 interface LeftColumnProps {
   title: string;
-  description: string;
+  description: string | React.ReactNode;
   showExtraContent?: boolean; // Controla si se muestra el contenido extra
   extraContent?: React.ReactNode; // Contenido adicional específico
 }
@@ -28,7 +28,7 @@ const LeftColumn: React.FC<LeftColumnProps> = ({ title, description, showExtraCo
 
       {/* Contenido Extra Condicional */}
       {showExtraContent && extraContent && (
-        <div className="extra-content mt-6"> {/* Agrega estilos específicos si es necesario */}
+        <div className="extra-content mt-6"> 
           {extraContent}
         </div>
       )}
