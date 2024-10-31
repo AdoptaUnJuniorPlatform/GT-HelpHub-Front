@@ -5,15 +5,15 @@ import ProfileImg from "./ProfileImg";
 
 function ReviewsCard({ review, showSkills } : ReviewsCardProps) {
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 w-full flex flex-col items-start font-roboto font-normal leading-6 tracking-wide text-xl max-h-[21rem] max-w-md ">
+    <div className="bg-white shadow-[0_3px_3px_0_rgba(0,0,0,0.25)] rounded-lg p-6 w-full flex flex-col items-start font-roboto font-normal leading-6 tracking-wide text-xl max-h-[21rem] max-w-md ">
       <p className="text-gray-700 pb-4 overflow-auto custom-scroll italic">{review.review}</p>
       <div className="flex items-center w-full mt-10">
         <ProfileImg 
           src={review.photo} 
-          className="w-12 h-12 rounded-full mr-3 overflow-hidden"
+          className="w-12 h-10 rounded-full overflow-hidden"
         />
         <div className="flex flex-col items-start justify-start w-full">
-          <h3 className="text-lg font-semibold px-4">{review.name}</h3>
+          <h3 className="text-lg font-semibold pl-4">{review.name}</h3>
           <div className="flex justify-start items-center w-full">
             {showSkills && (
               <>
