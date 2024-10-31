@@ -7,8 +7,9 @@ import CardInfo from "./CardInfo";
 import CardLevel from "./CardLevel";
 import CardSkills from "./CardSkills";
 import SeeMore from "./SeeMore";
-import CardBtnMore from "./CardBtnMore";
-import CardBtnExchange from "./CardBtnExchange";
+import CardLayout from "../layouts/CardLayout";
+import CardBtnBorder from "./CardBtnBorder";
+import CardBtnPrimary from "./CardBtnPrimary";
 
 function Card(props: { profileData: ProfileData }) {
   const { profileData } = props;
@@ -24,19 +25,43 @@ function Card(props: { profileData: ProfileData }) {
     setOpen(false);
   };
   return (
-    <div className="flex flex-col items-start w-[21rem] py-4 rounded-md bg-[#FBFBFF] shadow-[0_3px_6px_0_rgba(0,0,0,0.25)] font-roboto text-neutral-black">
+    <CardLayout>
       <CardHeader photo={photo} name={name} />
       <CardInfo service={service} location={location} />
       <CardLevel levels={levels} />
       <CardAvailability availability={availability} />
       <CardDescription description={description} />
-      <CardSkills skills={skills} />
-      <div className="flex gap-2 text-[0.9em] justify-end w-full px-4 py-4">
-        <CardBtnMore onClick={handleOpen} id={id}/>
-        <CardBtnExchange label="Solicitar intercambio" className="h-10 w-[10.5rem]"/>
+      <div className="border-b border-[rgba(174,174,174,0.10)] w-full">
+        <CardSkills>
+          {skills.map((skill, index) => (
+            <span
+              key={index}
+              className="flex justify-center items-center px-3 py-1 h-[1.4rem] text-[12px] border border-black-80 rounded-full text-sm text-black-80"
+            >
+              {skill}
+            </span>
+          ))}
+        </CardSkills>
       </div>
-      <SeeMore isOpen={open} onClose={handleClose} profileData={profileData}/>
-    </div>
+      <div className="flex gap-2 text-[0.9em] justify-end w-full px-4 py-4">
+        <CardBtnBorder 
+          label="Ver más" 
+          onClick={handleOpen} 
+          id={id} 
+          className="w-[6rem]"
+        />
+        <CardBtnPrimary 
+          label="Solicitar intercambio" 
+          className="w-[10.5rem]"
+        />
+      </div>
+      <SeeMore 
+        isOpen={open} 
+        onClose={handleClose} 
+        profileData={profileData}
+      />
+    </CardLayout>
+
   );
 }
 

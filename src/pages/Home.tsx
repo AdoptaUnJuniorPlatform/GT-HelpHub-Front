@@ -1,8 +1,7 @@
 import FilterDrop from "../components/FilterDrop"
-import Footer from "../components/Footer"
 import Line from "../components/Line"
 import Logo from "../components/Logo"
-import Modality from "../components/Modality"
+import BorderButton from "../components/BorderButton"
 import SearchBar from "../components/SearchBar"
 import SideBar from "../components/SideBar"
 import Title from "../components/Title"
@@ -10,6 +9,8 @@ import { categories, profiles, subcategories } from "../Variables/varibles"
 import Card from "../components/Card"
 import Pagination from "../components/Pagination"
 import { useEffect, useState } from "react"
+import MainLayout from "../layouts/MainLayout"
+import useBorderButton from "../hooks/useBorderButton"
 
 
 function Home() {
@@ -17,7 +18,7 @@ function Home() {
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null); 
   const [filteredSubcategories, setFilteredSubcategories] = useState<string[]>([]); 
   const [cardsToShow, setCardsToShow] = useState(profiles.length);
-  const [selectedModality, setSelectedModality] = useState("TODOS");
+  const { selectedBorderButton, handleBorderButtonClick } = useBorderButton("TODOS", ["TODOS", "ONLINE", "PRESENCIAL"]);
 
  
   function handleCategorySelect(category: string) {
@@ -33,10 +34,6 @@ function Home() {
       setSelectedSubcategory(subcategory);
     }
   }
-
-  const handleModalityClick = (label: string) => {
-    setSelectedModality(label);
-  };
 
   const updateCardsToShow = () => {
     const width = window.innerWidth;
@@ -58,104 +55,102 @@ function Home() {
   }, []);
 
   return (
-    <main className="flex flex-col justify-center items-center w-full min-h-dvh">
-      <section className="w-[90%] mt-7 relative">
-        <div className="flex items-center justify-between h-[10vh] w-full">
-          <Logo className="ml-2 " />
-          <div className="mt-4 ">
-            <SearchBar />
-          </div>
+    <MainLayout>
+      <div className="flex items-center justify-between h-[10vh] w-full">
+        <Logo className="ml-2 " />
+        <div className="mt-4 ">
+          <SearchBar />
         </div>
-        <div className="flex justify-end items-center w-full">
-          <Line className="bg-violeta-100 w-7/12 my-1" />
+      </div>
+      <div className="flex justify-end items-center w-full">
+        <Line className="bg-violeta-100 w-7/12 my-1" />
+      </div>
+
+      <div className="flex w-full h-full">
+        <div className="h-full">
+          <SideBar />
         </div>
 
-        <div className="flex w-full h-full">
-          <div className="h-full">
-            <SideBar />
-          </div>
-          <div className="flex flex-col w-full ml-[12rem] mt-12">
-            <Title title="Filtros" className="tracking-[0.01em] z-0 pb-4" />
-            <div className="flex w-full h-auto justify-between">
-              <div className="flex  w-full items-center">
+        <div className="flex flex-col w-full ml-[12rem] mt-12">
+          <Title title="Filtros" className="tracking-[0.01em] z-0 pb-4" />
+          <div className="flex w-full h-auto justify-between">
+            <div className="flex  w-full items-center">
                 
-                <FilterDrop 
-                  placeholder="Categoría" 
-                  options={categories} 
-                  className="w-full sm:w-[45%] lg:w-[15rem]" 
-                  onSelect={handleCategorySelect}
-                  selectedOption={selectedCategory} 
-                />
+              <FilterDrop 
+                placeholder="Categoría" 
+                options={categories} 
+                className="w-full sm:w-[45%] lg:w-[15rem]" 
+                onSelect={handleCategorySelect}
+                selectedOption={selectedCategory} 
+              />
 
-                <FilterDrop 
-                  placeholder="Sub categoría" 
-                  options={filteredSubcategories} 
-                  className="w-[15rem] ml-0 lg:ml-2" 
-                  onSelect={handleSubcategorySelect}
-                  selectedOption={selectedSubcategory}
-                />
+              <FilterDrop 
+                placeholder="Sub categoría" 
+                options={filteredSubcategories} 
+                className="w-[15rem] ml-0 lg:ml-2" 
+                onSelect={handleSubcategorySelect}
+                selectedOption={selectedSubcategory}
+              />
                   
-                <FilterDrop
-                  placeholder="Ubicación (CP)"
-                  options={categories} 
-                  className="w-full lg:w-[23rem] ml-20"
-                  onSelect={() => {}}
-                />
+              <FilterDrop
+                placeholder="Ubicación (CP)"
+                options={categories} 
+                className="w-full lg:w-[23rem] ml-20"
+                onSelect={() => {}}
+              />
 
-              </div>
-              <div className="flex w-full lg:w-auto">
-                <Modality 
-                  label="TODOS" 
-                  className="rounded-l-md" 
-                  active={selectedModality === "TODOS"} 
-                  onClick={() => handleModalityClick("TODOS")}
-                />
-                <Modality 
-                  label="ONLINE" 
-                  className=""
-                  active={selectedModality === "ONLINE"} 
-                  onClick={() => handleModalityClick("ONLINE")} 
+            </div>
+            <div className="flex w-full lg:w-auto">
+              <BorderButton
+                label="TODOS" 
+                className="rounded-l-md w-[7em] h-[3em]" 
+                active={selectedBorderButton=== "TODOS"} 
+                onClick={() => handleBorderButtonClick("TODOS")}
+              />
+              <BorderButton
+                label="ONLINE" 
+                className="w-[7em] h-[3em]"
+                active={selectedBorderButton=== "ONLINE"} 
+                onClick={() => handleBorderButtonClick("ONLINE")} 
 
-                />
-                <Modality 
-                  label="PRESENCIAL" 
-                  className="rounded-r-md" 
-                  active={selectedModality === "PRESENCIAL"} 
-                  onClick={() => handleModalityClick("PRESENCIAL")} 
-                />
+              />
+              <BorderButton
+                label="PRESENCIAL" 
+                className="rounded-r-md w-[7em] h-[3em]" 
+                active={selectedBorderButton=== "PRESENCIAL"} 
+                onClick={() => handleBorderButtonClick("PRESENCIAL")} 
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col w-full mt-5">
+            <Title title="Categorías y habilidades" className="sm:text-4xl lg:text-[55px] mt-11 tracking-tight" />
+            <div className="mt-11 w-full">
+              <Title title="Animales" />
+              <div className="flex flex-wrap gap-8 mt-10 w-full">
+                {profiles.slice(0, cardsToShow).map((profile, index) => (
+                  <Card key={index} profileData={profile} />
+                ))}
               </div>
             </div>
+          </div>
 
-            <div className="flex flex-col w-full mt-5">
-              <Title title="Categorías y habilidades" className="sm:text-4xl lg:text-[55px] mt-11 tracking-tight" />
-              <div className="mt-11 w-full">
-                <Title title="Animales" />
-                <div className="flex flex-wrap gap-8 mt-10 w-full">
-                  {profiles.slice(0, cardsToShow).map((profile, index) => (
-                    <Card key={index} profileData={profile} />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col">
-              <div className="mt-14">
-                <Title title="Tutorías" />
-                <div className="flex flex-wrap gap-8 mt-10 w-full">
-                  {profiles.slice(0, cardsToShow).map((profile, index) => (
-                    <Card key={index} profileData={profile} />
-                  ))}
-                </div>
+          <div className="flex flex-col">
+            <div className="mt-14">
+              <Title title="Tutorías" />
+              <div className="flex flex-wrap gap-8 mt-10 w-full">
+                {profiles.slice(0, cardsToShow).map((profile, index) => (
+                  <Card key={index} profileData={profile} />
+                ))}
               </div>
             </div>
           </div>
         </div>
-        <div className="flex justify-center items-center pt-12 pb-20">
-          <Pagination/>
-        </div>
-      </section>
-      <Footer />
-    </main>
+      </div>
+      <div className="flex justify-center items-center pt-12 pb-20">
+        <Pagination/>
+      </div>
+    </MainLayout>
   );
 }
 

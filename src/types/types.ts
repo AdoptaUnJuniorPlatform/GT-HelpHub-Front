@@ -27,6 +27,13 @@ export interface ButtonProps {
   className?: string; 
   disabled?: boolean; 
 }
+
+export interface CardBtnBorderProps {
+  onClick?: (id?: number) => void;
+  id?: number;
+  className: string;
+  label: string;
+};
 export interface Country {
   name: string;
   code: string;
@@ -46,13 +53,13 @@ export interface Menu {
   link: string;
   position: string;
   icon: JSX.Element;
-  onClick?: () => void; 
 }
-export interface ModalityProps {
+export interface BorderButtonProps {
   label: string;
   className: string;
   active: boolean;
   onClick: () => void;
+  variant?: 'home' | 'profile'
 }
 
 export interface CardHeaderProps {
@@ -81,6 +88,10 @@ export interface SkillsProps {
   skills: string[];
 }
 
+export interface InterestSkillsProps {
+  interestSkills: string[];
+}
+
 export interface ProfileData {
   id: number,
   photo: string;
@@ -90,10 +101,18 @@ export interface ProfileData {
   rating: number;
   reviewsCount: number;
   levels: Array<{ name: string; active: boolean }>;
-  reviews: Array<{ name: string; city: string; review: string; photo: string}>;
+  reviews: Array<{ 
+    name: string; 
+    city: string; 
+    review: string; 
+    givenSkill?: string; 
+    recivedSkill?: string; 
+    photo: string}
+  >;
   availability: string;
   description: string;
   skills: string[];
+  interestSkills?: string[];
 }
 
 export type PaginationProps = {
@@ -105,6 +124,7 @@ export interface SeeMoreProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
 export interface LoginFormData {
   email: string;
   password: string;
@@ -117,7 +137,6 @@ export interface RegisterFormData extends LoginFormData {
   showPhone: boolean;
   blockemailed: boolean;
 }
-
 export interface Notification {
   id: number;
   type: 'completed' | 'request'| 'rejectedExchange' | 'rejectedRequest' | 'accepted';
@@ -164,4 +183,26 @@ export interface CompletedProps {
   message: string;
   userImage: string;
   date: string;
+}
+
+export interface SecondayButtonProps {
+  label: string;
+}
+
+export interface Review {
+  name: string;
+  city: string;
+  review: string;
+  givenSkill?: string;
+  recivedSkill?: string;
+  photo: string;
+}
+
+export interface ReviewsCardProps {
+  review: Review
+  showSkills: boolean;
+}
+
+export interface MyReviewsProps {
+  reviews: Review[];
 }

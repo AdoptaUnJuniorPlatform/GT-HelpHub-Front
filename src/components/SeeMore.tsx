@@ -1,7 +1,7 @@
 import { CgClose } from "react-icons/cg";
 import { MdVerified } from "react-icons/md";
 import { ProfileData } from "../types/types";
-import CardBtnExchange from "./CardBtnExchange";
+import CardBtnExchange from "./CardBtnPrimary";
 
 function SeeMore({
   isOpen,
