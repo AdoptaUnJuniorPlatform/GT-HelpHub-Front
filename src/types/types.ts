@@ -129,14 +129,7 @@ export interface LoginFormData {
   email: string;
   password: string;
 }
-export interface RegisterFormData extends LoginFormData {
-  nameUser: string;
-  surnameUser: string;
-  phone: string;
-  optionCall: boolean;
-  showPhone: boolean;
-  blockemailed: boolean;
-}
+
 export interface Notification {
   id: number;
   type: 'completed' | 'request'| 'rejectedExchange' | 'rejectedRequest' | 'accepted';

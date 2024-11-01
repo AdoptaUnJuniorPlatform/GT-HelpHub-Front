@@ -10,25 +10,41 @@ import Title from "../components/Title"
 import UserInput from "../components/UserInput"
 import RegisterAside from "../components/RegisterAside"
 import useForm from "../hooks/useForm"
-import { RegisterFormData } from "../types/types"
 import { useNavigate } from 'react-router-dom';
+import { RegisterRequest } from "../types/AuthServiceTypes"
+import { registerUser } from "../services/AuthService"
+import axios from "axios"
 
 function Register() {
   const navigate = useNavigate();
+  const twoFaCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-
-  const sendData = (data: RegisterFormData) => {
-  
-    const phoneWithPrefix = data.phone ? `+34${data.phone}` : '';
-  
+  const sendData = async (data: RegisterRequest) => {
     const updatedData = {
       ...data,
-      phone: phoneWithPrefix,
+      phone: data.phone ? `+34${data.phone}` : '',
+      twoFa: twoFaCode,
+      role: 'user'
     };
-    console.log(updatedData);
 
-    navigate('/codigo-seguridad');
+    console.log(updatedData)
+  
+    try {
+      const response = await registerUser(updatedData);
+      console.log('Correo enviado:', response.message);
+
+      navigate('/codigo-seguridad');
+
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error('Error en la solicitud:', error.response?.data);
+      } else {
+        console.error('Error inesperado:', error);
+      }
+    }
   };
+
+  
 
   const { input, handleInputChange, handleSwitchChange, handleSubmit } = useForm(sendData, {
     email: '',
@@ -38,7 +54,9 @@ function Register() {
     phone: '',
     optionCall: false,
     showPhone: false,
-    blockemailed: false
+    blocked: false,
+    twoFa: '',
+    role: ''
   })
 
   return (
@@ -143,10 +161,10 @@ function Register() {
             <div className="w-full mt-8">
 
               <AgreementCheckbox 
-                id="blockemailed" 
+                id="blocked" 
                 type="checkbox" 
-                name="blockemailed"
-                checked={input.blockemailed}
+                name="blocked"
+                checked={input.blocked}
                 onChange={handleInputChange}
               />
 
