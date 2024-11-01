@@ -1,10 +1,53 @@
+import BackButton from "../components/BackButton";
+import CodeInput from "../components/CodeInput";
+import NextButton from "../components/NextButton";
+import ResendButton from "../components/ResendButton";
 import AuthLayout from "../layouts/AuthLayout";
 
 function Auth2Fa() {
   return (
     <AuthLayout>
       <p></p>
-      <p></p>
+      <>
+        <div className="max-w-[700px] w-full h-full flex flex-col justify-evenly mx-auto">
+          <div className="w-full">
+            <h1 className=" max-w-[650px] w-full text-4xl text-neutral-black font normal leading-normal">Introduce el código que hemos enviado a <span className="text-violeta-100">usuario@gmail.com</span></h1>
+            <p className="text-[20px] font-normal leading-normal text-neutral-black">Puede que tarde un minuto en recibir el correo. </p>
+          </div>
+          <div className="w-full -mt-20">
+            <span className="text-[14px] text-[#263238] font-medium leading-5">Código email</span>
+            <div className="flex gap-4">
+              <CodeInput />
+              <CodeInput />
+              <CodeInput />
+              <CodeInput />
+              <CodeInput />
+              <CodeInput />
+            </div>
+            <span className="text-sm font-normal leading normal tracking-wide text-black-80">Escribe aquí tu código (6 dígitos)</span>
+          </div>
+
+          <div className="flex flex-col gap-8 mb-16 -mt-16">
+            <div className="flex gap-10 pb-3">
+              <p className="text-[14px] font-medium leading-normal text-black-80">¿Aún no recibes el código?</p>
+              <ResendButton /> 
+            </div>
+            <div className="w-full py-5 px-[14px] gap-3 self rounded-lg bg-[#EEF1FF]">
+              <p className="text-violeta-100 text-base font-normal leading-normal tracking-wide">
+                Puedes configurar en cualquier momento a través de 
+                <span> Perfil &gt; Editar perfil</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-evenly w-full">
+          <BackButton
+            onClick={() => {} } />
+          <NextButton
+            onClick={() => {}}
+          />
+        </div>
+      </>
     </AuthLayout>
   )
 }

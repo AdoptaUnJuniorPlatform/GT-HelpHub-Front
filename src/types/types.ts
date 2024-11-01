@@ -1,7 +1,7 @@
 import { ChangeEvent, ReactNode } from "react";
 export interface Input {
   id?:string;
-  type?: 'text'| 'password' | 'email' | 'checkbox' | 'tel';
+  type?: 'text'| 'password' | 'email' | 'checkbox' | 'tel' | 'number';
   title?: string;
   placeholder?: string;
   name?: string;
@@ -209,4 +209,8 @@ export interface MyReviewsProps {
 
 export interface AuthLayoutProps {
   children: [ReactNode, ReactNode];
+}
+export interface NextButtonProps {
+  onClick: () => void;
+  disabled?: boolean;
 }
