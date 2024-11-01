@@ -1,21 +1,23 @@
+// src/types/RegistrationFormData.ts
 
-export interface RegistrationFormData {
-
+export interface ProfileData {
   description?: string;
   location?: string;
-  
-  photo?: File;
-  
-  availableDays?: string[]; // Días disponibles seleccionados
-  availableTimes?: string[]; // Horarios disponibles seleccionados
-
-  offerTitle?: string;
-  level?: string;
-  modality?: string;
-  offerDescription?: string;
-  
-  categories?: string[]; // Varias categorías seleccionables
-  
-  verificationCode?: string;
+  profilePicture?: File;
+  preferredTimeRange?: string;
+  selectedDays?: string[];
+  interestedSkills?: string[];
 }
-  
+
+export interface HabilityData {
+  title?: string;
+  level?: string;
+  mode?: string;
+  description?: string;
+  category?: string;
+}
+
+export interface RegistrationFormData {
+  profileData: ProfileData;
+  habilityData: HabilityData;
+}
