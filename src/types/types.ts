@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, ReactNode } from "react";
 export interface Input {
   id?:string;
   type?: 'text'| 'password' | 'email' | 'checkbox' | 'tel';
@@ -205,4 +205,8 @@ export interface ReviewsCardProps {
 
 export interface MyReviewsProps {
   reviews: Review[];
+}
+
+export interface AuthLayoutProps {
+  children: [ReactNode, ReactNode];
 }

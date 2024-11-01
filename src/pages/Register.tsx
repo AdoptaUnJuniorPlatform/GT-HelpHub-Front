@@ -27,7 +27,7 @@ function Register() {
     };
     console.log(updatedData);
 
-    navigate('/register/personal-data');
+    navigate('/codigo-seguridad');
   };
 
   const { input, handleInputChange, handleSwitchChange, handleSubmit } = useForm(sendData, {
