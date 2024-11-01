@@ -203,7 +203,8 @@ export interface MyReviewsProps {
 export interface AuthLayoutProps {
   children: [ReactNode, ReactNode];
 }
-export interface NextButtonProps {
+export interface BackNextButtonProps {
+  type?: 'submit'
   onClick: () => void;
   disabled?: boolean;
 }

@@ -1,6 +1,6 @@
-import { NextButtonProps } from "../types/types"
+import { BackNextButtonProps } from "../types/types"
 
-function BackButton({onClick, disabled = false}: NextButtonProps) {
+function BackButton({onClick, disabled = false}: BackNextButtonProps) {
   return (
     <button
       onClick={onClick}
