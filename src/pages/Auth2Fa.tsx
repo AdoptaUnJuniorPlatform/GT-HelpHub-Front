@@ -6,6 +6,7 @@ import { useRegisterContext } from "../context/AuthContext";
 import useCode from "../hooks/useCode";
 import useForm from "../hooks/useForm";
 import AuthLayout from "../layouts/AuthLayout";
+import { registerUser } from "../services/AuthService";
 
 function Auth2Fa() {
   const { registerData, setRegisterData } = useRegisterContext();
@@ -26,14 +27,23 @@ function Auth2Fa() {
     Array(6).fill("")
   );
 
-  const handleResendCode = () => {
+  const handleResendCode = async () => {
     if (registerData) {
-      setRegisterData({
+      const updatedData = ({
         ...registerData,
         twoFa: newTwoFaCode,
       });
-      console.log("Nuevo código enviado:", newTwoFaCode);
-      console.log("Nueva Data", registerData)
+
+      setRegisterData(updatedData);
+
+      try {
+        await registerUser(updatedData);
+        console.log("Nuevo código enviado:", newTwoFaCode);
+        console.log("Nueva Data", updatedData)
+
+      } catch(error) {
+        console.error("Error al reenviar el codigo:", error);
+      } 
     } else {
       console.error("Error: registerData no está inicializado");
     }
