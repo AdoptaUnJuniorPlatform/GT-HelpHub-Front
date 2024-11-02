@@ -54,7 +54,9 @@ function Auth2Fa() {
           <div className="flex flex-col gap-8 mb-16 -mt-16">
             <div className="flex gap-10 pb-3">
               <p className="text-[14px] font-medium leading-normal text-black-80">¿Aún no recibes el código?</p>
-              <ResendButton /> 
+              <ResendButton 
+                type= "button"
+              /> 
             </div>
             <div className="w-full py-5 px-[14px] gap-3 self rounded-lg bg-[#EEF1FF]">
               <p className="text-violeta-100 text-base font-normal leading-normal tracking-wide">
