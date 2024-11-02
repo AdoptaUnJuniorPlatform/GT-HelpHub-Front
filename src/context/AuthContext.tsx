@@ -1,47 +1,34 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
-import { RegisterRequest } from '../types/AuthServiceTypes';
-
-// interface RegisterData {
-//   email: string;
-//   password: string;
-//   nameUser: string;
-//   surnameUser: string;
-//   phone: string;
-//   optionCall: boolean;
-//   showPhone: boolean;
-//   blocked: boolean;
-//   twoFa: string;
-//   role: string;
-// }
-
-interface RegisterContextProps {
-  registerData: RegisterRequest | null;
-  setRegisterData: (data: RegisterRequest) => void;
-  clearData: () => void;
-}
+import { AuthContextProps, RegisterRequest } from '../types/AuthServiceTypes';
   
-const RegisterContext = createContext<RegisterContextProps | undefined>(undefined);
+const AuthContext = createContext<AuthContextProps | undefined>(undefined);
   
-function RegisterProvider({ children }: { children: ReactNode }) {
+function AuthProvider({ children }: { children: ReactNode }) {
+  const [token, setToken] = useState<string | null>(null);
   const [registerData, setRegisterData] = useState<RegisterRequest | null>(null);
   
   function clearData() {
     setRegisterData(null);
   }
+
+  function clearToken() {
+    setToken(null);
+    // localStorage.removeItem('token');
+  }
   
   return (
-    <RegisterContext.Provider value={{ registerData, setRegisterData, clearData }}>
+    <AuthContext.Provider value={{token, setToken, clearToken, registerData, setRegisterData, clearData }}>
       {children}
-    </RegisterContext.Provider>
+    </AuthContext.Provider>
   );
 }
   
-function useRegisterContext() {
-  const context = useContext(RegisterContext);
+function useAuthContext() {
+  const context = useContext(AuthContext);
   if (!context) {
     throw new Error('useRegisterContext debe ser usado dentro de un RegisterProvider');
   }
   return context;
 }
   
-export { RegisterProvider, useRegisterContext };
+export { AuthProvider, useAuthContext };

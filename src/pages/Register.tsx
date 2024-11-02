@@ -14,12 +14,12 @@ import { useNavigate } from 'react-router-dom';
 import { RegisterRequest } from "../types/AuthServiceTypes"
 import { registerUserMail } from "../services/AuthService"
 import axios from "axios"
-import { useRegisterContext } from "../context/AuthContext"
+import { useAuthContext } from "../context/AuthContext"
 import useCode from "../hooks/useCode"
 
 function Register() {
   const navigate = useNavigate();
-  const { setRegisterData } = useRegisterContext();
+  const { setRegisterData } = useAuthContext();
   const {twoFaCode} = useCode();
 
   const sendData = async (data: RegisterRequest) => {

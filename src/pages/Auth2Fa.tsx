@@ -3,7 +3,7 @@ import BackButton from "../components/BackButton";
 import CodeInput from "../components/CodeInput";
 import NextButton from "../components/NextButton";
 import ResendButton from "../components/ResendButton";
-import { useRegisterContext } from "../context/AuthContext";
+import { useAuthContext } from "../context/AuthContext";
 import useCode from "../hooks/useCode";
 import useForm from "../hooks/useForm";
 import AuthLayout from "../layouts/AuthLayout";
@@ -11,7 +11,7 @@ import { registerUser, registerUserMail } from "../services/AuthService";
 import { RegisterRequest } from "../types/AuthServiceTypes";
 
 function Auth2Fa() {
-  const { registerData, setRegisterData } = useRegisterContext();
+  const { registerData, setRegisterData } = useAuthContext();
   const { twoFaCode: newTwoFaCode } = useCode();
   const twoFaCode = registerData?.twoFa;
   const navigate = useNavigate();

@@ -125,11 +125,6 @@ export interface SeeMoreProps {
   onClose: () => void;
 }
 
-export interface LoginFormData {
-  email: string;
-  password: string;
-}
-
 export interface Notification {
   id: number;
   type: 'completed' | 'request'| 'rejectedExchange' | 'rejectedRequest' | 'accepted';
