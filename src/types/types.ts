@@ -1,7 +1,7 @@
 import { ChangeEvent, ReactNode } from "react";
 export interface Input {
   id?:string;
-  type?: 'text'| 'password' | 'email' | 'checkbox' | 'tel' | 'number';
+  type?: 'text'| 'password' | 'email' | 'checkbox' | 'tel' | 'number' | 'button';
   title?: string;
   placeholder?: string;
   name?: string;
@@ -204,7 +204,7 @@ export interface AuthLayoutProps {
   children: [ReactNode, ReactNode];
 }
 export interface BackNextButtonProps {
-  type?: 'submit'
+  type?: 'submit' | 'button'
   onClick: () => void;
   disabled?: boolean;
 }

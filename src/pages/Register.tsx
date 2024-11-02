@@ -14,9 +14,11 @@ import { useNavigate } from 'react-router-dom';
 import { RegisterRequest } from "../types/AuthServiceTypes"
 import { registerUser } from "../services/AuthService"
 import axios from "axios"
+import { useRegisterContext } from "../context/AuthContext"
 
 function Register() {
   const navigate = useNavigate();
+  const { setRegisterData } = useRegisterContext();
   const twoFaCode = Math.floor(100000 + Math.random() * 900000).toString();
 
   const sendData = async (data: RegisterRequest) => {
@@ -28,6 +30,9 @@ function Register() {
     };
 
     console.log(updatedData)
+    setRegisterData(updatedData);
+
+    console.log('Estado guardado:', updatedData);
   
     try {
       const response = await registerUser(updatedData);

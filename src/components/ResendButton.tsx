@@ -4,6 +4,7 @@ function ResendButton() {
   return (
     <button
     // onClick={onClick}
+      type='button'
       className="flex items-center text-celeste-100 text-sm font-semibold leading-4 "
     >
       REENVIAR CÓDIGO

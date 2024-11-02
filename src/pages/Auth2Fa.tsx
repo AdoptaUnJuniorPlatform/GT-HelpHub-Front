@@ -2,14 +2,24 @@ import BackButton from "../components/BackButton";
 import CodeInput from "../components/CodeInput";
 import NextButton from "../components/NextButton";
 import ResendButton from "../components/ResendButton";
+import { useRegisterContext } from "../context/AuthContext";
 import useForm from "../hooks/useForm";
 import AuthLayout from "../layouts/AuthLayout";
 
 function Auth2Fa() {
+  const { registerData } = useRegisterContext(); // Accede a los datos de registro
+  const twoFaCode = registerData?.twoFa; // Obtiene el código 2FA del contexto
+  
   const { input: code, handleInputChange, handleSubmit } = useForm(
     (input) => {
       const codeString = (input as string[]).join("");
       console.log("Código ingresado:", codeString);
+
+      if (codeString === twoFaCode) {
+        console.log("Codigo correcto,  procediendo con la autenticación...");
+      } else {
+        console.error("Codio incorrecto, intenta de nuevo.")
+      }
     },
     Array(6).fill("")
   );
@@ -56,6 +66,7 @@ function Auth2Fa() {
         </div>
         <div className="flex justify-evenly w-full">
           <BackButton
+            type="button"
             onClick={() => {} } />
           <NextButton
             type="submit"
@@ -68,3 +79,4 @@ function Auth2Fa() {
 }
 
 export default Auth2Fa
+
