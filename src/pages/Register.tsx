@@ -15,11 +15,12 @@ import { RegisterRequest } from "../types/AuthServiceTypes"
 import { registerUser } from "../services/AuthService"
 import axios from "axios"
 import { useRegisterContext } from "../context/AuthContext"
+import useCode from "../hooks/useCode"
 
 function Register() {
   const navigate = useNavigate();
   const { setRegisterData } = useRegisterContext();
-  const twoFaCode = Math.floor(100000 + Math.random() * 900000).toString();
+  const {twoFaCode} = useCode();
 
   const sendData = async (data: RegisterRequest) => {
     const updatedData = {
