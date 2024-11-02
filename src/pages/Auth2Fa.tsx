@@ -3,16 +3,18 @@ import CodeInput from "../components/CodeInput";
 import NextButton from "../components/NextButton";
 import ResendButton from "../components/ResendButton";
 import { useRegisterContext } from "../context/AuthContext";
+import useCode from "../hooks/useCode";
 import useForm from "../hooks/useForm";
 import AuthLayout from "../layouts/AuthLayout";
 
 function Auth2Fa() {
-  const { registerData } = useRegisterContext(); // Accede a los datos de registro
-  const twoFaCode = registerData?.twoFa; // Obtiene el código 2FA del contexto
+  const { registerData, setRegisterData } = useRegisterContext();
+  const { twoFaCode: newTwoFaCode } = useCode();
+  const twoFaCode = registerData?.twoFa;
   
   const { input: code, handleInputChange, handleSubmit } = useForm(
     (input) => {
-      const codeString = (input as string[]).join("");
+      const codeString = input.join("");
       console.log("Código ingresado:", codeString);
 
       if (codeString === twoFaCode) {
@@ -23,6 +25,20 @@ function Auth2Fa() {
     },
     Array(6).fill("")
   );
+
+  const handleResendCode = () => {
+    if (registerData) {
+      setRegisterData({
+        ...registerData,
+        twoFa: newTwoFaCode,
+      });
+      console.log("Nuevo código enviado:", newTwoFaCode);
+      console.log("Nueva Data", registerData)
+    } else {
+      console.error("Error: registerData no está inicializado");
+    }
+  };
+
   return (
     <AuthLayout>
       <p></p>
@@ -56,6 +72,7 @@ function Auth2Fa() {
               <p className="text-[14px] font-medium leading-normal text-black-80">¿Aún no recibes el código?</p>
               <ResendButton 
                 type= "button"
+                onClick={handleResendCode}
               /> 
             </div>
             <div className="w-full py-5 px-[14px] gap-3 self rounded-lg bg-[#EEF1FF]">

@@ -1,10 +1,10 @@
 import { FaChevronRight } from "react-icons/fa"
 
-function ResendButton( {type} : { type: 'button'}) {
+function ResendButton( {type, onClick} : { type: 'button', onClick: () => void}) {
   return (
     <button
-    // onClick={onClick}
       type={type}
+      onClick={onClick}
       className="flex items-center text-celeste-100 text-sm font-semibold leading-4 "
     >
       REENVIAR CÓDIGO
