@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import CodeInput from "../components/CodeInput";
 import NextButton from "../components/NextButton";
@@ -6,20 +7,38 @@ import { useRegisterContext } from "../context/AuthContext";
 import useCode from "../hooks/useCode";
 import useForm from "../hooks/useForm";
 import AuthLayout from "../layouts/AuthLayout";
-import { registerUser } from "../services/AuthService";
+import { registerUser, registerUserMail } from "../services/AuthService";
+import { RegisterRequest } from "../types/AuthServiceTypes";
 
 function Auth2Fa() {
   const { registerData, setRegisterData } = useRegisterContext();
   const { twoFaCode: newTwoFaCode } = useCode();
   const twoFaCode = registerData?.twoFa;
+  const navigate = useNavigate();
   
   const { input: code, handleInputChange, handleSubmit } = useForm(
-    (input) => {
+    async (input) => {
       const codeString = input.join("");
       console.log("Código ingresado:", codeString);
 
       if (codeString === twoFaCode) {
         console.log("Codigo correcto,  procediendo con la autenticación...");
+
+        if (registerData) {
+          const dataToSend: RegisterRequest = {
+            ...registerData,
+            twoFa: codeString,
+            role: 'user',
+          };
+
+          try {
+            await registerUser(dataToSend);
+            console.log("Registroexitoso:", dataToSend);
+            navigate('/')
+          } catch (error) {
+            console.error("Error al registrar:", error);
+          }
+        }
       } else {
         console.error("Codio incorrecto, intenta de nuevo.")
       }
@@ -37,7 +56,7 @@ function Auth2Fa() {
       setRegisterData(updatedData);
 
       try {
-        await registerUser(updatedData);
+        await registerUserMail(updatedData);
         console.log("Nuevo código enviado:", newTwoFaCode);
         console.log("Nueva Data", updatedData)
 

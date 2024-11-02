@@ -12,7 +12,7 @@ import RegisterAside from "../components/RegisterAside"
 import useForm from "../hooks/useForm"
 import { useNavigate } from 'react-router-dom';
 import { RegisterRequest } from "../types/AuthServiceTypes"
-import { registerUser } from "../services/AuthService"
+import { registerUserMail } from "../services/AuthService"
 import axios from "axios"
 import { useRegisterContext } from "../context/AuthContext"
 import useCode from "../hooks/useCode"
@@ -36,7 +36,7 @@ function Register() {
     console.log('Estado guardado:', updatedData);
   
     try {
-      const response = await registerUser(updatedData);
+      const response = await registerUserMail(updatedData);
       console.log('Correo enviado:', response.message);
 
       navigate('/codigo-seguridad');
