@@ -26,9 +26,9 @@ const RightColumn: React.FC<RightColumnProps> = ({ onBackClick, onNextClick, ste
         </h1>
 
         {/* Descripción del Paso */}
-        <p className="absolute top-[160px] left-[116px] text-[#434242] text-2xl font-normal font-['Roboto']">
+        <div className="absolute top-[160px] left-[116px] text-[#434242] text-2xl font-normal font-['Roboto']">
           {stepDescription}
-        </p>
+        </div>
 
         {/* Aquí renderizamos el contenido dinámico de cada paso */}
         <div className="absolute w-full top-[120px] left-[116px] mb-10 px-10">{children}</div>
