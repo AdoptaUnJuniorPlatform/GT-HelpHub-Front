@@ -9,6 +9,8 @@ import useForm from "../hooks/useForm";
 import AuthLayout from "../layouts/AuthLayout";
 import { loginUserMail, registerUser, registerUserMail } from "../services/AuthService";
 import { RegisterRequest } from "../types/AuthServiceTypes";
+import Logo from "../components/Logo";
+import { FaRegCircleCheck } from "react-icons/fa6";
 
 function Auth2Fa() {
   const { registerData, setRegisterData, isLoggedIn, loginData, token } = useAuthContext();
@@ -62,7 +64,8 @@ function Auth2Fa() {
           }
         }
       } else {
-        console.error("Codio incorrecto, intenta de nuevo.")
+        console.error("Codigo incorrecto, intenta de nuevo.")
+        alert("Codigo incorrecto. Por favor, intenta de nuevo.");
         navigate('/')
       }
     },
@@ -108,14 +111,34 @@ function Auth2Fa() {
 
   return (
     <AuthLayout>
-      <p></p>
+      <div className="flex flex-col w-9/12 h-[58.5rem] items-center justify-center gap-10 -mt-20">
+        <div className="flex flex-col justify-center items-start w-full pl-7">
+          <Logo 
+            showInitial={false}
+            className="w-60 h-24"
+          />
+        </div>
+        <div className="flex flex-col justify-center items-start gap-9">
+          <h1 className="text-5xl font-notmal leadind-normal text-violeta-100 mt-10">Protege tu cuenta</h1>
+          <h2 className="text-[34px] font-normal leading-normal max-w-[400px]">Autenticación en dos factores (2FA)</h2>
+          <div className="flex items-center gap-2 max-w-[360px]">
+            <span><FaRegCircleCheck className="fill-celeste-100"/></span>
+            <h3 className="text-xl font-medium leading-normal text-black-80">Agregue acceso a la cuenta seguro y protegido</h3>
+          </div>
+          <div className="flex items-center gap-2 max-w-[360px]">
+            <span><FaRegCircleCheck className="fill-celeste-100"/></span>
+            <h3 className="text-xl font-medium leading-normal text-black-80">Reduce el riesgo de inicio de sesión no autorizada en las cuentas</h3>
+          </div>
+        </div>
+
+      </div>
       <form 
         onSubmit={handleSubmit}
         className="flex flex-col h-full"
       >
-        <div className="max-w-[700px] w-full h-full flex flex-col justify-evenly mx-auto">
+        <div className=" w-full h-full flex flex-col justify-evenly mx-auto">
           <div className="w-full">
-            <h1 className=" max-w-[650px] w-full text-4xl text-neutral-black font normal leading-normal">Introduce el código que hemos enviado a <span className="text-violeta-100">usuario@gmail.com</span></h1>
+            <h1 className="w-full text-4xl text-neutral-black font normal leading-normal">Introduce el código que hemos enviado a <span className="text-violeta-100">usuario@gmail.com</span></h1>
             <p className="text-[20px] font-normal leading-normal text-neutral-black">Puede que tarde un minuto en recibir el correo. </p>
           </div>
           <div className="w-full -mt-20">
@@ -142,7 +165,7 @@ function Auth2Fa() {
                 onClick={handleResendCode}
               /> 
             </div>
-            <div className="w-full py-5 px-[14px] gap-3 self rounded-lg bg-[#EEF1FF]">
+            <div className=" w-full py-5 px-[14px] gap-3 self rounded-lg bg-[#EEF1FF]">
               <p className="text-violeta-100 text-base font-normal leading-normal tracking-wide">
                 Puedes configurar en cualquier momento a través de 
                 <span> Perfil &gt; Editar perfil</span>

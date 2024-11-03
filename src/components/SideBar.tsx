@@ -98,7 +98,7 @@ function SideBar() {
         >
           <Logo
             showInitial={!open}
-            className={`transition-all delay-700 ease-in-out transform ${
+            className={`w-full h-full transition-all delay-700 ease-in-out transform ${
               open ? 'scale-100 opacity-100' : 'scale-50 opacity-100'
             }`}
           />
