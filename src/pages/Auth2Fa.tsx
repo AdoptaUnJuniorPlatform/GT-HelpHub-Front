@@ -7,13 +7,12 @@ import { useAuthContext } from "../context/AuthContext";
 import useCode from "../hooks/useCode";
 import useForm from "../hooks/useForm";
 import AuthLayout from "../layouts/AuthLayout";
-import { registerUser, registerUserMail } from "../services/AuthService";
+import { loginUserMail, registerUser, registerUserMail } from "../services/AuthService";
 import { RegisterRequest } from "../types/AuthServiceTypes";
 
 function Auth2Fa() {
-  const { registerData, setRegisterData } = useAuthContext();
+  const { registerData, setRegisterData, isLoggedIn, loginData, token } = useAuthContext();
   const { twoFaCode: newTwoFaCode } = useCode();
-  const twoFaCode = registerData?.twoFa;
   const navigate = useNavigate();
   
   const { input: code, handleInputChange, handleSubmit } = useForm(
@@ -21,7 +20,16 @@ function Auth2Fa() {
       const codeString = input.join("");
       console.log("Código ingresado:", codeString);
 
-      if (codeString === twoFaCode) {
+      const expectedCode = registerData ? registerData?.twoFa : loginData?.twoFa;
+      
+      if (!expectedCode) {
+        console.error("No se pudo obtener el código 2FA.");
+        alert("Hubo un problema al intentar validar el código. Intenta de nuevo.");
+        navigate('/');
+        return;
+      }
+
+      if (codeString === expectedCode) {
         console.log("Codigo correcto,  procediendo con la autenticación...");
 
         if (registerData) {
@@ -35,12 +43,27 @@ function Auth2Fa() {
             await registerUser(dataToSend);
             console.log("Registroexitoso:", dataToSend);
             navigate('/')
+
           } catch (error) {
             console.error("Error al registrar:", error);
+            alert("Hubo un problema durante el registro. Por favor, intenta de nuevo.");
+          }
+        } else {
+          
+          console.log("Loginexitoso: autenticacion completada.");
+
+          if(token) {
+            localStorage.setItem('token', token);
+            if (isLoggedIn) {
+              navigate('/home')
+            }
+          } else {
+            navigate('/personal-data')
           }
         }
       } else {
         console.error("Codio incorrecto, intenta de nuevo.")
+        navigate('/')
       }
     },
     Array(6).fill("")
@@ -62,9 +85,24 @@ function Auth2Fa() {
 
       } catch(error) {
         console.error("Error al reenviar el codigo:", error);
+        alert("Hubo un problema al reenviar el código. Por favor, intenta de nuevo.");
       } 
     } else {
-      console.error("Error: registerData no está inicializado");
+      const email = loginData?.email;
+      const twoFaCode = newTwoFaCode;
+
+      if (email) {
+        try {
+          await loginUserMail({ email, twoFa: twoFaCode });
+          console.log("Nuevo código 2FA enviado para login:", twoFaCode);
+          alert("Código para el login reenviado al correo proporcionado.");
+        } catch (error) {
+          console.error("Error al reenviar el codigo para login:", error);
+        }
+      } else {
+        console.error("Error: No se encontró el email para reenviar el código.");
+        alert("No se pudo reenviar el código porque no se encontró un correo electrónico. Por favor, intenta de nuevo.");
+      }
     }
   };
 

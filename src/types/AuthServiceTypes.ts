@@ -19,7 +19,7 @@ export interface AuthResponse {
 
 export interface LoginMailRequest {
   email: string;
-  twoFa: string;
+  twoFa: string ;
 }
 export interface LoginRequest {
   email: string;
@@ -32,4 +32,7 @@ export interface AuthContextProps {
   setRegisterData: (data: RegisterRequest) => void;
   clearData: () => void;
   clearToken: () => void;
+  isLoggedIn: boolean;
+  loginData: LoginMailRequest | null;
+  setLoginData: (data: LoginMailRequest | null) => void
 }

@@ -97,7 +97,7 @@ function Register() {
                 <RegisterName 
                   id="surnameUser"
                   title="Apellidos" 
-                  placeholder="Apellidos" 
+                  placeholder="Apellido 1" 
                   name="surnameUser"
                   value={input.surnameUser}
                   onChange={handleInputChange}

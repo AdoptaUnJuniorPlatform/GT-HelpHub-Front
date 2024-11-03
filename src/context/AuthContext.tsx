@@ -1,11 +1,14 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
-import { AuthContextProps, RegisterRequest } from '../types/AuthServiceTypes';
+import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
+import { AuthContextProps, LoginMailRequest, RegisterRequest } from '../types/AuthServiceTypes';
   
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
   
 function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [registerData, setRegisterData] = useState<RegisterRequest | null>(null);
+  const [loginData, setLoginData] = useState<LoginMailRequest | null>(null);
+  
+  const isLoggedIn = useMemo(() => !!token, [token]);
   
   function clearData() {
     setRegisterData(null);
@@ -13,11 +16,22 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
   function clearToken() {
     setToken(null);
-    // localStorage.removeItem('token');
+    localStorage.removeItem('token');
   }
   
   return (
-    <AuthContext.Provider value={{token, setToken, clearToken, registerData, setRegisterData, clearData }}>
+    <AuthContext.Provider value={{
+      token, 
+      setToken, 
+      clearToken, 
+      registerData, 
+      setRegisterData, 
+      clearData,
+      isLoggedIn,
+      loginData,
+      setLoginData 
+    }}
+    >
       {children}
     </AuthContext.Provider>
   );

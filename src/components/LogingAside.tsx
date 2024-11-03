@@ -10,10 +10,11 @@ import { useAuthContext } from "../context/AuthContext"
 import { loginUser, loginUserMail } from "../services/AuthService"
 import useCode from "../hooks/useCode"
 import axios from "axios"
+import { useEffect } from "react"
 
 function LogingAside() {
   const navigate = useNavigate();
-  const { setToken } = useAuthContext();
+  const { setToken, token,  setLoginData, loginData } = useAuthContext();
   const { twoFaCode } = useCode();
 
   const sendData = async (data: LoginRequest) => {
@@ -21,17 +22,17 @@ function LogingAside() {
       const response = await loginUser(data);
 
       if (response.access_token) {
-        const token = response.access_token;
+        setLoginData({ email: data.email, twoFa: twoFaCode });
+        const loginToken = response.access_token;
         await loginUserMail ({ email: data.email, twoFa: twoFaCode });
 
-        setToken(token);
-        console.log(data)
-        console.log('Token guardado en el contexto:', token);
-        console.log('Código 2FA:', twoFaCode);
+        setToken(loginToken);
+        console.log('Código enviado por correo:', twoFaCode);
         navigate('/codigo-seguridad')
 
       } else {
-        alert(response.message || 'Error desconocido');
+        alert('Credenciales incorrectas. Por favor, verifica tu email y contraseña.');
+        navigate('/'); 
       } 
     }catch (error) {
       if (axios.isAxiosError(error)) {
@@ -46,6 +47,19 @@ function LogingAside() {
       }
     }
   };
+
+  useEffect(() => {
+    if (loginData) {
+      console.log('Data del login guardada en el contexto', loginData);
+    }
+  }, [loginData]);
+
+
+  useEffect(() => {
+
+    console.log('Token guardado en el contexto:', token);
+
+  }, [token]);
 
   const { input, handleInputChange, handleSubmit } = useForm(sendData, {
     email: '',
