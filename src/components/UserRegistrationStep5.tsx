@@ -1,19 +1,36 @@
 import  React from  'react';
 import Layout from './Layout';
 import Categories from './Categories';
+import { RegistrationFormData } from '../types/RegistrationFormData';
 
 interface UserRegistrationStep5Props{
   onBackClick: () => void;
   onNextClick: () => void;
   steps: string[];
-  currentStep: number;  
+  currentStep: number;
+  registrationData: RegistrationFormData;
+  updateRegistrationData: (data: Partial<RegistrationFormData>) => void;
 }
     
 const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({ 
   onBackClick,
   onNextClick,
   steps,
-  currentStep, }) => {
+  currentStep,
+  registrationData,
+  updateRegistrationData,
+}) => {
+
+  // Función para manejar la selección de categorías
+  const handleCategorySelect = (selectedCategories: string[]) => {
+    // Actualizar `interestedSkills` dentro de `profileData`
+    updateRegistrationData({
+      profileData: {
+        ...registrationData.profileData,
+        interestedSkills: selectedCategories,
+      },
+    });
+  };
     
   return(
     <Layout
@@ -38,7 +55,10 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
 
       {/* Contenedor de categorías */}
       <div className="relative left-[-40px] top-[120px]">
-        <Categories />
+        <Categories
+          selectedCategories={registrationData.profileData?.interestedSkills || []}
+          onSelectCategories={handleCategorySelect}
+        />
       </div>
 
 

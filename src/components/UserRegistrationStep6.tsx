@@ -1,20 +1,24 @@
 import  React, { useState} from  'react';
 import Layout from './Layout';
 import SuccessModal from './SuccesModal';
+import { RegistrationFormData } from '../types/RegistrationFormData';
+import { createProfile, createHability } from '../services/apiClient';
 
 interface UserRegistrationStep6Props{
   onBackClick: () => void;
   onNextClick: () => void;
   steps: string[];
-  currentStep: number;  
+  currentStep: number;
+  registrationData: RegistrationFormData;
 }
     
 const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({ 
   onBackClick,
   onNextClick,
   steps,
-  currentStep, }) => {
-
+  currentStep,
+  registrationData,
+}) => {
   const [verificationCode, setVerificationCode] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false); 
@@ -22,10 +26,8 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
 
   const handleResendCode = () => {
     setIsSending(true);
-    // Simulamos una espera de envío; esto se reemplazará por la llamada real al backend.
     setTimeout(() => {
-      setIsSending(false); // Volver a habilitar el botón una vez "enviado"
-      // Aquí va la lógica de conexión con el backend para reenviar el código
+      setIsSending(false); 
     }, 2000);
   };
 
@@ -34,13 +36,31 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
   };
 
   // Función para simular la verificación exitosa y mostrar el modal
-  const handleVerificationSuccess = () => {
-    setIsModalVisible(true); // Muestra el modal al completar la verificación
+  {/*const handleVerificationSuccess = () => {
+    setIsModalVisible(true); 
+  };*/}
+
+  // Función para enviar los datos finales para pruebas
+  const handleVerificationSuccess = async () => {
+    if (verificationCode === 'ABC123') {
+      try {
+        // Simulación de envío de datos finales al backend
+        await createProfile(registrationData.profileData);
+        await createHability(registrationData.habilityData);
+
+        setIsModalVisible(true); // Muestra el modal al completar la verificación
+      } catch (error) {
+        console.error('Error al enviar los datos:', error);
+      }
+    } else {
+      alert('Código de verificación incorrecto. Prueba con "ABC123" para simular el éxito.');
+    }
   };
 
+
   const closeModal = () => {
-    setIsModalVisible(false); // Cierra el modal
-    onNextClick(); // Avanza al siguiente paso o realiza la acción deseada
+    setIsModalVisible(false); 
+    onNextClick(); 
   };
 
   const UserEmail = () => (
@@ -126,6 +146,7 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
           onClose={closeModal}
         />
       )}
+
     </>
   )};
 

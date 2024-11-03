@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import Layout from './Layout'; 
+import { RegistrationFormData } from '../types/RegistrationFormData';
+
 
 interface UserRegistrationStep1Props {
   onBackClick: () => void;
   onNextClick: () => void;
   steps: string[];
   currentStep: number;
+  registrationData: RegistrationFormData;
+  updateRegistrationData: (data: Partial<RegistrationFormData>) => void;
 }
 
 const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
@@ -13,26 +17,32 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
   onNextClick,
   steps,
   currentStep,
+  registrationData,
+  updateRegistrationData,
 }) => {
 
-  const [text, setText] = useState<string>('');
-  const [postalCode, setPostalCode] = useState<string>('');
   const [postalCodeError, setPostalCodeError] = useState<boolean>(false);
   
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
+    updateRegistrationData({
+      profileData: {
+        ...registrationData.profileData,
+        description: e.target.value,
+      },
+    });
   };
 
   const handlePostalCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9]/g, ''); // Filtrar solo números
-    setPostalCode(value); // Actualizamos el valor con solo números
-    // Validar si el código postal tiene exactamente 5 dígitos
-    if (value.length === 5) {
-      setPostalCodeError(false); // No hay error si tiene 5 dígitos
-    } else {
-      setPostalCodeError(true); // Error si tiene menos o más de 5 dígitos
-    }
+    const value = e.target.value.replace(/[^0-9]/g, '');
+    updateRegistrationData({
+      profileData: {
+        ...registrationData.profileData,
+        location: value,
+      },
+    });
+    setPostalCodeError(value.length !== 5);
   };
+
 
   return (
     <Layout
@@ -60,12 +70,13 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
           placeholder="Por Ej: Soy una joven estudiante de enfermería, tengo 22 años vivo en Madrid con unas amigas. Soy una apasionada por la música, y que desea aprender a tocar el piano."
           maxLength={255}
           style={{ border: 'none', outline: 'none' }}
+          value={registrationData.profileData.description || ''}
           onChange={handleTextareaChange}
         />
 
         {/* Contador de caracteres */}
         <div className="absolute right-[15px] bottom-[10px] text-[#b7b7b7] text-base font-normal">
-          {text.length}/255
+          {(registrationData.profileData.description?.length || 0)}/255
         </div>
       </div>
 
@@ -79,7 +90,7 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
           inputMode="numeric"
           pattern="[0-9]*"
           placeholder="Código postal (CP)"
-          value={postalCode}
+          value={registrationData.profileData.location || ''}
           onChange={handlePostalCodeChange}
           maxLength={5}
         />

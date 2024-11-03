@@ -1,13 +1,25 @@
 import axiosConfig from './axiosConfig';
-import { RegistrationFormData } from '../types/RegistrationFormData';
+import { ProfileData, HabilityData } from '../types/RegistrationFormData';
 
-// Función para crear el perfil usando la configuración base de Axios
-export const createProfile = async (profileData: Partial<RegistrationFormData>) => {
+// Función para crear el perfil
+export const createProfile = async (profileData: ProfileData) => {
   try {
-    const response = await axiosConfig.post('/helphub/profile', profileData);
+    console.log("Datos de perfil enviados:", profileData);
+    const response = await axiosConfig.post('/api/helphub/profile', profileData);
     return response.data;
   } catch (error) {
     console.error('Error creating profile:', error);
+    throw error;
+  }
+};
+
+// Función para crear la habilidad
+export const createHability = async (habilityData: HabilityData) => {
+  try {
+    const response = await axiosConfig.post('/helphub/hability', habilityData);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating hability:', error);
     throw error;
   }
 };
