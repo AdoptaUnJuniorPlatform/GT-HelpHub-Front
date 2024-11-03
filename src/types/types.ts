@@ -199,7 +199,7 @@ export interface AuthLayoutProps {
   children: [ReactNode, ReactNode];
 }
 export interface BackNextButtonProps {
-  type?: 'submit' | 'button'
-  onClick: () => void;
+  type: 'submit' | 'button'
+  onClick?: () => void;
   disabled?: boolean;
 }

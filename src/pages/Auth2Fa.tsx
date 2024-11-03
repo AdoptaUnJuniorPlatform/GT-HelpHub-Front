@@ -175,8 +175,7 @@ function Auth2Fa() {
         </div>
         <div className="flex justify-evenly w-full">
           <BackButton
-            type="button"
-            onClick={() => {} } />
+            type="button" />
           <NextButton
             type="submit"
             onClick={() => {}}
