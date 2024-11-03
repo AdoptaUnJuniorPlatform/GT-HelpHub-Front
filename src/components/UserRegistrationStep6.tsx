@@ -35,33 +35,31 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
     setVerificationCode(e.target.value);
   };
 
-  // Función para simular la verificación exitosa y mostrar el modal
-  {/*const handleVerificationSuccess = () => {
-    setIsModalVisible(true); 
-  };*/}
-
-  // Función para enviar los datos finales para pruebas
   const handleVerificationSuccess = async () => {
-    if (verificationCode === 'ABC123') {
+  // Verificar el código de verificación
+    if (verificationCode === 'códigoCorrecto') { // TODO reemplazaR con la lógica de verificación real
       try {
-        // Simulación de envío de datos finales al backend
+      // Enviar el `POST` con los datos del usuario
         await createProfile(registrationData.profileData);
         await createHability(registrationData.habilityData);
 
-        setIsModalVisible(true); // Muestra el modal al completar la verificación
+        // Mostrar el modal de éxito
+        setIsModalVisible(true);
+
+      // Después de cerrar el modal, redirigir al home
       } catch (error) {
         console.error('Error al enviar los datos:', error);
       }
     } else {
-      alert('Código de verificación incorrecto. Prueba con "ABC123" para simular el éxito.');
+      alert('Código de verificación incorrecto.');
     }
   };
 
-
   const closeModal = () => {
-    setIsModalVisible(false); 
-    onNextClick(); 
+    setIsModalVisible(false);
+    onNextClick(); // Lógica para redirigir al home
   };
+
 
   const UserEmail = () => (
     <div className="text-[#434242] text-2xl font-normal font-['Roboto']">
