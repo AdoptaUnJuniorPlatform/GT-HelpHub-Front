@@ -1,25 +1,53 @@
+import { loginUser, loginUserMail } from "../services/AuthService"
+import { LoginRequest } from "../types/AuthServiceTypes"
+import { useAuthContext } from "../context/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
-import Line from "./Line"
 import PasswordCheckbox from "./PasswordCheckbox"
 import PrimaryButton from "./PrimaryButton"
-import Title from "./Title"
-import UserInput from "./UserInput"
 import useForm from "../hooks/useForm"
-import { LoginFormData } from "../types/types"
+import useCode from "../hooks/useCode"
+import UserInput from "./UserInput"
+import Title from "./Title"
+import Line from "./Line"
+import axios from "axios"
 
 function LogingAside() {
   const navigate = useNavigate();
+  const { setToken, setLoginData } = useAuthContext();
+  const { twoFaCode } = useCode();
 
-  const sendData = (data: LoginFormData) => {
-    console.log(data)
+  const sendData = async (data: LoginRequest) => {
+    try {
+      const response = await loginUser(data);
 
-    navigate('/home')
-  }
+      if (response.access_token) {
+        setLoginData({ email: data.email, twoFa: twoFaCode });
+        const loginToken = response.access_token;
+        await loginUserMail ({ email: data.email, twoFa: twoFaCode });
+
+        setToken(loginToken);
+        navigate('/codigo-seguridad')
+
+      } else {
+        alert('Credenciales incorrectas. Por favor, verifica tu email y contraseña.');
+        navigate('/'); 
+      } 
+    }catch (error) {
+
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data?.message || 'Error desconocido';
+        alert(`Hubo un problema: ${errorMessage}`)
+
+      } else {
+        alert('Hubo un problema con el inicio de sesión. Por favor, intenta de nuevo.');
+      }
+    }
+  };
 
   const { input, handleInputChange, handleSubmit } = useForm(sendData, {
     email: '',
     password: '',
-  })
+  } as LoginRequest);
   return (
     <>
       <aside className="flex justify-center items-center w-full lg:w-[650px] lg:h-[90vh] sm:h-[95vh] bg-violeta-20 flex-shrink-0 text-neutral-black p-4 lg:p-0 
