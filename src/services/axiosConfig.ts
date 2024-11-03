@@ -17,6 +17,5 @@ axiosConfig.interceptors.request.use(config => {
   return config;
 });
 
-console.log("URL base de Axios:", axiosConfig.defaults.baseURL);
 
 export default axiosConfig;
