@@ -1,21 +1,21 @@
-import PhoneSelect from "../components/PhoneSelect"
 import AgreementCheckbox from "../components/AgreementCheckbox"
-import Note from "../components/Note"
-import PrimaryButton from "../components/PrimaryButton"
-import RegisterAtivate from "../components/RegisterAtivate"
-import RegisterName from "../components/RegisterName"
 import RegisterOptional from "../components/RegisterOptional"
-import Switch from "../components/Switch"
-import Title from "../components/Title"
-import UserInput from "../components/UserInput"
-import RegisterAside from "../components/RegisterAside"
-import useForm from "../hooks/useForm"
-import { useNavigate } from 'react-router-dom';
+import RegisterAtivate from "../components/RegisterAtivate"
 import { RegisterRequest } from "../types/AuthServiceTypes"
 import { registerUserMail } from "../services/AuthService"
-import axios from "axios"
+import PrimaryButton from "../components/PrimaryButton"
+import RegisterAside from "../components/RegisterAside"
 import { useAuthContext } from "../context/AuthContext"
+import RegisterName from "../components/RegisterName"
+import PhoneSelect from "../components/PhoneSelect"
+import { useNavigate } from 'react-router-dom';
+import UserInput from "../components/UserInput"
+import Switch from "../components/Switch"
+import Title from "../components/Title"
+import useForm from "../hooks/useForm"
 import useCode from "../hooks/useCode"
+import Note from "../components/Note"
+import axios from "axios"
 
 function Register() {
   const navigate = useNavigate();
@@ -30,10 +30,7 @@ function Register() {
       role: 'user'
     };
 
-    console.log(updatedData)
     setRegisterData(updatedData);
-
-    console.log('Estado guardado:', updatedData);
   
     try {
       const response = await registerUserMail(updatedData);
@@ -49,8 +46,6 @@ function Register() {
       }
     }
   };
-
-  
 
   const { input, handleInputChange, handleSwitchChange, handleSubmit } = useForm(sendData, {
     email: '',

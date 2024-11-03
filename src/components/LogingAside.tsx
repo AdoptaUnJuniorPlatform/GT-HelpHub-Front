@@ -1,20 +1,19 @@
-import { Link, useNavigate } from "react-router-dom"
-import Line from "./Line"
-import PasswordCheckbox from "./PasswordCheckbox"
-import PrimaryButton from "./PrimaryButton"
-import Title from "./Title"
-import UserInput from "./UserInput"
-import useForm from "../hooks/useForm"
+import { loginUser, loginUserMail } from "../services/AuthService"
 import { LoginRequest } from "../types/AuthServiceTypes"
 import { useAuthContext } from "../context/AuthContext"
-import { loginUser, loginUserMail } from "../services/AuthService"
+import { Link, useNavigate } from "react-router-dom"
+import PasswordCheckbox from "./PasswordCheckbox"
+import PrimaryButton from "./PrimaryButton"
+import useForm from "../hooks/useForm"
 import useCode from "../hooks/useCode"
+import UserInput from "./UserInput"
+import Title from "./Title"
+import Line from "./Line"
 import axios from "axios"
-import { useEffect } from "react"
 
 function LogingAside() {
   const navigate = useNavigate();
-  const { setToken, token,  setLoginData, loginData } = useAuthContext();
+  const { setToken, setLoginData } = useAuthContext();
   const { twoFaCode } = useCode();
 
   const sendData = async (data: LoginRequest) => {
@@ -27,7 +26,6 @@ function LogingAside() {
         await loginUserMail ({ email: data.email, twoFa: twoFaCode });
 
         setToken(loginToken);
-        console.log('Código enviado por correo:', twoFaCode);
         navigate('/codigo-seguridad')
 
       } else {
@@ -35,31 +33,16 @@ function LogingAside() {
         navigate('/'); 
       } 
     }catch (error) {
+
       if (axios.isAxiosError(error)) {
-
         const errorMessage = error.response?.data?.message || 'Error desconocido';
-        console.error('Error en el inicio de sesión:', error);
-        alert(`Hubo un problema: ${errorMessage}`);
-      } else {
+        alert(`Hubo un problema: ${errorMessage}`)
 
-        console.error('Error en el inicio de sesión:', error);
+      } else {
         alert('Hubo un problema con el inicio de sesión. Por favor, intenta de nuevo.');
       }
     }
   };
-
-  useEffect(() => {
-    if (loginData) {
-      console.log('Data del login guardada en el contexto', loginData);
-    }
-  }, [loginData]);
-
-
-  useEffect(() => {
-
-    console.log('Token guardado en el contexto:', token);
-
-  }, [token]);
 
   const { input, handleInputChange, handleSubmit } = useForm(sendData, {
     email: '',

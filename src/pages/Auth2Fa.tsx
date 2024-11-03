@@ -1,16 +1,16 @@
-import { useNavigate } from "react-router-dom";
-import BackButton from "../components/BackButton";
-import CodeInput from "../components/CodeInput";
-import NextButton from "../components/NextButton";
-import ResendButton from "../components/ResendButton";
-import { useAuthContext } from "../context/AuthContext";
-import useCode from "../hooks/useCode";
-import useForm from "../hooks/useForm";
-import AuthLayout from "../layouts/AuthLayout";
 import { loginUserMail, registerUser, registerUserMail } from "../services/AuthService";
 import { RegisterRequest } from "../types/AuthServiceTypes";
-import Logo from "../components/Logo";
+import { useAuthContext } from "../context/AuthContext";
+import ResendButton from "../components/ResendButton";
 import { FaRegCircleCheck } from "react-icons/fa6";
+import BackButton from "../components/BackButton";
+import NextButton from "../components/NextButton";
+import CodeInput from "../components/CodeInput";
+import { useNavigate } from "react-router-dom";
+import AuthLayout from "../layouts/AuthLayout";
+import useCode from "../hooks/useCode";
+import useForm from "../hooks/useForm";
+import Logo from "../components/Logo";
 
 function Auth2Fa() {
   const { registerData, setRegisterData, isLoggedIn, loginData, token } = useAuthContext();
@@ -20,19 +20,16 @@ function Auth2Fa() {
   const { input: code, handleInputChange, handleSubmit } = useForm(
     async (input) => {
       const codeString = input.join("");
-      console.log("Código ingresado:", codeString);
 
       const expectedCode = registerData ? registerData?.twoFa : loginData?.twoFa;
       
       if (!expectedCode) {
-        console.error("No se pudo obtener el código 2FA.");
         alert("Hubo un problema al intentar validar el código. Intenta de nuevo.");
         navigate('/');
         return;
       }
 
       if (codeString === expectedCode) {
-        console.log("Codigo correcto,  procediendo con la autenticación...");
 
         if (registerData) {
           const dataToSend: RegisterRequest = {
@@ -43,7 +40,6 @@ function Auth2Fa() {
 
           try {
             await registerUser(dataToSend);
-            console.log("Registroexitoso:", dataToSend);
             navigate('/')
 
           } catch (error) {
@@ -51,8 +47,6 @@ function Auth2Fa() {
             alert("Hubo un problema durante el registro. Por favor, intenta de nuevo.");
           }
         } else {
-          
-          console.log("Loginexitoso: autenticacion completada.");
 
           if(token) {
             localStorage.setItem('token', token);
@@ -64,7 +58,6 @@ function Auth2Fa() {
           }
         }
       } else {
-        console.error("Codigo incorrecto, intenta de nuevo.")
         alert("Codigo incorrecto. Por favor, intenta de nuevo.");
         navigate('/')
       }
@@ -83,8 +76,6 @@ function Auth2Fa() {
 
       try {
         await registerUserMail(updatedData);
-        console.log("Nuevo código enviado:", newTwoFaCode);
-        console.log("Nueva Data", updatedData)
 
       } catch(error) {
         console.error("Error al reenviar el codigo:", error);
@@ -97,13 +88,12 @@ function Auth2Fa() {
       if (email) {
         try {
           await loginUserMail({ email, twoFa: twoFaCode });
-          console.log("Nuevo código 2FA enviado para login:", twoFaCode);
           alert("Código para el login reenviado al correo proporcionado.");
+
         } catch (error) {
           console.error("Error al reenviar el codigo para login:", error);
         }
       } else {
-        console.error("Error: No se encontró el email para reenviar el código.");
         alert("No se pudo reenviar el código porque no se encontró un correo electrónico. Por favor, intenta de nuevo.");
       }
     }

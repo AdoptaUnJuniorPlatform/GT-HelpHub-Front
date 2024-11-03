@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 import { AuthContextProps, LoginMailRequest, RegisterRequest } from '../types/AuthServiceTypes';
+import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
   
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
   
@@ -19,7 +19,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('token');
     clearData();
   }
-
   
   return (
     <AuthContext.Provider value={{
