@@ -7,7 +7,8 @@ import { RxExit } from "react-icons/rx";
 import Notifications from "./Notifications";
 import { mockNotifications, profiles } from "../Variables/varibles";
 import ProfileImg from "./ProfileImg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 
 
 function SideBar() {
@@ -15,6 +16,8 @@ function SideBar() {
   const [showNotifications, setShowNotifications] = useState<boolean>(false);
   const location = useLocation();
   const isHome = location.pathname === '/home';
+  const { handleLogout } = useAuthContext();
+  const navigate = useNavigate();
 
   const sideBarMenu: Menu[] = [
     {
@@ -157,7 +160,14 @@ function SideBar() {
                   `}
                 >
                   <li
-                    onClick={handleMenuClick}
+                    onClick={() => {
+                      if (menu.name === 'Cerrar sesión') {
+                        handleLogout();
+                        navigate('/')
+                      } else {
+                        handleMenuClick();
+                      }
+                    }}
                     className="flex items-center"
                   >
                     <figure className={`text-3xl

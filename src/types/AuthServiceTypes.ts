@@ -31,8 +31,8 @@ export interface AuthContextProps {
   registerData: RegisterRequest | null;
   setRegisterData: (data: RegisterRequest) => void;
   clearData: () => void;
-  clearToken: () => void;
   isLoggedIn: boolean;
   loginData: LoginMailRequest | null;
-  setLoginData: (data: LoginMailRequest | null) => void
+  setLoginData: (data: LoginMailRequest | null) => void;
+  handleLogout: () => void;
 }

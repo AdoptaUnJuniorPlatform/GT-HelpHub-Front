@@ -7,29 +7,31 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [registerData, setRegisterData] = useState<RegisterRequest | null>(null);
   const [loginData, setLoginData] = useState<LoginMailRequest | null>(null);
-  
   const isLoggedIn = useMemo(() => !!token, [token]);
   
   function clearData() {
     setRegisterData(null);
+    setLoginData(null);
   }
 
-  function clearToken() {
+  function handleLogout() {
     setToken(null);
     localStorage.removeItem('token');
+    clearData();
   }
+
   
   return (
     <AuthContext.Provider value={{
       token, 
       setToken, 
-      clearToken, 
       registerData, 
       setRegisterData, 
       clearData,
       isLoggedIn,
       loginData,
-      setLoginData 
+      setLoginData,
+      handleLogout 
     }}
     >
       {children}
