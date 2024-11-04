@@ -39,7 +39,7 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
 
   const handleVerificationSuccess = async () => {
     // Verificar si el código ingresado coincide con el código correcto
-    if (inputCode === correctVerificationCode) {
+    if (inputCode === localStorage.getItem('verificationCode')) {
       try {
         // Enviar la solicitud POST con los datos del usuario
         await createProfile(registrationData.profileData);
