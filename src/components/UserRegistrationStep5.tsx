@@ -2,6 +2,9 @@ import  React from  'react';
 import Layout from './Layout';
 import Categories from './Categories';
 import { RegistrationFormData } from '../types/RegistrationFormData';
+import { loginUserMail } from '../services/AuthService'; // Importamos la función para enviar el código
+import useCode from '../hooks/useCode'; // Importamos el hook para generar el código
+
 
 interface UserRegistrationStep5Props{
   onBackClick: () => void;
@@ -21,6 +24,8 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
   updateRegistrationData,
 }) => {
 
+  const { twoFaCode } = useCode();
+
   // Función para manejar la selección de categorías
   const handleCategorySelect = (selectedCategories: string[]) => {
     // Actualizar `interestedSkills` dentro de `profileData`
@@ -31,6 +36,20 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
       },
     });
   };
+
+  const handleNextClick = async () => {
+    try {
+      const email = registrationData.profileData?.email; // Asegúrate de que el email esté en `profileData`
+      if (email) {
+        await loginUserMail({ email, code: twoFaCode }); // Enviar el código de verificación con el correo
+        console.log('Código de verificación enviado con éxito');
+      }
+      onNextClick(); // Avanza al siguiente paso
+    } catch (error) {
+      console.error('Error al enviar el código de verificación:', error);
+      // Aquí podrías manejar el error, por ejemplo, mostrando un mensaje al usuario
+    }
+  };
     
   return(
     <Layout
@@ -39,7 +58,7 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
       stepTitle="Paso 5"
       stepDescription="¿Qué te gustaría prender?"
       onBackClick={onBackClick}
-      onNextClick={onNextClick}
+      onNextClick={handleNextClick}
       steps={steps}
       currentStep={currentStep}
     >
@@ -60,8 +79,6 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
           onSelectCategories={handleCategorySelect}
         />
       </div>
-
-
     </Layout>
   )};
 
