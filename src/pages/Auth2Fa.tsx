@@ -13,9 +13,8 @@ import useForm from "../hooks/useForm";
 import Logo from "../components/Logo";
 import axios from "axios";
 
-
 function Auth2Fa() {
-  const { registerData, setRegisterData, isLoggedIn, loginData, setLoginData, token } = useAuthContext();
+  const { registerData, setRegisterData, isRegistering, setIsRegistering, loginData, setLoginData, token, isLoggedIn } = useAuthContext();
   const { twoFaCode: newTwoFaCode } = useCode();
   const navigate = useNavigate();
   const { input: code, handleInputChange, handleSubmit } = useForm(
@@ -56,6 +55,7 @@ function Auth2Fa() {
 
           try {
             await registerUser(dataToSend);
+            setIsRegistering(true);
             navigate('/')
 
           } catch (error) {
@@ -70,11 +70,11 @@ function Auth2Fa() {
 
           if(token) {
             localStorage.setItem('token', token);
-            if (isLoggedIn) {
+            if (isLoggedIn && !isRegistering) {
               navigate('/home')
+            } else {
+              navigate('/register/personal-data')
             }
-          } else {
-            navigate('/personal-data')
           }
         }
       } else {
@@ -87,7 +87,6 @@ function Auth2Fa() {
 
   console.log("loginData:", loginData);
   console.log("registerData:", registerData);
-
 
   const handleResendCode = async () => {
     if (registerData) {

@@ -30,6 +30,8 @@ export interface AuthContextProps {
   setToken: (token: string | null) => void;
   registerData: RegisterRequest | null;
   setRegisterData: (data: RegisterRequest) => void;
+  isRegistering: boolean;
+  setIsRegistering: React.Dispatch<React.SetStateAction<boolean>>;
   clearData: () => void;
   isLoggedIn: boolean;
   loginData: LoginMailRequest | null;
