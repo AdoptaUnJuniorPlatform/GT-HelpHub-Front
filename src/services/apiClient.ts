@@ -16,7 +16,7 @@ export const createProfile = async (profileData: ProfileData) => {
 // Función para crear la habilidad
 export const createHability = async (habilityData: HabilityData) => {
   try {
-    const response = await axiosConfig.post('/helphub/hability', habilityData);
+    const response = await axiosConfig.post('/api/helphub/hability', habilityData);
     return response.data;
   } catch (error) {
     console.error('Error creating hability:', error);
