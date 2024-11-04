@@ -24,7 +24,7 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
   const [isModalVisible, setIsModalVisible] = useState(false);
   
   const correctVerificationCode = localStorage.getItem('verificationCode');
-
+  const userEmail = registrationData.profileData?.email;
 
   const handleResendCode = () => {
     setIsSending(true);
@@ -64,7 +64,7 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
 
   const UserEmail = () => (
     <div className="text-[#434242] text-2xl font-normal font-['Roboto']">
-      Introduce el código que hemos enviado a <span className="text-[#434242]">usuario@gmail.com</span>
+      Introduce el código que hemos enviado a <span className="text-[#434242]">{userEmail}</span>
     </div>
       
   );     
