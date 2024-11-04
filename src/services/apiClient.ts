@@ -5,7 +5,7 @@ import { ProfileData, HabilityData } from '../types/RegistrationFormData';
 export const createProfile = async (profileData: ProfileData) => {
   try {
     console.log("Datos de perfil enviados:", profileData);
-    const response = await axiosConfig.post('/api/helphub/profile', profileData);
+    const response = await axiosConfig.post('/helphub/profile', profileData);
     return response.data;
   } catch (error) {
     console.error('Error creating profile:', error);
@@ -16,7 +16,7 @@ export const createProfile = async (profileData: ProfileData) => {
 // Función para crear la habilidad
 export const createHability = async (habilityData: HabilityData) => {
   try {
-    const response = await axiosConfig.post('/api/helphub/hability', habilityData);
+    const response = await axiosConfig.post('/helphub/hability', habilityData);
     return response.data;
   } catch (error) {
     console.error('Error creating hability:', error);
