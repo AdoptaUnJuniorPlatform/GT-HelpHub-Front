@@ -19,9 +19,11 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
   currentStep,
   registrationData,
 }) => {
-  const [verificationCode, setVerificationCode] = useState('');
+  const [inputCode, setInputCode] = useState('');
   const [isSending, setIsSending] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false); 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  
+  const correctVerificationCode = localStorage.getItem('verificationCode');
 
 
   const handleResendCode = () => {
@@ -32,21 +34,19 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVerificationCode(e.target.value);
+    setInputCode(e.target.value);
   };
 
   const handleVerificationSuccess = async () => {
-  // Verificar el código de verificación
-    if (verificationCode === 'códigoCorrecto') { // TODO reemplazaR con la lógica de verificación real
+    // Verificar si el código ingresado coincide con el código correcto
+    if (inputCode === correctVerificationCode) {
       try {
-      // Enviar el `POST` con los datos del usuario
+        // Enviar la solicitud POST con los datos del usuario
         await createProfile(registrationData.profileData);
         await createHability(registrationData.habilityData);
 
         // Mostrar el modal de éxito
         setIsModalVisible(true);
-
-      // Después de cerrar el modal, redirigir al home
       } catch (error) {
         console.error('Error al enviar los datos:', error);
       }
@@ -54,6 +54,7 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
       alert('Código de verificación incorrecto.');
     }
   };
+
 
   const closeModal = () => {
     setIsModalVisible(false);

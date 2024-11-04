@@ -43,6 +43,8 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
       if (email) {
         await loginUserMail({ email, code: twoFaCode }); // Enviar el código de verificación con el correo
         console.log('Código de verificación enviado con éxito');
+        // Guarda el código en localStorage para que esté disponible en el Paso 6
+        localStorage.setItem('verificationCode', twoFaCode);
       }
       onNextClick(); // Avanza al siguiente paso
     } catch (error) {
