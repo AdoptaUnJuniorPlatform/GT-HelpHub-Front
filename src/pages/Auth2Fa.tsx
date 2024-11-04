@@ -89,21 +89,27 @@ function Auth2Fa() {
   console.log("registerData:", registerData);
 
   const handleResendCode = async () => {
-    if (registerData) {
-      const updatedData = ({
-        ...registerData,
-        twoFa: newTwoFaCode,
-      });
 
-      setRegisterData(updatedData);
-      console.log(updatedData);
-      try {
-        await registerUserMail(updatedData);
+    if (registerData && !loginData) {
+      const email = registerData?.email;
+      // const twoFaCode = newTwoFaCode;
+      if(email) {
+        const updatedData = ({
+          ...registerData,
+          twoFa: newTwoFaCode,
+        });
+        setRegisterData(updatedData);
         console.log(updatedData);
-      } catch(error) {
-        console.error("Error al reenviar el codigo:", error);
-        alert("Hubo un problema al reenviar el código. Por favor, intenta de nuevo.");
-      } 
+
+        try {
+          await registerUserMail(updatedData);
+          console.log(updatedData);
+        } catch(error) {
+          console.error("Error al reenviar el codigo:", error);
+          alert("Hubo un problema al reenviar el código. Por favor, intenta de nuevo.");
+        } 
+      }
+
     } else{
       const email = loginData?.email;
       const twoFaCode = newTwoFaCode;
