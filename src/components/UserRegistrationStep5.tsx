@@ -2,9 +2,9 @@ import  React from  'react';
 import Layout from './Layout';
 import Categories from './Categories';
 import { RegistrationFormData } from '../types/RegistrationFormData';
-import { loginUserMail } from '../services/AuthService'; // Importamos la función para enviar el código
-import useCode from '../hooks/useCode'; // Importamos el hook para generar el código
-
+import { loginUserMail } from '../services/AuthService'; 
+import useCode from '../hooks/useCode'; 
+import { useAuthContext } from '../context/AuthContext';;
 
 interface UserRegistrationStep5Props{
   onBackClick: () => void;
@@ -23,8 +23,9 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
   registrationData,
   updateRegistrationData,
 }) => {
-
+  const { registerData } = useAuthContext(); 
   const { twoFaCode } = useCode();
+
 
   // Función para manejar la selección de categorías
   const handleCategorySelect = (selectedCategories: string[]) => {
@@ -39,9 +40,9 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
 
   const handleNextClick = async () => {
     try {
-      const email = registrationData.profileData?.email; // Asegúrate de que el email esté en `profileData`
+      const email = registerData?.email;
       if (email) {
-        await loginUserMail({ email, code: twoFaCode }); // Enviar el código de verificación con el correo
+        await loginUserMail({ email, twoFa: twoFaCode }); // Enviar el código de verificación con el correo
         console.log('Código de verificación enviado con éxito');
         // Guarda el código en localStorage para que esté disponible en el Paso 6
         localStorage.setItem('verificationCode', twoFaCode);

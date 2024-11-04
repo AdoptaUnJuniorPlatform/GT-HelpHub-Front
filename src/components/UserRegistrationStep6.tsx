@@ -3,6 +3,7 @@ import Layout from './Layout';
 import SuccessModal from './SuccesModal';
 import { RegistrationFormData } from '../types/RegistrationFormData';
 import { createProfile, createHability } from '../services/apiClient';
+import { useAuthContext } from '../context/AuthContext';
 
 interface UserRegistrationStep6Props{
   onBackClick: () => void;
@@ -23,8 +24,7 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
   const [isSending, setIsSending] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   
-  const correctVerificationCode = localStorage.getItem('verificationCode');
-  const userEmail = registrationData.profileData?.email;
+  const { registerData } = useAuthContext(); 
 
   const handleResendCode = () => {
     setIsSending(true);
@@ -59,15 +59,14 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
   const closeModal = () => {
     setIsModalVisible(false);
     onNextClick(); // Lógica para redirigir al home
+    //TODO logica para redirigir al perfil
   };
-
 
   const UserEmail = () => (
     <div className="text-[#434242] text-2xl font-normal font-['Roboto']">
-      Introduce el código que hemos enviado a <span className="text-[#434242]">{userEmail}</span>
+      Introduce el código que hemos enviado a <span className="text-[#434242]">{registerData?.email}</span>
     </div>
-      
-  );     
+  ); 
   
   const TextExtra = () => (
     <div className="w-[350px] h-[109px] text-[#d2298e] text-m font-normal font-['Roboto'] mt-0">
@@ -105,7 +104,7 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
           <input
             type="text"
             placeholder="Código email"
-            value={verificationCode}
+            value={inputCode}
             onChange={handleInputChange}
             className="w-[590px] h-[55px] bg-white rounded-[3px] border border-[#b7b7b7] px-3 text-base"
           />
