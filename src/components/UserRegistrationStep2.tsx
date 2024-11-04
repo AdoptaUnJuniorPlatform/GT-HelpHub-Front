@@ -3,12 +3,15 @@ import Layout from './Layout';
 import UploadPhoto from '../assets/UploadPhoto.svg';
 import InformationCircle from '../assets/InformationCircle.svg';
 import Button from './Button';
+import { RegistrationFormData } from '../types/RegistrationFormData';
 
 interface UserRegistrationStep2Props {
   onBackClick: () => void;
   onNextClick: () => void;
   steps: string[];
   currentStep: number;
+  registrationData: RegistrationFormData;
+  updateRegistrationData: (data: Partial<RegistrationFormData>) => void;
 }
 
 const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
@@ -16,9 +19,11 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
   onNextClick,
   steps,
   currentStep,
+  registrationData,
+  updateRegistrationData,
 }) => {
+
   // Estado para almacenar el archivo seleccionado
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false); // Estado para controlar la visibilidad del modal
 
@@ -27,8 +32,14 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setSelectedFile(file);
-      setPreviewUrl(URL.createObjectURL(file));
+      const simulatedUrl = URL.createObjectURL(file); // Usamos un blob URL para la vista previa
+      setPreviewUrl(simulatedUrl);
+      updateRegistrationData({
+        profileData: {
+          ...registrationData.profileData,
+          profilePicture: simulatedUrl // Aquí usarías una URL real tras subir la imagen
+        }
+      });
     }
   };
 
@@ -44,12 +55,12 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
       stepDescription="Escoger una foto"
       onBackClick={onBackClick}
       onNextClick={() => {
-        if (selectedFile) {
-          onNextClick(); // Solo avanza si hay un archivo seleccionado
+        if (previewUrl) {
+          onNextClick();
         } else {
           alert('Por favor, selecciona una imagen antes de continuar.');
         }
-      }}
+      }}  
       steps={steps}
       currentStep={currentStep}
     >
@@ -73,7 +84,6 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
               />
               <label htmlFor="fileInput" className="cursor-pointer">
                 <img src={UploadPhoto} alt="Subir foto" className="w-12 h-12" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </label>
               <div className="text-[#434242] text-1xl font-normal mb-2">Subir foto</div>
               <div className="text-[#696868] text-base font-normal">Selecciona una foto de perfil.</div>
