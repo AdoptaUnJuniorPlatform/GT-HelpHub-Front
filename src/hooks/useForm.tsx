@@ -8,7 +8,7 @@ function useForm<T>(callback: (input: T) => void, defaults: T) {
     callback(input);
   };
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>, index?: number) => {
     const { name, type, value, checked } = event.target;
     // console.log(name, value)
     let newValue = value;
@@ -18,11 +18,17 @@ function useForm<T>(callback: (input: T) => void, defaults: T) {
       newValue = value.replace(/\D/g, '');
     }
 
-    setInput({
-      ...input,
-      [name]: type === 'checkbox' ? checked : newValue,
-    });
-  };
+    if (Array.isArray(input) && index !== undefined) {
+      const updatedInput = [...input] as unknown as string[];
+      updatedInput[index] = value.slice(0,1);
+      setInput(updatedInput as T)
+    } else {
+      setInput({
+        ...input,
+        [name]: type === 'checkbox' ? checked : newValue,
+      });
+    };
+  }
 
   const handleSwitchChange = (values: { optionCall?: boolean; showPhone?: boolean }) => {
     setInput({

@@ -1,7 +1,7 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, ReactNode } from "react";
 export interface Input {
   id?:string;
-  type?: 'text'| 'password' | 'email' | 'checkbox' | 'tel';
+  type?: 'text'| 'password' | 'email' | 'checkbox' | 'tel' | 'number' | 'button';
   title?: string;
   placeholder?: string;
   name?: string;
@@ -125,18 +125,6 @@ export interface SeeMoreProps {
   onClose: () => void;
 }
 
-export interface LoginFormData {
-  email: string;
-  password: string;
-}
-export interface RegisterFormData extends LoginFormData {
-  nameUser: string;
-  surnameUser: string;
-  phone: string;
-  optionCall: boolean;
-  showPhone: boolean;
-  blockemailed: boolean;
-}
 export interface Notification {
   id: number;
   type: 'completed' | 'request'| 'rejectedExchange' | 'rejectedRequest' | 'accepted';
@@ -205,4 +193,13 @@ export interface ReviewsCardProps {
 
 export interface MyReviewsProps {
   reviews: Review[];
+}
+
+export interface AuthLayoutProps {
+  children: [ReactNode, ReactNode];
+}
+export interface BackNextButtonProps {
+  type: 'submit' | 'button'
+  onClick?: () => void;
+  disabled?: boolean;
 }

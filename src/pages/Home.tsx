@@ -57,7 +57,10 @@ function Home() {
   return (
     <MainLayout>
       <div className="flex items-center justify-between h-[10vh] w-full">
-        <Logo className="ml-2 " />
+        <Logo 
+          className="ml-2 "
+          showInitial={false}
+        />
         <div className="mt-4 ">
           <SearchBar />
         </div>
