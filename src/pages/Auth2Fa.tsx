@@ -11,27 +11,43 @@ import AuthLayout from "../layouts/AuthLayout";
 import useCode from "../hooks/useCode";
 import useForm from "../hooks/useForm";
 import Logo from "../components/Logo";
+import axios from "axios";
+
 
 function Auth2Fa() {
-  const { registerData, setRegisterData, isLoggedIn, loginData, token } = useAuthContext();
+  const { registerData, setRegisterData, isLoggedIn, loginData, setLoginData, token } = useAuthContext();
   const { twoFaCode: newTwoFaCode } = useCode();
   const navigate = useNavigate();
-  
   const { input: code, handleInputChange, handleSubmit } = useForm(
     async (input) => {
+
       const codeString = input.join("");
 
-      const expectedCode = registerData ? registerData?.twoFa : loginData?.twoFa;
-      
-      if (!expectedCode) {
+      let expectedCode;
+
+      if (registerData && !loginData) {
+
+        expectedCode = registerData.twoFa;
+      } else if (loginData && registerData) {
+
+        expectedCode = loginData.twoFa;
+      } else if (loginData && !registerData) {
+
+        expectedCode = loginData.twoFa;
+      } else {
         alert("Hubo un problema al intentar validar el código. Intenta de nuevo.");
+
         navigate('/');
         return;
       }
+      console.log("expectedCode:", expectedCode);
+      console.log("registerData:", registerData);
+      console.log("loginData:", loginData);
 
       if (codeString === expectedCode) {
+        console.log('los codigos coinciden', codeString, expectedCode)
 
-        if (registerData) {
+        if (registerData && !loginData) {
           const dataToSend: RegisterRequest = {
             ...registerData,
             twoFa: codeString,
@@ -43,9 +59,13 @@ function Auth2Fa() {
             navigate('/')
 
           } catch (error) {
-            console.error("Error al registrar:", error);
-            alert("Hubo un problema durante el registro. Por favor, intenta de nuevo.");
-          }
+            if (axios.isAxiosError(error)) {
+              console.error('Error en la solicitud:', error.response?.data);
+              console.error('Estado del error:', error.response?.status, dataToSend);
+            } else {
+              console.error('Error inesperado:', error);
+            }
+          } 
         } else {
 
           if(token) {
@@ -65,6 +85,10 @@ function Auth2Fa() {
     Array(6).fill("")
   );
 
+  console.log("loginData:", loginData);
+  console.log("registerData:", registerData);
+
+
   const handleResendCode = async () => {
     if (registerData) {
       const updatedData = ({
@@ -73,27 +97,35 @@ function Auth2Fa() {
       });
 
       setRegisterData(updatedData);
-
+      console.log(updatedData);
       try {
         await registerUserMail(updatedData);
-
+        console.log(updatedData);
       } catch(error) {
         console.error("Error al reenviar el codigo:", error);
         alert("Hubo un problema al reenviar el código. Por favor, intenta de nuevo.");
       } 
-    } else {
+    } else{
       const email = loginData?.email;
       const twoFaCode = newTwoFaCode;
 
       if (email) {
-        try {
-          await loginUserMail({ email, twoFa: twoFaCode });
-          alert("Código para el login reenviado al correo proporcionado.");
+        const updatedLoginData = {
+          ...loginData,
+          twoFa: newTwoFaCode, 
+        };
+    
+        setLoginData(updatedLoginData);   
 
-        } catch (error) {
-          console.error("Error al reenviar el codigo para login:", error);
-        }
-      } else {
+        if (email) {
+          try {
+            await loginUserMail({ email, twoFa: twoFaCode });
+            alert("Código para el login reenviado al correo proporcionado.");
+  
+          } catch (error) {
+            console.error("Error al reenviar el codigo para login:", error);
+          }
+        }  } else {
         alert("No se pudo reenviar el código porque no se encontró un correo electrónico. Por favor, intenta de nuevo.");
       }
     }

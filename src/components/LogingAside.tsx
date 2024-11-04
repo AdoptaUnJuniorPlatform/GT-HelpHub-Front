@@ -10,10 +10,11 @@ import UserInput from "./UserInput"
 import Title from "./Title"
 import Line from "./Line"
 import axios from "axios"
+import { useEffect } from "react"
 
 function LogingAside() {
   const navigate = useNavigate();
-  const { setToken, setLoginData } = useAuthContext();
+  const { setToken, setLoginData, loginData, token } = useAuthContext();
   const { twoFaCode } = useCode();
 
   const sendData = async (data: LoginRequest) => {
@@ -26,6 +27,7 @@ function LogingAside() {
         await loginUserMail ({ email: data.email, twoFa: twoFaCode });
 
         setToken(loginToken);
+        console.log('Login Data antes de la redirección:', { email: data.email, twoFa: twoFaCode });
         navigate('/codigo-seguridad')
 
       } else {
@@ -43,6 +45,12 @@ function LogingAside() {
       }
     }
   };
+
+  useEffect(() => {
+    if (loginData && token) {
+      console.log('Login Data y Token están configurados correctamente:', loginData, token);
+    }
+  }, [loginData, token]);
 
   const { input, handleInputChange, handleSubmit } = useForm(sendData, {
     email: '',

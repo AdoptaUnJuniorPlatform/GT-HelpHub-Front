@@ -29,8 +29,10 @@ function Register() {
       twoFa: twoFaCode,
       role: 'user'
     };
-
+    console.log(updatedData)
     setRegisterData(updatedData);
+
+    console.log('Estado guardado:', updatedData);
   
     try {
       const response = await registerUserMail(updatedData);
