@@ -3,19 +3,10 @@
 import axios from 'axios';
 
 const axiosConfig = axios.create({
-  baseURL: import.meta.env.VITE_REACT_APP_API_URL,
+  baseURL: import.meta.env.VITE_REACT_APP_API_URL || 'http://127.0.0.1:4002/api',
   headers: {
     'Content-Type': 'application/json',
   },
 });
-
-axiosConfig.interceptors.request.use(config => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = token;
-  }
-  return config;
-});
-
 
 export default axiosConfig;
