@@ -29,8 +29,10 @@ function Register() {
       twoFa: twoFaCode,
       role: 'user'
     };
-
+    console.log(updatedData)
     setRegisterData(updatedData);
+
+    console.log('Estado guardado:', updatedData);
   
     try {
       const response = await registerUserMail(updatedData);
@@ -92,7 +94,7 @@ function Register() {
                 <RegisterName 
                   id="surnameUser"
                   title="Apellidos" 
-                  placeholder="Apellido 1" 
+                  placeholder="Primer y Segundo Apellido" 
                   name="surnameUser"
                   value={input.surnameUser}
                   onChange={handleInputChange}

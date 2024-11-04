@@ -6,6 +6,7 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [registerData, setRegisterData] = useState<RegisterRequest | null>(null);
+  const [isRegistering, setIsRegistering] = useState<boolean>(false);
   const [loginData, setLoginData] = useState<LoginMailRequest | null>(null);
   const isLoggedIn = useMemo(() => !!token, [token]);
   
@@ -26,6 +27,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
       setToken, 
       registerData, 
       setRegisterData, 
+      isRegistering,
+      setIsRegistering,
       clearData,
       isLoggedIn,
       loginData,
