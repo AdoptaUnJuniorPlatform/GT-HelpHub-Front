@@ -203,4 +203,6 @@ export interface BackNextButtonProps {
   type: 'submit' | 'button'
   onClick?: () => void;
   disabled?: boolean;
+  label?: string
+  className?: string; 
 }

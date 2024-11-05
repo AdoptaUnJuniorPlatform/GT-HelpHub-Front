@@ -9,7 +9,7 @@ function AuthLayout({ children }: AuthLayoutProps) {
           {children[0]}
         </aside>
       </section>
-      <section className="flex flex-col justify-center items-center h-[90vh] w-full ">
+      <section className="relative flex flex-col justify-center items-center h-[90vh] w-full ">
         {children[1]}
       </section>
     </main>

@@ -204,7 +204,8 @@ function Auth2Fa() {
             type="button" />
           <NextButton
             type="submit"
-            onClick={() => {}}
+            label="SIGUIENTE"
+            className="text-black-50"
           />
         </div>
       </form>
