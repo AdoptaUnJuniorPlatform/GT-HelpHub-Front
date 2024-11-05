@@ -171,7 +171,7 @@ function Register() {
                 onChange={handleInputChange}
               />
 
-              <PrimaryButton label="Registrarse" className="w-full  hover:bg-[#3259e8]" />
+              <PrimaryButton label="Registrarse" className="w-full bg-celeste-100  hover:bg-[#3259e8]" />
 
             </div>
           </form>

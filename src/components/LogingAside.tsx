@@ -83,7 +83,10 @@ function LogingAside() {
               value={input.email}
               onChange={handleInputChange}
               className="loginInput h-[45px]  border-blue-gray-300"/>
-            <a className="flex justify-end text-violeta-100 -mb-2 cursor-pointer p-1 ">¿Olvidaste tu contraseña?</a>
+
+            <Link to={'/reseteo'}>
+              <p className="flex justify-end text-violeta-100 -mb-2 cursor-pointer p-1 ">¿Olvidaste tu contraseña?</p>
+            </Link>
 
             <UserInput 
               id="password"

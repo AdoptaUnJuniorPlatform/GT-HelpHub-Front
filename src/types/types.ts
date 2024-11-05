@@ -26,6 +26,7 @@ export interface ButtonProps {
   label: string; 
   className?: string; 
   disabled?: boolean; 
+  onClick?: () => void
 }
 
 export interface CardBtnBorderProps {

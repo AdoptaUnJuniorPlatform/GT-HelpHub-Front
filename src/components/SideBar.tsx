@@ -92,7 +92,7 @@ function SideBar() {
         } group`}
       >
         <section
-          className={`h-[6.5rem] flex justify-center items-center bg-white rounded-t-xl transition-all duration-700 ${
+          className={`h-[6.5rem] flex justify-center items-center bg-neutral-gray rounded-t-xl transition-all duration-700 ${
             open || !open && !isHome ? 'flex w-full translate-x-0' : 'hidden -translate-x-full'
           }`}
         >

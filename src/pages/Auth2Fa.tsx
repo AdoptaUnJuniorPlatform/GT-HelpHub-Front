@@ -92,7 +92,6 @@ function Auth2Fa() {
 
     if (registerData && !loginData) {
       const email = registerData?.email;
-      // const twoFaCode = newTwoFaCode;
       if(email) {
         const updatedData = ({
           ...registerData,

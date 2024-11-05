@@ -8,7 +8,7 @@
 
 
 .loginInput {
-    @apply bg-white rounded-[3px] placeholder:font-medium placeholder:text-sm placeholder:leading-normal
+    @apply bg-neutral-gray rounded-[7px] placeholder:font-medium placeholder:text-sm placeholder:leading-normal
 }
 
 .btn-click {
