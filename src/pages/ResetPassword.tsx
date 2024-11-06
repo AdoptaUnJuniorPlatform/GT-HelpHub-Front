@@ -75,38 +75,38 @@ function ResetPassword() {
             <h3 className="text-[2.2rem] font-normal leading-normal tracking-wide text-neutral-black self-stretch">Reseteo de contraseña</h3>
             <p className="text-xl font-normal leading-normal text-neautral-black">Por favor, introduce tu correo electrónico y te enviaremos un código para restablecer tu contraseña.</p>
           </div>
-          <form 
-            onSubmit={handleSubmit}
-            className="flex flex-col w-full justify-start py-5">
-            <UserInput 
-              id="email"
-              type="email" 
-              placeholder="Email"
-              name="email" 
-              value={input.email}
-              onChange={handleInputChange}
-              className="loginInput w-10/12 h-[2.5rem] border-blue-gray-100"
-            />
-            {!showForm && (
-              <>
-                <PrimaryButton 
-                  label="Restablecer contraseña"
-                  className="bg-violeta-100 font-medium mt-5"
-                />
-                <div className="absolute flex w-full justify-evenly bottom-0">
-                  <BackButton
-                    type="button" />
-                  <NextButton
-                    type="submit"
-                    onClick={() => {}}
-                    label="GUARDAR"
-                    className="text-celeste-100 invisible"
+          <div className="flex flex-col w-full justify-start py-5">
+            <form onSubmit={handleSubmit}>
+              <UserInput 
+                id="email"
+                type="email" 
+                placeholder="Email"
+                name="email" 
+                value={input.email}
+                onChange={handleInputChange}
+                className="loginInput w-10/12 h-[2.5rem] border-blue-gray-100"
+              />
+              {!showForm && (
+                <>
+                  <PrimaryButton 
+                    label="Restablecer contraseña"
+                    className="bg-violeta-100 font-medium mt-5"
                   />
-                </div>
-              </>
-            )}
+                  <div className="absolute flex w-full justify-evenly bottom-0">
+                    <BackButton
+                      type="button" />
+                    <NextButton
+                      type="submit"
+                      onClick={() => {}}
+                      label="GUARDAR"
+                      className="text-celeste-100 invisible"
+                    />
+                  </div>
+                </>
+              )}
+            </form>
             {showForm && <Outlet />}
-          </form>
+          </div>
         </div>
       </>
     </AuthLayout>

@@ -4,6 +4,7 @@ export interface Input {
   type?: 'text'| 'password' | 'email' | 'checkbox' | 'tel' | 'number' | 'button';
   title?: string;
   placeholder?: string;
+  maxLength?: number;
   name?: string;
   value?: string;
   checked?: boolean;

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Input } from "../types/types";
 import PasswordButton from "./ShowPassword";
 
-function UserInput({ type, title, placeholder, name, value, style, className='', positionStyles='', onChange}: Input) {
+function UserInput({ type, title, placeholder, name, value, style, className='', positionStyles='', onChange, maxLength}: Input) {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -19,6 +19,7 @@ function UserInput({ type, title, placeholder, name, value, style, className='',
           id={name}
           required
           type={inputType}
+          maxLength={maxLength}
           name={name}
           value={value}
           onChange={onChange}

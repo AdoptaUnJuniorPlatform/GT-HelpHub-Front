@@ -4,16 +4,39 @@ import NextButton from "./NextButton"
 import ResendButton from "./ResendButton"
 import UserInput from "./UserInput"
 import { useAuthContext } from "../context/AuthContext";
+import useForm from "../hooks/useForm";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 function NewPassword() {
-
   const {resetData} = useAuthContext();
+  const { resetPasswordHandler } = useAuth(); 
+  const navigate = useNavigate();
+  const initialFormState = {
+    code: "",
+    newPassword: "",
+    confirmPassword: "",
+  };
 
+  const sendData = async () => {
+    const { newPassword, confirmPassword, code } = input;
+    await resetPasswordHandler(newPassword, confirmPassword, code);
+  };
+  
   useEffect(() => {
-    console.log("Reset Data:", resetData); 
-  }, [resetData]);
+    if (!resetData) {
+      navigate("/");
+    }
+  }, [resetData, navigate]);
+  
+  const { handleSubmit, handleInputChange, input } = useForm(
+    sendData,
+    initialFormState
+  );
   return (
-    <div className="flex flex-col justify-between">
+    <form 
+      onSubmit={handleSubmit}
+      className="flex flex-col justify-between">
       <div className="flex gap-10 py-3">
         <p className="text-[14px] font-medium leading-normal text-black-80">¿Aún no recibes el código?</p>
         <ResendButton 
@@ -27,19 +50,32 @@ function NewPassword() {
       </div>
       <div className="py-5">
         <UserInput
-          type="number"
+          id="code"
+          type="text"
+          maxLength={6}
+          name="code"
+          value={input.code}
+          onChange={handleInputChange}
           className="loginInput"
           placeholder="Código"
         />
         <UserInput
+          id="newPassword"
           type="password"
+          name="newPassword"
           className="loginInput"
           placeholder="Nueva contraseña"
+          value={input.newPassword}
+          onChange={handleInputChange}
           positionStyles="top-[22px] right-[15px]"
         />
         <UserInput
+          id="confirmPassword"
           type="password"
+          name="confirmPassword"
           className="loginInput"
+          value={input.confirmPassword}
+          onChange={handleInputChange}
           placeholder="Confirmar nueva contraseña"
           positionStyles="top-[22px] right-[15px]"
         />
@@ -54,7 +90,7 @@ function NewPassword() {
           className="text-celeste-100"
         />
       </div>
-    </div>
+    </form>
   )
 }
 

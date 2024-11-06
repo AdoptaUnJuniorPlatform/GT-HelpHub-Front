@@ -31,6 +31,11 @@ export interface ResetPasswordMailRequest {
   twoFa: string ;
 }
 
+export interface ResetPasswordRequest {
+  email: string;
+  password: string;
+}
+
 export interface AuthContextProps {
   token: string | null;
   setToken: (token: string | null) => void;
