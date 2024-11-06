@@ -5,11 +5,52 @@ import UserInput from "../components/UserInput";
 import AuthLayout from "../layouts/AuthLayout";
 import SentMailAlert from "../components/SentMailAlert";
 import BackButton from "../components/BackButton";
-import useBackButton from "./useBackButton";
+import useBackButton from "../hooks/useBackButton";
 import NextButton from "../components/NextButton";
+import useForm from "../hooks/useForm";
+import { ResetPasswordMailRequest } from "../types/AuthServiceTypes";
+import { resetPasswordMail } from "../services/AuthService";
+import { useAuthContext } from "../context/AuthContext";
+import useCode from "../hooks/useCode";
+import { useEffect } from "react";
+import axios from "axios";
 
 function ResetPassword() {
   const { handleResetShow, showForm, showAlert } = useBackButton();
+
+  const { resetData, setResetData } = useAuthContext();
+  const { twoFaCode } = useCode();
+  
+  const sendData = async (data: ResetPasswordMailRequest) => {
+    try {
+      const response = await resetPasswordMail({ email: data.email, twoFa: twoFaCode });
+      if (response.message === "Email sent successfull.") {
+        setResetData({ email: data.email, twoFa: twoFaCode });
+        console.log("Respuesta recibida:", response.message);
+        handleResetShow();
+      } else {
+        console.error('Respuesta inesperada:', response);
+        alert('Hubo un problema con la solicitud. Intenta de nuevo.');
+      }
+  
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error('Error:', error.response?.data);
+        console.error('Status Code:', error.response?.status);
+      }
+    }
+  };
+  
+  useEffect(() => {
+    console.log("Reset Data:", resetData); 
+  }, [resetData]);
+
+
+  const { input, handleInputChange, handleSubmit } = useForm(sendData, {
+    email: '',
+    twoFa: ''
+  } as ResetPasswordMailRequest);
+
   
   return (
 
@@ -34,11 +75,16 @@ function ResetPassword() {
             <h3 className="text-[2.2rem] font-normal leading-normal tracking-wide text-neutral-black self-stretch">Reseteo de contraseña</h3>
             <p className="text-xl font-normal leading-normal text-neautral-black">Por favor, introduce tu correo electrónico y te enviaremos un código para restablecer tu contraseña.</p>
           </div>
-          <div className="flex flex-col w-full justify-start py-5">
+          <form 
+            onSubmit={handleSubmit}
+            className="flex flex-col w-full justify-start py-5">
             <UserInput 
               id="email"
               type="email" 
               placeholder="Email"
+              name="email" 
+              value={input.email}
+              onChange={handleInputChange}
               className="loginInput w-10/12 h-[2.5rem] border-blue-gray-100"
             />
             {!showForm && (
@@ -46,7 +92,6 @@ function ResetPassword() {
                 <PrimaryButton 
                   label="Restablecer contraseña"
                   className="bg-violeta-100 font-medium mt-5"
-                  onClick={handleResetShow}
                 />
                 <div className="absolute flex w-full justify-evenly bottom-0">
                   <BackButton
@@ -61,7 +106,7 @@ function ResetPassword() {
               </>
             )}
             {showForm && <Outlet />}
-          </div>
+          </form>
         </div>
       </>
     </AuthLayout>

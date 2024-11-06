@@ -1,9 +1,17 @@
+import { useEffect } from "react";
 import BackButton from "./BackButton"
 import NextButton from "./NextButton"
 import ResendButton from "./ResendButton"
 import UserInput from "./UserInput"
+import { useAuthContext } from "../context/AuthContext";
 
 function NewPassword() {
+
+  const {resetData} = useAuthContext();
+
+  useEffect(() => {
+    console.log("Reset Data:", resetData); 
+  }, [resetData]);
   return (
     <div className="flex flex-col justify-between">
       <div className="flex gap-10 py-3">

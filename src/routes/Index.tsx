@@ -5,7 +5,7 @@ import Home from "../pages/Home"
 import RegistrationProcess from "../components/RegistrationProcess"
 import Profile from "../pages/Profile"
 import Auth2Fa from "../pages/Auth2Fa"
-import ResetPassword from "../hooks/ResetPassword"
+import ResetPassword from "../pages/ResetPassword"
 import NewPassword from "../components/NewPassword"
 
 function RoutesIndex() {

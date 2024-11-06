@@ -32,13 +32,13 @@ function useBackButton() {
   };
 
   const handleBackButton = () => {
-    console.log("handleBackButton triggered. decodedPathname:", decodedPathname);
+
     if (decodedPathname.includes('nueva-contraseña')) {
-      console.log("Navegando a la ruta de inicio de restablecimiento");
+
       handleResetBack();
     } else if (location.pathname === ('/reseteo')){
       navigate('/')
-      console.log("Navegando hacia atrás en el historial");
+
     } else {
       if (window.history.length > 1) {
         navigate(-1);
