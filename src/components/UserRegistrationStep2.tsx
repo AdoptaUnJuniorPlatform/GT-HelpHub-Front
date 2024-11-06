@@ -37,7 +37,7 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
       updateRegistrationData({
         profileData: {
           ...registrationData.profileData,
-          profilePicture: simulatedUrl // Aquí usarías una URL real tras subir la imagen
+          profilePicture: simulatedUrl // Aquí usaremos una URL real tras subir la imagen
         }
       });
     }
@@ -175,7 +175,7 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
               <p>Mantén la edición de la foto al mínimo.</p>
               <p>Asegúrate de que la foto sea reciente y refleje cómo te ves actualmente.</p>
             </div>
-            <div className="mt-5 mr-15 w-full flex justify-center">
+            <div className="mt-5 mr-15 w-full flex justify-end">
               <Button
                 texto="Entendido"
                 color="text-white"
