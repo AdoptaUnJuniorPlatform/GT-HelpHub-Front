@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
-import { resetPassword, resetPasswordMail } from "../services/AuthService";
-import { ResetPasswordMailRequest } from "../types/AuthServiceTypes";
+import { loginUser, loginUserMail, resetPassword, resetPasswordMail } from "../services/AuthService";
+import { LoginRequest, ResetPasswordMailRequest } from "../types/AuthServiceTypes";
 import useBackButton from "./useBackButton";
 import useCode from "./useCode";
 import axios from "axios";
@@ -10,10 +10,38 @@ import axios from "axios";
 export const useAuth = () => {
   const { handleResetShow } = useBackButton();
   const [error, setError] = useState<string | null>(null);
-  const { resetData, setResetData } = useAuthContext(); 
+  const { resetData, setResetData, setToken, setLoginData } = useAuthContext(); 
   const { twoFaCode } = useCode();
   const navigate = useNavigate();
   
+  const loginHandler = async (data: LoginRequest) => {
+    try {
+      const response = await loginUser(data);
+  
+      if (response.access_token) {
+        setLoginData({ email: data.email, twoFa: twoFaCode });
+        const loginToken = response.access_token;
+        await loginUserMail ({ email: data.email, twoFa: twoFaCode });
+  
+        setToken(loginToken);
+        console.log('Login Data antes de la redirección:', { email: data.email, twoFa: twoFaCode });
+        navigate('/codigo-seguridad')
+  
+      } else {
+        alert('Credenciales incorrectas. Por favor, verifica tu email y contraseña.');
+        navigate('/'); 
+      } 
+    }catch (error) {
+  
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data?.message || 'Error desconocido';
+        alert(`Hubo un problema: ${errorMessage}`)
+  
+      } else {
+        alert('Hubo un problema con el inicio de sesión. Por favor, intenta de nuevo.');
+      }
+    }
+  }
   
   const resetPasswordHandler = async (
     newPassword: string,
@@ -71,6 +99,7 @@ export const useAuth = () => {
   };
   
   return {
+    loginHandler,
     resetPasswordHandler,
     sendResetPasswordMailData,
     error,

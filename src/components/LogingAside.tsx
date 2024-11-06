@@ -1,49 +1,26 @@
-import { loginUser, loginUserMail } from "../services/AuthService"
 import { LoginRequest } from "../types/AuthServiceTypes"
 import { useAuthContext } from "../context/AuthContext"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import PasswordCheckbox from "./PasswordCheckbox"
 import PrimaryButton from "./PrimaryButton"
 import useForm from "../hooks/useForm"
-import useCode from "../hooks/useCode"
 import UserInput from "./UserInput"
 import Title from "./Title"
 import Line from "./Line"
-import axios from "axios"
 import { useEffect } from "react"
+import { useAuth } from "../hooks/useAuth"
 
 function LogingAside() {
-  const navigate = useNavigate();
-  const { setToken, setLoginData, loginData, token } = useAuthContext();
-  const { twoFaCode } = useCode();
+  const { loginData, token } = useAuthContext();
+  const { loginHandler } = useAuth();
+  const initialFormState = {
+    email: "",
+    password: "" 
+  };
 
-  const sendData = async (data: LoginRequest) => {
-    try {
-      const response = await loginUser(data);
-
-      if (response.access_token) {
-        setLoginData({ email: data.email, twoFa: twoFaCode });
-        const loginToken = response.access_token;
-        await loginUserMail ({ email: data.email, twoFa: twoFaCode });
-
-        setToken(loginToken);
-        console.log('Login Data antes de la redirección:', { email: data.email, twoFa: twoFaCode });
-        navigate('/codigo-seguridad')
-
-      } else {
-        alert('Credenciales incorrectas. Por favor, verifica tu email y contraseña.');
-        navigate('/'); 
-      } 
-    }catch (error) {
-
-      if (axios.isAxiosError(error)) {
-        const errorMessage = error.response?.data?.message || 'Error desconocido';
-        alert(`Hubo un problema: ${errorMessage}`)
-
-      } else {
-        alert('Hubo un problema con el inicio de sesión. Por favor, intenta de nuevo.');
-      }
-    }
+  const sendData = async () => {
+    const { email, password } = input;
+    await loginHandler({ email, password })
   };
 
   useEffect(() => {
@@ -52,10 +29,7 @@ function LogingAside() {
     }
   }, [loginData, token]);
 
-  const { input, handleInputChange, handleSubmit } = useForm(sendData, {
-    email: '',
-    password: '',
-  } as LoginRequest);
+  const { input, handleInputChange, handleSubmit } = useForm(sendData, initialFormState as LoginRequest);
   return (
     <>
       <aside className="flex justify-center items-center w-full lg:w-[650px] lg:h-[90vh] sm:h-[95vh] bg-violeta-20 flex-shrink-0 text-neutral-black p-4 lg:p-0 
