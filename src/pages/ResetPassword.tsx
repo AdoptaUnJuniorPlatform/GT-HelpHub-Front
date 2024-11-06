@@ -9,51 +9,31 @@ import useBackButton from "../hooks/useBackButton";
 import NextButton from "../components/NextButton";
 import useForm from "../hooks/useForm";
 import { ResetPasswordMailRequest } from "../types/AuthServiceTypes";
-import { resetPasswordMail } from "../services/AuthService";
 import { useAuthContext } from "../context/AuthContext";
-import useCode from "../hooks/useCode";
 import { useEffect } from "react";
-import axios from "axios";
+import { useAuth } from "../hooks/useAuth";
 
 function ResetPassword() {
-  const { handleResetShow, showForm, showAlert } = useBackButton();
-
-  const { resetData, setResetData } = useAuthContext();
-  const { twoFaCode } = useCode();
+  const { showForm, showAlert } = useBackButton();
+  const { sendResetPasswordMailData } = useAuth();
+  const { resetData } = useAuthContext();
+  const initialFormState = {
+    email: "",
+    twoFa: "" 
+  };
   
-  const sendData = async (data: ResetPasswordMailRequest) => {
-    try {
-      const response = await resetPasswordMail({ email: data.email, twoFa: twoFaCode });
-      if (response.message === "Email sent successfull.") {
-        setResetData({ email: data.email, twoFa: twoFaCode });
-        console.log("Respuesta recibida:", response.message);
-        handleResetShow();
-      } else {
-        console.error('Respuesta inesperada:', response);
-        alert('Hubo un problema con la solicitud. Intenta de nuevo.');
-      }
-  
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error('Error:', error.response?.data);
-        console.error('Status Code:', error.response?.status);
-      }
-    }
+  const sendData = async () => {
+    const { email, twoFa } = input;
+    await sendResetPasswordMailData({ email, twoFa })
   };
   
   useEffect(() => {
     console.log("Reset Data:", resetData); 
   }, [resetData]);
 
-
-  const { input, handleInputChange, handleSubmit } = useForm(sendData, {
-    email: '',
-    twoFa: ''
-  } as ResetPasswordMailRequest);
-
+  const { input, handleInputChange, handleSubmit } = useForm(sendData, initialFormState as ResetPasswordMailRequest);
   
   return (
-
     <AuthLayout>
       <div className="relative flex flex-col w-full h-full justify-center items-center">
         <div className="absolute left-[20%] flex flex-col items-center justify-center w-full max-w-[500px] gap-20">
