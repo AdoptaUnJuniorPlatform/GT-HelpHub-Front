@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
-import { loginUser, loginUserMail, resetPassword, resetPasswordMail } from "../services/AuthService";
-import { LoginRequest, ResetPasswordMailRequest } from "../types/AuthServiceTypes";
+import { loginUser, loginUserMail, registerUserMail, resetPassword, resetPasswordMail } from "../services/AuthService";
+import { LoginRequest, RegisterRequest, ResetPasswordMailRequest } from "../types/AuthServiceTypes";
 import useBackButton from "./useBackButton";
 import useCode from "./useCode";
 import axios from "axios";
@@ -10,7 +10,7 @@ import axios from "axios";
 export const useAuth = () => {
   const { handleResetShow } = useBackButton();
   const [error, setError] = useState<string | null>(null);
-  const { resetData, setResetData, setToken, setLoginData } = useAuthContext(); 
+  const { resetData, setResetData, setToken, setLoginData, setRegisterData } = useAuthContext(); 
   const { twoFaCode } = useCode();
   const navigate = useNavigate();
   
@@ -39,6 +39,33 @@ export const useAuth = () => {
   
       } else {
         alert('Hubo un problema con el inicio de sesión. Por favor, intenta de nuevo.');
+      }
+    }
+  }
+
+  const registerHandler = async (data: RegisterRequest) => {
+    const updatedData = {
+      ...data,
+      phone: data.phone ? `+34${data.phone}` : '',
+      twoFa: twoFaCode,
+      role: 'user'
+    };
+    console.log(updatedData)
+    setRegisterData(updatedData);
+  
+    console.log('Estado guardado:', updatedData);
+    
+    try {
+      const response = await registerUserMail(updatedData);
+      console.log('Correo enviado:', response.message);
+  
+      navigate('/codigo-seguridad');
+  
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error('Error en la solicitud:', error.response?.data);
+      } else {
+        console.error('Error inesperado:', error);
       }
     }
   }
@@ -100,6 +127,7 @@ export const useAuth = () => {
   
   return {
     loginHandler,
+    registerHandler,
     resetPasswordHandler,
     sendResetPasswordMailData,
     error,

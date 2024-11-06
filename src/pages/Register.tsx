@@ -1,55 +1,27 @@
 import AgreementCheckbox from "../components/AgreementCheckbox"
 import RegisterOptional from "../components/RegisterOptional"
 import RegisterAtivate from "../components/RegisterAtivate"
-import { RegisterRequest } from "../types/AuthServiceTypes"
-import { registerUserMail } from "../services/AuthService"
+// import { RegisterRequest } from "../types/AuthServiceTypes"
+// import { registerUserMail } from "../services/AuthService"
 import PrimaryButton from "../components/PrimaryButton"
 import RegisterAside from "../components/RegisterAside"
-import { useAuthContext } from "../context/AuthContext"
+// import { useAuthContext } from "../context/AuthContext"
 import RegisterName from "../components/RegisterName"
 import PhoneSelect from "../components/PhoneSelect"
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import UserInput from "../components/UserInput"
 import Switch from "../components/Switch"
 import Title from "../components/Title"
 import useForm from "../hooks/useForm"
-import useCode from "../hooks/useCode"
+// import useCode from "../hooks/useCode"
 import Note from "../components/Note"
-import axios from "axios"
+// import axios from "axios"
+import { useAuth } from "../hooks/useAuth"
 
 function Register() {
-  const navigate = useNavigate();
-  const { setRegisterData } = useAuthContext();
-  const {twoFaCode} = useCode();
-
-  const sendData = async (data: RegisterRequest) => {
-    const updatedData = {
-      ...data,
-      phone: data.phone ? `+34${data.phone}` : '',
-      twoFa: twoFaCode,
-      role: 'user'
-    };
-    console.log(updatedData)
-    setRegisterData(updatedData);
-
-    console.log('Estado guardado:', updatedData);
-  
-    try {
-      const response = await registerUserMail(updatedData);
-      console.log('Correo enviado:', response.message);
-
-      navigate('/codigo-seguridad');
-
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error('Error en la solicitud:', error.response?.data);
-      } else {
-        console.error('Error inesperado:', error);
-      }
-    }
-  };
-
-  const { input, handleInputChange, handleSwitchChange, handleSubmit } = useForm(sendData, {
+  // const { registerData } = useAuthContext();
+  const { registerHandler } = useAuth();
+  const initialFormState = {
     email: '',
     password: '',
     nameUser: '',
@@ -60,7 +32,34 @@ function Register() {
     blocked: false,
     twoFa: '',
     role: ''
-  })
+  };
+
+  const sendData = async () => {
+    const { 
+      email, 
+      password, 
+      nameUser, 
+      surnameUser, 
+      phone,optionCall, 
+      showPhone, 
+      blocked, 
+      twoFa, 
+      role 
+    } = input;
+    await registerHandler ({
+      email, 
+      password, 
+      nameUser, 
+      surnameUser, 
+      phone,optionCall, 
+      showPhone, 
+      blocked, 
+      twoFa, 
+      role
+    })
+  };
+
+  const { input, handleInputChange, handleSwitchChange, handleSubmit } = useForm(sendData, initialFormState )
 
   return (
     <>
