@@ -41,3 +41,14 @@
 .custom-scroll::-webkit-scrollbar-thumb:hover {
     background-color: #8b5cf6;
   }
+
+.custom-layout-class-for-step-4 {
+  min-height: 220vh; 
+  padding-bottom: 1rem;
+}
+
+.submitted-layout-for-step-4 {
+  min-height: 270vh; 
+  padding-bottom: 1rem; 
+}
+
