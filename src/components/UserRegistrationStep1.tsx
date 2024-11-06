@@ -56,10 +56,10 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
     >
       
       {/* Contenido específico del paso 1 */}
-      <div className="relative w-[571px] h-[140px] top-[-30px] left-[-210px] mt-[132px] mx-auto bg-gray-100 rounded-md border border-[#b7b7b7]">
+      <div className="relative w-[571px] h-[140px] top-[-30px] left-[-210px] mt-[132px] mx-auto bg-neutral-50 rounded-md border border-[#b7b7b7]">
       
         {/* Texto "Sobre mí" con el rectángulo pequeño */}
-        <div className="absolute top-[-10px] left-[20px] bg-gray-100 px-1">
+        <div className="absolute top-[-10px] left-[20px] bg-neutral-50 px-1">
           <div className="text-[#696868] text-[15px] font-normal leading-normal tracking-wide">Sobre mí</div>
         </div>
 
