@@ -10,7 +10,7 @@ interface LeftColumnProps {
 
 const LeftColumn: React.FC<LeftColumnProps> = ({ title, description, showExtraContent = false, extraContent }) => {
   return (
-    <div className="w-1/3 h-full p-10 bg-gray-50 flex flex-col items-start justify-start px-20 space-y-8" >
+    <div className="w-1/3 h-full p-10 bg-neutral-50 flex flex-col items-start justify-start px-20 space-y-8" >
       {/* Logo */}
       <div>
         <OfficialLogo />
