@@ -10,7 +10,7 @@ import { useAuth } from "../hooks/useAuth";
 
 function NewPassword() {
   const {resetData} = useAuthContext();
-  const { resetPasswordHandler } = useAuth(); 
+  const { resetPasswordHandler, handleResendCode } = useAuth(); 
   const navigate = useNavigate();
   const initialFormState = {
     code: "",
@@ -41,7 +41,7 @@ function NewPassword() {
         <p className="text-[14px] font-medium leading-normal text-black-80">¿Aún no recibes el código?</p>
         <ResendButton 
           type= "button"
-          onClick={() => {}}
+          onClick={handleResendCode}
         /> 
       </div>
       <div className="py-7">

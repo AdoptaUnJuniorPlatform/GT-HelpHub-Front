@@ -145,7 +145,7 @@ export const useAuth = () => {
         } 
       }
     
-    } else{
+    } else if (loginData && !registerData) {
       const email = loginData?.email;
       const twoFaCode = newTwoFaCode;
     
@@ -165,8 +165,23 @@ export const useAuth = () => {
           } catch (error) {
             console.error("Error al reenviar el codigo para login:", error);
           }
-        }  } else {
-        alert("No se pudo reenviar el código porque no se encontró un correo electrónico. Por favor, intenta de nuevo.");
+        } else {
+          alert("No se pudo reenviar el código porque no se encontró un correo electrónico. Por favor, intenta de nuevo.");
+        } 
+      } else if (resetData) {
+        const email = resetData?.email;
+        const twoFaCode = newTwoFaCode;
+
+        if (email) {
+          try {
+            await resetPasswordMail({ email, twoFa: twoFaCode })
+            alert("Código para el reset reenviado al correo proporcionado.");
+          }catch (error) {
+            console.error("Error al reenviar el codigo para reset:", error);
+          }
+        } else {
+          alert("No se pudo reenviar el código porque no se encontró un correo electrónico. Por favor, intenta de nuevo.");
+        }
       }
     }
   };
