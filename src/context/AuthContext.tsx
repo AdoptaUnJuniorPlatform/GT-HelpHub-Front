@@ -14,6 +14,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
   function clearData() {
     setRegisterData(null);
     setLoginData(null);
+    localStorage.removeItem('email')
   }
 
   function handleLogout() {

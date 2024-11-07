@@ -70,6 +70,11 @@ function Auth2Fa() {
 
           if(token) {
             localStorage.setItem('token', token);
+
+            if (loginData?.email) {
+              localStorage.setItem('email', loginData.email);
+            }
+            
             if (isLoggedIn && !isRegistering) {
               navigate('/home')
             } else {
