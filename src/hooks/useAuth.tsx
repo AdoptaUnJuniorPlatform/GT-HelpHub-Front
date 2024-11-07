@@ -10,8 +10,8 @@ import axios from "axios";
 export const useAuth = () => {
   const { handleResetShow } = useBackButton();
   const [error, setError] = useState<string | null>(null);
-  const { resetData, setResetData, setToken, setLoginData, setRegisterData } = useAuthContext(); 
-  const { twoFaCode } = useCode();
+  const { resetData, setResetData, setToken,loginData, setLoginData, registerData, setRegisterData } = useAuthContext(); 
+  const { twoFaCode, twoFaCode: newTwoFaCode } = useCode();
   const navigate = useNavigate();
   
   const loginHandler = async (data: LoginRequest) => {
@@ -124,10 +124,57 @@ export const useAuth = () => {
       }
     }
   };
+
+  const handleResendCode = async () => {
+    if (registerData && !loginData) {
+      const email = registerData?.email;
+      if(email) {
+        const updatedData = ({
+          ...registerData,
+          twoFa: newTwoFaCode,
+        });
+        setRegisterData(updatedData);
+        console.log(updatedData);
+    
+        try {
+          await registerUserMail(updatedData);
+          console.log(updatedData);
+        } catch(error) {
+          console.error("Error al reenviar el codigo:", error);
+          alert("Hubo un problema al reenviar el código. Por favor, intenta de nuevo.");
+        } 
+      }
+    
+    } else{
+      const email = loginData?.email;
+      const twoFaCode = newTwoFaCode;
+    
+      if (email) {
+        const updatedLoginData = {
+          ...loginData,
+          twoFa: newTwoFaCode, 
+        };
+        
+        setLoginData(updatedLoginData);   
+    
+        if (email) {
+          try {
+            await loginUserMail({ email, twoFa: twoFaCode });
+            alert("Código para el login reenviado al correo proporcionado.");
+      
+          } catch (error) {
+            console.error("Error al reenviar el codigo para login:", error);
+          }
+        }  } else {
+        alert("No se pudo reenviar el código porque no se encontró un correo electrónico. Por favor, intenta de nuevo.");
+      }
+    }
+  };
   
   return {
     loginHandler,
     registerHandler,
+    handleResendCode,
     resetPasswordHandler,
     sendResetPasswordMailData,
     error,

@@ -1,25 +1,18 @@
 import AgreementCheckbox from "../components/AgreementCheckbox"
 import RegisterOptional from "../components/RegisterOptional"
 import RegisterAtivate from "../components/RegisterAtivate"
-// import { RegisterRequest } from "../types/AuthServiceTypes"
-// import { registerUserMail } from "../services/AuthService"
 import PrimaryButton from "../components/PrimaryButton"
 import RegisterAside from "../components/RegisterAside"
-// import { useAuthContext } from "../context/AuthContext"
 import RegisterName from "../components/RegisterName"
 import PhoneSelect from "../components/PhoneSelect"
-// import { useNavigate } from 'react-router-dom';
 import UserInput from "../components/UserInput"
+import { useAuth } from "../hooks/useAuth"
 import Switch from "../components/Switch"
 import Title from "../components/Title"
 import useForm from "../hooks/useForm"
-// import useCode from "../hooks/useCode"
 import Note from "../components/Note"
-// import axios from "axios"
-import { useAuth } from "../hooks/useAuth"
 
 function Register() {
-  // const { registerData } = useAuthContext();
   const { registerHandler } = useAuth();
   const initialFormState = {
     email: '',
