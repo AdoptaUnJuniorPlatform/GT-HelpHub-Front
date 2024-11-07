@@ -13,7 +13,7 @@ function UserInput({ type, title, placeholder, name, value, style, className='',
 
   return (
     <section className="font-normal not-italic font-poppins w-full pt-1">
-      <span className="text-slate-900">{title}</span>
+      <span className="text-black-80 font-medium text-[14px] leading-5">{title}</span>
       <label htmlFor={name} className="relative w-full">
         <input
           id={name}

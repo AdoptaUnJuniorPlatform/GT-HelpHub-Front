@@ -207,3 +207,12 @@ export interface BackNextButtonProps {
   label?: string
   className?: string; 
 }
+
+export interface  LoginCardProps {
+  name: string;
+  occupation: string;
+  location?: string;
+  availability: string;
+  description: string;
+  tags: string[];
+}
