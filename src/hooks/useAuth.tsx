@@ -14,6 +14,11 @@ export const useAuth = () => {
     email: false,
     password: false,
   });
+  const [registerError, setRegisterError] = useState<{ email: boolean; password: boolean; phone: boolean; }>({
+    email: false,
+    password: false,
+    phone: false,
+  });
   const { resetData, setResetData, setToken,loginData, setLoginData, registerData, setRegisterData } = useAuthContext(); 
   const { twoFaCode, twoFaCode: newTwoFaCode } = useCode();
   const navigate = useNavigate();
@@ -71,19 +76,36 @@ export const useAuth = () => {
       role: 'user'
     };
     console.log(updatedData)
-    setRegisterData(updatedData);
-  
+    
     console.log('Estado guardado:', updatedData);
     
     try {
       const response = await registerUserMail(updatedData);
+      setRegisterData(updatedData);
       console.log('Correo enviado:', response.message);
+      setRegisterError((prevState) => ({
+        ...prevState,
+        email: false,
+        password: false,
+        phone: false,
+      }));
   
       navigate('/codigo-seguridad');
   
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error('Error en la solicitud:', error.response?.data);
+        const errorMessage = error.response?.data?.message 
+        console.error(`Error en la solicitud: ${errorMessage}`);
+        console.log(error)
+        if (
+          errorMessage[0] === "Password should contain mínimum one Mayusc, one number, and one symbol." ||
+              errorMessage[1] === "Password should contain minimum 6 digits." 
+        ) {
+          setRegisterError((prevState) => ({
+            ...prevState,
+            password: true,
+          }));
+        }
       } else {
         console.error('Error inesperado:', error);
       }
@@ -214,6 +236,8 @@ export const useAuth = () => {
     sendResetPasswordMailData,
     setLoginError,
     loginError,
+    setRegisterError,
+    registerError,
     error,
   };
 };

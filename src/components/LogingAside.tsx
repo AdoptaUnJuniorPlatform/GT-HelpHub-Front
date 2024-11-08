@@ -9,6 +9,7 @@ import Line from "./Line"
 import { useEffect } from "react"
 import { useAuth } from "../hooks/useAuth"
 import Logo from "./Logo"
+import { regex } from "../Variables/varibles"
 
 function LogingAside() {
   const { loginData, token } = useAuthContext();
@@ -20,7 +21,6 @@ function LogingAside() {
 
   const sendData = async () => {
     const { email, password } = input;
-    const regex = /^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*\.(com|org|net|edu|gov|mil|info|co)$/;
 
     if (regex.test(email)) {
       await loginHandler({ email, password })

@@ -11,9 +11,10 @@ import Switch from "../components/Switch"
 import Title from "../components/Title"
 import useForm from "../hooks/useForm"
 import Note from "../components/Note"
+import { regex } from "../Variables/varibles"
 
 function Register() {
-  const { registerHandler } = useAuth();
+  const { registerHandler, setRegisterError, registerError } = useAuth();
   const initialFormState = {
     email: '',
     password: '',
@@ -39,17 +40,31 @@ function Register() {
       twoFa, 
       role 
     } = input;
-    await registerHandler ({
-      email, 
-      password, 
-      nameUser, 
-      surnameUser, 
-      phone,optionCall, 
-      showPhone, 
-      blocked, 
-      twoFa, 
-      role
-    })
+    if (regex.test(email) && input.phone.length === 9) {
+      await registerHandler ({
+        email, 
+        password, 
+        nameUser, 
+        surnameUser, 
+        phone,
+        optionCall, 
+        showPhone, 
+        blocked, 
+        twoFa, 
+        role
+      })
+    }else if (input.phone.length < 9) {
+      setRegisterError((prevState) => ({
+        ...prevState,
+        phone: true,
+      }))
+
+    }else {
+      setRegisterError((prevState) => ({
+        ...prevState,
+        email: true,
+      }))
+    }
   };
 
   const { input, handleInputChange, handleSwitchChange, handleSubmit } = useForm(sendData, initialFormState )
@@ -105,6 +120,7 @@ function Register() {
                 name="phone"
                 value={input.phone}
                 onChange={handleInputChange}
+                className={`${registerError.phone ? 'border-red-500 focus-within:border-red-500 ' : 'focus-within:ring-blue-500 mt-1.5 '}`}
               />
 
             </div>
@@ -134,7 +150,7 @@ function Register() {
                 name="email"
                 value={input.email}
                 onChange={handleInputChange}
-                className="w-[400px] h-[2.4rem]  border-blue-gray-100"
+                className={`w-[400px] h-[2.4rem]  border-blue-gray-100 ${registerError.email ? 'outline-red-500 border-red-500' : 'outline-violeta-100'}`}
               />
 
               <UserInput
@@ -145,7 +161,7 @@ function Register() {
                 name="password" 
                 value={input.password}
                 onChange={handleInputChange}
-                className="w-[400px] h-[2.5rem]  border-blue-gray-100" 
+                className={`w-[400px] h-[2.5rem]  border-blue-gray-100 ${registerError.password ? 'outline-red-500 border-red-500' : 'outline-violeta-100'}`} 
                 positionStyles="right-4 top-[70%]"
               />
 

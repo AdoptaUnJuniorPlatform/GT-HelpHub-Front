@@ -5,6 +5,7 @@ import PasswordButton from "./ShowPassword";
 function UserInput({ type, title, placeholder, name, value, style, className='', positionStyles='', onChange, maxLength}: Input) {
   const [showPassword, setShowPassword] = useState(false);
 
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
