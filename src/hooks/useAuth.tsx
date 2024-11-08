@@ -19,6 +19,7 @@ export const useAuth = () => {
     password: false,
     phone: false,
   });
+  const [resetMailError, setResetMailError] = useState<boolean>(false);
   const { resetData, setResetData, setToken,loginData, setLoginData, registerData, setRegisterData } = useAuthContext(); 
   const { twoFaCode, twoFaCode: newTwoFaCode } = useCode();
   const navigate = useNavigate();
@@ -238,6 +239,8 @@ export const useAuth = () => {
     loginError,
     setRegisterError,
     registerError,
+    setResetMailError,
+    resetMailError,
     error,
   };
 };

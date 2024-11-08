@@ -12,10 +12,11 @@ import { ResetPasswordMailRequest } from "../types/AuthServiceTypes";
 import { useAuthContext } from "../context/AuthContext";
 import { useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
+import { regex } from "../Variables/varibles";
 
 function ResetPassword() {
   const { showForm, showAlert } = useBackButton();
-  const { sendResetPasswordMailData } = useAuth();
+  const { sendResetPasswordMailData, setResetMailError, resetMailError } = useAuth();
   const { resetData } = useAuthContext();
   const initialFormState = {
     email: "",
@@ -24,7 +25,12 @@ function ResetPassword() {
   
   const sendData = async () => {
     const { email, twoFa } = input;
-    await sendResetPasswordMailData({ email, twoFa })
+
+    if(regex.test(email)) {
+      await sendResetPasswordMailData({ email, twoFa })
+    } else {
+      setResetMailError(true);
+    }
   };
   
   useEffect(() => {
@@ -64,7 +70,7 @@ function ResetPassword() {
                 name="email" 
                 value={input.email}
                 onChange={handleInputChange}
-                className="loginInput w-10/12 h-[2.5rem] border-blue-gray-100"
+                className={`loginInput w-10/12 h-[2.5rem] border-blue-gray-100 ${resetMailError ? 'outline-red-500 border-red-500' :  'outline-violeta-100'}`}
               />
               {!showForm && (
                 <>
