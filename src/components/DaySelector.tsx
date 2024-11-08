@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import DropdownIconTemp from '../assets/DropdownIconTemp.svg'
 
 interface DaySelectorProps {
   selectedDays: string[];
@@ -30,25 +29,23 @@ const DaySelector: React.FC<DaySelectorProps> = ({ selectedDays, onDaySelect }) 
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-[300px]">
       {/* Contenedor del botón que abre el desplegable */}
       <div
-        className="w-[300px] h-[40px] bg-[#fbfbff] rounded-md border border-[#aeaeae]/10 flex items-center justify-between px-4 cursor-pointer"
+        className="h-[40px] bg-[#fbfbff] rounded-md border border-[#aeaeae]/10 flex items-center justify-between px-4 cursor-pointer"
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}  // Toggle del dropdown
       >
         {/* Texto de "Seleccionar días" */}
         <div className="text-[#696868] text-sm font-normal font-['Roboto'] leading-normal tracking-wide">
           {selectedDays.length > 0 ? selectedDays.join(', ') : 'Seleccionar días'}
         </div>
-        {/* Ícono de Dropdown */}
-        <div className="w-5 h-5">
-          <img src={DropdownIconTemp} alt="Dropdown" />
-        </div>
+        {/* Ícono de Dropdown como símbolo */}
+        <span className="text-gray-500">▼</span>
       </div>
 
       {/* Menú desplegable */}
       {isDropdownOpen && (
-        <div className="absolute top-[45px] left-0 w-[300px] bg-white rounded-md border border-[#d6d6d6] shadow-md z-50">
+        <div className="absolute top-[45px] left-0 w-full bg-white rounded-md border border-[#d6d6d6] shadow-md z-50">
           {/* Lista de días de la semana */}
           {daysOfWeek.map((day) => (
             <div

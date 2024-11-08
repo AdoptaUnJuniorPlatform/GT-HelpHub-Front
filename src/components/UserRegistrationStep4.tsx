@@ -1,8 +1,15 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import Layout from './Layout';
 import TextInputWithCounter from './TextInputWithCounter';
 import NivelRadioButtons from './NivelRadioButtons';
 import ModalidadRadioButtons from './ModalidadRadioButtons';
+import TitleTipsModal from './TitleTipsModal';
+import TitleExampleModal from './TitleExampleModal';
+import DropdownCategories from './DropdownCategories';
+import SaveButton from './SaveButton';
+{/*import { createHability } from '../services/apiClient';*/}
+import SkillsDisplay from './SkillsDisplay';
+import { HabilityData } from '../types/RegistrationFormData';
 
 interface UserRegistrationStep4Props {
   onBackClick: () => void;
@@ -17,62 +24,87 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
   steps,
   currentStep,
 }) => {
+
+  const [habilityData, setHabilityData] = useState<HabilityData>({
+    title: '',
+    level: '',
+    mode: '',
+    description: '',
+    category: '',
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const [text, setText] = useState<string>('');
+  const [isTitleTipsModalOpen, setIsTitleTipsModalOpen] = useState(false);
+  const [isTitleExampleModalOpen, setIsTitleExampleModalOpen] = useState(false);
+
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
+    const { value } = e.target;
+    setText(value);
+    setHabilityData((prevData) => ({ ...prevData, description: value }));
   };
+
+  const toggleTitleTipsModal = () => {
+    setIsTitleTipsModalOpen(!isTitleTipsModalOpen);
+  };
+
+  const toggleTitleExampleModal = () => {
+    setIsTitleExampleModalOpen(!isTitleExampleModalOpen);
+  };
+
+  const handleInputChange = (name: keyof HabilityData, value: string) => {
+    setHabilityData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  {/*const handleSubmit = async () => {
+    try {
+      await createHability(habilityData);
+      setIsSubmitted(true); // Cambia a modo "ver datos" tras enviar
+    } catch (error) {
+      console.error('Error creating hability:', error);
+    }
+  };*/}
+
+  const handleSubmit = () => {
+    // Simula un "éxito" de respuesta del backend
+    console.log("Simulación de envío exitoso");
+    setIsSubmitted(true); // Cambia el estado a "enviado" para activar el cambio de texto
+  };
+
+  const categoryOptions = ['Arte', 'Ciencia', 'Deporte', 'Tecnología', 'Otros']; // Opciones de ejemplo
+
+
   const exampleSkillContent = (
     <div className="w-full bg-gray-50 p-8">
-      {/* Título de ejemplo de habilidad */}
-      <div className="text-[#434242] text-[24px] font-normal font-['Roboto'] tracking-tight mb-4 ml-[-21px]">
+      <div className="text-[#434242] text-[24px] font-normal font-['Roboto'] tracking-tight mb-4">
         Ejemplo de habilidad cargada
       </div>
-      <div className="w-[332px] h-[360px] bg-[#fbfbff] rounded-md shadow flex-col justify-start items-start inline-flex ml-[-41px]">
-        <div className="self-stretch px-[22px] pt-5 pb-2.5 justify-center items-start gap-2.5 inline-flex">
-          <div className="w-[232px] text-[#434242] text-2xl font-normal font-['Roboto'] leading-normal tracking-wide">Pintar Óleo</div>
-        </div>
-        <div className="self-stretch h-[45px] px-[17px] py-[3px] justify-between items-center inline-flex">
-          <div className="grow shrink basis-0 text-[#434242] text-sm font-normal font-['Roboto'] leading-normal">14011 Córdoba, Córdoba provincia</div>
-        </div>
-        <div className="h-[77px] pl-4 pr-[125px] py-[15px] border-t border-[#aeaeae]/5 flex-col justify-start items-start gap-[5px] flex">
-          <div className="text-center text-[#434242] text-[13px] font-normal font-['Roboto'] leading-tight tracking-tight">Nivel</div>
-          <div className="justify-start items-start gap-[7px] inline-flex">
-            <div className="px-[11px] py-[9px] bg-[#aeaeae]/10 rounded-[30px] border justify-center items-center gap-1 flex">
-              <div className="text-center text-[#696868] text-xs font-normal font-['Roboto'] leading-tight tracking-tight">Básico</div>
-            </div>
-            <div className="px-[11px] py-[9px] bg-[#496ceb] rounded-[30px] border justify-center items-center gap-1 flex">
-              <div className="text-center text-[#fbfbff] text-xs font-normal font-['Roboto'] leading-tight tracking-tight">Medio</div>
-            </div>
-            <div className="px-[11px] py-[9px] bg-[#aeaeae]/10 rounded-[30px] border justify-center items-center gap-1 flex">
-              <div className="text-center text-[#696868] text-xs font-normal font-['Roboto'] leading-tight tracking-tight">Experto</div>
-            </div>
+      <div className="w-[332px] h-[360px] bg-[#fbfbff] rounded-md shadow flex flex-col items-start p-5">
+        <div className="text-2xl font-normal text-[#434242] mb-2">Pintar Óleo</div>
+        <div className="text-sm text-[#434242] mb-4">14011 Córdoba, Córdoba provincia</div>
+        <div className="border-t border-[#aeaeae]/5 py-4">
+          <div className="text-left text-[#434242] text-[13px] font-normal mb-2">Nivel</div>
+          <div className="flex space-x-2">
+            <div className="px-3 py-2 bg-[#aeaeae]/10 rounded-full text-[#696868] text-xs">Básico</div>
+            <div className="px-3 py-2 bg-[#496ceb] rounded-full text-[#fbfbff] text-xs">Medio</div>
+            <div className="px-3 py-2 bg-[#aeaeae]/10 rounded-full text-[#696868] text-xs">Experto</div>
           </div>
         </div>
-        <div className="self-stretch h-[86px] px-[17px] py-[3px] justify-between items-center inline-flex">
-          <div className="w-24 text-[#434242] text-sm font-normal font-['Roboto'] leading-normal tracking-wide">Disponibilidad</div>
-          <div className="rounded-lg border border-[#696868] justify-center items-center flex">
-            <div className="px-4 py-1.5 justify-center items-center gap-2 flex">
-              <div className="text-center text-[#434242] text-sm font-medium font-['Roboto'] leading-tight tracking-tight">9:00hs a 14:00hs</div>
-            </div>
-          </div>
+        <div className="flex items-center mt-4">
+          <span className="text-sm text-[#434242] mr-4">Disponibilidad</span>
+          <div className="border rounded-lg px-4 py-1.5 text-sm font-medium text-[#434242]">9:00hs a 14:00hs</div>
         </div>
-        <div className="self-stretch px-[17px] pb-[11px] justify-center items-start gap-2.5 inline-flex">
-          <div className="grow shrink basis-0 text-[#696868] text-base font-normal font-['Roboto'] tracking-tight">Enseñar a pintar óleo desde cero, ya que me encanta enseñar.<br/>Pinto en óleo hace 10 años, por lo tanto tengo gran experiencia.</div>
+        <div className="text-base text-[#696868] mt-4">
+          Enseñar a pintar óleo desde cero, ya que me encanta enseñar. Pinto en óleo hace 10 años, por lo tanto tengo gran experiencia.
         </div>
       </div>
     </div>
   );
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
   return (
     <Layout
-      title="¡Ya casi terminamos!"
-      description="Carga tu primera habilidad."
+      title={isSubmitted ? "¡Felicidades has cargado tu primera habilidad!" : "¡Ya casi terminamos!"}
+      description={isSubmitted ? "Puedes seguir cargando más si así lo deseas." : "Carga tu primera habilidad."}
       stepTitle="Paso 4"
       stepDescription="Nueva habilidad"
       onBackClick={onBackClick}
@@ -81,98 +113,88 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
       currentStep={currentStep}
       showExtraContent={true}
       extraContent={exampleSkillContent}
+      isSubmitted={isSubmitted}
     >
-      {/*Contenido específico para el paso 4*/}
-      <div className="relative w-[450px] h-14 left-[-40px] top-[80px] text-[#434242] text-m font-normal font-['Roboto']">En HelpHub, queremos facilitar a los usuarios la coordinación de horarios.</div>
+      {/* Contenedor principal */}
+      <div className="ml-[-60px] w-[730px] h-[1000px] pl-4 pr-4 bg-[#f6f5f4]"> 
+        <div className="mt-20 mb-4 text-[#434242] text-lg font-normal">¡Puedes añadir múltiples habilidades y siempre podrás cambiarlas o editarlas más tarde!</div>
 
-      <div className=" relative w-[503px] h-[34px] left-[-40px] top-[90px] text-[#434242] text-2xl font-normal font-['Roboto']">Escribe el titulo de tu publicación</div>
+        <div className="text-[#434242] text-2xl font-normal">Escribe el título de tu publicación</div>
 
-      {/* Input con contador de caracteres */}
-      <div className="relative left-[-40px] top-[100px]">
-        <TextInputWithCounter />
-      </div>
-
-      {/* Botón que abre el modal */}
-      <div className="relative w-[206px] text-[#434242] left-[-40px] top-[100px] text-base font-normal font-['Roboto'] underline tracking-tight cursor-pointer mt-4" onClick={toggleModal}>
-        Ejemplos para crear tu título
-      </div>
-
-      {/* Modal emergente */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="w-[619px] h-80 bg-[#fbfbff] rounded-md shadow flex-col justify-start items-start gap-[25px] p-5">
-            <div className="flex justify-between w-full">
-              <div className="text-[#434242] text-[34px] font-normal font-['Roboto'] tracking-tight">
-                Ejemplos para crear tu título
-              </div>
-              <button onClick={toggleModal} className="text-[#434242] text-xl">
-                &times;
-              </button>
-            </div>
-
-            <div className="pl-5 pr-[17px] mt-5 text-[#696868] text-2xl font-normal font-['Roboto'] leading-relaxed">
-              • Sesión grupal de meditación al aire libre.<br/>
-              • Revisión de currículum vitae.<br/>
-              • Clases de cocina italiana tradicional.<br/>
-              • Entrenamiento personal en gimnasio.
-            </div>
-
-            <div className="w-full flex justify-end border-t border-gray-300 pt-5 mt-5">
-              <button onClick={toggleModal} className="text-center text-[#434242] text-sm font-normal font-['Roboto'] uppercase tracking-tight">
-                Entiendo
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-      {/*Nivel*/}
-      <div className="relative w-[503px] h-[34px] left-[-40px] top-[120px] text-[#434242] text-2xl font-normal font-['Roboto']">Nivel</div>
-
-      {/* Radio buttons para Nivel */}
-      <div className="relative left-[-40px] top-[130px]">
-        <NivelRadioButtons />
-      </div>
-
-      {/* Título para Modalidad */}
-      <div className="relative w-[503px] h-[34px] left-[-40px] top-[145px] text-[#434242] text-2xl font-normal font-['Roboto']">
-        Modalidad
-      </div>
-
-      {/* Radio buttons para Modalidad */}
-      <div className="relative left-[-40px] top-[150px]">
-        <ModalidadRadioButtons />
-      </div>
-
-      {/* Texto "¿Qué ofreces?" */}
-      <div className="relative w-[503px] h-[34px] left-[-40px] top-[165px] text-[#434242] text-2xl font-normal font-['Roboto']">
-        ¿Qué ofreces?
-      </div>
-
-      {/* Texto "Descripción" en el rectángulo pequeño */}
-      <div className="relative w-[526px] mt-[10px] mx-auto left-[-40px] top-[170px]">
-
-        
-        <div className="absolute top-[-10px] left-[10px] bg-gray-100 px-2" >
-          <div className="text-[#696868] text-[15px] font-normal leading-normal tracking-wide">
-            Descripción
-          </div>
-        </div>
-
-        {/* Textarea en el rectángulo grande */}
-        <textarea
-          className="w-full h-[150px] p-4 border border-gray-300 rounded-md text-[#696868] text-base font-normal tracking-tight resize-none overflow-hidden bg-transparent"
-          placeholder="Ej: Clases de pintura al óleo desde cero, Nivel inicial y avanzado"
-          maxLength={255}
-          onChange={handleTextareaChange}
-          value={text}
+        <TextInputWithCounter 
+          className="mb-6"
+          value={habilityData.title || ''}
+          onChange={(value) => handleInputChange("title", value)}
         />
-        
-        {/* Contador de caracteres */}
-        <div className="absolute right-[15px] bottom-[10px] text-[#b7b7b7] text-base font-normal">
-          {text.length}/255
+
+        {/* Enlace para abrir el modal de ejemplos de título */}
+        <div className="text-[#434242] text-base font-normal underline cursor-pointer mb-8" onClick={toggleTitleExampleModal}>
+          Ejemplos para crear tu título
         </div>
+        <TitleExampleModal isOpen={isTitleExampleModalOpen} onClose={toggleTitleExampleModal} />
+
+        <div className="mb-4 text-[#434242] text-2xl font-normal">Nivel</div>
+        <NivelRadioButtons 
+          className="mb-8"
+          value={habilityData.level || ''}
+          onChange={(value) => handleInputChange("level", value)} 
+        />
+
+        <div className="mb-4 text-[#434242] text-2xl font-normal">Modalidad</div>
+        <ModalidadRadioButtons 
+          className="mb-8" 
+          value={habilityData.mode || ''}
+          onChange={(value) => handleInputChange("mode", value)}
+        />
+
+        <div className="mb-4 text-[#434242] text-2xl font-normal">¿Qué ofreces?</div>
+
+        <div className="relative w-full max-w-lg mt-6 p-4 border border-gray-300 rounded-md">
+    
+          {/* Etiqueta de "Descripción" */}
+          <div className="absolute -top-3 left-6 bg-[#f6f5f4] px-1">
+            <div className="text-[#696868] text-s font-normal leading-normal tracking-wide">Descripción</div>
+          </div>
+
+          {/* Textarea sin borde (el borde lo controla el contenedor) */}
+          <textarea
+            className="w-full h-[120px] p-2 text-[#696868] text-base font-normal tracking-tight resize-none bg-transparent outline-none"
+            placeholder="Ej: Clases de pintura al óleo desde cero, Nivel inicial y avanzado"
+            maxLength={255}
+            style={{ border: 'none', outline: 'none' }}
+            onChange={handleTextareaChange}
+            value={text}
+          />
+
+          {/* Contador de caracteres */}
+          <div className="text-right text-[#b7b7b7] text-sm mt-1">{text.length}/255</div>
+        </div>
+    
+        {/*Modal para consejos de texto*/}
+        <div
+          className="w-[336px] text-[#434242] text-base font-normal font-['Roboto'] underline tracking-tight mt-4 cursor-pointer"
+          onClick={toggleTitleTipsModal}
+        >
+          Consejos para generar un texto llamativo
+        </div>
+        <TitleTipsModal isOpen={isTitleTipsModalOpen} onClose={toggleTitleTipsModal} />
+
+        {/* Nuevo Título para Categoría */}
+        <div className="w-[503px] h-[34px] text-[#434242] text-2xl font-normal font-['Roboto'] mt-8">
+          ¿Qué categoría se ajusta mejor a tu habilidad?
+        </div>
+        <DropdownCategories 
+          options={categoryOptions} 
+          value={habilityData.category || ''}
+          onChange={(value) => handleInputChange("category", value)}
+        />
+
+        {/* Botón Guardar con función onNextClick para avanzar */}
+        <SaveButton onClick={handleSubmit} />
       </div>
 
+      {/*Tarjeta final*/}
+      <SkillsDisplay habilityData={habilityData} isSubmitted={isSubmitted}/>
     </Layout>
   );
 };

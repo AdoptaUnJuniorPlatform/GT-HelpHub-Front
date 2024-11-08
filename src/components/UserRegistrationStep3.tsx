@@ -2,34 +2,53 @@ import  React, { useState } from  'react';
 import Layout from './Layout';
 import HorarioOption from './HorarioOption';
 import DaySelector from './DaySelector';
+import { RegistrationFormData } from '../types/RegistrationFormData';
 
 interface UserRegistrationStep3Props{
   onBackClick: () => void;
   onNextClick: () => void;
   steps: string[];
-  currentStep: number;  
+  currentStep: number;
+  registrationData: RegistrationFormData;
+  updateRegistrationData: (data: Partial<RegistrationFormData>) => void;
 }
   
 const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({ 
   onBackClick,
   onNextClick,
   steps,
-  currentStep, }) => {
+  currentStep,
+  registrationData,
+  updateRegistrationData,
+}) => {
 
-  const [selectedHorario, setSelectedHorario] = useState<number | null>(null);
-  const [selectedDays, setSelectedDays] = useState<string[]>([]);
+  const [selectedHorario, setSelectedHorario] = useState<string | null>(null);
+  const [selectedDays, setSelectedDays] = useState<string[]>(registrationData.profileData.selectedDays || []);
 
+  // Definimos los horarios aquí
   const horarios = [
     { id: 1, text: '8:00 a 14:00' },
     { id: 2, text: '17:00 a 21:00' },
     { id: 3, text: '8:00 a 17:00' },
     { id: 4, text: '15:00 a 17:00' },
-    { id: 5, text: 'Flexibilidad horaria' }, ];
+    { id: 5, text: 'Flexibilidad horaria' },
+  ];
 
-  const handleSelectHorario = (id: number) => {
-    setSelectedHorario(id);
+
+  const handleSelectHorario = (text: string) => {
+    setSelectedHorario(text);
+    updateRegistrationData({
+      profileData: { ...registrationData.profileData, preferredTimeRange: text },
+    });
   };
-  
+
+  const handleDaySelect = (days: string[]) => {
+    setSelectedDays(days);
+    updateRegistrationData({
+      profileData: { ...registrationData.profileData, selectedDays: days },
+    });
+  };
+
   return(
     <Layout
       title="Selecciona tus horarios"
@@ -56,8 +75,8 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
             <HorarioOption
               key={horario.id}
               text={horario.text}
-              selected={horario.id === selectedHorario}
-              onClick={() => handleSelectHorario(horario.id)}
+              selected={horario.text === selectedHorario}
+              onClick={() => handleSelectHorario(horario.text)}
             />
           ))}
         </div>
@@ -67,7 +86,7 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
       <div className="relative w-[83px] h-[21px] text-[#434242] left-[-40px] top-[120px] text-l font-medium font-['Roboto'] tracking-tight">Días</div>
       <div className="relative w-[324px] h-[29px] text-[#434242] left-[-40px] top-[130px] text-m font-normal font-['Roboto'] tracking-tight">Puedes seccionar más de un día.</div>
       <div className='relative left-[-40px] top-[140px]'>
-        <DaySelector selectedDays={selectedDays} onDaySelect={setSelectedDays} />
+        <DaySelector selectedDays={selectedDays} onDaySelect={handleDaySelect} />
       </div>
     </Layout>
   )};
