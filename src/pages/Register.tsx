@@ -1,55 +1,21 @@
 import AgreementCheckbox from "../components/AgreementCheckbox"
 import RegisterOptional from "../components/RegisterOptional"
 import RegisterAtivate from "../components/RegisterAtivate"
-import { RegisterRequest } from "../types/AuthServiceTypes"
-import { registerUserMail } from "../services/AuthService"
 import PrimaryButton from "../components/PrimaryButton"
 import RegisterAside from "../components/RegisterAside"
-import { useAuthContext } from "../context/AuthContext"
 import RegisterName from "../components/RegisterName"
 import PhoneSelect from "../components/PhoneSelect"
-import { useNavigate } from 'react-router-dom';
 import UserInput from "../components/UserInput"
+import { useAuth } from "../hooks/useAuth"
 import Switch from "../components/Switch"
 import Title from "../components/Title"
 import useForm from "../hooks/useForm"
-import useCode from "../hooks/useCode"
 import Note from "../components/Note"
-import axios from "axios"
+import { regex } from "../Variables/varibles"
 
 function Register() {
-  const navigate = useNavigate();
-  const { setRegisterData } = useAuthContext();
-  const {twoFaCode} = useCode();
-
-  const sendData = async (data: RegisterRequest) => {
-    const updatedData = {
-      ...data,
-      phone: data.phone ? `+34${data.phone}` : '',
-      twoFa: twoFaCode,
-      role: 'user'
-    };
-    console.log(updatedData)
-    setRegisterData(updatedData);
-
-    console.log('Estado guardado:', updatedData);
-  
-    try {
-      const response = await registerUserMail(updatedData);
-      console.log('Correo enviado:', response.message);
-
-      navigate('/codigo-seguridad');
-
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error('Error en la solicitud:', error.response?.data);
-      } else {
-        console.error('Error inesperado:', error);
-      }
-    }
-  };
-
-  const { input, handleInputChange, handleSwitchChange, handleSubmit } = useForm(sendData, {
+  const { registerHandler, setRegisterError, registerError } = useAuth();
+  const initialFormState = {
     email: '',
     password: '',
     nameUser: '',
@@ -60,7 +26,48 @@ function Register() {
     blocked: false,
     twoFa: '',
     role: ''
-  })
+  };
+
+  const sendData = async () => {
+    const { 
+      email, 
+      password, 
+      nameUser, 
+      surnameUser, 
+      phone,optionCall, 
+      showPhone, 
+      blocked, 
+      twoFa, 
+      role 
+    } = input;
+    if (regex.test(email) && input.phone.length === 9) {
+      await registerHandler ({
+        email, 
+        password, 
+        nameUser, 
+        surnameUser, 
+        phone,
+        optionCall, 
+        showPhone, 
+        blocked, 
+        twoFa, 
+        role
+      })
+    }else if (input.phone.length < 9) {
+      setRegisterError((prevState) => ({
+        ...prevState,
+        phone: true,
+      }))
+
+    }else {
+      setRegisterError((prevState) => ({
+        ...prevState,
+        email: true,
+      }))
+    }
+  };
+
+  const { input, handleInputChange, handleSwitchChange, handleSubmit } = useForm(sendData, initialFormState )
 
   return (
     <>
@@ -113,6 +120,7 @@ function Register() {
                 name="phone"
                 value={input.phone}
                 onChange={handleInputChange}
+                className={`${registerError.phone ? 'focus-within:ring-red-500 border-red-500 focus-within:border-red-500 ' : ' mt-1.5 focus-within:border-violeta-100  focus-within:ring-violeta-100 '}`}
               />
 
             </div>
@@ -142,7 +150,7 @@ function Register() {
                 name="email"
                 value={input.email}
                 onChange={handleInputChange}
-                className="w-[400px] h-[2.4rem]  border-blue-gray-100"
+                className={`w-[400px] h-[2.4rem] border-blue-gray-100 bg-neutral-gray ${registerError.email ? 'outline-red-500 border-red-500 ' : 'outline-violeta-100 '}`}
               />
 
               <UserInput
@@ -153,11 +161,10 @@ function Register() {
                 name="password" 
                 value={input.password}
                 onChange={handleInputChange}
-                className="w-[400px] h-[2.5rem]  border-blue-gray-100" 
+                className={`w-[400px] h-[2.5rem]  border-blue-gray-100 ${registerError.password ? 'outline-red-500 border-red-500' : 'outline-violeta-100'}`} 
                 positionStyles="right-4 top-[70%]"
               />
-
-              <Note />
+              <Note className={`${registerError.password ? 'text-red-500' : 'text-blue-gray-500'} transition-colors duration-200`}/>
 
             </div>
 
@@ -171,7 +178,7 @@ function Register() {
                 onChange={handleInputChange}
               />
 
-              <PrimaryButton label="Registrarse" className="w-full  hover:bg-[#3259e8]" />
+              <PrimaryButton label="Registrarse" className="w-full bg-celeste-100  hover:bg-[#3259e8]" />
 
             </div>
           </form>

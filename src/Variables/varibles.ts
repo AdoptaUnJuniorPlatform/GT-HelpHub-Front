@@ -1,5 +1,8 @@
 import { InfoProps, Notification, ProfileData } from "../types/types";
 
+export const regex = /^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@(gmail|yahoo|outlook|hotmail|icloud|aol|protonmail)\.(com|org|net|edu|gov|mil|info|co|co\.uk|us|io)$/;
+
+
 export const Information: InfoProps[] = [
   {
     header: "Coordinar directamente por llamada",
@@ -93,7 +96,7 @@ export const profiles: ProfileData[] = [
   },
   {
     id: 3,
-    photo: "https://s3-alpha-sig.figma.com/img/753a/bba2/19d1091e26612340e3d9e9d9b8183d7e?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WXDPGrP6JyfM7pyBDIKNqN4~ODZ5z3E-l7s6KUfce3UPnMQbitS1nYPKWIQOgP5cvpG5Adrrgnp9D4np~2EQ8uEfFdtTEf5zEi4b2IpT1UeorpmkZxhjxFMKg-iOKECo1wbIsFjSUFa-NAnnB-ukmo6T3cvQvXMzyzPsZIqfKxF4PNFXRSONBCeROrZDeBkFV~vPJfZMOaGptGEDOKF1RkukwcVSjdg3jX76nFm-tQZ2FbVZXBtfdsRsft5jFym61hpfivWPlMqxLlRMm2VfzKA7f1IRZ57B-y-ZK-JLZsMGDbX3Yq8R4WH0Sp7OHca3mL38eTdvg60S6Z6Y2dRV9g__",
+    photo: "https://s3-alpha-sig.figma.com/img/753a/bba2/19d1091e26612340e3d9e9d9b8183d7e?Expires=1731888000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=NHuJSOiSexEORzWlHMPcmCuXYbc1ZjnNqqvaYbr8eHM-tAELMZmolU2XEfDzLzjTMzwuZyQGGYwFTkqI765mze6vmb547rEPRwDZreWHOxcOmMq1KWWF-3XF0WOjqNpTGD7pnzaJigDro4sPo2GJWpgNL31AOawTRG0D4g8oEBFj-sPkSQ~o5rsIdE8YOkjRcX77hTiZcN1DORdeMMeRZnktMMl34pe8qDfLCucmAuoVUnWYM8be1KwZFmq8bk3v2cKKWE0O-5-UAaqrvFTruyBTKJ7JWSDrxQB~eBdm3D2y4h34pOgOplP4iZiADZT1CQZHty7HzFPuRlflVd~SuQ__",
     name: "Aaron Moreno",
     service: "Consejos de animales",
     location: "Online",

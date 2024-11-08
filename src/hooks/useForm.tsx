@@ -10,7 +10,6 @@ function useForm<T>(callback: (input: T) => void, defaults: T) {
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>, index?: number) => {
     const { name, type, value, checked } = event.target;
-    // console.log(name, value)
     let newValue = value;
 
    

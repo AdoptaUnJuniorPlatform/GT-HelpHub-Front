@@ -4,6 +4,7 @@ export interface Input {
   type?: 'text'| 'password' | 'email' | 'checkbox' | 'tel' | 'number' | 'button';
   title?: string;
   placeholder?: string;
+  maxLength?: number;
   name?: string;
   value?: string;
   checked?: boolean;
@@ -26,6 +27,7 @@ export interface ButtonProps {
   label: string; 
   className?: string; 
   disabled?: boolean; 
+  onClick?: () => void
 }
 
 export interface CardBtnBorderProps {
@@ -202,4 +204,15 @@ export interface BackNextButtonProps {
   type: 'submit' | 'button'
   onClick?: () => void;
   disabled?: boolean;
+  label?: string
+  className?: string; 
+}
+
+export interface  LoginCardProps {
+  name: string;
+  occupation: string;
+  location?: string;
+  availability: string;
+  description: string;
+  tags: string[];
 }

@@ -10,7 +10,6 @@ import useBorderButton from "../hooks/useBorderButton";
 import MainLayout from "../layouts/MainLayout"
 import { profiles } from "../Variables/varibles";
 
-
 function Profile() {
   const { 
     selectedBorderButton, 

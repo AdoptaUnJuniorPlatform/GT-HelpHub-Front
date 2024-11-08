@@ -5,6 +5,8 @@ import Home from "../pages/Home"
 import RegistrationProcess from "../components/RegistrationProcess"
 import Profile from "../pages/Profile"
 import Auth2Fa from "../pages/Auth2Fa"
+import ResetPassword from "../pages/ResetPassword"
+import NewPassword from "../components/NewPassword"
 
 function RoutesIndex() {
   return (
@@ -15,6 +17,9 @@ function RoutesIndex() {
       <Route path="/home" element={<Home />} />
       <Route path="/register/personal-data" element={<RegistrationProcess />} /> 
       <Route path="profile" element={<Profile />} />
+      <Route path="/reseteo" element={<ResetPassword />}>
+        <Route path="nueva-contraseña" element={<NewPassword />} />      
+      </Route>
     </Routes>
   )
 }

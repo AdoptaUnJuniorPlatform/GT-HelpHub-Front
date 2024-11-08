@@ -1,8 +1,7 @@
-
-function Note() {
+function Note({ className }: { className: string }) {
   return (
-    <p className=" font-poppins text-blue-gray-500 font-normal text-[14px] w-full">
-      La contraseña debe incluir al menos 12 caracteres, una letra mayúscula y un número.
+    <p className={`font-poppins font-normal text-[14px] w-full ${className}`}>
+      La contraseña debe incluir al menos 6 caracteres, una letra mayúscula , un número y un símbolo.
     </p>
   )
 }

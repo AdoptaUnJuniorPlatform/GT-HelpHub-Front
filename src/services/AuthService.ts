@@ -1,4 +1,4 @@
-import { RegisterRequest, AuthResponse, LoginMailRequest, LoginRequest } from "../types/AuthServiceTypes";
+import { RegisterRequest, AuthResponse, LoginMailRequest, LoginRequest, ResetPasswordMailRequest, ResetPasswordRequest } from "../types/AuthServiceTypes";
 import axiosConfig from "./axiosConfig";
 
 export const registerUserMail = async (data: RegisterRequest): Promise<AuthResponse> => {
@@ -18,5 +18,15 @@ export const loginUserMail = async (data: LoginMailRequest): Promise<AuthRespons
 
 export const loginUser = async (data: LoginRequest): Promise<AuthResponse> => {
   const response = await axiosConfig.post('/api/helphub/auth/login', data);
+  return response.data;
+};
+
+export const resetPasswordMail = async (data: ResetPasswordMailRequest): Promise<AuthResponse> => {
+  const response = await axiosConfig.post('/api/helphub/email-service/resetEmail', data);
+  return response.data;
+};
+
+export const resetPassword = async (data: ResetPasswordRequest): Promise<AuthResponse> => {
+  const response = await axiosConfig.patch('/api/helphub/auth/reset-password', data);
   return response.data;
 };

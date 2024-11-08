@@ -7,7 +7,7 @@ function ShowPassword({ showPassword, onClick, className }: showPasswordProps) {
       type="button"
       onClick={onClick}
       className={`absolute ${className}`}    >
-      {showPassword ? <RiEyeOffLine /> : <RiEyeLine />}
+      {showPassword ? <RiEyeLine /> : <RiEyeOffLine />}
     </button>
   );
 }

@@ -14,7 +14,7 @@ export interface RegisterRequest {
 export interface AuthResponse {
   access_token?: string;
   message?: string;
-  status: number;
+  statusCode: number;
 }
 
 export interface LoginMailRequest {
@@ -25,6 +25,17 @@ export interface LoginRequest {
   email: string;
   password: string;
 }
+
+export interface ResetPasswordMailRequest {
+  email: string;
+  twoFa: string ;
+}
+
+export interface ResetPasswordRequest {
+  email: string;
+  password: string;
+}
+
 export interface AuthContextProps {
   token: string | null;
   setToken: (token: string | null) => void;
@@ -37,4 +48,6 @@ export interface AuthContextProps {
   loginData: LoginMailRequest | null;
   setLoginData: (data: LoginMailRequest | null) => void;
   handleLogout: () => void;
+  resetData: ResetPasswordMailRequest | null;
+  setResetData: (data: ResetPasswordMailRequest | null) => void
 }

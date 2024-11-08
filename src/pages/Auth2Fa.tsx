@@ -1,4 +1,4 @@
-import { loginUserMail, registerUser, registerUserMail } from "../services/AuthService";
+import { registerUser } from "../services/AuthService";
 import { RegisterRequest } from "../types/AuthServiceTypes";
 import { useAuthContext } from "../context/AuthContext";
 import ResendButton from "../components/ResendButton";
@@ -8,14 +8,14 @@ import NextButton from "../components/NextButton";
 import CodeInput from "../components/CodeInput";
 import { useNavigate } from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
-import useCode from "../hooks/useCode";
+import { useAuth } from "../hooks/useAuth";
 import useForm from "../hooks/useForm";
 import Logo from "../components/Logo";
 import axios from "axios";
 
 function Auth2Fa() {
-  const { registerData, setRegisterData, isRegistering, setIsRegistering, loginData, setLoginData, token, isLoggedIn } = useAuthContext();
-  const { twoFaCode: newTwoFaCode } = useCode();
+  const { registerData, isRegistering, setIsRegistering, loginData, token, isLoggedIn } = useAuthContext();
+  const { handleResendCode } = useAuth();
   const navigate = useNavigate();
   const { input: code, handleInputChange, handleSubmit } = useForm(
     async (input) => {
@@ -70,6 +70,11 @@ function Auth2Fa() {
 
           if(token) {
             localStorage.setItem('token', token);
+
+            if (loginData?.email) {
+              localStorage.setItem('email', loginData.email);
+            }
+            
             if (isLoggedIn && !isRegistering) {
               navigate('/home')
             } else {
@@ -87,54 +92,6 @@ function Auth2Fa() {
 
   console.log("loginData:", loginData);
   console.log("registerData:", registerData);
-
-  const handleResendCode = async () => {
-
-    if (registerData && !loginData) {
-      const email = registerData?.email;
-      // const twoFaCode = newTwoFaCode;
-      if(email) {
-        const updatedData = ({
-          ...registerData,
-          twoFa: newTwoFaCode,
-        });
-        setRegisterData(updatedData);
-        console.log(updatedData);
-
-        try {
-          await registerUserMail(updatedData);
-          console.log(updatedData);
-        } catch(error) {
-          console.error("Error al reenviar el codigo:", error);
-          alert("Hubo un problema al reenviar el código. Por favor, intenta de nuevo.");
-        } 
-      }
-
-    } else{
-      const email = loginData?.email;
-      const twoFaCode = newTwoFaCode;
-
-      if (email) {
-        const updatedLoginData = {
-          ...loginData,
-          twoFa: newTwoFaCode, 
-        };
-    
-        setLoginData(updatedLoginData);   
-
-        if (email) {
-          try {
-            await loginUserMail({ email, twoFa: twoFaCode });
-            alert("Código para el login reenviado al correo proporcionado.");
-  
-          } catch (error) {
-            console.error("Error al reenviar el codigo para login:", error);
-          }
-        }  } else {
-        alert("No se pudo reenviar el código porque no se encontró un correo electrónico. Por favor, intenta de nuevo.");
-      }
-    }
-  };
 
   return (
     <AuthLayout>
@@ -205,7 +162,8 @@ function Auth2Fa() {
             type="button" />
           <NextButton
             type="submit"
-            onClick={() => {}}
+            label="SIGUIENTE"
+            className="text-black-50"
           />
         </div>
       </form>
