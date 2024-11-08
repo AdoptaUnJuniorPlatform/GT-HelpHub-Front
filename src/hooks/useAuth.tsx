@@ -120,14 +120,17 @@ export const useAuth = () => {
   ) => {
     if (newPassword !== confirmPassword) {
       setError("Las contraseñas no coinciden.");
+      console.log('contrasenas no coinciden')
       return;
     }
     if (!code || code.length !== 6) {
       setError("Por favor ingrese un código de verificación válido.");
+      console.log('codigos no esta completo')
       return;
     }
     if (resetData?.twoFa !== code) {
       setError("El código de verificación es incorrecto.");
+      console.log('codigo incorrecto')
       return;
     }
     try {
@@ -141,6 +144,7 @@ export const useAuth = () => {
 
       } else {
         setError("Hubo un error al restablecer la contraseña.");
+        console.log("erroe al resetear")
       }
     } catch (error) {
       console.error("Error al resetear la contraseña:", error);
@@ -189,7 +193,7 @@ export const useAuth = () => {
         } 
       }
     
-    } else if (loginData && !registerData) {
+    } else if (loginData) {
       const email = loginData?.email;
       const twoFaCode = newTwoFaCode;
     
@@ -212,10 +216,18 @@ export const useAuth = () => {
         } else {
           alert("No se pudo reenviar el código porque no se encontró un correo electrónico. Por favor, intenta de nuevo.");
         } 
-      } else if (resetData) {
-        const email = resetData?.email;
-        const twoFaCode = newTwoFaCode;
+      } 
+    } else if (resetData) {
+      const email = resetData?.email;
+      const twoFaCode = newTwoFaCode;
 
+      if (email) {
+        const updatedResetData = {
+          ...resetData,
+          twoFa: newTwoFaCode, 
+        };
+
+        setResetData(updatedResetData)
         if (email) {
           try {
             await resetPasswordMail({ email, twoFa: twoFaCode })
