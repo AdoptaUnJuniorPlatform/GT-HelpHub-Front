@@ -34,7 +34,7 @@ function LogingAside() {
     <>
       <form 
         onSubmit={handleSubmit}
-        className="flex flex-col items-center justify-around lg:items-start w-full lg:w-[85%] h-full lg:h-[95%] font-roboto not-italic">
+        className=" absolute flex flex-col items-center justify-around lg:items-start w-full lg:w-[85%] h-full lg:h-[95%] font-roboto not-italic z-50">
 
         <article className="w-full">
           <Logo
