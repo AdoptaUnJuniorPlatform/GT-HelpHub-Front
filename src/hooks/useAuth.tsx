@@ -151,19 +151,20 @@ export const useAuth = () => {
   const sendResetPasswordMailData = async (data: ResetPasswordMailRequest) => {
     try {
       const response = await resetPasswordMail({ email: data.email, twoFa: twoFaCode });
+
       if (response.message === "Email sent successfull.") {
         setResetData({ email: data.email, twoFa: twoFaCode });
         console.log("Respuesta recibida:", response.message);
+        setResetMailError(false);
         handleResetShow();
-      } else {
+
+      } else if(response.message === "User does not exist") {
         console.error('Respuesta inesperada:', response);
-        alert('Hubo un problema con la solicitud. Intenta de nuevo.');
+        setResetMailError(true)
       }
-  
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error('Error:', error.response?.data);
-        console.error('Status Code:', error.response?.status);
       }
     }
   };
