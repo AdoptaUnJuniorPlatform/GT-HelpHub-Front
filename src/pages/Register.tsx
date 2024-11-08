@@ -120,7 +120,7 @@ function Register() {
                 name="phone"
                 value={input.phone}
                 onChange={handleInputChange}
-                className={`${registerError.phone ? 'border-red-500 focus-within:border-red-500 ' : 'focus-within:ring-blue-500 mt-1.5 '}`}
+                className={`${registerError.phone ? 'focus-within:ring-red-500 border-red-500 focus-within:border-red-500 ' : ' mt-1.5 focus-within:border-violeta-100  focus-within:ring-violeta-100 '}`}
               />
 
             </div>
@@ -150,7 +150,7 @@ function Register() {
                 name="email"
                 value={input.email}
                 onChange={handleInputChange}
-                className={`w-[400px] h-[2.4rem]  border-blue-gray-100 ${registerError.email ? 'outline-red-500 border-red-500' : 'outline-violeta-100'}`}
+                className={`w-[400px] h-[2.4rem] border-blue-gray-100 bg-neutral-gray ${registerError.email ? 'outline-red-500 border-red-500 ' : 'outline-violeta-100 '}`}
               />
 
               <UserInput
@@ -164,8 +164,7 @@ function Register() {
                 className={`w-[400px] h-[2.5rem]  border-blue-gray-100 ${registerError.password ? 'outline-red-500 border-red-500' : 'outline-violeta-100'}`} 
                 positionStyles="right-4 top-[70%]"
               />
-
-              <Note />
+              <Note className={`${registerError.password ? 'text-red-500' : 'text-blue-gray-500'} transition-colors duration-200`}/>
 
             </div>
 
