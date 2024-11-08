@@ -10,18 +10,28 @@ import axios from "axios";
 export const useAuth = () => {
   const { handleResetShow } = useBackButton();
   const [error, setError] = useState<string | null>(null);
+  const [loginError, setLoginError] = useState<{ email: boolean; password: boolean }>({
+    email: false,
+    password: false,
+  });
   const { resetData, setResetData, setToken,loginData, setLoginData, registerData, setRegisterData } = useAuthContext(); 
   const { twoFaCode, twoFaCode: newTwoFaCode } = useCode();
   const navigate = useNavigate();
   
   const loginHandler = async (data: LoginRequest) => {
     try {
+      
       const response = await loginUser(data);
   
       if (response.access_token) {
         setLoginData({ email: data.email, twoFa: twoFaCode });
         const loginToken = response.access_token;
         await loginUserMail ({ email: data.email, twoFa: twoFaCode });
+        setLoginError((prevState) => ({
+          ...prevState,
+          email: false,
+          password: false
+        }));
   
         setToken(loginToken);
         console.log('Login Data antes de la redirección:', { email: data.email, twoFa: twoFaCode });
@@ -35,7 +45,17 @@ export const useAuth = () => {
   
       if (axios.isAxiosError(error)) {
         const errorMessage = error.response?.data?.message || 'Error desconocido';
-        alert(`Hubo un problema: ${errorMessage}`)
+        if(errorMessage === "Contraseña incorrecta"){
+          setLoginError((prevState) => ({
+            ...prevState,
+            password: true
+          }));
+        } else if (errorMessage === "User not found"){
+          setLoginError((prevState) => ({
+            ...prevState,
+            email: true,
+          }));
+        }
   
       } else {
         alert('Hubo un problema con el inicio de sesión. Por favor, intenta de nuevo.');
@@ -192,6 +212,8 @@ export const useAuth = () => {
     handleResendCode,
     resetPasswordHandler,
     sendResetPasswordMailData,
+    setLoginError,
+    loginError,
     error,
   };
 };

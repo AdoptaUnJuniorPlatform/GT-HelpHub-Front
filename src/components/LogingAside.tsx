@@ -12,7 +12,7 @@ import Logo from "./Logo"
 
 function LogingAside() {
   const { loginData, token } = useAuthContext();
-  const { loginHandler } = useAuth();
+  const { loginHandler, setLoginError, loginError } = useAuth();
   const initialFormState = {
     email: "",
     password: "" 
@@ -20,7 +20,16 @@ function LogingAside() {
 
   const sendData = async () => {
     const { email, password } = input;
-    await loginHandler({ email, password })
+    const regex = /^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*\.(com|org|net|edu|gov|mil|info|co)$/;
+
+    if (regex.test(email)) {
+      await loginHandler({ email, password })
+    } else {
+      setLoginError((prevState) => ({
+        ...prevState,
+        email: true,
+      }));
+    }
   };
 
   useEffect(() => {
@@ -57,7 +66,7 @@ function LogingAside() {
             name="email" 
             value={input.email}
             onChange={handleInputChange}
-            className="loginInput h-[45px]  border-blue-gray-300"/>
+            className={`loginInput h-[45px]  border-blue-gray-300 ${loginError.email ? 'outline-red-500 border-red-500' : 'outline-violeta-100'}`}/>
 
           <Link to={'/reseteo'}>
             <p className="flex justify-end text-celeste-100 -mb-6 mt-4 cursor-pointer p-1 font-medium underline">¿Olvidaste tu contraseña?</p>
@@ -71,7 +80,7 @@ function LogingAside() {
             name="password" 
             value={input.password}
             onChange={handleInputChange}
-            className="loginInput h-[45px]  border-blue-gray-300" 
+            className={`loginInput h-[45px]  border-blue-gray-300 ${loginError.password ? 'outline-red-500 border-red-500' : 'outline-violeta-100'}`} 
             positionStyles="right-4 top-[46px]"/>
         </div>
 

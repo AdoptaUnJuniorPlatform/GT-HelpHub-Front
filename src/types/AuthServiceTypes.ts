@@ -14,7 +14,7 @@ export interface RegisterRequest {
 export interface AuthResponse {
   access_token?: string;
   message?: string;
-  status: number;
+  statusCode: number;
 }
 
 export interface LoginMailRequest {

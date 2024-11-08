@@ -24,7 +24,7 @@ function Carousel({ profiles }: {profiles: ProfileData[]} ) {
   }, []);
   
   return (
-    <div className="absolute overflow-hidden w-full z-50 top-[30%]">
+    <div className="absolute overflow-hidden w-full z-50 top-[16.4rem]">
       <div ref={carouselRef} className="flex gap-6 overflow-x-auto scrollbar-hide -mx-4 py-4">
         {[...profiles, ...profiles].map((profile, index) => (
           <LoginCard key={`${profile.id} - ${index}`} profileData={profile} />

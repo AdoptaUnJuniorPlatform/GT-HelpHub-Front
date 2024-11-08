@@ -25,7 +25,7 @@ function UserInput({ type, title, placeholder, name, value, style, className='',
           onChange={onChange}
           placeholder={placeholder}
           style={style}
-          className={`flex items-center text-slate-700 text-sm/[17.5px] rounded-lg p-3 gap-[10px] border-[1px] caret-violet-700 outline-violeta-100 outline-1 w-full bg-[#E3E0F6] pr-10 lg:mb-2 ${className}`}
+          className={`flex items-center text-slate-700 text-sm/[17.5px] rounded-lg p-3 gap-[10px] border-[1px] caret-violet-700  outline-1 w-full bg-[#E3E0F6] pr-10 lg:mb-2 ${className}`}
         />
 
         {type === "password" && (
