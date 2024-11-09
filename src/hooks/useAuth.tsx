@@ -9,7 +9,11 @@ import axios from "axios";
 
 export const useAuth = () => {
   const { handleResetShow } = useBackButton();
-  const [error, setError] = useState<string | null>(null);
+  const [resetError, setResetError] = useState<{ code: boolean; newPassword: boolean; confirmPassword: boolean; }>({
+    code: false,
+    newPassword: false,
+    confirmPassword: false,
+  });
   const [loginError, setLoginError] = useState<{ email: boolean; password: boolean }>({
     email: false,
     password: false,
@@ -119,36 +123,70 @@ export const useAuth = () => {
     code: string
   ) => {
     if (newPassword !== confirmPassword) {
-      setError("Las contraseñas no coinciden.");
+      setResetError((prevState) => ({
+        ...prevState,
+        newPassword: true,
+        confirmPassword: true,
+      }));
       console.log('contrasenas no coinciden')
       return;
     }
     if (!code || code.length !== 6) {
-      setError("Por favor ingrese un código de verificación válido.");
-      console.log('codigos no esta completo')
+      setResetError((prevState) => ({
+        ...prevState,
+        code: true,
+      }));
       return;
     }
     if (resetData?.twoFa !== code) {
-      setError("El código de verificación es incorrecto.");
-      console.log('codigo incorrecto')
+      setResetError((prevState) => ({
+        ...prevState,
+        code: true,
+      }));
       return;
     }
     try {
-      const response = await resetPassword({
-        email: resetData?.email || "",
-        password: newPassword,
-      });
-  
-      if (response.message === "Password account reset be done!") {
-        navigate("/");
-
+      if(resetData) {
+        const response = await resetPassword({
+          email: resetData?.email || "",
+          password: newPassword,
+        });
+        if (response.message === "Password account reset be done!") {
+          setResetError((prevState) => ({
+            ...prevState,
+            code: false,
+            newPassword: false,
+            confirmPassword: false,
+          }));
+          navigate("/");
+          
+        } else {
+          alert('Parece que hubo un problema con tu solicitid, por favor intenta de nuevo.');
+          navigate('/reseteo')
+        }
       } else {
-        setError("Hubo un error al restablecer la contraseña.");
-        console.log("erroe al resetear")
+        alert('Parece que hubo un problema con tu solicitid, por favor intenta de nuevo.');
+        navigate('/reseteo')
       }
+  
     } catch (error) {
-      console.error("Error al resetear la contraseña:", error);
-      setError("Hubo un problema al resetear la contraseña. Por favor intenta nuevamente.");
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data?.message 
+        if (
+          errorMessage[0] === "Password should contain mínimum one Mayusc, one number, and one symbol" ||
+          errorMessage[1] === "Password should contain minimum 6 digits." 
+        ) {
+          console.log('error contrasena')
+          setResetError((prevState) => ({
+            ...prevState,
+            newPassword: true,
+            confirmPassword: true,
+          }));
+        }
+      } else {
+        alert('Parece que hubo un problema con tu solicitid, por favor intenta de nuevo.');
+        navigate('/reseteo')
+      }
     }
   };
 
@@ -254,6 +292,7 @@ export const useAuth = () => {
     registerError,
     setResetMailError,
     resetMailError,
-    error,
+    resetError,
+    setResetError
   };
 };
