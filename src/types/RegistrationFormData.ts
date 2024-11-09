@@ -2,11 +2,11 @@
 
 export interface ProfileData {
   description?: string;
+  interestedSkills?: string[];
   location?: string;
-  profilePicture?: File;
+  profilePicture?: string;
   preferredTimeRange?: string;
   selectedDays?: string[];
-  interestedSkills?: string[];
 }
 
 export interface HabilityData {

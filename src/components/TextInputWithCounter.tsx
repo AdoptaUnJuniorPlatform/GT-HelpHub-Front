@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const TextInputWithCounter: React.FC = () => {
-  const [text, setText] = useState<string>('');
+interface TextInputWithCounterProps {
+  className?: string; 
+  value: string;
+  onChange: (value: string) => void;
+}
 
+const TextInputWithCounter: React.FC<TextInputWithCounterProps> = ({ className, value, onChange }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setText(e.target.value);
+    onChange(e.target.value);
   };
 
   return (
-    <div className="w-[572px] space-y-2">
+    <div className={`w-[572px] space-y-2 ${className}`}> 
         
       {/* Contenedor del input */}
       <div className="relative">
         <input
           type="text"
-          value={text}
+          value={value}
           onChange={handleChange}
           maxLength={255}
           placeholder="Ej: Pintar óleo"
@@ -23,7 +27,7 @@ const TextInputWithCounter: React.FC = () => {
 
         {/* Contador de caracteres */}
         <div className="absolute bottom-2 right-4 text-[#b7b7b7] text-base font-normal font-['Roboto'] leading-tight tracking-tight">
-          {text.length}/255
+          {value.length}/255
         </div>
       </div>
     </div>

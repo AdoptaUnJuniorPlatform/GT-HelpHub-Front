@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import Layout from './Layout'; 
+import { RegistrationFormData } from '../types/RegistrationFormData';
+
 
 interface UserRegistrationStep1Props {
   onBackClick: () => void;
   onNextClick: () => void;
   steps: string[];
   currentStep: number;
+  registrationData: RegistrationFormData;
+  updateRegistrationData: (data: Partial<RegistrationFormData>) => void;
 }
 
 const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
@@ -13,25 +17,30 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
   onNextClick,
   steps,
   currentStep,
+  registrationData,
+  updateRegistrationData,
 }) => {
 
-  const [text, setText] = useState<string>('');
-  const [postalCode, setPostalCode] = useState<string>('');
   const [postalCodeError, setPostalCodeError] = useState<boolean>(false);
   
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
+    updateRegistrationData({
+      profileData: {
+        ...registrationData.profileData,
+        description: e.target.value,
+      },
+    });
   };
 
   const handlePostalCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9]/g, ''); // Filtrar solo números
-    setPostalCode(value); // Actualizamos el valor con solo números
-    // Validar si el código postal tiene exactamente 5 dígitos
-    if (value.length === 5) {
-      setPostalCodeError(false); // No hay error si tiene 5 dígitos
-    } else {
-      setPostalCodeError(true); // Error si tiene menos o más de 5 dígitos
-    }
+    const value = e.target.value.replace(/[^0-9]/g, '');
+    updateRegistrationData({
+      profileData: {
+        ...registrationData.profileData,
+        location: value,
+      },
+    });
+    setPostalCodeError(value.length !== 5);
   };
 
   return (
@@ -47,10 +56,10 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
     >
       
       {/* Contenido específico del paso 1 */}
-      <div className="relative w-[571px] h-[140px] top-[-30px] left-[-160px] mt-[132px] mx-auto bg-gray-100 rounded-md border border-[#b7b7b7]">
+      <div className="relative w-[571px] h-[140px] top-[-30px] left-[-210px] mt-[132px] mx-auto bg-neutral-50 rounded-md border border-[#b7b7b7]">
       
         {/* Texto "Sobre mí" con el rectángulo pequeño */}
-        <div className="absolute top-[-10px] left-[20px] bg-gray-100 px-2">
+        <div className="absolute top-[-10px] left-[20px] bg-neutral-50 px-1">
           <div className="text-[#696868] text-[15px] font-normal leading-normal tracking-wide">Sobre mí</div>
         </div>
 
@@ -60,17 +69,18 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
           placeholder="Por Ej: Soy una joven estudiante de enfermería, tengo 22 años vivo en Madrid con unas amigas. Soy una apasionada por la música, y que desea aprender a tocar el piano."
           maxLength={255}
           style={{ border: 'none', outline: 'none' }}
+          value={registrationData.profileData.description || ''}
           onChange={handleTextareaChange}
         />
 
         {/* Contador de caracteres */}
         <div className="absolute right-[15px] bottom-[10px] text-[#b7b7b7] text-base font-normal">
-          {text.length}/255
+          {(registrationData.profileData.description?.length || 0)}/255
         </div>
       </div>
 
       {/* Código postal */}
-      <div className="relative w-[571px] top-[-50px] mt-8 left-[-160px] mx-auto">
+      <div className="relative w-[571px] top-[-50px] mt-8 left-[-210px] mx-auto">
         <label className="text-[#434242] text-2xl font-normal font-['Roboto']">Ubicación</label>
         <input 
           className={`w-full h-[40px] mt-2 p-4 border rounded-md text-[#696868] text-base font-normal tracking-tight focus:outline-none ${
@@ -79,7 +89,7 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
           inputMode="numeric"
           pattern="[0-9]*"
           placeholder="Código postal (CP)"
-          value={postalCode}
+          value={registrationData.profileData.location || ''}
           onChange={handlePostalCodeChange}
           maxLength={5}
         />

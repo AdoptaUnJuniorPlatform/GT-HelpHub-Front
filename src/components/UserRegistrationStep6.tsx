@@ -1,54 +1,72 @@
 import  React, { useState} from  'react';
 import Layout from './Layout';
 import SuccessModal from './SuccesModal';
+import { RegistrationFormData } from '../types/RegistrationFormData';
+import { createProfile, createHability } from '../services/apiClient';
+import { useAuthContext } from '../context/AuthContext';
 
 interface UserRegistrationStep6Props{
   onBackClick: () => void;
   onNextClick: () => void;
   steps: string[];
-  currentStep: number;  
+  currentStep: number;
+  registrationData: RegistrationFormData;
 }
     
 const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({ 
   onBackClick,
   onNextClick,
   steps,
-  currentStep, }) => {
-
-  const [verificationCode, setVerificationCode] = useState('');
+  currentStep,
+  registrationData,
+}) => {
+  const [inputCode, setInputCode] = useState('');
   const [isSending, setIsSending] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false); 
-
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  
+  const { registerData } = useAuthContext(); 
 
   const handleResendCode = () => {
     setIsSending(true);
-    // Simulamos una espera de envío; esto se reemplazará por la llamada real al backend.
     setTimeout(() => {
-      setIsSending(false); // Volver a habilitar el botón una vez "enviado"
-      // Aquí va la lógica de conexión con el backend para reenviar el código
+      setIsSending(false); 
     }, 2000);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVerificationCode(e.target.value);
+    setInputCode(e.target.value);
   };
 
-  // Función para simular la verificación exitosa y mostrar el modal
-  const handleVerificationSuccess = () => {
-    setIsModalVisible(true); // Muestra el modal al completar la verificación
+  const handleVerificationSuccess = async () => {
+    // Verificar si el código ingresado coincide con el código correcto
+    if (inputCode === localStorage.getItem('verificationCode')) {
+      try {
+        // Enviar la solicitud POST con los datos del usuario
+        await createProfile(registrationData.profileData);
+        await createHability(registrationData.habilityData);
+
+        // Mostrar el modal de éxito
+        setIsModalVisible(true);
+      } catch (error) {
+        console.error('Error al enviar los datos:', error);
+      }
+    } else {
+      alert('Código de verificación incorrecto.');
+    }
   };
+
 
   const closeModal = () => {
-    setIsModalVisible(false); // Cierra el modal
-    onNextClick(); // Avanza al siguiente paso o realiza la acción deseada
+    setIsModalVisible(false);
+    onNextClick(); // Lógica para redirigir al home
+    //TODO logica para redirigir al perfil
   };
 
   const UserEmail = () => (
     <div className="text-[#434242] text-2xl font-normal font-['Roboto']">
-      Introduce el código que hemos enviado a <span className="text-[#434242]">usuario@gmail.com</span>
+      Introduce el código que hemos enviado a <span className="text-[#434242]">{registerData?.email}</span>
     </div>
-      
-  );     
+  ); 
   
   const TextExtra = () => (
     <div className="w-[350px] h-[109px] text-[#d2298e] text-m font-normal font-['Roboto'] mt-0">
@@ -86,7 +104,7 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
           <input
             type="text"
             placeholder="Código email"
-            value={verificationCode}
+            value={inputCode}
             onChange={handleInputChange}
             className="w-[590px] h-[55px] bg-white rounded-[3px] border border-[#b7b7b7] px-3 text-base"
           />
@@ -126,6 +144,7 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
           onClose={closeModal}
         />
       )}
+
     </>
   )};
 

@@ -15,6 +15,7 @@ interface LayoutProps {
   showExtraContent?: boolean; 
   extraContent?: React.ReactNode; 
   isExtended?: boolean;
+  isSubmitted?: boolean;
 }
 
 const Layout: FC<LayoutProps> = ({ 
@@ -29,17 +30,28 @@ const Layout: FC<LayoutProps> = ({
   children, 
   showExtraContent = false, 
   extraContent,
+  isSubmitted,
 }) => {
   
   return (
-    <div className={`flex ${currentStep === 4 ? "custom-layout-class-for-step-4" : "h-screen"}`}>
+    <div className={`flex ${currentStep === 4 
+      ? isSubmitted 
+        ? "submitted-layout-for-step-4" 
+        : "custom-layout-class-for-step-4" 
+      : "h-screen"}`}>
       {/* Columna Izquierda */}
       <LeftColumn 
         title={title} 
         description={description} 
         showExtraContent={showExtraContent} // Pasamos la prop
         extraContent={extraContent} // Pasamos el contenido adicional
-      />           
+      />    
+
+      {/* Línea divisoria */}
+      {currentStep !== 4 && (
+        <div className="border-r border-[#b7b7b7] opacity-30 mx-4"></div>
+      )}
+      
 
       {/* Columna Derecha */}          
       <RightColumn
@@ -49,6 +61,7 @@ const Layout: FC<LayoutProps> = ({
         onNextClick={onNextClick}
         currentStep={currentStep}
         steps={steps}
+        isSubmitted={isSubmitted}
       >
         {children}
       </RightColumn>

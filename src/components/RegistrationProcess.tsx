@@ -5,11 +5,24 @@ import UserRegistrationStep3 from './UserRegistrationStep3';
 import UserRegistrationStep4 from './UserRegistrationStep4';
 import UserRegistrationStep5 from './UserRegistrationStep5';
 import UserRegistrationStep6 from './UserRegistrationStep6';
+import { RegistrationFormData } from '../types/RegistrationFormData';
 
 const RegistrationProcess: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1); // Estado para controlar el paso actual
 
+  const [registrationData, setRegistrationData] = useState<RegistrationFormData>({
+    profileData: {},
+    habilityData: {},
+  });
+
   const steps = ["Sobre ti", "Tu foto", "Disponibilidad", "Mis habilidades", "Qué quiero aprender", "Verificación"];
+
+  const updateRegistrationData = (data: Partial<RegistrationFormData>) => {
+    setRegistrationData((prevData) => ({
+      ...prevData,
+      ...data,
+    }));
+  };
 
   // Función para ir al siguiente paso
   const goToNextStep = () => {
@@ -35,6 +48,8 @@ const RegistrationProcess: React.FC = () => {
             onNextClick={goToNextStep}
             steps={steps}
             currentStep={currentStep}
+            registrationData={registrationData}
+            updateRegistrationData={updateRegistrationData}
           />
         );
       case 2:
@@ -44,6 +59,8 @@ const RegistrationProcess: React.FC = () => {
             onNextClick={goToNextStep}
             steps={steps}
             currentStep={currentStep}
+            registrationData={registrationData}
+            updateRegistrationData={updateRegistrationData}
           />
         );
       case 3:
@@ -53,6 +70,8 @@ const RegistrationProcess: React.FC = () => {
             onNextClick={goToNextStep}
             steps={steps}
             currentStep={currentStep}
+            registrationData={registrationData}
+            updateRegistrationData={updateRegistrationData}
           />
         );
       case 4:
@@ -71,6 +90,8 @@ const RegistrationProcess: React.FC = () => {
             onNextClick={goToNextStep}
             steps={steps}
             currentStep={currentStep}
+            registrationData={registrationData}
+            updateRegistrationData={updateRegistrationData}
           />
         );
       case 6:
@@ -80,6 +101,7 @@ const RegistrationProcess: React.FC = () => {
             onNextClick={goToNextStep}
             steps={steps}
             currentStep={currentStep}
+            registrationData={registrationData}
           />
         );
       default:
