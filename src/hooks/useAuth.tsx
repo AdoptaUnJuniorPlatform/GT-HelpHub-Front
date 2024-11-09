@@ -78,12 +78,8 @@ export const useAuth = () => {
     const updatedData = {
       ...data,
       phone: data.phone ? `+34${data.phone}` : '',
-      twoFa: twoFaCode,
-      role: 'user'
+      twoFa: twoFaCode
     };
-    console.log(updatedData)
-    
-    console.log('Estado guardado:', updatedData);
     
     try {
       const response = await registerUserMail(updatedData);
@@ -129,7 +125,6 @@ export const useAuth = () => {
         newPassword: true,
         confirmPassword: true,
       }));
-      console.log('contrasenas no coinciden')
       return;
     }
     if (!code || code.length !== 6) {
@@ -177,7 +172,6 @@ export const useAuth = () => {
           errorMessage[0] === "Password should contain mínimum one Mayusc, one number, and one symbol" ||
           errorMessage[1] === "Password should contain minimum 6 digits." 
         ) {
-          console.log('error contrasena')
           setResetError((prevState) => ({
             ...prevState,
             newPassword: true,
@@ -197,12 +191,10 @@ export const useAuth = () => {
 
       if (response.message === "Email sent successfull.") {
         setResetData({ email: data.email, twoFa: twoFaCode });
-        console.log("Respuesta recibida:", response.message);
         setResetMailError(false);
         handleResetShow();
 
       } else if(response.message === "User does not exist") {
-        console.error('Respuesta inesperada:', response);
         setResetMailError(true)
       }
     } catch (error) {
@@ -221,12 +213,10 @@ export const useAuth = () => {
           twoFa: newTwoFaCode,
         });
         setRegisterData(updatedRegisterData);
-        console.log(updatedRegisterData);
     
         try {
           await registerUserMail(updatedRegisterData);
           alert("Código para el login reenviado al correo proporcionado.");
-          console.log(updatedRegisterData);
         } catch(error) {
           console.error("Error al reenviar el codigo:", error);
           alert("Hubo un problema al reenviar el código. Por favor, intenta de nuevo.");

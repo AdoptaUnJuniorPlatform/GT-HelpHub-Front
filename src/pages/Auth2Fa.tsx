@@ -26,26 +26,22 @@ function Auth2Fa() {
       let expectedCode;
 
       if (registerData && !loginData) {
-
         expectedCode = registerData.twoFa;
+
       } else if (loginData && registerData) {
-
         expectedCode = loginData.twoFa;
+
       } else if (loginData && !registerData) {
-
         expectedCode = loginData.twoFa;
+
       } else {
         alert("Hubo un problema al intentar validar el código. Intenta de nuevo.");
 
         navigate('/');
         return;
       }
-      console.log("expectedCode:", expectedCode);
-      console.log("registerData:", registerData);
-      console.log("loginData:", loginData);
 
       if (codeString === expectedCode) {
-        console.log('los codigos coinciden', codeString, expectedCode)
 
         if (registerData && !loginData) {
           const dataToSend: RegisterRequest = {
@@ -61,7 +57,6 @@ function Auth2Fa() {
           } catch (error) {
             if (axios.isAxiosError(error)) {
               console.error('Error en la solicitud:', error.response?.data);
-              console.error('Estado del error:', error.response?.status, dataToSend);
             } else {
               console.error('Error inesperado:', error);
             }
@@ -70,16 +65,14 @@ function Auth2Fa() {
 
           if(token) {
             localStorage.setItem('token', token);
+
+            if (loginData?.twoFa){
+              localStorage.setItem('code', loginData?.twoFa)
+            }
             setTwoFaModal(true)
             if (loginData?.email) {
               localStorage.setItem('email', loginData.email);
             }
-            
-            // if (isLoggedIn && !isRegistering) {
-            //   navigate('/home')
-            // } else {
-            //   navigate('/register/personal-data')
-            // }
           }
         }
       } else {
@@ -89,9 +82,6 @@ function Auth2Fa() {
     },
     Array(6).fill("")
   );
-
-  console.log("loginData:", loginData);
-  console.log("registerData:", registerData);
 
   return (
     <AuthLayout>

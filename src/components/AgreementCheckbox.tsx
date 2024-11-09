@@ -3,7 +3,7 @@ import { Input } from "../types/types"
 function AgreementCheckbox( { type, name, checked, id, onChange }: Input ) {
   return (
     <>
-      <div className="flex items-start w-full sm:w-[376px] text-neutral-black pb-6">
+      <div className="flex items-start w-full sm:w-[376px] text-neutral-black py-6">
         <input
           id={id}
           type={type}

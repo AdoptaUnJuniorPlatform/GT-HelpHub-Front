@@ -63,17 +63,17 @@ function ResetPassword() {
           </div>
           <div className="flex flex-col w-full justify-start py-5">
             <form onSubmit={handleSubmit}>
-              <UserInput 
-                id="email"
-                type="email" 
-                placeholder="Email"
-                name="email" 
-                value={input.email}
-                onChange={handleInputChange}
-                className={`loginInput w-10/12 h-[2.5rem] border-blue-gray-100 ${resetMailError ? 'outline-red-500 border-red-500' :  'outline-violeta-100'}`}
-              />
               {!showForm && (
                 <>
+                  <UserInput 
+                    id="email"
+                    type="email" 
+                    placeholder="Email"
+                    name="email" 
+                    value={input.email}
+                    onChange={handleInputChange}
+                    className={`loginInput w-10/12 h-[2.5rem] border-blue-gray-100 ${resetMailError ? 'outline-red-500 border-red-500' :  'outline-violeta-100'}`}
+                  />
                   <PrimaryButton 
                     label="Restablecer contraseña"
                     className="bg-violeta-100 font-medium mt-5"
