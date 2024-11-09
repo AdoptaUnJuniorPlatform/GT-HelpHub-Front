@@ -1,18 +1,15 @@
 import { LoginRequest } from "../types/AuthServiceTypes"
-import { useAuthContext } from "../context/AuthContext"
 import { Link } from "react-router-dom"
 import PrimaryButton from "./PrimaryButton"
 import useForm from "../hooks/useForm"
 import UserInput from "./UserInput"
 import Title from "./Title"
 import Line from "./Line"
-import { useEffect } from "react"
 import { useAuth } from "../hooks/useAuth"
 import Logo from "./Logo"
 import { regex } from "../Variables/varibles"
 
 function LogingAside() {
-  const { loginData, token } = useAuthContext();
   const { loginHandler, setLoginError, loginError } = useAuth();
   const initialFormState = {
     email: "",
@@ -31,12 +28,6 @@ function LogingAside() {
       }));
     }
   };
-
-  useEffect(() => {
-    if (loginData && token) {
-      console.log('Login Data y Token están configurados correctamente:', loginData, token);
-    }
-  }, [loginData, token]);
 
   const { input, handleInputChange, handleSubmit } = useForm(sendData, initialFormState as LoginRequest);
   return (
@@ -96,8 +87,6 @@ function LogingAside() {
         </div>
       </form>
     </>
-
-
   )
 }
 

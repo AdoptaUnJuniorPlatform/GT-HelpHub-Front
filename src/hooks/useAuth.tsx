@@ -9,7 +9,11 @@ import axios from "axios";
 
 export const useAuth = () => {
   const { handleResetShow } = useBackButton();
-  const [error, setError] = useState<string | null>(null);
+  const [resetError, setResetError] = useState<{ code: boolean; newPassword: boolean; confirmPassword: boolean; }>({
+    code: false,
+    newPassword: false,
+    confirmPassword: false,
+  });
   const [loginError, setLoginError] = useState<{ email: boolean; password: boolean }>({
     email: false,
     password: false,
@@ -19,8 +23,9 @@ export const useAuth = () => {
     password: false,
     phone: false,
   });
+  const [twoFaModal, setTwoFaModal] = useState<boolean>(false);
   const [resetMailError, setResetMailError] = useState<boolean>(false);
-  const { resetData, setResetData, setToken,loginData, setLoginData, registerData, setRegisterData } = useAuthContext(); 
+  const { resetData, setResetData, setToken,loginData, setLoginData, registerData, setRegisterData, isLoggedIn, isRegistering } = useAuthContext(); 
   const { twoFaCode, twoFaCode: newTwoFaCode } = useCode();
   const navigate = useNavigate();
   
@@ -73,12 +78,8 @@ export const useAuth = () => {
     const updatedData = {
       ...data,
       phone: data.phone ? `+34${data.phone}` : '',
-      twoFa: twoFaCode,
-      role: 'user'
+      twoFa: twoFaCode
     };
-    console.log(updatedData)
-    
-    console.log('Estado guardado:', updatedData);
     
     try {
       const response = await registerUserMail(updatedData);
@@ -119,36 +120,68 @@ export const useAuth = () => {
     code: string
   ) => {
     if (newPassword !== confirmPassword) {
-      setError("Las contraseñas no coinciden.");
-      console.log('contrasenas no coinciden')
+      setResetError((prevState) => ({
+        ...prevState,
+        newPassword: true,
+        confirmPassword: true,
+      }));
       return;
     }
     if (!code || code.length !== 6) {
-      setError("Por favor ingrese un código de verificación válido.");
-      console.log('codigos no esta completo')
+      setResetError((prevState) => ({
+        ...prevState,
+        code: true,
+      }));
       return;
     }
     if (resetData?.twoFa !== code) {
-      setError("El código de verificación es incorrecto.");
-      console.log('codigo incorrecto')
+      setResetError((prevState) => ({
+        ...prevState,
+        code: true,
+      }));
       return;
     }
     try {
-      const response = await resetPassword({
-        email: resetData?.email || "",
-        password: newPassword,
-      });
-  
-      if (response.message === "Password account reset be done!") {
-        navigate("/");
-
+      if(resetData) {
+        const response = await resetPassword({
+          email: resetData?.email || "",
+          password: newPassword,
+        });
+        if (response.message === "Password account reset be done!") {
+          setResetError((prevState) => ({
+            ...prevState,
+            code: false,
+            newPassword: false,
+            confirmPassword: false,
+          }));
+          navigate("/");
+          
+        } else {
+          alert('Parece que hubo un problema con tu solicitid, por favor intenta de nuevo.');
+          navigate('/reseteo')
+        }
       } else {
-        setError("Hubo un error al restablecer la contraseña.");
-        console.log("erroe al resetear")
+        alert('Parece que hubo un problema con tu solicitid, por favor intenta de nuevo.');
+        navigate('/reseteo')
       }
+  
     } catch (error) {
-      console.error("Error al resetear la contraseña:", error);
-      setError("Hubo un problema al resetear la contraseña. Por favor intenta nuevamente.");
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data?.message 
+        if (
+          errorMessage[0] === "Password should contain mínimum one Mayusc, one number, and one symbol" ||
+          errorMessage[1] === "Password should contain minimum 6 digits." 
+        ) {
+          setResetError((prevState) => ({
+            ...prevState,
+            newPassword: true,
+            confirmPassword: true,
+          }));
+        }
+      } else {
+        alert('Parece que hubo un problema con tu solicitid, por favor intenta de nuevo.');
+        navigate('/reseteo')
+      }
     }
   };
 
@@ -158,12 +191,10 @@ export const useAuth = () => {
 
       if (response.message === "Email sent successfull.") {
         setResetData({ email: data.email, twoFa: twoFaCode });
-        console.log("Respuesta recibida:", response.message);
         setResetMailError(false);
         handleResetShow();
 
       } else if(response.message === "User does not exist") {
-        console.error('Respuesta inesperada:', response);
         setResetMailError(true)
       }
     } catch (error) {
@@ -177,16 +208,15 @@ export const useAuth = () => {
     if (registerData && !loginData) {
       const email = registerData?.email;
       if(email) {
-        const updatedData = ({
+        const updatedRegisterData = ({
           ...registerData,
           twoFa: newTwoFaCode,
         });
-        setRegisterData(updatedData);
-        console.log(updatedData);
+        setRegisterData(updatedRegisterData);
     
         try {
-          await registerUserMail(updatedData);
-          console.log(updatedData);
+          await registerUserMail(updatedRegisterData);
+          alert("Código para el login reenviado al correo proporcionado.");
         } catch(error) {
           console.error("Error al reenviar el codigo:", error);
           alert("Hubo un problema al reenviar el código. Por favor, intenta de nuevo.");
@@ -241,6 +271,18 @@ export const useAuth = () => {
       }
     }
   };
+
+  const modalNavigateHandler = () => {
+    if (isLoggedIn && !isRegistering) {
+      setTwoFaModal(false)
+      navigate('/home')
+    } else if (isRegistering && !isLoggedIn) {
+      setTwoFaModal(false)
+      navigate('/')
+    } else {
+      navigate('/home')
+    }
+  }
   
   return {
     loginHandler,
@@ -254,6 +296,10 @@ export const useAuth = () => {
     registerError,
     setResetMailError,
     resetMailError,
-    error,
+    resetError,
+    setResetError,
+    twoFaModal,
+    setTwoFaModal,
+    modalNavigateHandler
   };
 };

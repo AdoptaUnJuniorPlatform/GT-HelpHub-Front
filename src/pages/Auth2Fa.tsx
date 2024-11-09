@@ -12,12 +12,13 @@ import { useAuth } from "../hooks/useAuth";
 import useForm from "../hooks/useForm";
 import Logo from "../components/Logo";
 import axios from "axios";
+import TwoFaModal from "../components/TwoFaModal";
 
 function Auth2Fa() {
-  const { registerData, isRegistering, setIsRegistering, loginData, token, isLoggedIn } = useAuthContext();
-  const { handleResendCode } = useAuth();
+  const { registerData, setIsRegistering, loginData, token } = useAuthContext();
+  const { handleResendCode, twoFaModal, setTwoFaModal, modalNavigateHandler } = useAuth();
   const navigate = useNavigate();
-  const { input: code, handleInputChange, handleSubmit } = useForm(
+  const { input: code, handleInputChange, handleSubmit, inputRefs } = useForm(
     async (input) => {
 
       const codeString = input.join("");
@@ -25,26 +26,22 @@ function Auth2Fa() {
       let expectedCode;
 
       if (registerData && !loginData) {
-
         expectedCode = registerData.twoFa;
+
       } else if (loginData && registerData) {
-
         expectedCode = loginData.twoFa;
+
       } else if (loginData && !registerData) {
-
         expectedCode = loginData.twoFa;
+
       } else {
         alert("Hubo un problema al intentar validar el código. Intenta de nuevo.");
 
         navigate('/');
         return;
       }
-      console.log("expectedCode:", expectedCode);
-      console.log("registerData:", registerData);
-      console.log("loginData:", loginData);
 
       if (codeString === expectedCode) {
-        console.log('los codigos coinciden', codeString, expectedCode)
 
         if (registerData && !loginData) {
           const dataToSend: RegisterRequest = {
@@ -56,12 +53,10 @@ function Auth2Fa() {
           try {
             await registerUser(dataToSend);
             setIsRegistering(true);
-            navigate('/')
-
+            setTwoFaModal(true)
           } catch (error) {
             if (axios.isAxiosError(error)) {
               console.error('Error en la solicitud:', error.response?.data);
-              console.error('Estado del error:', error.response?.status, dataToSend);
             } else {
               console.error('Error inesperado:', error);
             }
@@ -71,14 +66,12 @@ function Auth2Fa() {
           if(token) {
             localStorage.setItem('token', token);
 
+            if (loginData?.twoFa){
+              localStorage.setItem('code', loginData?.twoFa)
+            }
+            setTwoFaModal(true)
             if (loginData?.email) {
               localStorage.setItem('email', loginData.email);
-            }
-            
-            if (isLoggedIn && !isRegistering) {
-              navigate('/home')
-            } else {
-              navigate('/register/personal-data')
             }
           }
         }
@@ -89,9 +82,6 @@ function Auth2Fa() {
     },
     Array(6).fill("")
   );
-
-  console.log("loginData:", loginData);
-  console.log("registerData:", registerData);
 
   return (
     <AuthLayout>
@@ -131,10 +121,12 @@ function Auth2Fa() {
               {code.map((val, i) => (
                 <CodeInput
                   key={i}
+                  ref={(el) => (inputRefs.current[i] = el)}
                   type="text"
                   name={`code-input-${i}`}
                   value={val}
                   onChange={(e) => handleInputChange(e, i)}
+                  
                 />
               ))}
             </div>
@@ -166,6 +158,9 @@ function Auth2Fa() {
             className="text-black-50"
           />
         </div>
+        {twoFaModal && 
+          <TwoFaModal type="button" onClick={modalNavigateHandler} />
+        }
       </form>
     </AuthLayout>
   )

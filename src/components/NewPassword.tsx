@@ -10,7 +10,7 @@ import { useAuth } from "../hooks/useAuth";
 
 function NewPassword() {
   const {resetData} = useAuthContext();
-  const { resetPasswordHandler, handleResendCode } = useAuth(); 
+  const { resetPasswordHandler, handleResendCode, setResetError, resetError } = useAuth(); 
   const navigate = useNavigate();
   const initialFormState = {
     code: "",
@@ -20,7 +20,31 @@ function NewPassword() {
 
   const sendData = async () => {
     const { newPassword, confirmPassword, code } = input;
-    await resetPasswordHandler(newPassword, confirmPassword, code);
+
+    if( input.code === resetData?.twoFa && input.newPassword === input.confirmPassword) {
+      await resetPasswordHandler(newPassword, confirmPassword, code);
+
+    } else if (!code || input.code.length !== 6) {
+      setResetError((prevState) => ({
+        ...prevState,
+        code: true,
+      }));
+      return;
+
+    } else if (resetData?.twoFa !== code) {
+      setResetError((prevState) => ({
+        ...prevState,
+        code: true,
+      }));
+      return;
+    } else if (newPassword !== confirmPassword) {
+      setResetError((prevState) => ({
+        ...prevState,
+        newPassword: true,
+        confirmPassword: true,
+      }));
+      return;
+    }
   };
   
   useEffect(() => {
@@ -56,14 +80,14 @@ function NewPassword() {
           name="code"
           value={input.code}
           onChange={handleInputChange}
-          className="loginInput"
+          className={`loginInput ${resetError.code ? 'outline-red-500 border-red-500' : 'outline-violeta-100'}`}
           placeholder="Código"
         />
         <UserInput
           id="newPassword"
           type="password"
           name="newPassword"
-          className="loginInput"
+          className={`loginInput ${resetError.newPassword ? 'outline-red-500 border-red-500 ' : 'outline-violeta-100'}`}
           placeholder="Nueva contraseña"
           value={input.newPassword}
           onChange={handleInputChange}
@@ -73,7 +97,7 @@ function NewPassword() {
           id="confirmPassword"
           type="password"
           name="confirmPassword"
-          className="loginInput"
+          className={`loginInput ${resetError.confirmPassword ? 'outline-red-500 border-red-500 ' : 'outline-violeta-100'}`}
           value={input.confirmPassword}
           onChange={handleInputChange}
           placeholder="Confirmar nueva contraseña"
