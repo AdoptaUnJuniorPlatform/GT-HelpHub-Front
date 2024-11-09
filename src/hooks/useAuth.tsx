@@ -23,6 +23,7 @@ export const useAuth = () => {
     password: false,
     phone: false,
   });
+  const [twoFaModal, setTwoFaModal] = useState<boolean>(false);
   const [resetMailError, setResetMailError] = useState<boolean>(false);
   const { resetData, setResetData, setToken,loginData, setLoginData, registerData, setRegisterData } = useAuthContext(); 
   const { twoFaCode, twoFaCode: newTwoFaCode } = useCode();
@@ -293,6 +294,8 @@ export const useAuth = () => {
     setResetMailError,
     resetMailError,
     resetError,
-    setResetError
+    setResetError,
+    twoFaModal,
+    setTwoFaModal
   };
 };

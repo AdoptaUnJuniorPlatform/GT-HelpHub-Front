@@ -12,10 +12,11 @@ import { useAuth } from "../hooks/useAuth";
 import useForm from "../hooks/useForm";
 import Logo from "../components/Logo";
 import axios from "axios";
+import TwoFaModal from "../components/TwoFaModal";
 
 function Auth2Fa() {
   const { registerData, isRegistering, setIsRegistering, loginData, token, isLoggedIn } = useAuthContext();
-  const { handleResendCode } = useAuth();
+  const { handleResendCode, twoFaModal, setTwoFaModal } = useAuth();
   const navigate = useNavigate();
   const { input: code, handleInputChange, handleSubmit } = useForm(
     async (input) => {
@@ -56,8 +57,8 @@ function Auth2Fa() {
           try {
             await registerUser(dataToSend);
             setIsRegistering(true);
+            setTwoFaModal(false)
             navigate('/')
-
           } catch (error) {
             if (axios.isAxiosError(error)) {
               console.error('Error en la solicitud:', error.response?.data);
@@ -70,7 +71,7 @@ function Auth2Fa() {
 
           if(token) {
             localStorage.setItem('token', token);
-
+            setTwoFaModal(false)
             if (loginData?.email) {
               localStorage.setItem('email', loginData.email);
             }
@@ -161,11 +162,19 @@ function Auth2Fa() {
           <BackButton
             type="button" />
           <NextButton
-            type="submit"
+            type="button"
+            onClick={() => setTwoFaModal(true)}
             label="SIGUIENTE"
             className="text-black-50"
           />
         </div>
+
+        {twoFaModal && 
+          <TwoFaModal type="submit" onClick={() => {}} />
+        }
+
+         
+
       </form>
     </AuthLayout>
   )
