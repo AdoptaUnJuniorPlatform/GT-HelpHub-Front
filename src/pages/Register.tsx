@@ -71,11 +71,11 @@ function Register() {
 
   return (
     <>
+
       <main className="flex justify-center items-center w-screen min-h-screen lg:min-h-[100vh]">
+        <img src="../../src/assets/Background.svg" className="absolute h-dvh w-auto -left-[39.2rem] opacity-10"/>
         <div className="flex flex-col lg:flex-row lg:justify-around w-11/12 lg:h-auto h-full">
-
           <RegisterAside />
-
           <form
             onSubmit={handleSubmit}
             className="flex flex-col items-center justify-center mt-9 lg:ml-28 w-full lg:w-10/12 lg:items-start lg:justify-between">

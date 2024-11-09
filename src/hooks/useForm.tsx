@@ -1,7 +1,8 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useRef } from 'react';
 
 function useForm<T>(callback: (input: T) => void, defaults: T) {
   const [input, setInput] = useState<T>(defaults);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -11,7 +12,6 @@ function useForm<T>(callback: (input: T) => void, defaults: T) {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>, index?: number) => {
     const { name, type, value, checked } = event.target;
     let newValue = value;
-
    
     if (name === 'phone') {
       newValue = value.replace(/\D/g, '');
@@ -21,6 +21,15 @@ function useForm<T>(callback: (input: T) => void, defaults: T) {
       const updatedInput = [...input] as unknown as string[];
       updatedInput[index] = value.slice(0,1);
       setInput(updatedInput as T)
+
+      if (/^\d$/.test(newValue) && index < updatedInput.length - 1) {
+        inputRefs.current[index + 1]?.focus();
+      }
+
+      if (!newValue && index > 0) {
+        inputRefs.current[index - 1]?.focus(); 
+      }
+      
     } else {
       setInput({
         ...input,
@@ -41,6 +50,7 @@ function useForm<T>(callback: (input: T) => void, defaults: T) {
     handleInputChange,
     handleSwitchChange,
     handleSubmit,
+    inputRefs
   };
 }
 

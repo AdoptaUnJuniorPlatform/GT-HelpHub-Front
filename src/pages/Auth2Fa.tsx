@@ -18,7 +18,7 @@ function Auth2Fa() {
   const { registerData, isRegistering, setIsRegistering, loginData, token, isLoggedIn } = useAuthContext();
   const { handleResendCode, twoFaModal, setTwoFaModal } = useAuth();
   const navigate = useNavigate();
-  const { input: code, handleInputChange, handleSubmit } = useForm(
+  const { input: code, handleInputChange, handleSubmit, inputRefs } = useForm(
     async (input) => {
 
       const codeString = input.join("");
@@ -132,10 +132,12 @@ function Auth2Fa() {
               {code.map((val, i) => (
                 <CodeInput
                   key={i}
+                  ref={(el) => (inputRefs.current[i] = el)}
                   type="text"
                   name={`code-input-${i}`}
                   value={val}
                   onChange={(e) => handleInputChange(e, i)}
+                  
                 />
               ))}
             </div>
@@ -168,13 +170,9 @@ function Auth2Fa() {
             className="text-black-50"
           />
         </div>
-
         {twoFaModal && 
           <TwoFaModal type="submit" onClick={() => {}} />
         }
-
-         
-
       </form>
     </AuthLayout>
   )
