@@ -25,7 +25,7 @@ export const useAuth = () => {
   });
   const [twoFaModal, setTwoFaModal] = useState<boolean>(false);
   const [resetMailError, setResetMailError] = useState<boolean>(false);
-  const { resetData, setResetData, setToken,loginData, setLoginData, registerData, setRegisterData } = useAuthContext(); 
+  const { resetData, setResetData, setToken,loginData, setLoginData, registerData, setRegisterData, isLoggedIn, isRegistering } = useAuthContext(); 
   const { twoFaCode, twoFaCode: newTwoFaCode } = useCode();
   const navigate = useNavigate();
   
@@ -216,16 +216,17 @@ export const useAuth = () => {
     if (registerData && !loginData) {
       const email = registerData?.email;
       if(email) {
-        const updatedData = ({
+        const updatedRegisterData = ({
           ...registerData,
           twoFa: newTwoFaCode,
         });
-        setRegisterData(updatedData);
-        console.log(updatedData);
+        setRegisterData(updatedRegisterData);
+        console.log(updatedRegisterData);
     
         try {
-          await registerUserMail(updatedData);
-          console.log(updatedData);
+          await registerUserMail(updatedRegisterData);
+          alert("Código para el login reenviado al correo proporcionado.");
+          console.log(updatedRegisterData);
         } catch(error) {
           console.error("Error al reenviar el codigo:", error);
           alert("Hubo un problema al reenviar el código. Por favor, intenta de nuevo.");
@@ -280,6 +281,18 @@ export const useAuth = () => {
       }
     }
   };
+
+  const modalNavigateHandler = () => {
+    if (isLoggedIn && !isRegistering) {
+      setTwoFaModal(false)
+      navigate('/home')
+    } else if (isRegistering && !isLoggedIn) {
+      setTwoFaModal(false)
+      navigate('/')
+    } else {
+      navigate('/home')
+    }
+  }
   
   return {
     loginHandler,
@@ -296,6 +309,7 @@ export const useAuth = () => {
     resetError,
     setResetError,
     twoFaModal,
-    setTwoFaModal
+    setTwoFaModal,
+    modalNavigateHandler
   };
 };

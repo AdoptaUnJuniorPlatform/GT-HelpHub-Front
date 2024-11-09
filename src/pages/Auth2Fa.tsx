@@ -15,8 +15,8 @@ import axios from "axios";
 import TwoFaModal from "../components/TwoFaModal";
 
 function Auth2Fa() {
-  const { registerData, isRegistering, setIsRegistering, loginData, token, isLoggedIn } = useAuthContext();
-  const { handleResendCode, twoFaModal, setTwoFaModal } = useAuth();
+  const { registerData, setIsRegistering, loginData, token } = useAuthContext();
+  const { handleResendCode, twoFaModal, setTwoFaModal, modalNavigateHandler } = useAuth();
   const navigate = useNavigate();
   const { input: code, handleInputChange, handleSubmit, inputRefs } = useForm(
     async (input) => {
@@ -57,8 +57,7 @@ function Auth2Fa() {
           try {
             await registerUser(dataToSend);
             setIsRegistering(true);
-            setTwoFaModal(false)
-            navigate('/')
+            setTwoFaModal(true)
           } catch (error) {
             if (axios.isAxiosError(error)) {
               console.error('Error en la solicitud:', error.response?.data);
@@ -71,16 +70,16 @@ function Auth2Fa() {
 
           if(token) {
             localStorage.setItem('token', token);
-            setTwoFaModal(false)
+            setTwoFaModal(true)
             if (loginData?.email) {
               localStorage.setItem('email', loginData.email);
             }
             
-            if (isLoggedIn && !isRegistering) {
-              navigate('/home')
-            } else {
-              navigate('/register/personal-data')
-            }
+            // if (isLoggedIn && !isRegistering) {
+            //   navigate('/home')
+            // } else {
+            //   navigate('/register/personal-data')
+            // }
           }
         }
       } else {
@@ -164,14 +163,13 @@ function Auth2Fa() {
           <BackButton
             type="button" />
           <NextButton
-            type="button"
-            onClick={() => setTwoFaModal(true)}
+            type="submit"
             label="SIGUIENTE"
             className="text-black-50"
           />
         </div>
         {twoFaModal && 
-          <TwoFaModal type="submit" onClick={() => {}} />
+          <TwoFaModal type="button" onClick={modalNavigateHandler} />
         }
       </form>
     </AuthLayout>

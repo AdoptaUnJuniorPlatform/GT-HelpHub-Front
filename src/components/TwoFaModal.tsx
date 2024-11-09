@@ -3,7 +3,7 @@ import { GoCheckCircleFill } from "react-icons/go"
 import Confetti from "react-confetti";
 import { useEffect, useState } from "react";
 
-function TwoFaModal({type, onClick}: {type: 'submit', onClick: () => void}) {
+function TwoFaModal({type, onClick}: {type: 'button', onClick: () => void}) {
   const [confetti, setConfetti] = useState<boolean>(false);
   useEffect(() => {
     setConfetti(true);
