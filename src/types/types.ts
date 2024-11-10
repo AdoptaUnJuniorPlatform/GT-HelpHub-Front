@@ -177,6 +177,7 @@ export interface CompletedProps {
 
 export interface SecondayButtonProps {
   label: string;
+  onClick: () => void;
 }
 
 export interface Review {
