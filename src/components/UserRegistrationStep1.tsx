@@ -69,7 +69,7 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
           placeholder="Por Ej: Soy una joven estudiante de enfermería, tengo 22 años vivo en Madrid con unas amigas. Soy una apasionada por la música, y que desea aprender a tocar el piano."
           maxLength={255}
           style={{ border: 'none', outline: 'none' }}
-          value={registrationData.profileData.description || ''}
+          value={registrationData.profileData.description}
           onChange={handleTextareaChange}
         />
 
@@ -89,7 +89,7 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
           inputMode="numeric"
           pattern="[0-9]*"
           placeholder="Código postal (CP)"
-          value={registrationData.profileData.location || ''}
+          value={registrationData.profileData.location}
           onChange={handlePostalCodeChange}
           maxLength={5}
         />
