@@ -1,6 +1,6 @@
 import  React, { useState } from  'react';
 import Layout from './Layout';
-import HorarioOption from './HorarioOption';
+import TimeRangeOption from './TimeRangeOption';
 import DaySelector from './DaySelector';
 import { RegistrationFormData } from '../types/RegistrationFormData';
 
@@ -22,36 +22,37 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
   updateRegistrationData,
 }) => {
 
-  const [selectedHorario, setSelectedHorario] = useState<string | null>(null);
+  const [selectedHorario, setSelectedHorario] = useState<string | null>(registrationData.profileData.preferredTimeRange || null);
   const [selectedDays, setSelectedDays] = useState<string[]>(registrationData.profileData.selectedDays || []);
 
   // Definimos los horarios aquí
-  const horarios = [
-    { id: 1, text: '8:00 a 14:00' },
-    { id: 2, text: '17:00 a 21:00' },
-    { id: 3, text: '8:00 a 17:00' },
-    { id: 4, text: '15:00 a 17:00' },
-    { id: 5, text: 'Flexibilidad horaria' },
+  const availableTimeRanges = [
+    { id: 1, timeRange: '08:00hs a 14:00hs' },
+    { id: 2, timeRange: '17:00hs a 21:00hs' },
+    { id: 3, timeRange: '08:00hs a 17:00hs' },
+    { id: 4, timeRange: '15:00hs a 17:00hs' },
+    { id: 5, timeRange: 'Flexible schedule' },
   ];
 
 
-  const handleSelectHorario = (text: string) => {
-    setSelectedHorario(text);
+  const handleSelectHorario = (timeRange: string) => {
+    setSelectedHorario(timeRange);
     updateRegistrationData({
-      profileData: { ...registrationData.profileData, preferredTimeRange: text },
+      profileData: { ...registrationData.profileData, preferredTimeRange: timeRange },
     });
   };
+  
 
-  const handleDaySelect = (days: string[]) => {
-    setSelectedDays(days);
+  const handleDaySelect = (daysOfWeek: string[]) => {
+    setSelectedDays(daysOfWeek);
     updateRegistrationData({
-      profileData: { ...registrationData.profileData, selectedDays: days },
+      profileData: { ...registrationData.profileData, selectedDays: daysOfWeek },
     });
   };
 
   return(
     <Layout
-      title="Selecciona tus horarios"
+      title="Selecciona tus timeRange"
       description="Para que podamos ayudarte a coordinar horarios con nuestros otros usuarios, necesitaremos que nos brindes tu disponibilidad horaria y días disponiles."
       stepTitle="Paso 3"
       stepDescription="¿Qué día sestás disponible?"
@@ -71,12 +72,12 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
       <div className="relative w-[450px] h-auto left-[-40px] top-[100px]">
         <div className="flex flex-wrap gap-4 w-full justify-start items-start">
           {/* Mapeo de las opciones de horario usando el componente HorarioOption */}
-          {horarios.map((horario) => (
-            <HorarioOption
-              key={horario.id}
-              text={horario.text}
-              selected={horario.text === selectedHorario}
-              onClick={() => handleSelectHorario(horario.text)}
+          {availableTimeRanges.map((availableTimeTange) => (
+            <TimeRangeOption
+              key={availableTimeTange.id}
+              text={availableTimeTange.timeRange}
+              selected={availableTimeTange.timeRange === selectedHorario}
+              onClick={() => handleSelectHorario(availableTimeTange.timeRange)}
             />
           ))}
         </div>
