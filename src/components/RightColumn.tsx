@@ -48,12 +48,14 @@ const RightColumn: React.FC<RightColumnProps> = ({ onBackClick, onNextClick, ste
             onClick={onBackClick} 
             className="ml-[115px]" 
           />
-          <Button 
-            texto="Siguiente" 
-            color="text-[#496ceb]" 
-            onClick={onNextClick} 
-            className="mr-[75px]" 
-          />
+          {(currentStep !== 4 || isSubmitted) && (
+            <Button 
+              texto="Siguiente" 
+              color="text-[#496ceb]" 
+              onClick={onNextClick} 
+              className="mr-[75px]" 
+            />
+          )}
         </div>
       </div>
     </>
