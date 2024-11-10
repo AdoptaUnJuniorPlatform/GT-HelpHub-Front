@@ -1,9 +1,11 @@
-import  React, { useState} from  'react';
+import  React, { useState } from  'react';
 import Layout from './Layout';
 import SuccessModal from './SuccesModal';
 import { RegistrationFormData } from '../types/RegistrationFormData';
 import { createProfile, createHability } from '../services/apiClient';
 import { useAuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { loginUserMail } from '../services/AuthService';
 
 interface UserRegistrationStep6Props{
   onBackClick: () => void;
@@ -25,41 +27,69 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
   const [isModalVisible, setIsModalVisible] = useState(false);
   
   const { registerData } = useAuthContext(); 
+  const navigate = useNavigate();
 
-  const handleResendCode = () => {
-    setIsSending(true);
-    setTimeout(() => {
-      setIsSending(false); 
-    }, 2000);
+  const handleResendCode = async () => {
+    if (registerData?.email) {
+      setIsSending(true);
+      try {
+        const storedCode = localStorage.getItem('verificationCode');
+        await loginUserMail({ email: registerData.email, twoFa: storedCode || '' });
+        console.log('Código de verificación reenviado con éxito');
+      } catch (error) {
+        console.error('Error al reenviar el código de verificación:', error);
+      } finally {
+        setIsSending(false);
+      }
+    } else {
+      console.error('No se encontró un email en registerData');
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputCode(e.target.value);
   };
 
-  const handleVerificationSuccess = async () => {
-    // Verificar si el código ingresado coincide con el código correcto
-    if (inputCode === localStorage.getItem('verificationCode')) {
-      try {
-        // Enviar la solicitud POST con los datos del usuario
-        await createProfile(registrationData.profileData);
-        await createHability(registrationData.habilityData);
+  const verifyCode = (): boolean => {
+    return inputCode === localStorage.getItem('verificationCode');
+  };
 
-        // Mostrar el modal de éxito
-        setIsModalVisible(true);
-      } catch (error) {
-        console.error('Error al enviar los datos:', error);
-      }
-    } else {
+  // Función para enviar el perfil al backend
+  const handleVerificationSuccess = async () => {
+    if (!verifyCode()) {
       alert('Código de verificación incorrecto.');
+      return;
+    }
+    try {
+      const profileResponse = await createProfile(registrationData.profileData); 
+  
+      const habilityResponse = await createHability(registrationData.habilityData); 
+  
+      // Mostrar el modal solo si ambas peticiones son exitosas
+      if (profileResponse.status === 201 && habilityResponse.status === 201) {
+        setIsModalVisible(true);
+      } else {
+        console.error('Hubo un error al crear perfil o habilidad');
+        alert('Error al enviar los datos. Por favor, intenta de nuevo.');
+      }
+
+      // Mostrar el modal solo si ambas peticiones son exitosas
+      if (profileResponse.status === 201 && habilityResponse.status === 201) {
+        setIsModalVisible(true);
+      } else {
+        console.error('Hubo un error al crear perfil o habilidad');
+        alert('Error al enviar los datos. Por favor, intenta de nuevo.');
+      }
+    } catch (error) {
+      console.error('Error en el proceso de envío:', error);
+      alert('Hubo un error al enviar los datos. Por favor, intenta de nuevo.');
     }
   };
 
-
   const closeModal = () => {
     setIsModalVisible(false);
-    onNextClick(); // Lógica para redirigir al home
-    //TODO logica para redirigir al perfil
+    onNextClick(); 
+    navigate('/profile');
   };
 
   const UserEmail = () => (
@@ -133,6 +163,7 @@ const UserRegistrationStep6: React.FC<UserRegistrationStep6Props> = ({
               {isSending ? 'Enviando...' : 'Reenviar código'}
             </div>
           </button>
+
         </div>
 
       </Layout>
