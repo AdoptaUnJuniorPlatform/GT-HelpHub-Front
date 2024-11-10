@@ -4,7 +4,7 @@ import Categories from './Categories';
 import { RegistrationFormData } from '../types/RegistrationFormData';
 import { loginUserMail } from '../services/AuthService'; 
 import useCode from '../hooks/useCode'; 
-import { useAuthContext } from '../context/AuthContext';;
+import { useAuthContext } from '../context/AuthContext';
 
 interface UserRegistrationStep5Props{
   onBackClick: () => void;
@@ -26,7 +26,6 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
   const { registerData } = useAuthContext(); 
   const { twoFaCode } = useCode();
 
-
   // Función para manejar la selección de categorías
   const handleCategorySelect = (selectedCategories: string[]) => {
     // Actualizar `interestedSkills` dentro de `profileData`
@@ -38,7 +37,7 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
     });
   };
 
-  const handleNextClick = async () => {
+  {/*const handleNextClick = async () => {
     try {
       const email = registerData?.email;
       if (email) {
@@ -50,9 +49,32 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
       onNextClick(); // Avanza al siguiente paso
     } catch (error) {
       console.error('Error al enviar el código de verificación:', error);
-      // Aquí podrías manejar el error, por ejemplo, mostrando un mensaje al usuario
+    }
+  };*/}
+
+  const handleNextClick = async () => {
+    try {
+      console.log("registerData:", registerData); 
+      const email = registerData?.email;
+      console.log('Correo electrónico para enviar el código:', email); // Verificar email
+      console.log('Código de verificación generado:', twoFaCode); // Verificar código
+  
+      if (email) {
+        await loginUserMail({ email, twoFa: twoFaCode }); // Enviar el código de verificación con el correo
+        console.log('Código de verificación enviado con éxito');
+        
+        // Guarda el código en localStorage para que esté disponible en el Paso 6
+        localStorage.setItem('verificationCode', twoFaCode);
+      } else {
+        console.error('No se encontró un email en registerData');
+      }
+      
+      onNextClick(); // Avanza al siguiente paso
+    } catch (error) {
+      console.error('Error al enviar el código de verificación:', error);
     }
   };
+  
     
   return(
     <Layout
@@ -78,10 +100,11 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
       {/* Contenedor de categorías */}
       <div className="relative left-[-40px] top-[120px]">
         <Categories
-          selectedCategories={registrationData.profileData?.interestedSkills || []}
+          selectedCategories={registrationData.profileData?.interestedSkills}
           onSelectCategories={handleCategorySelect}
         />
       </div>
+
     </Layout>
   )};
 

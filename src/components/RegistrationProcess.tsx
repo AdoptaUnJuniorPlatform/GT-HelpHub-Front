@@ -11,8 +11,21 @@ const RegistrationProcess: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1); // Estado para controlar el paso actual
 
   const [registrationData, setRegistrationData] = useState<RegistrationFormData>({
-    profileData: {},
-    habilityData: {},
+    profileData: {
+      description: '',
+      interestedSkills: [],
+      location: '',
+      profilePicture: '',
+      preferredTimeRange: '',
+      selectedDays: [],
+    },
+    habilityData: {
+      title: '',
+      level: '',
+      mode: '',
+      description: '',
+      category: '',
+    },
   });
 
   const steps = ["Sobre ti", "Tu foto", "Disponibilidad", "Mis habilidades", "Qué quiero aprender", "Verificación"];
@@ -81,6 +94,8 @@ const RegistrationProcess: React.FC = () => {
             onNextClick={goToNextStep}
             steps={steps}
             currentStep={currentStep}
+            registrationData={registrationData}
+            updateRegistrationData={updateRegistrationData}
           />
         );
       case 5:
