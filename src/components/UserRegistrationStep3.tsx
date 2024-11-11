@@ -34,14 +34,13 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
     { id: 5, timeRange: 'Flexible schedule' },
   ];
 
-
   const handleSelectHorario = (timeRange: string) => {
     setSelectedHorario(timeRange);
     updateRegistrationData({
       profileData: { ...registrationData.profileData, preferredTimeRange: timeRange },
     });
   };
-  
+
 
   const handleDaySelect = (daysOfWeek: string[]) => {
     setSelectedDays(daysOfWeek);
@@ -50,6 +49,8 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
     });
   };
 
+  const isNextButtonDisabled = !selectedHorario || selectedDays.length === 0;
+
   return(
     <Layout
       title="Selecciona tus timeRange"
@@ -57,7 +58,13 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
       stepTitle="Paso 3"
       stepDescription="¿Qué día sestás disponible?"
       onBackClick={onBackClick}
-      onNextClick={onNextClick}
+      onNextClick={() => {
+        if (!isNextButtonDisabled) {
+          onNextClick();
+        } else {
+          alert('Por favor, completa todos los campos requeridos antes de continuar.');
+        }
+      }}
       steps={steps}
       currentStep={currentStep}
     >

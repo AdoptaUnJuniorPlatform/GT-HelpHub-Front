@@ -43,6 +43,8 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
     setPostalCodeError(value.length !== 5);
   };
 
+  const isNextButtonDisabled = !registrationData.profileData.description || !registrationData.profileData.location;
+
   return (
     <Layout
       title="Cuéntanos un poco más sobre vos"
@@ -50,7 +52,13 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
       stepTitle="Paso 1"
       stepDescription="Breve descripción del usuario"
       onBackClick={onBackClick}
-      onNextClick={onNextClick}
+      onNextClick={() => {
+        if (!isNextButtonDisabled) {
+          onNextClick();
+        } else {
+          alert('Por favor, completa todos los campos requeridos antes de continuar.');
+        }
+      }}
       steps={steps}
       currentStep={currentStep}
     >

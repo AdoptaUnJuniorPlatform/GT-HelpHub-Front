@@ -37,8 +37,15 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
     });
   };
 
+  // Verifica que haya al menos una categoría seleccionada
+  const hasSelectedCategories = registrationData.profileData?.interestedSkills?.length > 0;
+
   // Función para manejar la creación de perfil y habilidad
   const handleSubmitProfileAndHability = async () => {
+    if (!hasSelectedCategories) {
+      alert('Por favor, selecciona al menos una categoría antes de continuar.');
+      return;
+    }
     try {
       const profileResponse = await createProfile(registrationData.profileData);
       const habilityResponse = await createHability(registrationData.habilityData);
