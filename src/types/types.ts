@@ -92,6 +92,7 @@ export interface SkillsProps {
 
 export interface InterestSkillsProps {
   interestSkills: string[];
+  isEditing: boolean;
 }
 
 export interface ProfileData {
