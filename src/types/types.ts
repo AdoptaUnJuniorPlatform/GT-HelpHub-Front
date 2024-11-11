@@ -217,3 +217,13 @@ export interface  LoginCardProps {
   description: string;
   tags: string[];
 }
+
+export interface GreenAlertProps {
+  title: string,
+  text: string
+}
+export interface CharacterCountTextAreaProps {
+  className?: string;
+  placeholder: string;
+  showLabel: boolean;
+}

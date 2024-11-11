@@ -1,9 +1,5 @@
 import { FaRegCircleCheck } from "react-icons/fa6"
-
-interface GreenAlertProps {
-  title: string,
-  text: string
-}
+import { GreenAlertProps } from "../types/types"
 
 function GreenAlert({title, text}: GreenAlertProps) {
   return (
