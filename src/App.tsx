@@ -1,12 +1,23 @@
-import './App.css'
+import { BrowserRouter } from 'react-router-dom'
+import RoutesIndex from './routes/Index'
+import React from 'react';
+// import RegistrationProcess from './components/RegistrationProcess';
 
-function App() {
-
+const App: React.FC = () => {
   return (
+    
+    
+  
     <>
-      <h1 className=' h-screen w-full flex justify-center items-center text-violet-700'>Help Hub</h1>
+      <BrowserRouter>
+        <RoutesIndex />
+      </BrowserRouter>
+      {/* <div>
+        <RegistrationProcess />
+      </div> */}
     </>
+
   )
 }
 
-export default App
+export default App;
