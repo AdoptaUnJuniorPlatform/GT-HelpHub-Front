@@ -92,6 +92,7 @@ export interface SkillsProps {
 
 export interface InterestSkillsProps {
   interestSkills: string[];
+  isEditing: boolean;
 }
 
 export interface ProfileData {
@@ -177,6 +178,7 @@ export interface CompletedProps {
 
 export interface SecondayButtonProps {
   label: string;
+  onClick: () => void;
 }
 
 export interface Review {
@@ -215,4 +217,14 @@ export interface  LoginCardProps {
   availability: string;
   description: string;
   tags: string[];
+}
+
+export interface GreenAlertProps {
+  title: string,
+  text: string
+}
+export interface CharacterCountTextAreaProps {
+  className?: string;
+  placeholder: string;
+  showLabel: boolean;
 }

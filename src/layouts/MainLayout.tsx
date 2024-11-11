@@ -4,7 +4,7 @@ import Footer from "../components/Footer"
 function MainLayout({ children } : { children: ReactNode }) {
   return (
     <>
-      <main className="flex flex-col justify-center items-center w-full min-h-dvh">
+      <main className="flex flex-col justify-center items-center w-full min-h-dvh bg-white">
         <section className="w-[90%] mt-7 relative">
           {children}
         </section>

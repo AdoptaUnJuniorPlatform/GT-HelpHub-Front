@@ -106,7 +106,10 @@ function NewPassword() {
       </div>
       <div className="absolute flex w-full justify-evenly bottom-0">
         <BackButton
-          type="button" />
+          type="button" 
+          label="ATRÁS"
+          className="text-black-80"
+        />
         <NextButton
           type="submit"
           onClick={() => {}}

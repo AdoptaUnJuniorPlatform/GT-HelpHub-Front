@@ -87,12 +87,12 @@ function SideBar() {
       ></div>
 
       <nav
-        className={`flex flex-col h-[95.1rem] rounded-xl duration-1000 transition-all ease-in-out absolute z-20 ${
+        className={`flex flex-col h-[96%] rounded-xl duration-1000 transition-all ease-in-out absolute z-20 ${
           open ? 'w-56 top-0 duration-1000' : 'w-20'
         } group`}
       >
         <section
-          className={`h-[6.5rem] flex justify-center items-center bg-neutral-gray rounded-t-xl transition-all duration-700 ${
+          className={`h-[6.5rem] flex justify-center items-center bg-white rounded-t-xl transition-all duration-700 ${
             open || !open && !isHome ? 'flex w-full translate-x-0' : 'hidden -translate-x-full'
           }`}
         >

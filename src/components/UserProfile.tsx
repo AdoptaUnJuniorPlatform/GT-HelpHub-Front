@@ -1,12 +1,18 @@
+import { useState } from "react"
 import ProfileImg from "../components/ProfileImg"
 import { profiles } from "../Variables/varibles"
 import Edit from "./Edit"
 import UserAvailability from "./UserAvailability"
 import UserDescription from "./UserDescription"
 import UserInterestSkills from "./UserInterestSkills"
-function UserProfile() {
 
+function UserProfile() {
+  const [isEditing, setIsEditing] = useState(false);
   const user = profiles[0];
+
+  const toggleEdit = () => {
+    setIsEditing(!isEditing);
+  };
   
   return (
     <div className="flex flex-col w-full px-[6em] py-[2em] bg-[#F7F7F7]">
@@ -23,7 +29,7 @@ function UserProfile() {
             <h3 className="text-2xl font-normal leading-normal text-neutral-black mb-3">
               Disponibilidad horaria
             </h3>
-            <UserAvailability />
+            <UserAvailability /> 
           </div>
 
           <div>
@@ -37,10 +43,14 @@ function UserProfile() {
             <h3 className="text-2xl font-normal leading-normal text-neutral-black pb-2">
               Habilidades que me interesan
             </h3>
-            <UserInterestSkills interestSkills={user.interestSkills ?? []} />
+            <UserInterestSkills 
+              interestSkills={user.interestSkills ?? []} 
+              isEditing={isEditing}/>
           </div>
         </div>
-        <Edit />
+        <Edit 
+          onClick={toggleEdit}
+        />
       </div>
     </div>
   );

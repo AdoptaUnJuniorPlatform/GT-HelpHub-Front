@@ -3,7 +3,6 @@ import Logo from "../components/Logo";
 import PrimaryButton from "../components/PrimaryButton";
 import UserInput from "../components/UserInput";
 import AuthLayout from "../layouts/AuthLayout";
-import SentMailAlert from "../components/SentMailAlert";
 import BackButton from "../components/BackButton";
 import useBackButton from "../hooks/useBackButton";
 import NextButton from "../components/NextButton";
@@ -13,6 +12,7 @@ import { useAuthContext } from "../context/AuthContext";
 import { useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { regex } from "../Variables/varibles";
+import GreenAlert from "../components/GreenAlert";
 
 function ResetPassword() {
   const { showForm, showAlert } = useBackButton();
@@ -55,7 +55,11 @@ function ResetPassword() {
       <>
         <div className="flex flex-col w-full h-full pt-5">
 
-          {showAlert &&  <SentMailAlert />}
+          {showAlert &&  
+          <GreenAlert 
+            title="Correo enviado"
+            text="Revisa tu bandeja de entrada para continuar con el reseteo de tu contraseña."
+          />}
 
           <div className="w-9/12 py-5">
             <h3 className="text-[2.2rem] font-normal leading-normal tracking-wide text-neutral-black self-stretch">Reseteo de contraseña</h3>
@@ -80,7 +84,10 @@ function ResetPassword() {
                   />
                   <div className="absolute flex w-full justify-evenly bottom-0">
                     <BackButton
-                      type="button" />
+                      type="button" 
+                      label="ATRÁS"
+                      className="text-black-80"
+                    />
                     <NextButton
                       type="submit"
                       onClick={() => {}}
