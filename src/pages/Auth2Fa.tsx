@@ -146,7 +146,7 @@ function Auth2Fa() {
       >
         <div className=" w-full h-full flex flex-col justify-evenly mx-auto">
           <div className="w-full">
-            <h1 className="w-full text-4xl text-neutral-black font normal leading-normal">Introduce el código que hemos enviado a <span className="text-violeta-100">usuario@gmail.com</span></h1>
+            <h1 className="w-full text-4xl text-neutral-black font normal leading-normal">Introduce el código que hemos enviado a <span className="text-violeta-100">{registerData?.email}</span></h1>
             <p className="text-[20px] font-normal leading-normal text-neutral-black">Puede que tarde un minuto en recibir el correo. </p>
           </div>
           <div className="w-full -mt-20">
