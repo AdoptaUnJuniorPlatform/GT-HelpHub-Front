@@ -4,7 +4,6 @@ import UserRegistrationStep2 from './UserRegistrationStep2';
 import UserRegistrationStep3 from './UserRegistrationStep3';
 import UserRegistrationStep4 from './UserRegistrationStep4';
 import UserRegistrationStep5 from './UserRegistrationStep5';
-import UserRegistrationStep6 from './UserRegistrationStep6';
 import { RegistrationFormData } from '../types/RegistrationFormData';
 
 const RegistrationProcess: React.FC = () => {
@@ -107,16 +106,6 @@ const RegistrationProcess: React.FC = () => {
             currentStep={currentStep}
             registrationData={registrationData}
             updateRegistrationData={updateRegistrationData}
-          />
-        );
-      case 6:
-        return (
-          <UserRegistrationStep6
-            onBackClick={goToPreviousStep}
-            onNextClick={goToNextStep}
-            steps={steps}
-            currentStep={currentStep}
-            registrationData={registrationData}
           />
         );
       default:
