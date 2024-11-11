@@ -1,7 +1,7 @@
 import { BackNextButtonProps } from "../types/types"
 import useBackButton from "../hooks/useBackButton";
 
-function BackButton({ disabled = false, type }: BackNextButtonProps) {
+function BackButton({ disabled = false, type, label, className="" }: BackNextButtonProps) {
   const { handleBackButton } = useBackButton();
 
   return (
@@ -9,9 +9,9 @@ function BackButton({ disabled = false, type }: BackNextButtonProps) {
       type={type}
       onClick={handleBackButton}
       disabled={disabled}
-      className="text-2xl text-black-80 font-normal leading-5 tracking-wide"
+      className={`text-2xl font-normal leading-5 tracking-wide ${className}`}
     >
-      ATRÁS
+      {label}
     </button>
   )
 }

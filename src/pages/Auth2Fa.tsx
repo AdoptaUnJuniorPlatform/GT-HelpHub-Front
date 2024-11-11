@@ -151,7 +151,10 @@ function Auth2Fa() {
         </div>
         <div className="flex justify-evenly w-full">
           <BackButton
-            type="button" />
+            type="button" 
+            label="ATRÁS"
+            className="text-black-80"
+          />
           <NextButton
             type="submit"
             label="SIGUIENTE"

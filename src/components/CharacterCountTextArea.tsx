@@ -12,7 +12,9 @@ function CharacterCountTextArea({className="", placeholder, showLabel = false}: 
   return (
     <div className="relative">
       {showLabel && (
-        <label className="absolute -top-6 left-2 bg-neutral-gray px-1 text-black-80 text-base font-normal leading-6 tracking-wide m-0 py-0 translate-y-2/4 bg-transparent">
+        <label 
+          style={{ color: '#696868', textShadow: '0px 6px 19px rgba(255, 255, 255, 1)' }}
+          className="absolute -top-6 left-2 bg-neutral-gray px-1 text-black-80 text-base font-normal leading-6 tracking-wide m-0 py-0 translate-y-2/4 bg-transparent z-10">
           Sobre mí
         </label>
       )}

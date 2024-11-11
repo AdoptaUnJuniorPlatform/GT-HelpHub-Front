@@ -7,7 +7,7 @@ import FilterDrop from "./FilterDrop"
 function NewAbility() {
   
   return (
-    <div className="flex flex-col justify-evenly bg-neutral-gray w-[43.7rem] h-[70rem] p-10">
+    <div className="flex flex-col justify-evenly bg-neutral-gray w-7/12 h-[73rem] p-10">
 
       <div className="flex flex-col w-ful -mt-7">
         <h1 className="text-[34px] text-neutral-black font-normal leading-normal tracking-wide">Nueva Habilidad</h1>
