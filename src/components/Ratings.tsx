@@ -2,8 +2,7 @@
 function Ratings({reviews}: {reviews: number}) {
   const isHome = location.pathname === '/home';
   return (
-    <div className="bg-neutral-gray font-roboto not-italic">
-
+    <div className="bg-white font-roboto not-italic">
       <div>
         <h2 className={` leading-normal font-normal -mb-1 ${isHome ? "text-3xl" : "text-base "}`}>Valoración general</h2>
         <div className="flex items-center justify-start gap-2 mb-1">

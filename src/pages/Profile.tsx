@@ -8,14 +8,13 @@ import UserProfile from "../components/UserProfile"
 import useBorderButton from "../hooks/useBorderButton";
 import MainLayout from "../layouts/MainLayout"
 import { profiles } from "../Variables/varibles";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { useAvilityContext } from "../context/AvilityContext";
 
 function Profile() {
   const { 
     selectedBorderButton, 
     handleBorderButtonClick,
-    SelectedComponent 
   } = useBorderButton("HABILIDADES", ["HABILIDADES", "VALORACIONES"], 
     { HABILIDADES: MySkills, VALORACIONES: MyReviews}
   );
@@ -35,22 +34,26 @@ function Profile() {
           {!showEditor && (
             <>
               <div className="flex mt-10">
-                <BorderButton 
-                  label="HABILIDADES"
-                  variant="profile"
-                  className="w-[8.5em] h-[3.3em] rounded-l-md"
-                  active={selectedBorderButton === "HABILIDADES"}
-                  onClick={() => handleBorderButtonClick("HABILIDADES")}
-                />
-                <BorderButton 
-                  label="VALORACIONES"
-                  variant="profile"
-                  className="w-[8.5em] h-[3.3em] rounded-r-md"
-                  active={selectedBorderButton === "VALORACIONES"}
-                  onClick={() => handleBorderButtonClick("VALORACIONES")}
-                />
+                <Link to={'/profile/habilidades'}>
+                  <BorderButton 
+                    label="HABILIDADES"
+                    variant="profile"
+                    className="w-[8.5em] h-[3.3em] rounded-l-md"
+                    active={selectedBorderButton === "HABILIDADES"}
+                    onClick={() => handleBorderButtonClick("HABILIDADES")}
+                  />
+                </Link>
+                <Link to={'/profile/valoraciones'}>
+                  <BorderButton 
+                    label="VALORACIONES"
+                    variant="profile"
+                    className="w-[8.5em] h-[3.3em] rounded-r-md"
+                    active={selectedBorderButton === "VALORACIONES"}
+                    onClick={() => handleBorderButtonClick("VALORACIONES")}
+                  />
+                </Link>
               </div>
-              {SelectedComponent && <SelectedComponent />}
+              <Outlet />
 
               {selectedBorderButton === "VALORACIONES" && (
                 <section className=" absolute flex flex-col right-[15.5rem] top-[30.5rem] mt-5">

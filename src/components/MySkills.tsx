@@ -11,7 +11,7 @@ function MySkills() {
   const handleButtonClick = () => {
     console.log("cambiando");
     setShowEditor(true);
-    navigate("/profile/habilidades");
+    navigate("/profile/editar-habilidades");
   };
   return (
     <>
