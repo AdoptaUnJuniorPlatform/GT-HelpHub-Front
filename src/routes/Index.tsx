@@ -10,6 +10,7 @@ import NewPassword from "../components/NewPassword"
 import Ability from "../components/Ability"
 import MySkills from "../components/MySkills"
 import MyReviews from "../components/MyReviews"
+import ProtectedRoutes from "./ProtectedRoutes"
 
 function RoutesIndex() {
   return (
@@ -17,12 +18,12 @@ function RoutesIndex() {
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/codigo-seguridad" element={<Auth2Fa />}/> 
-      <Route path="/home" element={<Home />} />
-      <Route path="/register/personal-data" element={<RegistrationProcess />} /> 
-      <Route path="/profile" element={<Profile />} >
-        <Route path="habilidades" element={<MySkills />} />
-        <Route path="valoraciones" element={<MyReviews />} />
-        <Route path="editar-habilidades" element={<Ability />} />
+      <Route path="/home" element={<ProtectedRoutes element={<Home />} />} />
+      <Route path="/register/personal-data" element={<ProtectedRoutes element={<RegistrationProcess />} />} /> 
+      <Route path="/profile" element={<ProtectedRoutes element={<Profile />} />}>
+        <Route path="habilidades" element={<ProtectedRoutes element={<MySkills />} />} />
+        <Route path="valoraciones" element={<ProtectedRoutes element={<MyReviews />} />} />
+        <Route path="editar-habilidades" element={<ProtectedRoutes element={<Ability />} />}/>
       </Route>
       <Route path="/reseteo" element={<ResetPassword />}>
         <Route path="nueva-contraseña" element={<NewPassword />} />      
