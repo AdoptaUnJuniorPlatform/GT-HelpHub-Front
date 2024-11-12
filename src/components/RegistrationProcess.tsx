@@ -5,11 +5,11 @@ import UserRegistrationStep3 from './UserRegistrationStep3';
 import UserRegistrationStep4 from './UserRegistrationStep4';
 import UserRegistrationStep5 from './UserRegistrationStep5';
 import { ProfileData, HabilityData } from '../types/AuthServiceTypes'; 
-import { useAuthContext } from '../context/AuthContext'; // Importa el contexto
+import { useAuthContext } from '../context/AuthContext'; 
 
 const RegistrationProcess: React.FC = () => {
   const { profileData, setProfileData, habilityData, setHabilityData } = useAuthContext(); // Usa el contexto para acceder a profileData y habilityData
-  const [currentStep, setCurrentStep] = useState(1); // Estado para controlar el paso actual
+  const [currentStep, setCurrentStep] = useState(1);
 
   const defaultProfileData: ProfileData = {
     description: '',
@@ -41,21 +41,18 @@ const RegistrationProcess: React.FC = () => {
     setHabilityData(data);
   };
   
-  // Función para ir al siguiente paso
   const goToNextStep = () => {
     if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1);
     }
   };
 
-  // Función para ir al paso anterior
   const goToPreviousStep = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
   };
 
-  // Renderizamos el paso actual
   const renderStep = () => {
     switch (currentStep) {
       case 1:
