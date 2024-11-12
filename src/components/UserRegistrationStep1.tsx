@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import Layout from './Layout'; 
-import { RegistrationFormData } from '../types/RegistrationFormData';
-
+import { ProfileData } from '../types/AuthServiceTypes';
 
 interface UserRegistrationStep1Props {
   onBackClick: () => void;
   onNextClick: () => void;
   steps: string[];
   currentStep: number;
-  registrationData: RegistrationFormData;
-  updateRegistrationData: (data: Partial<RegistrationFormData>) => void;
+  profileData: ProfileData; // Asegúrate de definir el tipo para profileData
+  updateProfileData: (data: ProfileData) => void; // Define el tipo para updateProfileData
 }
 
 const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
@@ -17,31 +16,29 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
   onNextClick,
   steps,
   currentStep,
-  registrationData,
-  updateRegistrationData,
+  profileData,
+  updateProfileData,
 }) => {
 
   const [postalCodeError, setPostalCodeError] = useState<boolean>(false);
   
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    updateRegistrationData({
-      profileData: {
-        ...registrationData.profileData,
-        description: e.target.value,
-      },
+    updateProfileData({
+      ...profileData, // Mantiene el estado actual de profileData
+      description: e.target.value, // Actualiza solo la descripción
     });
   };
 
   const handlePostalCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, '');
-    updateRegistrationData({
-      profileData: {
-        ...registrationData.profileData,
-        location: value,
-      },
+    updateProfileData({
+      ...profileData, // Mantiene el estado actual de profileData
+      location: value, // Actualiza solo la ubicación
     });
     setPostalCodeError(value.length !== 5);
   };
+
+  const isNextButtonDisabled = !profileData.description || !profileData.location;
 
   return (
     <Layout
@@ -50,7 +47,13 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
       stepTitle="Paso 1"
       stepDescription="Breve descripción del usuario"
       onBackClick={onBackClick}
-      onNextClick={onNextClick}
+      onNextClick={() => {
+        if (!isNextButtonDisabled) {
+          onNextClick();
+        } else {
+          alert('Por favor, completa todos los campos requeridos antes de continuar.');
+        }
+      }}
       steps={steps}
       currentStep={currentStep}
     >
@@ -69,13 +72,13 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
           placeholder="Por Ej: Soy una joven estudiante de enfermería, tengo 22 años vivo en Madrid con unas amigas. Soy una apasionada por la música, y que desea aprender a tocar el piano."
           maxLength={255}
           style={{ border: 'none', outline: 'none' }}
-          value={registrationData.profileData.description}
+          value={profileData.description}
           onChange={handleTextareaChange}
         />
 
         {/* Contador de caracteres */}
         <div className="absolute right-[15px] bottom-[10px] text-[#b7b7b7] text-base font-normal">
-          {(registrationData.profileData.description?.length || 0)}/255
+          {(profileData.description?.length || 0)}/255
         </div>
       </div>
 
@@ -89,7 +92,7 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
           inputMode="numeric"
           pattern="[0-9]*"
           placeholder="Código postal (CP)"
-          value={registrationData.profileData.location}
+          value={profileData.location} 
           onChange={handlePostalCodeChange}
           maxLength={5}
         />

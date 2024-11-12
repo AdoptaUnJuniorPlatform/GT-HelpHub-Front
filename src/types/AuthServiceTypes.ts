@@ -36,6 +36,23 @@ export interface ResetPasswordRequest {
   password: string;
 }
 
+export interface ProfileData {
+  description: string;
+  interestedSkills: string[];
+  location: string;
+  profilePicture: string;
+  preferredTimeRange: string;
+  selectedDays: string[];
+}
+
+export interface HabilityData {
+  title: string;
+  level: string;
+  mode: string;
+  description: string;
+  category: string;
+}
+
 export interface AuthContextProps {
   token: string | null;
   setToken: (token: string | null) => void;
@@ -49,5 +66,10 @@ export interface AuthContextProps {
   setLoginData: (data: LoginMailRequest | null) => void;
   handleLogout: () => void;
   resetData: ResetPasswordMailRequest | null;
-  setResetData: (data: ResetPasswordMailRequest | null) => void
+  setResetData: (data: ResetPasswordMailRequest | null) => void;
+  // Agrega `profileData` y `habilityData` como propiedades independientes
+  profileData: ProfileData | null; 
+  setProfileData: (data: ProfileData | null) => void;
+  habilityData: HabilityData | null;
+  setHabilityData: (data: HabilityData | null) => void;
 }

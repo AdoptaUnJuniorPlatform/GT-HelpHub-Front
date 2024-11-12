@@ -8,15 +8,15 @@ import TitleExampleModal from './TitleExampleModal';
 import DropdownCategories from './DropdownCategories';
 import SaveButton from './SaveButton';
 import SkillsDisplay from './SkillsDisplay';
-import { RegistrationFormData, HabilityData } from '../types/RegistrationFormData';
+import { HabilityData } from '../types/RegistrationFormData';
 
 interface UserRegistrationStep4Props {
   onBackClick: () => void;
   onNextClick: () => void;
   steps: string[];
   currentStep: number;
-  registrationData: RegistrationFormData;
-  updateRegistrationData: (data: Partial<RegistrationFormData>) => void;
+  habilityData: HabilityData;
+  updateHabilityData: (data: HabilityData) => void;
 }
 
 const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
@@ -24,31 +24,25 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
   onNextClick,
   steps,
   currentStep,
-  registrationData,
-  updateRegistrationData,
+  habilityData,
+  updateHabilityData,
 }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [text, setText] = useState<string>('');
   const [isTitleTipsModalOpen, setIsTitleTipsModalOpen] = useState(false);
   const [isTitleExampleModalOpen, setIsTitleExampleModalOpen] = useState(false);
 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
-    setText(value); 
-    updateRegistrationData({
-      habilityData: {
-        ...registrationData.habilityData,
-        description: value,
-      },
+    updateHabilityData({
+      ...habilityData,
+      description: value,
     });
   };
   
   const handleInputChange = (name: keyof HabilityData, value: string) => {
-    updateRegistrationData({
-      habilityData: {
-        ...registrationData.habilityData,
-        [name]: value,
-      },
+    updateHabilityData({
+      ...habilityData,
+      [name]: value,
     });
   };
 
@@ -61,7 +55,7 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
   };
 
   const handleSubmit = () => {
-    setIsSubmitted(true); // Cambia a modo "ver datos" tras dar clic en Guardar
+    setIsSubmitted(true); 
   };
   
   const categoryOptions = [
@@ -118,7 +112,7 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
 
         <TextInputWithCounter 
           className="mb-6"
-          value={registrationData.habilityData.title}
+          value={habilityData.title}
           onChange={(value) => handleInputChange("title", value)}
         />
 
@@ -131,14 +125,14 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
         <div className="mb-4 text-[#434242] text-2xl font-normal">Nivel</div>
         <LevelRadioButtons 
           className="mb-8"
-          value={registrationData.habilityData.level}
+          value={habilityData.level}
           onChange={(value) => handleInputChange("level", value)} 
         />
 
         <div className="mb-4 text-[#434242] text-2xl font-normal">Modalidad</div>
         <ModalityRadioButtons 
           className="mb-8" 
-          value={registrationData.habilityData.mode}
+          value={habilityData.mode}
           onChange={(value) => handleInputChange("mode", value)}
         />
 
@@ -158,11 +152,11 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
             maxLength={255}
             style={{ border: 'none', outline: 'none' }}
             onChange={handleTextareaChange}
-            value={text}
+            value={habilityData.description}
           />
 
           {/* Contador de caracteres */}
-          <div className="text-right text-[#b7b7b7] text-sm mt-1">{text.length}/255</div>
+          <div className="text-right text-[#b7b7b7] text-sm mt-1">{habilityData.description.length}/255</div>
         </div>
     
         {/*Modal para consejos de texto*/}
@@ -180,7 +174,7 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
         </div>
         <DropdownCategories 
           options={categoryOptions} 
-          value={registrationData.habilityData.category}
+          value={habilityData.category}
           onChange={(value) => handleInputChange("category", value)}
         />
 
@@ -189,7 +183,7 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
       </div>
 
       {/*Tarjeta final*/}
-      <SkillsDisplay habilityData={registrationData.habilityData} isSubmitted={isSubmitted}/>
+      <SkillsDisplay habilityData={habilityData} isSubmitted={isSubmitted}/>
 
     </Layout>
   );

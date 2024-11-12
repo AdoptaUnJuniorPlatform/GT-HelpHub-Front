@@ -4,54 +4,55 @@ import UserRegistrationStep2 from './UserRegistrationStep2';
 import UserRegistrationStep3 from './UserRegistrationStep3';
 import UserRegistrationStep4 from './UserRegistrationStep4';
 import UserRegistrationStep5 from './UserRegistrationStep5';
-import UserRegistrationStep6 from './UserRegistrationStep6';
-import { RegistrationFormData } from '../types/RegistrationFormData';
+import { ProfileData, HabilityData } from '../types/AuthServiceTypes'; 
+import { useAuthContext } from '../context/AuthContext'; 
 
 const RegistrationProcess: React.FC = () => {
-  const [currentStep, setCurrentStep] = useState(1); // Estado para controlar el paso actual
+  const { profileData, setProfileData, habilityData, setHabilityData } = useAuthContext(); // Usa el contexto para acceder a profileData y habilityData
+  const [currentStep, setCurrentStep] = useState(1);
 
-  const [registrationData, setRegistrationData] = useState<RegistrationFormData>({
-    profileData: {
-      description: '',
-      interestedSkills: [],
-      location: '',
-      profilePicture: '',
-      preferredTimeRange: '',
-      selectedDays: [],
-    },
-    habilityData: {
-      title: '',
-      level: '',
-      mode: '',
-      description: '',
-      category: '',
-    },
-  });
+  const defaultProfileData: ProfileData = {
+    description: '',
+    interestedSkills: [],
+    location: '',
+    profilePicture: '',
+    preferredTimeRange: '',
+    selectedDays: [],
+  };
+
+  const defaultHabilityData: HabilityData = {
+    title: '',
+    level: '',
+    mode: '',
+    description: '',
+    category: '',
+  };
+
+  const profileDataToPass = profileData || defaultProfileData;
+  const habilityDataToPass = habilityData || defaultHabilityData;
 
   const steps = ["Sobre ti", "Tu foto", "Disponibilidad", "Mis habilidades", "Qué quiero aprender", "Verificación"];
 
-  const updateRegistrationData = (data: Partial<RegistrationFormData>) => {
-    setRegistrationData((prevData) => ({
-      ...prevData,
-      ...data,
-    }));
+  const updateProfileData = (data: ProfileData) => {
+    setProfileData(data);
   };
-
-  // Función para ir al siguiente paso
+  
+  const updateHabilityData = (data: HabilityData) => {
+    setHabilityData(data);
+  };
+  
   const goToNextStep = () => {
     if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1);
     }
   };
 
-  // Función para ir al paso anterior
   const goToPreviousStep = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
   };
 
-  // Renderizamos el paso actual
   const renderStep = () => {
     switch (currentStep) {
       case 1:
@@ -61,8 +62,8 @@ const RegistrationProcess: React.FC = () => {
             onNextClick={goToNextStep}
             steps={steps}
             currentStep={currentStep}
-            registrationData={registrationData}
-            updateRegistrationData={updateRegistrationData}
+            profileData={profileDataToPass}
+            updateProfileData={updateProfileData}
           />
         );
       case 2:
@@ -72,8 +73,8 @@ const RegistrationProcess: React.FC = () => {
             onNextClick={goToNextStep}
             steps={steps}
             currentStep={currentStep}
-            registrationData={registrationData}
-            updateRegistrationData={updateRegistrationData}
+            profileData={profileDataToPass}
+            updateProfileData={updateProfileData}
           />
         );
       case 3:
@@ -83,8 +84,8 @@ const RegistrationProcess: React.FC = () => {
             onNextClick={goToNextStep}
             steps={steps}
             currentStep={currentStep}
-            registrationData={registrationData}
-            updateRegistrationData={updateRegistrationData}
+            profileData={profileDataToPass}
+            updateProfileData={updateProfileData}
           />
         );
       case 4:
@@ -94,8 +95,8 @@ const RegistrationProcess: React.FC = () => {
             onNextClick={goToNextStep}
             steps={steps}
             currentStep={currentStep}
-            registrationData={registrationData}
-            updateRegistrationData={updateRegistrationData}
+            habilityData={habilityDataToPass}
+            updateHabilityData={updateHabilityData}
           />
         );
       case 5:
@@ -105,18 +106,9 @@ const RegistrationProcess: React.FC = () => {
             onNextClick={goToNextStep}
             steps={steps}
             currentStep={currentStep}
-            registrationData={registrationData}
-            updateRegistrationData={updateRegistrationData}
-          />
-        );
-      case 6:
-        return (
-          <UserRegistrationStep6
-            onBackClick={goToPreviousStep}
-            onNextClick={goToNextStep}
-            steps={steps}
-            currentStep={currentStep}
-            registrationData={registrationData}
+            profileData={profileDataToPass}
+            updateProfileData={updateProfileData}
+            habilityData={habilityDataToPass}
           />
         );
       default:

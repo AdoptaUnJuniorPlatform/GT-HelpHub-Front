@@ -3,7 +3,7 @@ import Layout from './Layout';
 import UploadPhoto from '../assets/UploadPhoto.svg';
 import InformationCircle from '../assets/InformationCircle.svg';
 import Button from './Button';
-import { RegistrationFormData } from '../types/RegistrationFormData';
+import { ProfileData } from '../types/AuthServiceTypes';
 import Avatar1 from '../assets/Avatar1.svg';
 import Avatar2 from '../assets/Avatar2.svg';
 import Avatar3 from '../assets/Avatar3.svg';
@@ -13,8 +13,8 @@ interface UserRegistrationStep2Props {
   onNextClick: () => void;
   steps: string[];
   currentStep: number;
-  registrationData: RegistrationFormData;
-  updateRegistrationData: (data: Partial<RegistrationFormData>) => void;
+  profileData: ProfileData;
+  updateProfileData: (data: ProfileData) => void;
 }
 
 const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
@@ -22,8 +22,8 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
   onNextClick,
   steps,
   currentStep,
-  registrationData,
-  updateRegistrationData,
+  profileData,
+  updateProfileData,
 }) => {
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -35,11 +35,9 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
     if (file) {
       const simulatedUrl = URL.createObjectURL(file); 
       setPreviewUrl(simulatedUrl);
-      updateRegistrationData({
-        profileData: {
-          ...registrationData.profileData,
-          profilePicture: simulatedUrl // Aquí usaremos una URL real tras subir la imagen
-        }
+      updateProfileData({
+        ...profileData,
+        profilePicture: simulatedUrl, // Actualiza solo el campo profilePicture
       });
     }
   };

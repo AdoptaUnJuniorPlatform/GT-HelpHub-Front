@@ -72,6 +72,8 @@ function Auth2Fa() {
             setTwoFaModal(true)
             if (loginData?.email) {
               localStorage.setItem('email', loginData.email);
+              setTwoFaModal(true);
+              checkProfileAndRedirect();
             }
           }
         }
@@ -83,6 +85,38 @@ function Auth2Fa() {
     Array(6).fill("")
   );
 
+  const checkProfileAndRedirect = async () => {
+    try {
+      // Verificar que el token esté en localStorage
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("Token no encontrado. La autenticación no se ha completado.");
+        return; // No redirigir hasta que el token esté presente
+      }
+  
+      // Verificar el perfil
+      const response = await axios.get('/api/helphub/profile', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+  
+      if (response.status === 200) {
+        navigate('/home'); // Redirige a Home si el perfil ya está creado
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 404) {
+        // Si el perfil no existe y el usuario está autenticado, redirige a creación de perfil
+        const token = localStorage.getItem("token");
+        if (token) {
+          navigate('/register/personal-data');
+        } else {
+          console.error("Autenticación incompleta. No se puede redirigir.");
+        }
+      } else {
+        console.error("Error verificando el perfil:", error);
+      }
+    }
+  };
+  
   return (
     <AuthLayout>
       <div className="flex flex-col w-9/12 h-[58.5rem] items-center justify-center gap-10 -mt-20">
@@ -112,7 +146,7 @@ function Auth2Fa() {
       >
         <div className=" w-full h-full flex flex-col justify-evenly mx-auto">
           <div className="w-full">
-            <h1 className="w-full text-4xl text-neutral-black font normal leading-normal">Introduce el código que hemos enviado a <span className="text-violeta-100">usuario@gmail.com</span></h1>
+            <h1 className="w-full text-4xl text-neutral-black font normal leading-normal">Introduce el código que hemos enviado a <span className="text-violeta-100">{registerData?.email}</span></h1>
             <p className="text-[20px] font-normal leading-normal text-neutral-black">Puede que tarde un minuto en recibir el correo. </p>
           </div>
           <div className="w-full -mt-20">
