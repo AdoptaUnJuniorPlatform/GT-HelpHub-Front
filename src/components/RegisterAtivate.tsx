@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { BsQuestionCircleFill } from "react-icons/bs";
 import MoreInfo from "./MoreInfo";
 import { Information } from "../Variables/varibles";
+import { HiInformationCircle } from "react-icons/hi";
 
 function RegisterAtivate() {
   const [showPopover, setShowPopover] = useState(false);
@@ -30,11 +30,11 @@ function RegisterAtivate() {
       <div className="flex items-center justify-start w-full">
         <p className="text-base p-1">Activar la opción de llamada</p>
         <span
-          className="flex items-center justify-center mx-3 text-[#acb0b8] cursor-pointer relative"
+          className="flex items-center justify-center mx-3 text-xl text-[#acb0b8] cursor-pointer relative"
           onClick={togglePopover}
           ref={popoverRef}
         >
-          <BsQuestionCircleFill />
+          <HiInformationCircle />
           {showPopover && (
             <article className="absolute top-4 right-40 font-poppins">
               <MoreInfo

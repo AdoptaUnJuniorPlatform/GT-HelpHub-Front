@@ -8,7 +8,7 @@ export const modes = ['Online', 'Presencial'];
 export const Information: InfoProps[] = [
   {
     header: "Coordinar directamente por llamada",
-    info: "No te preocupes, tu teléfono no está visible para todos los users. Solo estará visible para la persona con la que solicites un intercambio."
+    info: "No te preocupes, tu teléfono no esta visible para todos los usuarios. Solo estará visible para la persona con la que solicites un intercambio."
   }
 ];
 

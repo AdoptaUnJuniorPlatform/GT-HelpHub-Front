@@ -57,14 +57,14 @@ function LogingAside() {
             className={`loginInput h-[45px]  border-blue-gray-300 ${ loginError ? 'outline-red-500 border-red-500' : 'outline-violeta-100'}`}/>
 
           <Link to={'/reseteo'}>
-            <p className="flex justify-end text-celeste-100 -mb-6 mt-4 cursor-pointer p-1 font-medium underline">¿Olvidaste tu contraseña?</p>
+            <p className="flex justify-end text-celeste-100 -mb-6 mt-4 cursor-pointer p-1 font-medium underline">¿Ha olvidado su contraseña? </p>
           </Link>
 
           <UserInput 
             id="password"
             title="Contraseña"
             type="password" 
-            placeholder="Contraseña"
+            placeholder="********"
             name="password" 
             value={input.password}
             onChange={handleInputChange}

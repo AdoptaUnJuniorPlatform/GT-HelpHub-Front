@@ -15,7 +15,7 @@ function NewAbility() {
       </div>
 
       <div className="flex flex-col w-ful">
-        <h3 className="text-2xl text-neutral-black font-normal leading-normal">Escribe el titulo de tu publicación</h3>
+        <h3 className="text-2xl text-neutral-black font-normal leading-normal">Escribe el título de tu publicación</h3>
         <CharacterCountTextArea 
           placeholder="Ej: Pintar óleo"
           showLabel={false}

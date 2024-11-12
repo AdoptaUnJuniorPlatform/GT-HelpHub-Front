@@ -8,7 +8,7 @@ function Ability() {
     <main className="flex flex-col w-full font-roboto not-italic">
       <section className="pt-10 pb-16">
         <GreenAlert 
-          title="Tienes 2 habilidades cargada"
+          title="Tienes 2 habilidades cargadas"
           text="Carga más habilidades para seguir ampliando esta comunidad"
         />
         <div className="pt-8">

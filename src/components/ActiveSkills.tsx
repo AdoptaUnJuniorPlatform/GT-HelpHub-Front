@@ -6,7 +6,7 @@ import SkillsCard from "./SkillsCard"
 function ActiveSkills() {
   return (
     <div className="flex flex-col w-5/12 h-auto justify-start items-baseline pl-16 py-10 gap-10">
-      <h1 className="text-[32px] text-neutral-black font-medium leading-6 tracking-wide">Mis habilidades acivas:</h1>
+      <h1 className="text-[32px] text-neutral-black font-medium leading-6 tracking-wide">Mis habilidades activas:</h1>
       {profiles.slice(0, 2).map((profile, index) => (
         <SkillsCard key={index} profileData={profile} />
       ))}

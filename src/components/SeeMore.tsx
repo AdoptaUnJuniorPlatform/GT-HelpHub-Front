@@ -47,7 +47,7 @@ function SeeMore({
             />
             <div>
               <MdVerified 
-                className="absolute left-[23.5rem] top-[3rem] fill-celeste-100"
+                className="absolute left-[24rem] top-[3rem] text-xl fill-celeste-100"
               />
               <Ratings reviews={reviews.length} />
             </div>
