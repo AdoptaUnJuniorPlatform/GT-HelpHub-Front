@@ -2,7 +2,7 @@ import  React, { useState } from 'react';
 import Layout from './Layout';
 import Categories from './Categories';
 import SuccessModal from './SuccesModal';
-import { RegistrationFormData } from '../types/RegistrationFormData';
+import { ProfileData, HabilityData } from '../types/AuthServiceTypes';
 import { createProfile, createHability } from '../services/apiClient';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,8 +11,9 @@ interface UserRegistrationStep5Props{
   onNextClick: () => void;
   steps: string[];
   currentStep: number;
-  registrationData: RegistrationFormData;
-  updateRegistrationData: (data: Partial<RegistrationFormData>) => void;
+  profileData: ProfileData;
+  updateProfileData: (data: ProfileData) => void;
+  habilityData: HabilityData;
 }
     
 const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({ 
@@ -20,8 +21,9 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
   onNextClick,
   steps,
   currentStep,
-  registrationData,
-  updateRegistrationData,
+  profileData,
+  updateProfileData,
+  habilityData,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigate();
@@ -29,16 +31,14 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
   // Función para manejar la selección de categorías
   const handleCategorySelect = (selectedCategories: string[]) => {
     // Actualizar `interestedSkills` dentro de `profileData`
-    updateRegistrationData({
-      profileData: {
-        ...registrationData.profileData,
-        interestedSkills: selectedCategories,
-      },
+    updateProfileData({
+      ...profileData,
+      interestedSkills: selectedCategories,
     });
   };
 
   // Verifica que haya al menos una categoría seleccionada
-  const hasSelectedCategories = registrationData.profileData?.interestedSkills?.length > 0;
+  const hasSelectedCategories = profileData?.interestedSkills?.length > 0;
 
   // Función para manejar la creación de perfil y habilidad
   const handleSubmitProfileAndHability = async () => {
@@ -47,8 +47,8 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
       return;
     }
     try {
-      const profileResponse = await createProfile(registrationData.profileData);
-      const habilityResponse = await createHability(registrationData.habilityData);
+      const profileResponse = await createProfile(profileData);
+      const habilityResponse = await createHability(habilityData);
 
       if (profileResponse.status === 201 && habilityResponse.status === 201) {
         setIsModalVisible(true); // Mostrar modal de éxito
@@ -94,7 +94,7 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
         {/* Contenedor de categorías */}
         <div className="relative left-[-40px] top-[120px]">
           <Categories
-            selectedCategories={registrationData.profileData?.interestedSkills}
+            selectedCategories={profileData.interestedSkills}
             onSelectCategories={handleCategorySelect}
           />
         </div>

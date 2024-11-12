@@ -2,15 +2,15 @@ import  React, { useState } from  'react';
 import Layout from './Layout';
 import TimeRangeOption from './TimeRangeOption';
 import DaySelector from './DaySelector';
-import { RegistrationFormData } from '../types/RegistrationFormData';
+import { ProfileData } from '../types/AuthServiceTypes';
 
 interface UserRegistrationStep3Props{
   onBackClick: () => void;
   onNextClick: () => void;
   steps: string[];
   currentStep: number;
-  registrationData: RegistrationFormData;
-  updateRegistrationData: (data: Partial<RegistrationFormData>) => void;
+  profileData: ProfileData;
+  updateProfileData: (data: ProfileData) => void;
 }
   
 const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({ 
@@ -18,12 +18,12 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
   onNextClick,
   steps,
   currentStep,
-  registrationData,
-  updateRegistrationData,
+  profileData,
+  updateProfileData,
 }) => {
 
-  const [selectedHorario, setSelectedHorario] = useState<string | null>(registrationData.profileData.preferredTimeRange || null);
-  const [selectedDays, setSelectedDays] = useState<string[]>(registrationData.profileData.selectedDays || []);
+  const [selectedHorario, setSelectedHorario] = useState<string | null>(profileData.preferredTimeRange || null);
+  const [selectedDays, setSelectedDays] = useState<string[]>(profileData.selectedDays || []);
 
   // Definimos los horarios aquí
   const availableTimeRanges = [
@@ -36,16 +36,17 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
 
   const handleSelectHorario = (timeRange: string) => {
     setSelectedHorario(timeRange);
-    updateRegistrationData({
-      profileData: { ...registrationData.profileData, preferredTimeRange: timeRange },
+    updateProfileData({
+      ...profileData,
+      preferredTimeRange: timeRange, // Actualiza el rango de tiempo preferido en profileData
     });
   };
 
-
   const handleDaySelect = (daysOfWeek: string[]) => {
     setSelectedDays(daysOfWeek);
-    updateRegistrationData({
-      profileData: { ...registrationData.profileData, selectedDays: daysOfWeek },
+    updateProfileData({
+      ...profileData,
+      selectedDays: daysOfWeek, // Actualiza los días seleccionados en profileData
     });
   };
 
@@ -79,12 +80,12 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
       <div className="relative w-[450px] h-auto left-[-40px] top-[100px]">
         <div className="flex flex-wrap gap-4 w-full justify-start items-start">
           {/* Mapeo de las opciones de horario usando el componente HorarioOption */}
-          {availableTimeRanges.map((availableTimeTange) => (
+          {availableTimeRanges.map((availableTimeRange) => (
             <TimeRangeOption
-              key={availableTimeTange.id}
-              text={availableTimeTange.timeRange}
-              selected={availableTimeTange.timeRange === selectedHorario}
-              onClick={() => handleSelectHorario(availableTimeTange.timeRange)}
+              key={availableTimeRange.id}
+              text={availableTimeRange.timeRange}
+              selected={availableTimeRange.timeRange === selectedHorario}
+              onClick={() => handleSelectHorario(availableTimeRange.timeRange)}
             />
           ))}
         </div>
