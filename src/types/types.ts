@@ -224,7 +224,23 @@ export interface GreenAlertProps {
   text: string
 }
 export interface CharacterCountTextAreaProps {
+  id?: string;
+  name?: string;
+  value?:string;
   className?: string;
   placeholder: string;
   showLabel: boolean;
+  onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+export interface FilterDropProps {
+  id?: string;
+  type?: 'select'
+  name?: string;
+  value?: string;
+  options: string[];
+  placeholder: string;
+  className?: string;
+  onSelect: (option: string) => void;
+  selectedOption?: string[] | string | null;
 }

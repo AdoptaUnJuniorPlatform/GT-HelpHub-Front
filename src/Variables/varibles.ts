@@ -12,7 +12,7 @@ export const Information: InfoProps[] = [
   }
 ];
 
-export const categories = ['Animales', 'Ayuda', 'Consultoría y asesoramiento', 'Diseño', 'Idiomas', 'Informática', 'Reparaciones', 'Salud', 'Tutorías'];
+export const categories = ['Animales', 'Ayuda', 'Consultoría', 'Diseño', 'Idiomas', 'Informática', 'Reparaciones', 'Salud', 'Tutorías', 'Otros  '];
 export const subcategories = [
   {Animales: ['Alojamiento', "Cuidado a domicilio", "Paseo de perros"],
     Ayuda: ["Cuidado de personas mayores", "Arte y creatividad"],

@@ -3,11 +3,31 @@ import { categories, levels, modes } from "../Variables/varibles"
 import CharacterCountTextArea from "./CharacterCountTextArea"
 import RadioSelector from "./RadioButtons"
 import FilterDrop from "./FilterDrop"
+import UseSelect from "../hooks/UseSelect"
+import useForm from "../hooks/useForm"
 
 function NewAbility() {
-  
+  const sendData = () => {
+    console.log('Data to send to backend:', {
+      ...input,
+    });
+
+  }
+  const initialState = {
+    title: "",
+    level: "",
+    mode: "",
+    description: "",
+    category: null,
+    subcategory: null,
+  };
+  const { handleSubmit, handleCategorySelectChange, handleInputChange, input } = useForm(sendData, initialState);
+  const { handleCategorySelect, selectedCategory } = UseSelect({ handleCategorySelectChange });
+
   return (
-    <div className="flex flex-col justify-evenly bg-neutral-gray w-7/12 h-[73rem] p-10">
+    <form 
+      onSubmit={handleSubmit}
+      className="flex flex-col justify-evenly bg-neutral-gray w-7/12 h-[73rem] p-10">
 
       <div className="flex flex-col w-ful -mt-7">
         <h1 className="text-[34px] text-neutral-black font-normal leading-normal tracking-wide">Nueva Habilidad</h1>
@@ -16,7 +36,11 @@ function NewAbility() {
 
       <div className="flex flex-col w-ful">
         <h3 className="text-2xl text-neutral-black font-normal leading-normal">Escribe el título de tu publicación</h3>
-        <CharacterCountTextArea 
+        <CharacterCountTextArea
+          id="title"
+          name="title"
+          value={input.title}
+          onChange={handleInputChange}
           placeholder="Ej: Pintar óleo"
           showLabel={false}
           className="h-[3.2rem] leading-[2.9rem]"
@@ -26,7 +50,12 @@ function NewAbility() {
 
       <div className="flex flex-col mt-5">
         <h2 className="text-2xl text-neutral-black font-normal leading-normal mb-3">Nivel</h2>
-        <RadioSelector options={levels}/>
+        <RadioSelector 
+          name="level"
+          value={input.level}
+          options={levels}
+          onChange={handleInputChange}
+        />
       </div>
 
       <div className="flex flex-col w-full mt-7">
@@ -36,7 +65,12 @@ function NewAbility() {
             <BsFillQuestionCircleFill />
           </span>
         </div>
-        <RadioSelector options={modes} />
+        <RadioSelector 
+          name="mode"
+          value={input.mode}
+          options={modes} 
+          onChange={handleInputChange}
+        />
       </div>
       <div className="flex flex-col">
       </div>
@@ -44,6 +78,10 @@ function NewAbility() {
       <div className="flex flex-col wifull">
         <h2 className="text-2xl text-neutral-black font-normal leading-normal mb-5">¿Qué ofreces?</h2>
         <CharacterCountTextArea 
+          id="description"
+          name="description"
+          value={input.description}
+          onChange={handleInputChange}
           placeholder="Escribe una pequeña descripción de tus habilidades"
           showLabel={true}
           className="w-full h-[11.3rem] p-4 border border-gray-300 rounded-md bg-[#FAFAFA]"
@@ -56,12 +94,14 @@ function NewAbility() {
         <FilterDrop
           placeholder="Categorías"
           options={categories}
-          onSelect={() => {}}
+          onSelect={handleCategorySelect}
+          selectedOption={selectedCategory}
           className="w-full"
         />
       </div>
+      <button type="submit">Enviar</button>
 
-    </div>
+    </form>
   )
 }
 

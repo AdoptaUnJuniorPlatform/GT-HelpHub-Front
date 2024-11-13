@@ -12,28 +12,29 @@ import { useEffect, useState } from "react"
 import MainLayout from "../layouts/MainLayout"
 import useBorderButton from "../hooks/useBorderButton"
 
-
 function Home() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null); 
-  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null); 
-  const [filteredSubcategories, setFilteredSubcategories] = useState<string[]>([]); 
   const [cardsToShow, setCardsToShow] = useState(profiles.length);
   const { selectedBorderButton, handleBorderButtonClick } = useBorderButton("TODOS", ["TODOS", "ONLINE", "PRESENCIAL"]);
 
- 
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null); 
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null); 
+  const [filteredSubcategories, setFilteredSubcategories] = useState<string[]>([]); 
+    
   function handleCategorySelect(category: string) {
     setSelectedCategory(category); 
     setSelectedSubcategory(null); 
-
+    
     const subcategoryList = subcategories[0][category as keyof typeof subcategories[0]] || [];
     setFilteredSubcategories(subcategoryList.length > 0 ? subcategoryList : ['Sin subcategorías']);
   }
-
+    
   function handleSubcategorySelect(subcategory: string) {
     if (subcategory !== 'Sin subcategorías') {
       setSelectedSubcategory(subcategory);
     }
   }
+ 
+
 
   const updateCardsToShow = () => {
     const width = window.innerWidth;

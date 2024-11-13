@@ -1,13 +1,9 @@
-import { useState, ChangeEvent } from 'react';
+import { useState } from 'react';
 import { CharacterCountTextAreaProps } from '../types/types';
 
-function CharacterCountTextArea({className="", placeholder, showLabel = false}: CharacterCountTextAreaProps) {
+function CharacterCountTextArea({id, name, value, onChange, className="", placeholder, showLabel = false}: CharacterCountTextAreaProps) {
   const [text, setText] = useState<string>('');
   const maxChars: number = 255;
-
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
-  };
 
   return (
     <div className="relative">
@@ -19,8 +15,10 @@ function CharacterCountTextArea({className="", placeholder, showLabel = false}: 
         </label>
       )}
       <textarea
-        value={text}
-        onChange={handleChange}
+        id={id}
+        value={value}
+        name={name}
+        onChange={onChange}
         maxLength={maxChars}
         placeholder={placeholder}
         className={`w-full pl-4 border-[0.7px] focus:outline-none focus-within:ring-5 focus:border-black-50 focus:border-2 border-[#B8B8B8]  rounded-md bg-white placeholder:text-black-80  ${className}`}
