@@ -28,13 +28,13 @@ const SkillsDisplay: React.FC<SkillsDisplayProps> = ({ habilityData, isSubmitted
             <div className="w-full border-t border-[#aeaeae]/10 mt-3 py-1">
               <div className="text-left text-[#434242] text-[16px] font-normal">Nivel</div>
               <div className="flex gap-2 mt-2">
-                <div className={`px-3 py-1 rounded-full border ${habilityData.level === 'basic' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
+                <div className={`px-3 py-1 rounded-full border ${habilityData.level === 'Básico' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
                   Básico
                 </div>
-                <div className={`px-3 py-1 rounded-full border ${habilityData.level === 'medium' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
+                <div className={`px-3 py-1 rounded-full border ${habilityData.level === 'Medio' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
                   Medio
                 </div>
-                <div className={`px-3 py-1 rounded-full border ${habilityData.level === 'high' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
+                <div className={`px-3 py-1 rounded-full border ${habilityData.level === 'Avanzado' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
                   Experto
                 </div>
               </div>
@@ -42,10 +42,10 @@ const SkillsDisplay: React.FC<SkillsDisplayProps> = ({ habilityData, isSubmitted
             <div className="w-full border-t border-[#aeaeae]/10 mt-3 py-1">
               <div className="text-left text-[#434242] text-[16px] font-normal">Modalidad</div>
               <div className="flex gap-2 mt-2">
-                <div className={`px-3 py-1 rounded-full border ${habilityData.mode === 'online' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
+                <div className={`px-3 py-1 rounded-full border ${habilityData.mode === 'Online' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
                   Online
                 </div>
-                <div className={`px-3 py-1 rounded-full border ${habilityData.mode === 'presential' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
+                <div className={`px-3 py-1 rounded-full border ${habilityData.mode === 'Presencial' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
                   Presencial
                 </div>
               </div>
