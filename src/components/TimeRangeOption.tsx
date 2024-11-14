@@ -18,7 +18,7 @@ const TimeRangeOption: React.FC<TimeRangeOptionProps> = ({ text, selected, onCli
           {selected && <div className="w-3 h-3 left-[3px] top-[3px] absolute bg-[#496ceb] rounded-full"></div>}
         </div>
         <div className={`text-xs font-medium leading-[18px] ${selected ? 'text-[#496ceb]' : 'text-[#696868]'} font-['Poppins']`}>
-          {text === 'Flexible schedule' ? 'Flexibilidad horaria': text}
+          {text}
         </div>
       </div>
     </div>
