@@ -1,4 +1,3 @@
-import ActiveSkills from "./ActiveSkills"
 import BlueBorderBox from "./BlueBorderBox"
 import GreenAlert from "./GreenAlert"
 import NewAbility from "./NewAbility"
@@ -16,10 +15,9 @@ function Ability() {
           <BlueBorderBox />
         </div>
       </section>
-      <section className="flex w-full gap-10">
+      <div>
         <NewAbility />
-        <ActiveSkills />
-      </section>
+      </div>
     </main>
   )
 }

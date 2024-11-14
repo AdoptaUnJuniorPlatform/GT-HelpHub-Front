@@ -8,12 +8,6 @@ interface RadioSelectorProps {
 }
 
 function RadioSelector({ options, value, onChange, name }: RadioSelectorProps): JSX.Element {
-  // const [selectedOption, setSelectedOption] = useState<string>(options[0]);
-
-  // const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   setSelectedOption(event.target.value);
-  // };
-
   return (
     <div className="flex space-x-4 text-base text-neutral-black font-normal leading-normal tracking-wide">
       {options.map((option, index) => (
@@ -24,6 +18,7 @@ function RadioSelector({ options, value, onChange, name }: RadioSelectorProps): 
           }`}
         >
           <input
+            required
             type="radio"
             name={name}
             value={option}

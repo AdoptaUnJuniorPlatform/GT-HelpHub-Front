@@ -15,6 +15,7 @@ function CharacterCountTextArea({id, name, value, onChange, className="", placeh
         </label>
       )}
       <textarea
+        required
         id={id}
         value={value}
         name={name}
