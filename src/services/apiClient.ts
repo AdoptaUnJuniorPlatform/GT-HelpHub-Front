@@ -1,3 +1,4 @@
+import axios from 'axios';
 import axiosConfig from './axiosConfig';
 import { ProfileData, HabilityData } from '../types/RegistrationFormData';
 
@@ -20,5 +21,20 @@ export const createHability = async (habilityData: HabilityData) => {
   } catch (error) {
     console.error('Error creating hability:', error);
     throw error;
+  }
+}
+
+// Función para obtener los datos del perfil de usuario utilizando el token
+export const fetchUserProfile = async (token: string): Promise<ProfileData | null> => {
+  try {
+    const response = await axios.get('/api/helphub/profile', {
+      headers: {
+        Authorization: `Bearer ${token}`, 
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    return null;
   }
 };
