@@ -7,8 +7,8 @@ interface UserRegistrationStep1Props {
   onNextClick: () => void;
   steps: string[];
   currentStep: number;
-  profileData: ProfileData; // Asegúrate de definir el tipo para profileData
-  updateProfileData: (data: ProfileData) => void; // Define el tipo para updateProfileData
+  profileData: ProfileData; 
+  updateProfileData: (data: ProfileData) => void;
 }
 
 const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
