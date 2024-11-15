@@ -1,25 +1,29 @@
-import { TbDots } from "react-icons/tb";
 import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
 import { useState } from "react";
 
-function Pagination() {
+function Pagination({ onPageChange }: { onPageChange: (page: number) => void }) {
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 10;
 
   const handlePageClick = (pageNumber : number) => {
     setCurrentPage(pageNumber);
+    onPageChange(pageNumber);
   };
 
   const handlePrevious = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      const newPage = currentPage - 1;
+      setCurrentPage(newPage);
+      onPageChange(newPage);
     }
   };
 
   const handleNext = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+      const newPage = currentPage + 1;
+      setCurrentPage(newPage);
+      onPageChange(newPage);
     }
   };
   return (
@@ -43,15 +47,6 @@ function Pagination() {
           {page}
         </button>
       ))}
-      <span className="px-2 w-[50px] h-[50px] flex items-center justify-center"><TbDots /></span>
-      <button
-        onClick={() => handlePageClick(10)}
-        className={`px-2 py-1 border rounded w-[50px] h-[50px] ${
-          currentPage === 10 ? 'bg-gray-300' : ''
-        }`}
-      >
-        10
-      </button>
 
       <button
         onClick={handleNext}

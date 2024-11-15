@@ -27,8 +27,7 @@ export interface HabilityResponse {
 export interface HabilityErrorResponse {
   error: string;
 }
-
-interface Hability {
+export interface Hability {
   _id: string;
   title: string;
   level: string;
@@ -45,4 +44,9 @@ export type UserHabilitiesResponse = {
 export interface SkillsCardProps extends Hability {
   location: string; 
   availability: string ;
+}
+
+export interface CardProps extends SkillsCardProps {
+  userFullName: string
+  profilePicture: string
 }

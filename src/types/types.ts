@@ -31,8 +31,8 @@ export interface ButtonProps {
 }
 
 export interface CardBtnBorderProps {
-  onClick?: (id?: number) => void;
-  id?: number;
+  onClick?: (id?: string) => void;
+  id?: string;
   className: string;
   label: string;
 };
@@ -75,7 +75,7 @@ export interface ServiceInfoProps {
 }
 
 export interface CardLevelProps {
-  levels: string[]
+  levels: string[] 
   activeLevel: string;
 }
 

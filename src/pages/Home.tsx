@@ -5,15 +5,13 @@ import BorderButton from "../components/BorderButton"
 import SearchBar from "../components/SearchBar"
 import SideBar from "../components/SideBar"
 import Title from "../components/Title"
-import { categories, profiles, subcategories } from "../Variables/varibles"
-import Card from "../components/Card"
-import Pagination from "../components/Pagination"
-import { useEffect, useState } from "react"
+import { categories, subcategories } from "../Variables/varibles"
+import {  useState } from "react"
 import MainLayout from "../layouts/MainLayout"
 import useBorderButton from "../hooks/useBorderButton"
+import CardsContainer from "../components/CardsContainer"
 
 function Home() {
-  const [cardsToShow, setCardsToShow] = useState(profiles.length);
   const { selectedBorderButton, handleBorderButtonClick } = useBorderButton("TODOS", ["TODOS", "ONLINE", "PRESENCIAL"]);
 
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null); 
@@ -33,27 +31,6 @@ function Home() {
       setSelectedSubcategory(subcategory);
     }
   }
- 
-
-
-  const updateCardsToShow = () => {
-    const width = window.innerWidth;
-    if (width >= 1690) {
-      setCardsToShow(4);
-    } else if (width >= 1450) {
-      setCardsToShow(3); 
-    } else if (width >= 998) {
-      setCardsToShow(2); 
-    } else {
-      setCardsToShow(1);
-    }
-  };
-
-  useEffect(() => {
-    updateCardsToShow();
-    window.addEventListener('resize', updateCardsToShow);
-    return () => window.removeEventListener('resize', updateCardsToShow);
-  }, []);
 
   return (
     <MainLayout>
@@ -126,33 +103,8 @@ function Home() {
               />
             </div>
           </div>
-
-          <div className="flex flex-col w-full mt-5">
-            <Title title="Categorías y habilidades" className="sm:text-4xl lg:text-[55px] mt-11 tracking-tight" />
-            <div className="mt-11 w-full">
-              <Title title="Animales" />
-              <div className="flex flex-wrap gap-8 mt-10 w-full">
-                {profiles.slice(0, cardsToShow).map((profile, index) => (
-                  <Card key={index} profileData={profile} />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col">
-            <div className="mt-14">
-              <Title title="Tutorías" />
-              <div className="flex flex-wrap gap-8 mt-10 w-full">
-                {profiles.slice(0, cardsToShow).map((profile, index) => (
-                  <Card key={index} profileData={profile} />
-                ))}
-              </div>
-            </div>
-          </div>
+          <CardsContainer />
         </div>
-      </div>
-      <div className="flex justify-center items-center pt-12 pb-20">
-        <Pagination/>
       </div>
     </MainLayout>
   );

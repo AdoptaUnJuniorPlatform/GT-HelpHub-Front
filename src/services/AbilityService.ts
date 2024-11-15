@@ -66,4 +66,38 @@ export const getUserHabilities = async (): Promise<UserHabilitiesResponse | User
     };
   }
 };
+
+export const getAllHabilities = async(): Promise<UserHabilitiesResponse | UserByIdErrorResponse> => {
+  try {
+    const token = getToken();
   
+    if (!token) {
+      throw new Error("No token found");
+    }
+
+    const response = await axiosConfig.get(
+      "/api/helphub/hability/allHabilities",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.data.error) {
+      return { error: response.data.error, details: response.data.details };
+    }
+
+    return { habilities: response.data };
+  
+  } catch (error) {
+    console.error("Error al hacer la solicitud:", error);
+ 
+    alert("Hubo un problema al obtener las habilidades del usuario. Intenta nuevamente más tarde.");
+    return { 
+      error: "Hubo un problema al obtener las habilidades del usuario. Intenta nuevamente más tarde." 
+    };
+  }
+
+}
+
