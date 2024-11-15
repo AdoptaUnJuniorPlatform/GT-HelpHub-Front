@@ -1,5 +1,6 @@
 import CardLayout from "../layouts/CardLayout"
-import { ProfileData } from "../types/types"
+import { SkillsCardProps } from "../types/AbilityServiceTypes";
+import { levels } from "../Variables/varibles";
 import CardAvailability from "./CardAvailability";
 import CardBtnBorder from "./CardBtnBorder";
 import CardBtnPrimary from "./CardBtnPrimary";
@@ -8,25 +9,23 @@ import CardInfo from "./CardInfo";
 import CardLevel from "./CardLevel";
 import CardSkills from "./CardSkills";
 
-
-function SkillsCard(props: { profileData: ProfileData }) {
+function SkillsCard(props: { profileData: SkillsCardProps }) {
   const { profileData } = props;
-  const { service, location, levels, availability, description, skills } = profileData;
+  const { _id, title, description, level, category, location, availability } = profileData;
   return (
     <CardLayout>
-
-      <CardInfo service={service} location={location} />
-      <CardLevel levels={levels} />
+      <CardInfo service={title} location={location} />
+      <CardLevel levels={levels} activeLevel={level}/>
       <CardAvailability availability={availability} />
       <CardDescription description={description} />
       <div className="border-b border-[rgba(174,174,174,0.10)] w-full">
         <CardSkills>
-          {skills.map((skill, index) => (
+          {category.map((ctgry) => (
             <span
-              key={index}
+              key={_id}
               className="flex justify-center items-center px-3 py-1 h-[1.4rem] text-[12px] border border-black-80 rounded-full text-sm text-black-80"
             >
-              {skill}
+              {ctgry}
             </span>
           ))}
         </CardSkills>
@@ -35,9 +34,7 @@ function SkillsCard(props: { profileData: ProfileData }) {
         <CardBtnBorder  label="Borrar" className="border-2"/>
         <CardBtnPrimary label="Editar" className="w-[5rem]"/>
       </div>
-
     </CardLayout>
-
   )
 }
 

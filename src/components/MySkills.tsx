@@ -1,12 +1,19 @@
 import { useNavigate } from "react-router-dom"
-import { profiles } from "../Variables/varibles"
 import SecondaryButton from "./SecondaryButton"
 import SkillsCard from "./SkillsCard"
 import { useAvilityContext } from "../context/AvilityContext"
+import { useProfileContext } from "../context/ProfileContext"
 
 function MySkills() {
-  const { setShowEditor } = useAvilityContext();
+  const {userHabilities = { habilities: [] }, setShowEditor } = useAvilityContext();
+  const { profile } = useProfileContext();
   const navigate = useNavigate();
+
+  const combinedDataArray = userHabilities?.habilities.map((userHability) => ({
+    ...userHability,
+    location: profile?.location ?? "Ubicación no disponible",
+    availability: profile?.preferredTimeRange ?? "Disponible", 
+  }));
   
   const handleButtonClick = () => {
     console.log("cambiando");
@@ -24,8 +31,8 @@ function MySkills() {
       </div>
       <div className="flex w-full">
         <div className="flex flex-wrap gap-8 mt-10 w-full">
-          {profiles.map((profile, index) => (
-            <SkillsCard key={index} profileData={profile} />
+          {combinedDataArray?.map((data) => (
+            <SkillsCard key={data._id} profileData={data} />
           ))}
         </div>
       </div>

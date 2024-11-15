@@ -74,8 +74,9 @@ export interface ServiceInfoProps {
   location: string;
 }
 
-export interface ExperienceLevelProps {
-  levels: Array<{ name: string; active: boolean }>;
+export interface CardLevelProps {
+  levels: string[]
+  activeLevel: string;
 }
 
 export interface AvailabilityProps {
@@ -224,9 +225,9 @@ export interface GreenAlertProps {
   text: string
 }
 export interface CharacterCountTextAreaProps {
-  id?: string;
-  name?: string;
-  value?:string;
+  id: string;
+  name: string;
+  value:string;
   className?: string;
   placeholder: string;
   showLabel: boolean;

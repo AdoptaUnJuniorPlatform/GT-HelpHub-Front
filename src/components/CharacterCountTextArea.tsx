@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import { CharacterCountTextAreaProps } from '../types/types';
 
 function CharacterCountTextArea({id, name, value, onChange, className="", placeholder, showLabel = false}: CharacterCountTextAreaProps) {
-  const [text, setText] = useState<string>('');
   const maxChars: number = 255;
 
   return (
@@ -26,7 +24,7 @@ function CharacterCountTextArea({id, name, value, onChange, className="", placeh
         rows={3}
       ></textarea>
       <div className="absolute bottom-2 right-2 text-black-50 text-sm">
-        {text.length}/{maxChars}
+        {value.length}/{maxChars}
       </div>
     </div>
   );

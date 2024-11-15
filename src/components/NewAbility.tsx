@@ -5,14 +5,11 @@ import RadioSelector from "./RadioButtons"
 import FilterDrop from "./FilterDrop"
 import UseSelect from "../hooks/UseSelect"
 import useForm from "../hooks/useForm"
-import useDecodeToken from "../hooks/useDecodeToken"
 import { createHability } from "../services/AbilityService"
 import ActiveSkills from "./ActiveSkills"
 
 function NewAbility() {
-  const {userId} = useDecodeToken();
   const sendData = async () => {
-    console.log(userId)
     console.log('Data to send to backend:', {
       ...input,
     });
