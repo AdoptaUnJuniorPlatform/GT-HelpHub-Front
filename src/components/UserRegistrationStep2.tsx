@@ -7,6 +7,8 @@ import { ProfileData } from '../types/AuthServiceTypes';
 import Avatar1 from '../assets/Avatar1.svg';
 import Avatar2 from '../assets/Avatar2.svg';
 import Avatar3 from '../assets/Avatar3.svg';
+import { uploadProfileImage } from '../services/apiClient';
+import { useAuthContext } from '../context/AuthContext';
 
 interface UserRegistrationStep2Props {
   onBackClick: () => void;
@@ -25,23 +27,40 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
   profileData,
   updateProfileData,
 }) => {
-
+  const { userId } = useAuthContext();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  
 
   // Manejador del cambio del archivo
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      const simulatedUrl = URL.createObjectURL(file); 
-      setPreviewUrl(simulatedUrl);
-      updateProfileData({
-        ...profileData,
-        profilePicture: simulatedUrl, // Actualiza solo el campo profilePicture
-      });
+    if (file && userId) {
+      try {
+        // Mostrar la imagen seleccionada inmediatamente
+        const simulatedUrl = URL.createObjectURL(file);
+        setPreviewUrl(simulatedUrl); // Actualiza la vista previa
+  
+        // Subir la imagen al servidor
+        const response = await uploadProfileImage(file, userId);
+        console.log("Imagen subida al servidor:", response);
+  
+        // Actualiza el estado del perfil con una URL local simulada
+        updateProfileData({
+          ...profileData,
+          profilePicture: simulatedUrl,
+        });
+  
+        alert('Imagen subida exitosamente');
+      } catch (error) {
+        console.error('Error subiendo la imagen:', error);
+        alert('Hubo un problema al subir la imagen. Inténtalo de nuevo.');
+      }
+    } else {
+      alert("Por favor, selecciona un archivo válido.");
     }
   };
-
+  
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible); 
   };
