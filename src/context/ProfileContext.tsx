@@ -1,17 +1,20 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
-import { profileById } from "../services/ProfileService";
+import { allProfiles, profileById } from "../services/ProfileService";
 import { ProfileByIdResponse } from "../types/ProfileServiceTypes";
 
 interface ProfileContextType {
   profile: ProfileByIdResponse | null;
+  profiles: ProfileByIdResponse[] | null;
   setProfile: Dispatch<SetStateAction<ProfileByIdResponse | null>>;
   fetchProfile: () => void;
+  fetchAllProfiles: () => void;
 }
   
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
   
 function ProfileProvider({ children }: { children: ReactNode }) {
   const [profile, setProfile] = useState<ProfileByIdResponse | null>(null)
+  const [profiles, setProfiles] = useState<ProfileByIdResponse[] | null>(null);
 
   const fetchProfile = async () => {
     const response = await profileById();
@@ -25,14 +28,25 @@ function ProfileProvider({ children }: { children: ReactNode }) {
       setProfile(response as ProfileByIdResponse);
     }
   };
+
+  const fetchAllProfiles = async () => {
+    const result = await allProfiles();
+
+    if ("error" in result) {
+      setProfiles(null);
+    } else {
+      setProfiles(result);
+    }
+  };
   
   useEffect(() => {
     fetchProfile();
+    fetchAllProfiles();
   }, []);
   console.log("Perfil:", profile)
   
   return (
-    <ProfileContext.Provider value={{ profile, setProfile, fetchProfile }}>
+    <ProfileContext.Provider value={{ profile, setProfile, fetchProfile, profiles, fetchAllProfiles }}>
       {children}
     </ProfileContext.Provider>
   );

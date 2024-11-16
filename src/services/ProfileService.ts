@@ -33,3 +33,26 @@ export const profileById = async (): Promise<ProfileByIdResponse | ProfileByIdEr
     return { error: "Hubo un problema al obtener el perfil. Intenta nuevamente más tarde." };
   }
 };
+
+export const allProfiles = async (): Promise<ProfileByIdResponse[] | ProfileByIdErrorResponse> => {
+  try {
+    const token = getToken();
+
+    const response = await axiosConfig.get("/api/helphub/profile/allProfiles", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.data.error) {
+      return { error: response.data.error, details: response.data.details };
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error("Error al hacer la solicitud:", error);
+
+    alert("Hubo un problema al obtener el perfil. Intenta nuevamente más tarde.");
+    return { error: "Hubo un problema al obtener el perfil. Intenta nuevamente más tarde." };
+  }
+};

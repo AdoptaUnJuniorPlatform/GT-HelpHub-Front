@@ -9,8 +9,8 @@ import { useState } from "react";
 
 const CardsContainer = () => {
   const { allHabilities } = useAvilityContext();
-  const { profile } = useProfileContext();
-  const { user } = useUserContext();
+  const { profiles } = useProfileContext();
+  const { users } = useUserContext();
 
   const [currentPage, setCurrentPage] = useState(1);
   const cardsToShow = 3;
@@ -19,14 +19,23 @@ const CardsContainer = () => {
   const indexOfLastCategory = currentPage * categoriesPerPage;
   const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
   const currentCategories = categories.slice(indexOfFirstCategory, indexOfLastCategory);
+
+  const profilesMap = new Map(profiles?.map((profile) => [profile.userId._id, profile])); 
+  const usersMap = new Map(users?.map((user) => [user._id, user]));
   
-  const combinedDataArray = allHabilities?.map((ability) => ({
-    ...ability,
-    location: profile?.location ?? "Ubicación no disponible",
-    availability: profile?.preferredTimeRange ?? "Disponible",
-    userFullName: `${user?.nameUser ?? "Nombre no disponible"} ${user?.surnameUser ?? "Apellido no disponible"}`,
-    profilePicture: profile?.profilePicture ?? "",
-  })) ?? [];
+  const combinedDataArray =
+    allHabilities?.map((ability) => {
+      const userProfile = profilesMap.get(ability.user_id);
+      const userData = usersMap.get(ability.user_id);
+
+      return {
+        ...ability,
+        location: userProfile?.location ?? "Ubicación no disponible",
+        availability: userProfile?.preferredTimeRange ?? "Disponible",
+        userFullName: `${userData?.nameUser ?? "Nombre no disponible"} ${userData?.surnameUser ?? "Apellido no disponible"}`,
+        profilePicture: userProfile?.profilePicture ?? "default-photo.jpg",
+      };
+    }) ?? [];
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
