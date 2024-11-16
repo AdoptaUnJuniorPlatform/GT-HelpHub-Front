@@ -28,7 +28,7 @@ function Card(props: { profileData: CardProps }) {
   return (
     <CardLayout>
       <CardHeader photo={profilePicture} name={userFullName} />
-      <CardInfo service={title} location={location || mode} />
+      <CardInfo service={title} location={location} mode={mode} />
       <CardLevel levels={levels} activeLevel={level}/>
       <CardAvailability availability={availability} />
       <CardDescription description={description} />

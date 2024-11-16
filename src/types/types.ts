@@ -72,6 +72,7 @@ export interface CardHeaderProps {
 export interface ServiceInfoProps {
   service: string;
   location: string;
+  mode:string;
 }
 
 export interface CardLevelProps {

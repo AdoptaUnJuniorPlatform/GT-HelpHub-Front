@@ -11,10 +11,10 @@ import CardSkills from "./CardSkills";
 
 function SkillsCard(props: { profileData: SkillsCardProps }) {
   const { profileData } = props;
-  const { _id, title, description, level, category, location, availability } = profileData;
+  const { _id, title, description, level, category, location, availability, mode } = profileData;
   return (
     <CardLayout>
-      <CardInfo service={title} location={location} />
+      <CardInfo service={title} location={location} mode={mode}/>
       <CardLevel levels={levels} activeLevel={level}/>
       <CardAvailability availability={availability} />
       <CardDescription description={description} />
