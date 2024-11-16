@@ -101,3 +101,36 @@ export const getAllHabilities = async(): Promise<UserHabilitiesResponse | UserBy
 
 }
 
+export const HabilitiesByCategory = async(category: string | null): Promise<UserHabilitiesResponse | UserByIdErrorResponse> => {
+  try {
+    const token = getToken();
+  
+    if (!token) {
+      throw new Error("No token found");
+    }
+
+    const response = await axiosConfig.get(
+      `/api/helphub/hability/category-habilities/${category}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.data.error) {
+      return { error: response.data.error, details: response.data.details };
+    }
+
+    return { habilities: response.data };
+  
+  } catch (error) {
+    console.error("Error al hacer la solicitud:", error);
+ 
+    alert("Hubo un problema al obtener las categorias. Intenta nuevamente más tarde.");
+    return { 
+      error: "Hubo un problema al obtener las categorias. Intenta nuevamente más tarde." 
+    };
+  }
+}
+

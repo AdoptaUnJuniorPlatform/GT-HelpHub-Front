@@ -5,32 +5,42 @@ import BorderButton from "../components/BorderButton"
 import SearchBar from "../components/SearchBar"
 import SideBar from "../components/SideBar"
 import Title from "../components/Title"
-import { categories, subcategories } from "../Variables/varibles"
-import {  useState } from "react"
+import { categories } from "../Variables/varibles"
+// import {  useState } from "react"
 import MainLayout from "../layouts/MainLayout"
 import useBorderButton from "../hooks/useBorderButton"
 import CardsContainer from "../components/CardsContainer"
+import { useAvilityContext } from "../context/AvilityContext"
+import FilteredCardsContainer from "../components/FilteredCardsContainer"
 
 function Home() {
   const { selectedBorderButton, handleBorderButtonClick } = useBorderButton("TODOS", ["TODOS", "ONLINE", "PRESENCIAL"]);
+  const { selectedCategory, setSelectedCategory, filteredHabilities, fetchFilteredHabilities } = useAvilityContext();
 
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null); 
-  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null); 
-  const [filteredSubcategories, setFilteredSubcategories] = useState<string[]>([]); 
+  const categorySelectHandler = (category: string) => {
+    setSelectedCategory(category);
+    fetchFilteredHabilities(category);
+    console.log("Home",selectedCategory)
+    console.log("Home filtro", filteredHabilities)
+  };
+
+  // const [selectedCategory, setSelectedCategory] = useState<string | null>(null); 
+  // const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null); 
+  // const [filteredSubcategories, setFilteredSubcategories] = useState<string[]>([]); 
     
-  function handleCategorySelect(category: string) {
-    setSelectedCategory(category); 
-    setSelectedSubcategory(null); 
+  // function handleCategorySelect(category: string) {
+  //   setSelectedCategory(category); 
+  //   setSelectedSubcategory(null); 
     
-    const subcategoryList = subcategories[0][category as keyof typeof subcategories[0]] || [];
-    setFilteredSubcategories(subcategoryList.length > 0 ? subcategoryList : ['Sin subcategorías']);
-  }
+  //   const subcategoryList = subcategories[0][category as keyof typeof subcategories[0]] || [];
+  //   setFilteredSubcategories(subcategoryList.length > 0 ? subcategoryList : ['Sin subcategorías']);
+  // }
     
-  function handleSubcategorySelect(subcategory: string) {
-    if (subcategory !== 'Sin subcategorías') {
-      setSelectedSubcategory(subcategory);
-    }
-  }
+  // function handleSubcategorySelect(subcategory: string) {
+  //   if (subcategory !== 'Sin subcategorías') {
+  //     setSelectedSubcategory(subcategory);
+  //   }
+  // }
 
   return (
     <MainLayout>
@@ -61,17 +71,17 @@ function Home() {
                 placeholder="Categoría" 
                 options={categories} 
                 className="w-full sm:w-[45%] lg:w-[15rem]" 
-                onSelect={handleCategorySelect}
+                onSelect={categorySelectHandler}
                 selectedOption={selectedCategory} 
               />
 
-              <FilterDrop 
+              {/* <FilterDrop 
                 placeholder="Sub categoría" 
                 options={filteredSubcategories} 
                 className="w-[15rem] ml-0 lg:ml-2" 
                 onSelect={handleSubcategorySelect}
                 selectedOption={selectedSubcategory}
-              />
+              /> */}
                   
               <FilterDrop
                 placeholder="Ubicación (CP)"
@@ -103,7 +113,7 @@ function Home() {
               />
             </div>
           </div>
-          <CardsContainer />
+          {selectedCategory ? <FilteredCardsContainer /> : <CardsContainer />}
         </div>
       </div>
     </MainLayout>

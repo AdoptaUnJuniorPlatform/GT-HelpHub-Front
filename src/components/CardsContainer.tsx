@@ -14,8 +14,10 @@ const CardsContainer = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const cardsToShow = 3;
-
   const categoriesPerPage = 2;
+  const totalCategories = categories.length;
+  console.log(totalCategories)
+
   const indexOfLastCategory = currentPage * categoriesPerPage;
   const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
   const currentCategories = categories.slice(indexOfFirstCategory, indexOfLastCategory);
@@ -49,14 +51,13 @@ const CardsContainer = () => {
         const categoryProfiles = combinedDataArray.filter((profile) =>
           profile.category.includes(category)
         );
-
-        console.log(`Profiles in category "${category}":`, categoryProfiles);
+        const currentProfiles = categoryProfiles.slice(0, cardsToShow);
 
         return (
           <div key={category} className="mt-11 w-full">
             <Title title={category} />
             <div className="flex flex-wrap gap-8 mt-10 w-full">
-              {categoryProfiles?.slice(0, cardsToShow).map((profile) => (
+              {currentProfiles?.slice(0, cardsToShow).map((profile) => (
                 <Card key={profile._id + category} profileData={profile} />
               ))}
             </div>
@@ -64,7 +65,12 @@ const CardsContainer = () => {
         );
       })}
       <div className="flex justify-center items-center pt-12 pb-20">
-        <Pagination onPageChange={handlePageChange} />
+        <Pagination 
+          totalItems={totalCategories}
+          itemsPerPage={categoriesPerPage}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}  
+        />
       </div>
     </div>
   );

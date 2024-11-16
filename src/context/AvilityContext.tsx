@@ -1,14 +1,19 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
 import { UserHabilitiesResponse, Hability } from "../types/AbilityServiceTypes";
-import { getAllHabilities, getUserHabilities } from "../services/AbilityService";
+import { getAllHabilities, getUserHabilities, HabilitiesByCategory } from "../services/AbilityService";
 
 interface AvilityContextType {
   showEditor: boolean;
   setShowEditor: Dispatch<SetStateAction<boolean>>;
   userHabilities: UserHabilitiesResponse | null;
   allHabilities: Hability[] | null;
+  filteredHabilities: Hability[] | null;
+  setFilteredHabilities: Dispatch<SetStateAction<Hability[]>>;
+  selectedCategory: string | null;
+  setSelectedCategory: Dispatch<SetStateAction<string | null>>; 
   fetchUserHabilities: () => void;
   fetchAllHabilities: () => void;
+  fetchFilteredHabilities: (category: string | null) => Promise<void>;
 }
 
 const AvilityContext = createContext<AvilityContextType | undefined>(undefined);
@@ -17,6 +22,8 @@ function AvilityProvider({ children }: { children: ReactNode}) {
   const [showEditor, setShowEditor] = useState<boolean>(false);
   const [userHabilities, setUserHabilities] = useState<UserHabilitiesResponse | null>(null);
   const [allHabilities, setAllHabilities] = useState<Hability[] | null>(null);
+  const [filteredHabilities, setFilteredHabilities] = useState<Hability[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const fetchUserHabilities = async () => {
     const response = await getUserHabilities();
@@ -43,6 +50,16 @@ function AvilityProvider({ children }: { children: ReactNode}) {
       setAllHabilities(null);
     }
   };
+  const fetchFilteredHabilities = async (category: string | null) => {
+    if (!category) return;
+
+    const response = await HabilitiesByCategory(category);
+    if ('habilities' in response) {
+      setFilteredHabilities(response.habilities);
+    } else {
+      console.error(response.error);
+    }
+  };
 
   useEffect(() => {
     fetchUserHabilities();
@@ -58,7 +75,12 @@ function AvilityProvider({ children }: { children: ReactNode}) {
       userHabilities,
       fetchUserHabilities,
       allHabilities,
-      fetchAllHabilities
+      selectedCategory,
+      setSelectedCategory,
+      fetchAllHabilities,
+      filteredHabilities,
+      setFilteredHabilities,
+      fetchFilteredHabilities
     }}>
       {children}
     </AvilityContext.Provider>
