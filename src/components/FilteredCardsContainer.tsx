@@ -5,6 +5,7 @@ import { useUserContext } from '../context/UserContext';
 import Title from './Title';
 import Card from './Card';
 import Pagination from './Pagination';
+import { Hability } from '../types/AbilityServiceTypes';
 
 function FilteredCardsContainer({selectedMode}: {selectedMode: string}) {
   const { allHabilities, selectedCategory } = useAvilityContext();
@@ -16,18 +17,15 @@ function FilteredCardsContainer({selectedMode}: {selectedMode: string}) {
   
   const profilesMap = new Map(profiles?.map((profile) => [profile.userId._id, profile]));
   const usersMap = new Map(users?.map((user) => [user._id, user]));
-  
 
-  const filteredByCategory = allHabilities?.filter((ability) => {
-    return selectedCategory ? ability.category.includes(selectedCategory) : true;
+  
+  const filteredAbilities: Hability[] = allHabilities?.filter((ability) => {
+    const matchesMode = selectedMode === "TODOS" || ability.mode === selectedMode;
+    const matchesCategory = !selectedCategory || ability.category.includes(selectedCategory);
+    return matchesMode && matchesCategory;
   }) ?? [];
-  
-  const filteredByMode = filteredByCategory.filter((ability) => {
-    if (selectedMode === "TODOS") return true;
-    return ability.mode === selectedMode;
-  });
 
-  const combinedDataArray = filteredByMode.map((ability) => {
+  const combinedDataArray = filteredAbilities.map((ability) => {
     const userProfile = profilesMap.get(ability.user_id);
     const userData = usersMap.get(ability.user_id);
   
@@ -46,10 +44,10 @@ function FilteredCardsContainer({selectedMode}: {selectedMode: string}) {
 
   const indexOfLastCard = currentPage * cardsToShow;
   const indexOfFirstCard = indexOfLastCard - cardsToShow;
-  const currentCards = combinedDataArray.slice(indexOfFirstCard, indexOfLastCard);
+  const currentCards = combinedDataArray?.slice(indexOfFirstCard, indexOfLastCard);
   
   return (
-    <div className="w-full">
+    <div className="w-full h-[90rem]">
       <Title title="Habilidades Filtradas" />
       <div className="flex flex-wrap gap-8 mt-10 w-full">
         {currentCards.length > 0 ? (

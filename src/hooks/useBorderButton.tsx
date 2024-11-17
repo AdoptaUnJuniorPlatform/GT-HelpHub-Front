@@ -13,10 +13,22 @@ function useBorderButton(
       setSelectedBorderButton(label);
     }
   };
+  const convertMode = (mode: string) => {
+    switch (mode) {
+      case "ONLINE":
+        return "Online";
+      case "PRESENCIAL":
+        return "Presencial";
+      case "TODOS":
+        return "TODOS";
+      default:
+        return mode;
+    }
+  };
 
   const SelectedComponent: ElementType | null = componentMap?.[selectedBorderButton] || null;
   
-  return { selectedBorderButton, handleBorderButtonClick, SelectedComponent };
+  return { selectedBorderButton, handleBorderButtonClick, SelectedComponent, convertMode };
 }
 
 export default useBorderButton

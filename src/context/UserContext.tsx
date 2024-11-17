@@ -42,7 +42,7 @@ function UserProvider({ children }: { children: ReactNode }) {
     fetchUser();
     fetchAllUsers();
   }, []);
-  console.log("Usuario:", user)
+
   return (
     <UserContext.Provider value={{ user, setUser, fetchUser, users, fetchAllUsers }}>
       {children}

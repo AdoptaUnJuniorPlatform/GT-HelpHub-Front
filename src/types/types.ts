@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactNode } from "react";
+import { ChangeEvent, ElementType, ReactNode } from "react";
 export interface Input {
   id?:string;
   type?: 'text'| 'password' | 'email' | 'checkbox' | 'tel' | 'number' | 'button';
@@ -246,3 +246,7 @@ export interface FilterDropProps {
   onSelect: (option: string) => void;
   selectedOption?: string[] | string | null;
 }
+
+export type ComponentMap = {
+  [key: string]: ElementType;
+};

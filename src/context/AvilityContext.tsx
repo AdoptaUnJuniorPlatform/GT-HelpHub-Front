@@ -66,8 +66,6 @@ function AvilityProvider({ children }: { children: ReactNode}) {
     fetchAllHabilities();
   }, [])
 
-  console.log("habilidades usuario:", userHabilities)
-  console.log("habilidades todas:", allHabilities)
   return (
     <AvilityContext.Provider value={{
       showEditor,

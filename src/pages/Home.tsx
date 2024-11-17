@@ -13,21 +13,8 @@ import { useAvilityContext } from "../context/AvilityContext"
 import FilteredCardsContainer from "../components/FilteredCardsContainer"
 
 function Home() {
-  const { selectedBorderButton, handleBorderButtonClick } = useBorderButton("TODOS", ["TODOS", "ONLINE", "PRESENCIAL"]);
+  const { selectedBorderButton, handleBorderButtonClick, convertMode } = useBorderButton("TODOS", ["TODOS", "ONLINE", "PRESENCIAL"]);
   const { selectedCategory, setSelectedCategory, filteredHabilities, fetchFilteredHabilities } = useAvilityContext();
-
-  const convertMode = (mode: string) => {
-    switch (mode) {
-      case "ONLINE":
-        return "Online";
-      case "PRESENCIAL":
-        return "Presencial";
-      case "TODOS":
-        return "TODOS";
-      default:
-        return mode;
-    }
-  };
 
   const categorySelectHandler = (category: string) => {
     setSelectedCategory(category);
@@ -125,7 +112,7 @@ function Home() {
               />
             </div>
           </div>
-          {selectedCategory ? (
+          {selectedCategory || selectedBorderButton ? (
             <FilteredCardsContainer selectedMode={convertMode(selectedBorderButton)}/>
           ) : (
             <CardsContainer />

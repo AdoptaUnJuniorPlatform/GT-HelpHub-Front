@@ -16,7 +16,6 @@ const CardsContainer = () => {
   const cardsToShow = 3;
   const categoriesPerPage = 2;
   const totalCategories = categories.length;
-  console.log(totalCategories)
 
   const indexOfLastCategory = currentPage * categoriesPerPage;
   const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
@@ -43,10 +42,8 @@ const CardsContainer = () => {
     setCurrentPage(page);
   };
 
-  console.log("Combined Data Array:", combinedDataArray);
-
   return (
-    <div className="w-full">
+    <div className="w-full h-[90rem]">
       {currentCategories.map((category) => {
         const categoryProfiles = combinedDataArray.filter((profile) =>
           profile.category.includes(category)

@@ -43,7 +43,6 @@ function ProfileProvider({ children }: { children: ReactNode }) {
     fetchProfile();
     fetchAllProfiles();
   }, []);
-  console.log("Perfil:", profile)
   
   return (
     <ProfileContext.Provider value={{ profile, setProfile, fetchProfile, profiles, fetchAllProfiles }}>
