@@ -6,7 +6,6 @@ import SearchBar from "../components/SearchBar"
 import SideBar from "../components/SideBar"
 import Title from "../components/Title"
 import { categories } from "../Variables/varibles"
-// import {  useState } from "react"
 import MainLayout from "../layouts/MainLayout"
 import useBorderButton from "../hooks/useBorderButton"
 import CardsContainer from "../components/CardsContainer"
@@ -16,6 +15,19 @@ import FilteredCardsContainer from "../components/FilteredCardsContainer"
 function Home() {
   const { selectedBorderButton, handleBorderButtonClick } = useBorderButton("TODOS", ["TODOS", "ONLINE", "PRESENCIAL"]);
   const { selectedCategory, setSelectedCategory, filteredHabilities, fetchFilteredHabilities } = useAvilityContext();
+
+  const convertMode = (mode: string) => {
+    switch (mode) {
+      case "ONLINE":
+        return "Online";
+      case "PRESENCIAL":
+        return "Presencial";
+      case "TODOS":
+        return "TODOS";
+      default:
+        return mode;
+    }
+  };
 
   const categorySelectHandler = (category: string) => {
     setSelectedCategory(category);
@@ -113,7 +125,12 @@ function Home() {
               />
             </div>
           </div>
-          {selectedCategory ? <FilteredCardsContainer /> : <CardsContainer />}
+          {selectedCategory ? (
+            <FilteredCardsContainer selectedMode={convertMode(selectedBorderButton)}/>
+          ) : (
+            <CardsContainer />
+          )
+          }
         </div>
       </div>
     </MainLayout>

@@ -6,8 +6,7 @@ import Title from './Title';
 import Card from './Card';
 import Pagination from './Pagination';
 
-
-function FilteredCardsContainer() {
+function FilteredCardsContainer({selectedMode}: {selectedMode: string}) {
   const { allHabilities, selectedCategory } = useAvilityContext();
   const { profiles } = useProfileContext();
   const { users } = useUserContext();
@@ -17,12 +16,18 @@ function FilteredCardsContainer() {
   
   const profilesMap = new Map(profiles?.map((profile) => [profile.userId._id, profile]));
   const usersMap = new Map(users?.map((user) => [user._id, user]));
+  
 
-  const filteredAbilities = allHabilities?.filter((ability) => {
+  const filteredByCategory = allHabilities?.filter((ability) => {
     return selectedCategory ? ability.category.includes(selectedCategory) : true;
   }) ?? [];
   
-  const combinedDataArray = filteredAbilities.map((ability) => {
+  const filteredByMode = filteredByCategory.filter((ability) => {
+    if (selectedMode === "TODOS") return true;
+    return ability.mode === selectedMode;
+  });
+
+  const combinedDataArray = filteredByMode.map((ability) => {
     const userProfile = profilesMap.get(ability.user_id);
     const userData = usersMap.get(ability.user_id);
   
