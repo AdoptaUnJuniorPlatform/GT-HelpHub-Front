@@ -54,7 +54,7 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
 
   return(
     <Layout
-      title="Selecciona tus timeRange"
+      title="Selecciona tus horarios"
       description="Para que podamos ayudarte a coordinar horarios con nuestros otros usuarios, necesitaremos que nos brindes tu disponibilidad horaria y días disponiles."
       stepTitle="Paso 3"
       stepDescription="¿Qué día sestás disponible?"
@@ -77,7 +77,7 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
       <div className="relative w-[83px] h-[21px] text-[#434242] left-[-40px] top-[80px] text-l font-medium font-['Roboto'] tracking-tight">Horarios</div>
       
       {/*Radio Buttons para seleccionar horario*/}
-      <div className="relative w-[450px] h-auto left-[-40px] top-[100px]">
+      <div className="relative w-[400px] h-auto left-[-40px] top-[100px]">
         <div className="flex flex-wrap gap-4 w-full justify-start items-start">
           {/* Mapeo de las opciones de horario usando el componente HorarioOption */}
           {availableTimeRanges.map((availableTimeRange) => (
