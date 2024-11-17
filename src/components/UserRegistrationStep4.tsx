@@ -55,6 +55,7 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
   };
 
   const handleSubmit = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setIsSubmitted(true); 
   };
   
