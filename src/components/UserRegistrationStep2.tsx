@@ -54,16 +54,6 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
   
     loadProfileImage();
   }, [userId]);
-  
-
-  // Cleanup para liberar URLs temporales de Blob
-  {/*useEffect(() => {
-    return () => {
-      if (previewUrl) {
-        URL.revokeObjectURL(previewUrl); // Liberar el objeto URL
-      }
-    };
-  }, [previewUrl]);*/}
 
   // Manejador del cambio del archivo
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
