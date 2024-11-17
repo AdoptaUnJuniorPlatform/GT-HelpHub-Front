@@ -58,7 +58,6 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
   // Manejador del cambio del archivo
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (previewUrl) {
-      alert("Ya tienes una imagen de perfil. Continúa con el proceso.");
       return;
     }
   
