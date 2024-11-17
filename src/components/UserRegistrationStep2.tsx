@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import UploadPhoto from '../assets/UploadPhoto.svg';
 import InformationCircle from '../assets/InformationCircle.svg';
@@ -7,7 +7,7 @@ import { ProfileData } from '../types/AuthServiceTypes';
 import Avatar1 from '../assets/Avatar1.svg';
 import Avatar2 from '../assets/Avatar2.svg';
 import Avatar3 from '../assets/Avatar3.svg';
-import { uploadProfileImage } from '../services/apiClient';
+import { uploadProfileImage, fetchProfileImage } from '../services/apiClient';
 import { useAuthContext } from '../context/AuthContext';
 
 interface UserRegistrationStep2Props {
@@ -31,36 +31,58 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   
+  // Verificar si ya existe una imagen de perfil
+  useEffect(() => {
+    const loadProfileImage = async () => {
+      if (userId) {
+        try {
+          const imageUrl = await fetchProfileImage(userId);
+          if (imageUrl) {
+            setPreviewUrl(imageUrl); // Muestra la imagen si existe
+            // Retrasa el alert para que se cargue primero la imagen
+            setTimeout(() => {
+              alert(
+                "Ya tienes una imagen de perfil cargada. Puedes continuar con el proceso o modificarla más tarde desde tu perfil."
+              );
+            }, 500);
+          }
+        } catch (error) {
+          console.error("Error obteniendo la imagen de perfil:", error);
+        }
+      }
+    };
+  
+    loadProfileImage();
+  }, [userId]);
 
   // Manejador del cambio del archivo
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (previewUrl) {
+      return;
+    }
+  
     const file = event.target.files?.[0];
     if (file && userId) {
       try {
-        // Mostrar la imagen seleccionada inmediatamente
         const simulatedUrl = URL.createObjectURL(file);
-        setPreviewUrl(simulatedUrl); // Actualiza la vista previa
+        setPreviewUrl(simulatedUrl);
   
-        // Subir la imagen al servidor
         const response = await uploadProfileImage(file, userId);
-        console.log("Imagen subida al servidor:", response);
-  
-        // Actualiza el estado del perfil con una URL local simulada
-        updateProfileData({
-          ...profileData,
-          profilePicture: simulatedUrl,
-        });
-  
-        alert('Imagen subida exitosamente');
+        if (response.imageUrl) {
+          setPreviewUrl(response.imageUrl);
+          updateProfileData({
+            ...profileData,
+            profilePicture: response.imageUrl,
+          });
+          alert("Imagen subida exitosamente");
+        }
       } catch (error) {
-        console.error('Error subiendo la imagen:', error);
-        alert('Hubo un problema al subir la imagen. Inténtalo de nuevo.');
+        console.error("Error subiendo la imagen:", error);
+        alert("Hubo un problema al subir la imagen. Inténtalo de nuevo.");
       }
-    } else {
-      alert("Por favor, selecciona un archivo válido.");
     }
-  };
-  
+  };  
+ 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible); 
   };
@@ -114,13 +136,16 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
             </>
           )}
 
-          {/* Botón "Subir foto" o "Cambiar foto" */}
-          <Button
-            texto={"Subir foto"}
-            color="text-white"
-            className="h-8 px-3.5 py-2 bg-[#1945e3] rounded-lg shadow mt-3"
-            onClick={() => document.getElementById('fileInput')?.click()}
-          />
+          {/* Botón "Subir foto" */}
+          {!previewUrl && (
+            <Button
+              texto={"Subir foto"}
+              color="text-white"
+              className="h-8 px-3.5 py-2 bg-[#1945e3] rounded-lg shadow mt-3"
+              onClick={() => document.getElementById('fileInput')?.click()}
+            />
+          )}
+
         </div>
       </div>
 

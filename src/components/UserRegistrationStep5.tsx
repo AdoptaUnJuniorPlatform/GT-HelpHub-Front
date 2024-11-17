@@ -4,7 +4,9 @@ import Categories from './Categories';
 import SuccessModal from './SuccesModal';
 import { ProfileData, HabilityData } from '../types/AuthServiceTypes';
 import { createProfile, createHability } from '../services/apiClient';
+import { fetchProfileImage } from '../services/apiClient';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../context/AuthContext';
 
 interface UserRegistrationStep5Props{
   onBackClick: () => void;
@@ -25,6 +27,7 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
   updateProfileData,
   habilityData,
 }) => {
+  const { userId } = useAuthContext();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigate();
 
@@ -47,11 +50,29 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
       return;
     }
     try {
-      const profileResponse = await createProfile(profileData);
+      // Asegura que haya una imagen
+      let profilePicture: string = profileData.profilePicture || ""; 
+      if (!profilePicture && userId) {
+        const imageUrl = await fetchProfileImage(userId); 
+        if (imageUrl) {
+          profilePicture = imageUrl; 
+        } else {
+          alert('No se encontró una imagen de perfil. Por favor, sube una antes de continuar.');
+          return; // Detener el flujo si no hay imagen
+        }
+      }
+
+      // Preparar el perfil con la imagen incluida
+      const profileDataWithImage = {
+        ...profileData,
+        profilePicture: profilePicture || "", 
+      };
+
+      const profileResponse = await createProfile(profileDataWithImage);
       const habilityResponse = await createHability(habilityData);
 
       if (profileResponse.status === 201 && habilityResponse.status === 201) {
-        setIsModalVisible(true); // Mostrar modal de éxito
+        setIsModalVisible(true); 
       } else {
         console.error('Hubo un error al crear perfil o habilidad');
         alert('Error al enviar los datos. Por favor, intenta de nuevo.');

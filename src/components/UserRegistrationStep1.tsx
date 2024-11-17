@@ -24,16 +24,16 @@ const UserRegistrationStep1: React.FC<UserRegistrationStep1Props> = ({
   
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     updateProfileData({
-      ...profileData, // Mantiene el estado actual de profileData
-      description: e.target.value, // Actualiza solo la descripción
+      ...profileData, 
+      description: e.target.value, 
     });
   };
 
   const handlePostalCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, '');
     updateProfileData({
-      ...profileData, // Mantiene el estado actual de profileData
-      location: value, // Actualiza solo la ubicación
+      ...profileData, 
+      location: value, 
     });
     setPostalCodeError(value.length !== 5);
   };

@@ -72,9 +72,8 @@ function Auth2Fa() {
             }
             if (loginData?.email) {
               localStorage.setItem('email', loginData.email);
-              await fetchAndSetUserId(loginData.email); // Obtener y guardar el userId
-              setTwoFaModal(true)
-              //checkProfileAndRedirect();
+              await fetchAndSetUserId(loginData.email);
+              setTwoFaModal(true);
             }
           }
         }
@@ -90,9 +89,8 @@ function Auth2Fa() {
     try {
       const userId = await fetchUserIdByEmail(email);
       if (userId) {
-        setUserId(userId); // Guardar en el AuthContext
-        localStorage.setItem('userId', userId); // Opcional: guardar en localStorage
-        console.log("User ID obtenido y almacenado:", userId);
+        setUserId(userId); 
+        localStorage.setItem('userId', userId); 
       } else {
         console.error("No se encontró el User ID.");
       }
@@ -101,7 +99,6 @@ function Auth2Fa() {
     }
   };
 
-  
   return (
     <AuthLayout>
       <div className="flex flex-col w-9/12 h-[58.5rem] items-center justify-center gap-10 -mt-20">

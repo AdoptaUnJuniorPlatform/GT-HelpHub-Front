@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface ProgressBarProps {
-  steps: string[]; // Array con los nombres de los pasos
-  currentStep: number; // El paso actual
+  steps: string[]; 
+  currentStep: number; 
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ steps, currentStep }) => {
@@ -18,7 +18,6 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ steps, currentStep }) => {
         // Solo mostrar si el paso es visible
         if (!isVisible) return null;
 
-        // Verificar si el paso es activo
         const isActive = index === currentStep;
 
         return (

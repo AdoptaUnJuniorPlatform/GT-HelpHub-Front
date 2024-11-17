@@ -1,6 +1,7 @@
 import axios from 'axios';
 import axiosConfig from './axiosConfig';
-import { ProfileData, HabilityData } from '../types/RegistrationFormData';
+import { ProfileData, HabilityData } from '../types/AuthServiceTypes';
+
 
 // Función para crear el perfil
 export const createProfile = async (profileData: ProfileData) => {
@@ -73,9 +74,9 @@ export const uploadProfileImage = async (file: File, userId: string): Promise<{ 
 };
 
 //Función para obtener el ImageId
-export const fetchImageId = async (imageId: string): Promise<string | null> => {
+export const fetchImageByUSerId = async (userId: string): Promise<string | null> => {
   try {
-    const response = await axios.get(`/api/helphub/upload-service/profile-image/${imageId}`);
+    const response = await axios.get(`/api/helphub/upload-service/profile-imagebyUser/${userId}`);
     const image = response.data[0]; // Accede al primer elemento del array
     return image ? image._id : null; // Devuelve el _id si existe 
   } catch (error) {
@@ -83,5 +84,32 @@ export const fetchImageId = async (imageId: string): Promise<string | null> => {
     return null;
   }
 };
+
+//Función para mostrar la imagen del usuario(con o sin perfil)
+export const fetchProfileImage = async (userId: string): Promise<string | null> => {
+  const token = localStorage.getItem("token"); 
+  try {
+    const response = await axios.get(`/api/helphub/upload-service/profile-imagebyUser/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      responseType: "blob", 
+    });
+
+    // Crear una URL temporal a partir del Blob
+    const imageUrl = URL.createObjectURL(response.data);
+    return imageUrl;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
+      console.warn("No se encontró una imagen de perfil para el usuario.");
+      return null; // Retorna null si no existe una imagen
+    }
+    console.error("Error obteniendo la imagen de perfil:", error);
+    throw error;
+  }
+};
+
+
+
 
 
