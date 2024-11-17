@@ -39,7 +39,12 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
           const imageUrl = await fetchProfileImage(userId);
           if (imageUrl) {
             setPreviewUrl(imageUrl); // Muestra la imagen si existe
-            alert("Ya tienes una imagen de perfil. Continúa con el proceso.");
+            // Retrasa el alert para que se cargue primero la imagen
+            setTimeout(() => {
+              alert(
+                "Ya tienes una imagen de perfil cargada. Puedes continuar con el proceso o modificarla más tarde desde tu perfil."
+              );
+            }, 500);
           }
         } catch (error) {
           console.error("Error obteniendo la imagen de perfil:", error);
@@ -49,6 +54,7 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
   
     loadProfileImage();
   }, [userId]);
+  
 
   // Cleanup para liberar URLs temporales de Blob
   {/*useEffect(() => {
