@@ -38,7 +38,7 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
     setSelectedHorario(timeRange);
     updateProfileData({
       ...profileData,
-      preferredTimeRange: timeRange, // Actualiza el rango de tiempo preferido en profileData
+      preferredTimeRange: timeRange, 
     });
   };
 
@@ -46,7 +46,7 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
     setSelectedDays(daysOfWeek);
     updateProfileData({
       ...profileData,
-      selectedDays: daysOfWeek, // Actualiza los días seleccionados en profileData
+      selectedDays: daysOfWeek, 
     });
   };
 

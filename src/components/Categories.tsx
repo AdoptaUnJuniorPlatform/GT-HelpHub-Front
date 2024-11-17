@@ -45,7 +45,6 @@ const Categories: React.FC<CategoriesProps> = ({ selectedCategories, onSelectCat
       // Desmarcar la categoría si ya está seleccionada
       updatedCategories = selectedCategories.filter(item => item !== label);
     } else {
-      // Agregar la categoría al array de seleccionados
       updatedCategories = [...selectedCategories, label];
     }
     onSelectCategories(updatedCategories);

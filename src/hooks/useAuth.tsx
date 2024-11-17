@@ -274,7 +274,6 @@ export const useAuth = () => {
 
   const checkProfileAndRedirect = async () => {
     try {
-      console.log("Iniciando verificación del perfil...");
       // Verificar que el token esté en localStorage
       const token = localStorage.getItem("token");
       if (!token) {
@@ -288,7 +287,7 @@ export const useAuth = () => {
       });
   
       if (response.status === 200) {
-        navigate('/home'); // Redirige a Home si el perfil ya está creado
+        navigate('/home'); 
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 404) {
@@ -306,15 +305,12 @@ export const useAuth = () => {
   };
 
   const modalNavigateHandler = async () => {
-    console.log("Ejecutando modalNavigateHandler...");
-    setTwoFaModal(false); // Cierra el modal
+    setTwoFaModal(false); 
   
     if (isLoggedIn && !isRegistering) {
-      console.log("Usuario logueado pero no registrándose. Verificando perfil...");
-      // Usuario autenticado y no está registrándose
-      await checkProfileAndRedirect(); // Verifica el perfil y redirige
+      // Usuario autenticado pero sin perfil creado
+      await checkProfileAndRedirect(); // Verifica el perfil y redirige dependiendo de si existe perfil
     } else if (isRegistering && !isLoggedIn) {
-      // Usuario en proceso de registro, pero no autenticado
       navigate('/');
     } else {
       // Caso por defecto: redirige al Home
