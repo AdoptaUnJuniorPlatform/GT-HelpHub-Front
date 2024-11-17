@@ -72,4 +72,8 @@ export interface AuthContextProps {
   setProfileData: (data: ProfileData | null) => void;
   habilityData: HabilityData | null;
   setHabilityData: (data: HabilityData | null) => void;
+  userId: string | null;
+  setUserId: (id: string | null) => void;
+  imageId: string | null; // Nuevo campo para almacenar el id de la imagen
+  setImageId: (id: string | null) => void;
 }

@@ -272,17 +272,55 @@ export const useAuth = () => {
     }
   };
 
-  const modalNavigateHandler = () => {
-    if (isLoggedIn && !isRegistering) {
-      setTwoFaModal(false)
-      navigate('/home')
-    } else if (isRegistering && !isLoggedIn) {
-      setTwoFaModal(false)
-      navigate('/')
-    } else {
-      navigate('/home')
+  const checkProfileAndRedirect = async () => {
+    try {
+      console.log("Iniciando verificación del perfil...");
+      // Verificar que el token esté en localStorage
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("Token no encontrado. La autenticación no se ha completado.");
+        return; // No redirigir hasta que el token esté presente
+      }
+  
+      // Verificar el perfil
+      const response = await axios.get('/api/helphub/profile', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+  
+      if (response.status === 200) {
+        navigate('/home'); // Redirige a Home si el perfil ya está creado
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 404) {
+        // Si el perfil no existe y el usuario está autenticado, redirige a creación de perfil
+        const token = localStorage.getItem("token");
+        if (token) {
+          navigate('/register/personal-data');
+        } else {
+          console.error("Autenticación incompleta. No se puede redirigir.");
+        }
+      } else {
+        console.error("Error verificando el perfil:", error);
+      }
     }
-  }
+  };
+
+  const modalNavigateHandler = async () => {
+    console.log("Ejecutando modalNavigateHandler...");
+    setTwoFaModal(false); // Cierra el modal
+  
+    if (isLoggedIn && !isRegistering) {
+      console.log("Usuario logueado pero no registrándose. Verificando perfil...");
+      // Usuario autenticado y no está registrándose
+      await checkProfileAndRedirect(); // Verifica el perfil y redirige
+    } else if (isRegistering && !isLoggedIn) {
+      // Usuario en proceso de registro, pero no autenticado
+      navigate('/');
+    } else {
+      // Caso por defecto: redirige al Home
+      navigate('/home');
+    }
+  };
   
   return {
     loginHandler,
@@ -300,6 +338,7 @@ export const useAuth = () => {
     setResetError,
     twoFaModal,
     setTwoFaModal,
-    modalNavigateHandler
+    modalNavigateHandler,
+    checkProfileAndRedirect,
   };
 };

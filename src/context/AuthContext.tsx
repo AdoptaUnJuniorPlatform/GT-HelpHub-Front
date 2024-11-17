@@ -12,6 +12,9 @@ function AuthProvider({ children }: { children: ReactNode }) {
   // Estados separados para profileData y habilityData
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
   const [habilityData, setHabilityData] = useState<HabilityData | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [imageId, setImageId] = useState<string | null>(null);
+
   
   const isLoggedIn = useMemo(() => !!token, [token]);
   
@@ -46,7 +49,11 @@ function AuthProvider({ children }: { children: ReactNode }) {
       profileData,
       setProfileData,
       habilityData,
-      setHabilityData
+      setHabilityData,
+      userId,
+      setUserId: (id) => setUserId(id),
+      imageId,
+      setImageId: (id) => setImageId(id),
     }}
     >
       {children}
