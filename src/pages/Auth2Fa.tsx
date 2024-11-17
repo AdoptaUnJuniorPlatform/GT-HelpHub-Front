@@ -13,9 +13,10 @@ import useForm from "../hooks/useForm";
 import Logo from "../components/Logo";
 import axios from "axios";
 import TwoFaModal from "../components/TwoFaModal";
+import { fetchUserIdByEmail } from "../services/apiClient";
 
 function Auth2Fa() {
-  const { registerData, setIsRegistering, loginData, token } = useAuthContext();
+  const { registerData, setIsRegistering, loginData, token, setUserId } = useAuthContext();
   const { handleResendCode, twoFaModal, setTwoFaModal, modalNavigateHandler } = useAuth();
   const navigate = useNavigate();
   const { input: code, handleInputChange, handleSubmit, inputRefs } = useForm(
@@ -69,11 +70,11 @@ function Auth2Fa() {
             if (loginData?.twoFa){
               localStorage.setItem('code', loginData?.twoFa)
             }
-            setTwoFaModal(true)
             if (loginData?.email) {
               localStorage.setItem('email', loginData.email);
-              setTwoFaModal(true);
-              checkProfileAndRedirect();
+              await fetchAndSetUserId(loginData.email); // Obtener y guardar el userId
+              setTwoFaModal(true)
+              //checkProfileAndRedirect();
             }
           }
         }
@@ -85,37 +86,21 @@ function Auth2Fa() {
     Array(6).fill("")
   );
 
-  const checkProfileAndRedirect = async () => {
+  const fetchAndSetUserId = async (email: string) => {
     try {
-      // Verificar que el token esté en localStorage
-      const token = localStorage.getItem("token");
-      if (!token) {
-        console.error("Token no encontrado. La autenticación no se ha completado.");
-        return; // No redirigir hasta que el token esté presente
-      }
-  
-      // Verificar el perfil
-      const response = await axios.get('/api/helphub/profile', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-  
-      if (response.status === 200) {
-        navigate('/home'); // Redirige a Home si el perfil ya está creado
+      const userId = await fetchUserIdByEmail(email);
+      if (userId) {
+        setUserId(userId); // Guardar en el AuthContext
+        localStorage.setItem('userId', userId); // Opcional: guardar en localStorage
+        console.log("User ID obtenido y almacenado:", userId);
+      } else {
+        console.error("No se encontró el User ID.");
       }
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 404) {
-        // Si el perfil no existe y el usuario está autenticado, redirige a creación de perfil
-        const token = localStorage.getItem("token");
-        if (token) {
-          navigate('/register/personal-data');
-        } else {
-          console.error("Autenticación incompleta. No se puede redirigir.");
-        }
-      } else {
-        console.error("Error verificando el perfil:", error);
-      }
+      console.error("Error obteniendo el User ID:", error);
     }
   };
+
   
   return (
     <AuthLayout>
