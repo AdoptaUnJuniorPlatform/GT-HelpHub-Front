@@ -11,16 +11,20 @@ import useBorderButton from "../hooks/useBorderButton"
 import CardsContainer from "../components/CardsContainer"
 import { useAvilityContext } from "../context/AvilityContext"
 import FilteredCardsContainer from "../components/FilteredCardsContainer"
+import { useState } from "react"
 
 function Home() {
+  const [searchTerm, setSearchTerm] = useState("");
   const { selectedBorderButton, handleBorderButtonClick, convertMode } = useBorderButton("TODOS", ["TODOS", "ONLINE", "PRESENCIAL"]);
-  const { selectedCategory, setSelectedCategory, filteredHabilities, fetchFilteredHabilities } = useAvilityContext();
+  const { selectedCategory, setSelectedCategory,fetchFilteredHabilities } = useAvilityContext();
 
   const categorySelectHandler = (category: string) => {
     setSelectedCategory(category);
     fetchFilteredHabilities(category);
-    console.log("Home",selectedCategory)
-    console.log("Home filtro", filteredHabilities)
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
   };
 
   // const [selectedCategory, setSelectedCategory] = useState<string | null>(null); 
@@ -49,7 +53,7 @@ function Home() {
           showInitial={false}
         />
         <div className="mt-4 ">
-          <SearchBar />
+          <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange}/>
         </div>
       </div>
       <div className="flex justify-end items-center w-full">
@@ -112,8 +116,10 @@ function Home() {
               />
             </div>
           </div>
-          {selectedCategory || selectedBorderButton ? (
-            <FilteredCardsContainer selectedMode={convertMode(selectedBorderButton)}/>
+          {selectedCategory || selectedBorderButton !== "TODOS" ? (
+            <FilteredCardsContainer 
+              searchTerm={searchTerm}
+              selectedMode={convertMode(selectedBorderButton)}/>
           ) : (
             <CardsContainer />
           )

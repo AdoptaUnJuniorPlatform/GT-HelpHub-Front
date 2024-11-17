@@ -7,7 +7,7 @@ import Card from './Card';
 import Pagination from './Pagination';
 import { Hability } from '../types/AbilityServiceTypes';
 
-function FilteredCardsContainer({selectedMode}: {selectedMode: string}) {
+function FilteredCardsContainer({selectedMode, searchTerm}: {selectedMode: string; searchTerm: string}) {
   const { allHabilities, selectedCategory } = useAvilityContext();
   const { profiles } = useProfileContext();
   const { users } = useUserContext();
@@ -22,7 +22,8 @@ function FilteredCardsContainer({selectedMode}: {selectedMode: string}) {
   const filteredAbilities: Hability[] = allHabilities?.filter((ability) => {
     const matchesMode = selectedMode === "TODOS" || ability.mode === selectedMode;
     const matchesCategory = !selectedCategory || ability.category.includes(selectedCategory);
-    return matchesMode && matchesCategory;
+    const matchesSearchTerm = ability.title.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesMode && matchesCategory && matchesSearchTerm;
   }) ?? [];
 
   const combinedDataArray = filteredAbilities.map((ability) => {
