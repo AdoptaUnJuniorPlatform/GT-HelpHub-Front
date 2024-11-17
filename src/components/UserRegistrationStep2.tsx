@@ -147,13 +147,16 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
             </>
           )}
 
-          {/* Botón "Subir foto" o "Cambiar foto" */}
-          <Button
-            texto={"Subir foto"}
-            color="text-white"
-            className="h-8 px-3.5 py-2 bg-[#1945e3] rounded-lg shadow mt-3"
-            onClick={() => document.getElementById('fileInput')?.click()}
-          />
+          {/* Botón "Subir foto" */}
+          {!previewUrl && (
+            <Button
+              texto={"Subir foto"}
+              color="text-white"
+              className="h-8 px-3.5 py-2 bg-[#1945e3] rounded-lg shadow mt-3"
+              onClick={() => document.getElementById('fileInput')?.click()}
+            />
+          )}
+
         </div>
       </div>
 
