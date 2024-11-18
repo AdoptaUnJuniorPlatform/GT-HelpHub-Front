@@ -1,9 +1,13 @@
+interface ProfileImgProps {
+  profilePicture: string;
+  className?: string;
+}
 
-function ProfileImg({ src, className }: { src: string, className?: string }) {
+function ProfileImg({ profilePicture, className }: ProfileImgProps) {
   return (
     <div className={className}>
       <img
-        src={src}
+        src={profilePicture}
         alt="Perfil"
         className={`w-full h-full object-cover`}
       />      

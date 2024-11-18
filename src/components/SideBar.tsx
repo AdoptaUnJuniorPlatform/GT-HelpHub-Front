@@ -1,23 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MdOutlineHouse, MdOutlineMarkEmailUnread } from "react-icons/md";
 import { Menu } from "../types/types";
 import Logo from "./Logo";
 import { VscBellDot } from "react-icons/vsc";
 import { RxExit } from "react-icons/rx";
 import Notifications from "./Notifications";
-import { mockNotifications, profiles } from "../Variables/varibles";
+import { mockNotifications } from "../Variables/varibles";
 import ProfileImg from "./ProfileImg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
+import { fetchProfileImage } from "../services/apiClient";
 
 
 function SideBar() {
   const [open, setOpen] = useState<boolean>(false);
   const [showNotifications, setShowNotifications] = useState<boolean>(false);
+  const [profilePicture, setProfilePicture] = useState<string>("");
   const location = useLocation();
   const isHome = location.pathname === '/home';
-  const { handleLogout } = useAuthContext();
+  const { handleLogout, userId } = useAuthContext();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loadProfilePicture = async () => {
+      if (userId) {
+        try {
+          const imageUrl = await fetchProfileImage(userId); 
+          setProfilePicture(imageUrl || "/default-profile.png"); 
+        } catch (error) {
+          console.error("Error loading profile picture:", error);
+        }
+      }
+    };
+
+    loadProfilePicture();
+  }, [userId]);
 
   const sideBarMenu: Menu[] = [
     {
@@ -43,7 +60,7 @@ function SideBar() {
       link: '/profile',
       position: 'bottom',
       icon: <ProfileImg 
-        src={profiles[0].photo} 
+        profilePicture={profilePicture} 
         className="w-[3.25rem] h-[3.25rem] rounded-lg overflow-hidden shadow-[4px_4px_4px_0_rgba(0,0,0,0.25)]" 
       />,
     },
