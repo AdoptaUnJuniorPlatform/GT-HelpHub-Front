@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useAvilityContext } from "../context/AvilityContext";
 import CardLayout from "../layouts/CardLayout"
 import { SkillsCardProps } from "../types/AbilityServiceTypes";
@@ -20,6 +21,7 @@ function SkillsCard(props: { profileData: SkillsCardProps; }) {
       deleteHability(_id);
     }
   };
+
   return (
     <CardLayout>
       <CardInfo service={title} location={location} mode={mode}/>
@@ -44,7 +46,12 @@ function SkillsCard(props: { profileData: SkillsCardProps; }) {
           className="border-2"
           onClick={handleDeleteClick}
         />
-        <CardBtnPrimary label="Editar" className="w-[5rem]"/>
+        <Link to={`/profile/editar-habilidades/${_id}`}>
+          <CardBtnPrimary 
+            label="Editar" 
+            className="w-[5rem]"
+          />
+        </Link>
       </div>
     </CardLayout>
   )

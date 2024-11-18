@@ -147,4 +147,46 @@ export const deleteHability = async (id: string): Promise<string> => {
   }
 };
 
+export const editHability = async (
+  id: string,
+  updatedData: HabilityRequest
+): Promise<string | HabilityErrorResponse> => {
+  try {
+    const response = await axiosConfig.patch(
+      `/api/helphub/hability/${id}`,
+      updatedData,
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
 
+    if (response.data?.error) {
+      return { error: response.data.error };
+    }
+
+    if (typeof response.data === 'string' && response.data.includes('was updated!')) {
+      return response.data;
+    }
+
+    throw new Error('Respuesta inesperada al intentar editar la habilidad');
+  } catch (error: unknown) {
+    console.error('Error al editar la habilidad:', error);
+
+    return { error: 'Hubo un problema al editar la habilidad. Intenta nuevamente más tarde.' };
+  }
+};
+export const getHability = async (id: string): Promise<HabilityResponse> => {
+  try {
+    const response = await axiosConfig.get(`/api/helphub/hability/${id}`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener la habilidad:', error);
+    throw new Error('No se pudo obtener la habilidad');
+  }
+};

@@ -23,7 +23,8 @@ function RoutesIndex() {
       <Route path="/profile" element={<ProtectedRoutes element={<Profile />} />}>
         <Route path="habilidades" element={<ProtectedRoutes element={<MySkills />} />} />
         <Route path="valoraciones" element={<ProtectedRoutes element={<MyReviews />} />} />
-        <Route path="editar-habilidades" element={<ProtectedRoutes element={<Ability />} />}/>
+        <Route path="crear-habilidades" element={<ProtectedRoutes element={<Ability />} />}/>
+        <Route path="editar-habilidades/:id" element={<ProtectedRoutes element={<Ability />} />} />
       </Route>
       <Route path="/reseteo" element={<ResetPassword />}>
         <Route path="nueva-contraseña" element={<NewPassword />} />      

@@ -5,41 +5,74 @@ import RadioSelector from "./RadioButtons"
 import FilterDrop from "./FilterDrop"
 import UseSelect from "../hooks/UseSelect"
 import useForm from "../hooks/useForm"
-import { createHability } from "../services/AbilityService"
+import { createHability, editHability, getHability } from "../services/AbilityService"
 import ActiveSkills from "./ActiveSkills"
+import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { HabilityErrorResponse, HabilityRequest, HabilityResponse } from "../types/AbilityServiceTypes"
 
 function NewAbility() {
-  const sendData = async () => {
-    console.log('Data to send to backend:', {
-      ...input,
-    });
-
-    try {
-      const response = await createHability({
-        ...input
-      });
-
-      if ("error" in response) {
-        console.error("Error:", response.error);
-        alert(response.error);
-      } else {
-        console.log("Habilidad creada:", response);
-        alert("Habilidad creada exitosamente: " + response.title);
-      }
-    } catch (error) {
-      console.error("Error al crear la habilidad:", error);
-      alert("El título de la habilidad ya existe, ingresa otro.")
-    }
-
-  }
-  const initialState = {
+  const { id } = useParams<{ id: string }>();
+  const [info, setInfo] = useState<HabilityRequest>({
     title: "",
     level: "",
     mode: "",
     description: "",
     category: [],
-  };
-  const { handleSubmit, handleCategorySelectChange, handleInputChange, input } = useForm(sendData, initialState);
+  });
+
+  useEffect(() => {
+    if (id) {
+      const fetchData = async () => {
+        try {
+          const response = await getHability(id);
+          setInfo({
+            title: response.title,
+            level: response.level,
+            mode: response.mode,
+            description: response.description,
+            category: response.category,
+          });
+        } catch (error) {
+          console.error("Error al cargar la habilidad:", error);
+        }
+      };
+
+      fetchData();
+    }
+  }, [id]);
+  const sendData = async () => {
+    console.log('Data to send to backend:', {
+      ...input,
+    });
+    try {
+      let response: string | HabilityResponse | HabilityErrorResponse;
+
+      if (id) {
+        response = await editHability(id, input);
+      } else {
+        response = await createHability({
+          ...input
+        });
+      }
+
+      if (typeof response === "string") {
+        console.log("Operación exitosa:", response);
+        alert(`Habilidad ${id ? "editada" : "creada"} exitosamente.`);
+      } else if ("error" in response) {
+        console.error("Error en la operación:", response.error);
+        alert(`Error: ${response.error}`);
+      } else {
+        console.error("Respuesta inesperada del servidor.");
+        alert("Hubo un problema en la operación. Intenta nuevamente.");
+      }
+    } catch (error) {
+      console.error("Error al procesar la habilidad:", error);
+      alert("Hubo un error al procesar la habilidad. Intenta nuevamente.");
+    }
+  }
+
+  const { handleSubmit, handleCategorySelectChange, handleInputChange, input } = useForm(sendData, info);
   const { handleCategorySelect, selectedCategory } = UseSelect({ handleCategorySelectChange });
 
   return (
