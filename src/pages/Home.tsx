@@ -12,9 +12,11 @@ import CardsContainer from "../components/CardsContainer"
 import { useAvilityContext } from "../context/AvilityContext"
 import FilteredCardsContainer from "../components/FilteredCardsContainer"
 import { useState } from "react"
+import InputText from "../components/InputText"
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [postalCode, setPostalCode] = useState("");
   const { selectedBorderButton, handleBorderButtonClick, convertMode } = useBorderButton("TODOS", ["TODOS", "ONLINE", "PRESENCIAL"]);
   const { selectedCategory, setSelectedCategory,fetchFilteredHabilities } = useAvilityContext();
 
@@ -27,23 +29,9 @@ function Home() {
     setSearchTerm(e.target.value);
   };
 
-  // const [selectedCategory, setSelectedCategory] = useState<string | null>(null); 
-  // const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null); 
-  // const [filteredSubcategories, setFilteredSubcategories] = useState<string[]>([]); 
-    
-  // function handleCategorySelect(category: string) {
-  //   setSelectedCategory(category); 
-  //   setSelectedSubcategory(null); 
-    
-  //   const subcategoryList = subcategories[0][category as keyof typeof subcategories[0]] || [];
-  //   setFilteredSubcategories(subcategoryList.length > 0 ? subcategoryList : ['Sin subcategorías']);
-  // }
-    
-  // function handleSubcategorySelect(subcategory: string) {
-  //   if (subcategory !== 'Sin subcategorías') {
-  //     setSelectedSubcategory(subcategory);
-  //   }
-  // }
+  const handlePostalCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPostalCode(e.target.value);  // Actualiza el estado del código postal
+  };
 
   return (
     <MainLayout>
@@ -78,19 +66,12 @@ function Home() {
                 selectedOption={selectedCategory} 
               />
 
-              {/* <FilterDrop 
-                placeholder="Sub categoría" 
-                options={filteredSubcategories} 
-                className="w-[15rem] ml-0 lg:ml-2" 
-                onSelect={handleSubcategorySelect}
-                selectedOption={selectedSubcategory}
-              /> */}
-                  
-              <FilterDrop
+              <InputText
+                id="location"
+                name="location"
+                value={postalCode}
                 placeholder="Ubicación (CP)"
-                options={categories} 
-                className="w-full lg:w-[23rem] ml-20"
-                onSelect={() => {}}
+                onChange={handlePostalCodeChange}
               />
 
             </div>
@@ -116,10 +97,12 @@ function Home() {
               />
             </div>
           </div>
-          {selectedCategory || selectedBorderButton !== "TODOS" ? (
+          {(selectedCategory || selectedBorderButton !== "TODOS"  || postalCode) ? (
             <FilteredCardsContainer 
               searchTerm={searchTerm}
-              selectedMode={convertMode(selectedBorderButton)}/>
+              selectedMode={convertMode(selectedBorderButton)}
+              postalCode={postalCode}
+            />
           ) : (
             <CardsContainer />
           )

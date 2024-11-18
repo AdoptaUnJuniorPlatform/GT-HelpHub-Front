@@ -7,7 +7,7 @@ import Card from './Card';
 import Pagination from './Pagination';
 import { Hability } from '../types/AbilityServiceTypes';
 
-function FilteredCardsContainer({selectedMode, searchTerm}: {selectedMode: string; searchTerm: string}) {
+function FilteredCardsContainer({selectedMode, searchTerm, postalCode}: {selectedMode: string; searchTerm: string; postalCode: string}) {
   const { allHabilities, selectedCategory } = useAvilityContext();
   const { profiles } = useProfileContext();
   const { users } = useUserContext();
@@ -18,12 +18,17 @@ function FilteredCardsContainer({selectedMode, searchTerm}: {selectedMode: strin
   const profilesMap = new Map(profiles?.map((profile) => [profile.userId._id, profile]));
   const usersMap = new Map(users?.map((user) => [user._id, user]));
 
-  
   const filteredAbilities: Hability[] = allHabilities?.filter((ability) => {
     const matchesMode = selectedMode === "TODOS" || ability.mode === selectedMode;
     const matchesCategory = !selectedCategory || ability.category.includes(selectedCategory);
     const matchesSearchTerm = ability.title.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesMode && matchesCategory && matchesSearchTerm;
+    const userProfile = profilesMap.get(ability.user_id);
+    const userLocation = userProfile?.location || "";
+    const isOnlineMode = ability.mode === "Online";
+    const matchesLocation = postalCode 
+      ? (isOnlineMode ? false : userLocation.includes(postalCode.toLowerCase())) 
+      : true;
+    return matchesMode && matchesCategory && matchesSearchTerm && matchesLocation;
   }) ?? [];
 
   const combinedDataArray = filteredAbilities.map((ability) => {
