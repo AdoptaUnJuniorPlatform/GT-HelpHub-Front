@@ -13,9 +13,10 @@ import useForm from "../hooks/useForm";
 import Logo from "../components/Logo";
 import axios from "axios";
 import TwoFaModal from "../components/TwoFaModal";
+import { fetchUserIdByEmail } from "../services/apiClient";
 
 function Auth2Fa() {
-  const { registerData, setIsRegistering, loginData, token } = useAuthContext();
+  const { registerData, setIsRegistering, loginData, token, setUserId } = useAuthContext();
   const { handleResendCode, twoFaModal, setTwoFaModal, modalNavigateHandler } = useAuth();
   const navigate = useNavigate();
   const { input: code, handleInputChange, handleSubmit, inputRefs } = useForm(
@@ -69,9 +70,10 @@ function Auth2Fa() {
             if (loginData?.twoFa){
               localStorage.setItem('code', loginData?.twoFa)
             }
-            setTwoFaModal(true)
             if (loginData?.email) {
               localStorage.setItem('email', loginData.email);
+              await fetchAndSetUserId(loginData.email);
+              setTwoFaModal(true);
             }
           }
         }
@@ -82,6 +84,20 @@ function Auth2Fa() {
     },
     Array(6).fill("")
   );
+
+  const fetchAndSetUserId = async (email: string) => {
+    try {
+      const userId = await fetchUserIdByEmail(email);
+      if (userId) {
+        setUserId(userId); 
+        localStorage.setItem('userId', userId); 
+      } else {
+        console.error("No se encontró el User ID.");
+      }
+    } catch (error) {
+      console.error("Error obteniendo el User ID:", error);
+    }
+  };
 
   return (
     <AuthLayout>
@@ -112,7 +128,7 @@ function Auth2Fa() {
       >
         <div className=" w-full h-full flex flex-col justify-evenly mx-auto">
           <div className="w-full">
-            <h1 className="w-full text-4xl text-neutral-black font normal leading-normal">Introduce el código que hemos enviado a <span className="text-violeta-100">usuario@gmail.com</span></h1>
+            <h1 className="w-full text-4xl text-neutral-black font normal leading-normal">Introduce el código que hemos enviado a <span className="text-violeta-100">{registerData?.email}</span></h1>
             <p className="text-[20px] font-normal leading-normal text-neutral-black">Puede que tarde un minuto en recibir el correo. </p>
           </div>
           <div className="w-full -mt-20">

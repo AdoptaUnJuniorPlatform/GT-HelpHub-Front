@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import UploadPhoto from '../assets/UploadPhoto.svg';
 import InformationCircle from '../assets/InformationCircle.svg';
 import Button from './Button';
-import { RegistrationFormData } from '../types/RegistrationFormData';
+import { ProfileData } from '../types/AuthServiceTypes';
+import Avatar1 from '../assets/Avatar1.svg';
+import Avatar2 from '../assets/Avatar2.svg';
+import Avatar3 from '../assets/Avatar3.svg';
+import { uploadProfileImage, fetchProfileImage } from '../services/apiClient';
+import { useAuthContext } from '../context/AuthContext';
 
 interface UserRegistrationStep2Props {
   onBackClick: () => void;
   onNextClick: () => void;
   steps: string[];
   currentStep: number;
-  registrationData: RegistrationFormData;
-  updateRegistrationData: (data: Partial<RegistrationFormData>) => void;
+  profileData: ProfileData;
+  updateProfileData: (data: ProfileData) => void;
 }
 
 const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
@@ -19,32 +24,67 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
   onNextClick,
   steps,
   currentStep,
-  registrationData,
-  updateRegistrationData,
+  profileData,
+  updateProfileData,
 }) => {
-
-  // Estado para almacenar el archivo seleccionado
+  const { userId } = useAuthContext();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [isModalVisible, setIsModalVisible] = useState(false); // Estado para controlar la visibilidad del modal
-
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  
+  // Verificar si ya existe una imagen de perfil
+  useEffect(() => {
+    const loadProfileImage = async () => {
+      if (userId) {
+        try {
+          const imageUrl = await fetchProfileImage(userId);
+          if (imageUrl) {
+            setPreviewUrl(imageUrl); // Muestra la imagen si existe
+            // Retrasa el alert para que se cargue primero la imagen
+            setTimeout(() => {
+              alert(
+                "Ya tienes una imagen de perfil cargada. Puedes continuar con el proceso o modificarla más tarde desde tu perfil."
+              );
+            }, 500);
+          }
+        } catch (error) {
+          console.error("Error obteniendo la imagen de perfil:", error);
+        }
+      }
+    };
+  
+    loadProfileImage();
+  }, [userId]);
 
   // Manejador del cambio del archivo
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const simulatedUrl = URL.createObjectURL(file); // Usamos un blob URL para la vista previa
-      setPreviewUrl(simulatedUrl);
-      updateRegistrationData({
-        profileData: {
-          ...registrationData.profileData,
-          profilePicture: simulatedUrl // Aquí usaremos una URL real tras subir la imagen
-        }
-      });
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (previewUrl) {
+      return;
     }
-  };
-
+  
+    const file = event.target.files?.[0];
+    if (file && userId) {
+      try {
+        const simulatedUrl = URL.createObjectURL(file);
+        setPreviewUrl(simulatedUrl);
+  
+        const response = await uploadProfileImage(file, userId);
+        if (response.imageUrl) {
+          setPreviewUrl(response.imageUrl);
+          updateProfileData({
+            ...profileData,
+            profilePicture: response.imageUrl,
+          });
+          alert("Imagen subida exitosamente");
+        }
+      } catch (error) {
+        console.error("Error subiendo la imagen:", error);
+        alert("Hubo un problema al subir la imagen. Inténtalo de nuevo.");
+      }
+    }
+  };  
+ 
   const toggleModal = () => {
-    setIsModalVisible(!isModalVisible); // Cambia la visibilidad del modal
+    setIsModalVisible(!isModalVisible); 
   };
 
   return (
@@ -96,13 +136,16 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
             </>
           )}
 
-          {/* Botón "Subir foto" o "Cambiar foto" */}
-          <Button
-            texto={previewUrl ? 'Cambiar foto' : 'Subir foto'}
-            color="text-white"
-            className="h-8 px-3.5 py-2 bg-[#1945e3] rounded-lg shadow mt-3"
-            onClick={() => document.getElementById('fileInput')?.click()}
-          />
+          {/* Botón "Subir foto" */}
+          {!previewUrl && (
+            <Button
+              texto={"Subir foto"}
+              color="text-white"
+              className="h-8 px-3.5 py-2 bg-[#1945e3] rounded-lg shadow mt-3"
+              onClick={() => document.getElementById('fileInput')?.click()}
+            />
+          )}
+
         </div>
       </div>
 
@@ -116,13 +159,12 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
         </div>
       </div>
 
-
       {/* Contenedor para los avatares */}
       <div className="relative flex justify-center items-center gap-4 top-[70px] left-[-330px]">
         {/* Primer avatar */}
         <div className="relative w-[60px] h-[60px] rounded-full border-2 border-[#496ceb]">
           <img
-            src="https://s3-alpha-sig.figma.com/img/2f09/4793/05ddb2118e0012df1f640008804acdeb?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=IPy6RNPgUG1m8EUAjeAtl51Zwi9VD2FL8wgreuoOY0uZBWhuO1FFEKAXBxGGCSF5ANHgwBwNg8TIubS8YO-008uXVLqKsuwnOCDDLujAVEPY7hVd1bby2DpFjy7I9xabG3gKFZpgwjlEdhtYFkSzfkgoERmc3DHmduUtEURc1EwsJ7romgXPTC9vppHyx4MXCQG5OBZT0bEdhuUZmjbJXAkhgnUl9HXKLdWyS72~oQlJfdtW9yH6aK9NqKFvfyjrQ1E3hnJhIkzK2BmoHOIy1R-VsBZL5610rFOIoQu42Ek~Ww3uo9aGP-MYePeunRG~Q4opeKtyazy172qHJKJWdg_"
+            src={Avatar1}
             alt="Avatar 1"
             className="w-full h-full rounded-full object-cover"
           />
@@ -137,7 +179,7 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
         {/* Segundo avatar */}
         <div className="relative w-[60px] h-[60px] rounded-full border-2 border-[#496ceb]">
           <img
-            src="https://s3-alpha-sig.figma.com/img/0dc8/9a80/811ce0ee0838d47c79b082f9baa874bd?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=O81av02qPwthy3fD77xgQ0NEGD3fsOtXYEGks4KMyMz2OE4ceJ9tOKPb~4EHNRLO-7ptEbDOHGlw4uCVNbqX1ndjDmJ86cAxTYnM9j-2HmauD93fy32vLJlxGcl3eqsoygCaG~mPm5CpjUp6EkjbXxNB07CkIm9amFTvmIU9lWR1o31iIr~m8cez-JADkESBtq8310SzFMvSq6Eo2hkNnnG9u5yLvAsSv7RWvUZmHHPa~O8KJ1iiB1ZddcTVZLWx5OJNlvPFPadqTY0Rv47NV-2WbGfHmTNXiRXcXmsO42gqP52n~Qhwf0Xk8wyaGVsMjh-~IQWGQQrQaFafgGtgSQ__"
+            src={Avatar2}
             alt="Avatar 2"
             className="w-full h-full rounded-full object-cover"
           />
@@ -152,12 +194,13 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
         {/* Tercer avatar */}
         <div className="w-[60px] h-[60px] rounded-full border-2 border-[#496ceb]">
           <img
-            src="https://s3-alpha-sig.figma.com/img/4e48/68d4/f2f351ec4ec52e031ccb2baf501b04b9?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WAX3APoi9eZSXeAZPdMr662dpzNACHxnlwL2ER7AfQbMteYztItBoGNOobTTndVHsPVTneBjwsndE64l4sXZQkGmTHVqtBJ2dcJ8iEPyo8MMmtP94HXaKvDDpZWZ0ambO59lEbled0cYHToKofYsqfI8A4XSYND84c-7GsXM-Eirx3txMkZ8o~~4wVq2a9ksQHA3FQ~UE1tzLUGbcxwRXct8kcQ982p~JpERX-2AFioLSkgEkbLFfpdD-v~~bSWjqJHuCrv6hn4idefZ~ZOBhJpLnLdNiSEj7-UwdiLFwGUx1iAJqh6cOE7eVmk09Ce35qV3sR-3J0BizkolWsaG5Q__"
+            src={Avatar3}
             alt="Avatar 3"
             className="w-full h-full rounded-full object-cover"
           />
         </div>
       </div>
+
       {/* Modal (pantalla emergente) */}
       {isModalVisible && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">

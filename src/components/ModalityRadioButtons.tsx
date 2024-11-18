@@ -1,19 +1,22 @@
 import React from 'react';
 
-interface ModalidadRadioButtonsProps {
+interface ModalityRadioButtonsProps {
   className?: string; 
   value: string;
   onChange: (value: string) => void;
 }
 
-const ModalidadRadioButtons: React.FC<ModalidadRadioButtonsProps> = ({ className, value, onChange }) => {
+const ModalityRadioButtons: React.FC<ModalityRadioButtonsProps> = ({ className, value, onChange }) => {
+  const handleModalityChange = (selectedValue: string) => {
+    onChange(selectedValue);
+  };
 
   return (
     <div className={`h-[45px] justify-start items-center gap-3 inline-flex mt-2 ${className}`}>
       {/* Radio Button Online */}
       <div
         className={`px-[11px] py-[13px] rounded border ${value === 'Online' ? 'border-[#496ceb]' : 'border-[#b7b7b7]'} justify-start items-center gap-2 flex cursor-pointer`}
-        onClick={() => onChange('Online')}
+        onClick={() => handleModalityChange('Online')}
       >
         <div className="justify-start items-start gap-2 flex">
           <div className="w-[18px] h-[18px] bg-white rounded-full border border-[#cfd8dc] flex items-center justify-center">
@@ -28,7 +31,7 @@ const ModalidadRadioButtons: React.FC<ModalidadRadioButtonsProps> = ({ className
       {/* Radio Button Presencial */}
       <div
         className={`px-5 py-[13px] rounded border ${value === 'Presencial' ? 'border-[#496ceb]' : 'border-[#b7b7b7]'} justify-start items-center gap-2 flex cursor-pointer`}
-        onClick={() => onChange('Presencial')}
+        onClick={() => handleModalityChange('Presencial')}
       >
         <div className="justify-start items-start gap-2 flex">
           <div className="w-[18px] h-[18px] bg-white rounded-full border border-[#cfd8dc] flex items-center justify-center">
@@ -43,4 +46,4 @@ const ModalidadRadioButtons: React.FC<ModalidadRadioButtonsProps> = ({ className
   );
 };
 
-export default ModalidadRadioButtons;
+export default ModalityRadioButtons;

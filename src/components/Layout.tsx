@@ -43,8 +43,8 @@ const Layout: FC<LayoutProps> = ({
       <LeftColumn 
         title={title} 
         description={description} 
-        showExtraContent={showExtraContent} // Pasamos la prop
-        extraContent={extraContent} // Pasamos el contenido adicional
+        showExtraContent={showExtraContent} 
+        extraContent={extraContent} 
       />    
 
       {/* Línea divisoria */}
@@ -52,7 +52,6 @@ const Layout: FC<LayoutProps> = ({
         <div className="border-r border-[#b7b7b7] opacity-30 mx-4"></div>
       )}
       
-
       {/* Columna Derecha */}          
       <RightColumn
         stepTitle={stepTitle}

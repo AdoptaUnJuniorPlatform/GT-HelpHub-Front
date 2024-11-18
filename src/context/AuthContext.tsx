@@ -1,4 +1,4 @@
-import { AuthContextProps, LoginMailRequest, RegisterRequest, ResetPasswordMailRequest } from '../types/AuthServiceTypes';
+import { AuthContextProps, LoginMailRequest, RegisterRequest, ResetPasswordMailRequest, ProfileData, HabilityData } from '../types/AuthServiceTypes';
 import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 import { getToken } from '../utils/utils';
   
@@ -11,6 +11,13 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const [loginData, setLoginData] = useState<LoginMailRequest | null>(null);
   const [resetData, setResetData] = useState<ResetPasswordMailRequest | null>(null)
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  // Estados separados para profileData y habilityData
+  const [profileData, setProfileData] = useState<ProfileData | null>(null);
+  const [habilityData, setHabilityData] = useState<HabilityData | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [imageId, setImageId] = useState<string | null>(null);
+
+  
   const isLoggedIn = useMemo(() => !!token, [token]);
   
   function clearData() {
@@ -48,7 +55,15 @@ function AuthProvider({ children }: { children: ReactNode }) {
       handleLogout,
       resetData,
       setResetData,
-      isAuthenticated 
+      isAuthenticated,
+      profileData,
+      setProfileData,
+      habilityData,
+      setHabilityData,
+      userId,
+      setUserId: (id) => setUserId(id),
+      imageId,
+      setImageId: (id) => setImageId(id),
     }}
     >
       {children}

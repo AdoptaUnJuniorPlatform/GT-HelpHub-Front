@@ -28,16 +28,15 @@ interface CategoriesProps {
   onSelectCategories: (selectedCategories: string[]) => void;
 }
 
+// Lista de nombres de categorías
+const categoryList = [
+  'Animales', 'Ayuda', 'Consultoría', 'Diseño', 
+  'Idiomas', 'Informática', 'Reparaciones', 
+  'Salud', 'Tutorías', 'Otros'
+];
+
 // Componente contenedor para todas las categorías
 const Categories: React.FC<CategoriesProps> = ({ selectedCategories, onSelectCategories }) => {
-
-  // Lista de nombres de categorías
-  const categoryList = [
-    'Animales', 'Ayuda', 'Consultoría', 'Diseño', 
-    'Idiomas', 'Informática', 'Reparaciones', 
-    'Salud', 'Tutorías', 'Otros'
-  ];
-  
 
   // Maneja el clic en una categoría
   const handleCategoryClick = (label: string) => {
@@ -46,7 +45,6 @@ const Categories: React.FC<CategoriesProps> = ({ selectedCategories, onSelectCat
       // Desmarcar la categoría si ya está seleccionada
       updatedCategories = selectedCategories.filter(item => item !== label);
     } else {
-      // Agregar la categoría al array de seleccionados
       updatedCategories = [...selectedCategories, label];
     }
     onSelectCategories(updatedCategories);

@@ -52,7 +52,7 @@ const DaySelector: React.FC<DaySelectorProps> = ({ selectedDays, onDaySelect }) 
               key={day.id}
               className={`w-full h-9 flex items-center justify-between px-4 cursor-pointer border ${
                 selectedDays.includes(day.name)
-                  ? 'border-[#496ceb]/20 bg-[#496ceb]/20'  // Cambia el fondo y borde si está seleccionado
+                  ? 'border-[#496ceb]/20 bg-[#496ceb]/20'  
                   : 'border-[#d6d6d6] bg-white'
               }`}
               onClick={() => toggleDaySelection(day.name)}
@@ -62,7 +62,7 @@ const DaySelector: React.FC<DaySelectorProps> = ({ selectedDays, onDaySelect }) 
                   type="checkbox"
                   checked={selectedDays.includes(day.name)}
                   onChange={() => toggleDaySelection(day.name)}
-                  className="form-checkbox h-5 w-5 text-[#7166d2] focus:ring-[#7166d2]"  // El checkbox con el color correcto (violeta)
+                  className="form-checkbox h-5 w-5 text-[#7166d2] focus:ring-[#7166d2]"  
                 />
                 <span className="ml-2 text-sm">{day.name}</span>
               </label>

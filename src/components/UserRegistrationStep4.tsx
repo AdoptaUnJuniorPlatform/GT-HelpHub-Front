@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import Layout from './Layout';
 import TextInputWithCounter from './TextInputWithCounter';
-import NivelRadioButtons from './NivelRadioButtons';
-import ModalidadRadioButtons from './ModalidadRadioButtons';
+import LevelRadioButtons from './LevelRadioButtons';
+import ModalityRadioButtons from './ModalityRadioButtons';
 import TitleTipsModal from './TitleTipsModal';
 import TitleExampleModal from './TitleExampleModal';
 import DropdownCategories from './DropdownCategories';
 import SaveButton from './SaveButton';
-{/*import { createHability } from '../services/apiClient';*/}
 import SkillsDisplay from './SkillsDisplay';
 import { HabilityData } from '../types/RegistrationFormData';
 
@@ -16,6 +15,8 @@ interface UserRegistrationStep4Props {
   onNextClick: () => void;
   steps: string[];
   currentStep: number;
+  habilityData: HabilityData;
+  updateHabilityData: (data: HabilityData) => void;
 }
 
 const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
@@ -23,25 +24,26 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
   onNextClick,
   steps,
   currentStep,
+  habilityData,
+  updateHabilityData,
 }) => {
-
-  const [habilityData, setHabilityData] = useState<HabilityData>({
-    title: '',
-    level: '',
-    mode: '',
-    description: '',
-    category: '',
-  });
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const [text, setText] = useState<string>('');
   const [isTitleTipsModalOpen, setIsTitleTipsModalOpen] = useState(false);
   const [isTitleExampleModalOpen, setIsTitleExampleModalOpen] = useState(false);
 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
-    setText(value);
-    setHabilityData((prevData) => ({ ...prevData, description: value }));
+    updateHabilityData({
+      ...habilityData,
+      description: value,
+    });
+  };
+  
+  const handleInputChange = (name: keyof HabilityData, value: string) => {
+    updateHabilityData({
+      ...habilityData,
+      [name]: value,
+    });
   };
 
   const toggleTitleTipsModal = () => {
@@ -52,27 +54,15 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
     setIsTitleExampleModalOpen(!isTitleExampleModalOpen);
   };
 
-  const handleInputChange = (name: keyof HabilityData, value: string) => {
-    setHabilityData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  {/*const handleSubmit = async () => {
-    try {
-      await createHability(habilityData);
-      setIsSubmitted(true); // Cambia a modo "ver datos" tras enviar
-    } catch (error) {
-      console.error('Error creating hability:', error);
-    }
-  };*/}
-
   const handleSubmit = () => {
-    // Simula un "éxito" de respuesta del backend
-    console.log("Simulación de envío exitoso");
-    setIsSubmitted(true); // Cambia el estado a "enviado" para activar el cambio de texto
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsSubmitted(true); 
   };
-
-  const categoryOptions = ['Arte', 'Ciencia', 'Deporte', 'Tecnología', 'Otros']; // Opciones de ejemplo
-
+  
+  const categoryOptions = [
+    'Animales', 'Ayuda', 'Consultoría', 'Diseño', 
+    'Idiomas', 'Informática', 'Reparaciones', 
+    'Salud', 'Tutorías', 'Otros']; 
 
   const exampleSkillContent = (
     <div className="w-full bg-gray-50 p-8">
@@ -123,7 +113,7 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
 
         <TextInputWithCounter 
           className="mb-6"
-          value={habilityData.title || ''}
+          value={habilityData.title}
           onChange={(value) => handleInputChange("title", value)}
         />
 
@@ -134,16 +124,16 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
         <TitleExampleModal isOpen={isTitleExampleModalOpen} onClose={toggleTitleExampleModal} />
 
         <div className="mb-4 text-[#434242] text-2xl font-normal">Nivel</div>
-        <NivelRadioButtons 
+        <LevelRadioButtons 
           className="mb-8"
-          value={habilityData.level || ''}
+          value={habilityData.level}
           onChange={(value) => handleInputChange("level", value)} 
         />
 
         <div className="mb-4 text-[#434242] text-2xl font-normal">Modalidad</div>
-        <ModalidadRadioButtons 
+        <ModalityRadioButtons 
           className="mb-8" 
-          value={habilityData.mode || ''}
+          value={habilityData.mode}
           onChange={(value) => handleInputChange("mode", value)}
         />
 
@@ -163,11 +153,11 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
             maxLength={255}
             style={{ border: 'none', outline: 'none' }}
             onChange={handleTextareaChange}
-            value={text}
+            value={habilityData.description}
           />
 
           {/* Contador de caracteres */}
-          <div className="text-right text-[#b7b7b7] text-sm mt-1">{text.length}/255</div>
+          <div className="text-right text-[#b7b7b7] text-sm mt-1">{habilityData.description.length}/255</div>
         </div>
     
         {/*Modal para consejos de texto*/}
@@ -185,7 +175,7 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
         </div>
         <DropdownCategories 
           options={categoryOptions} 
-          value={habilityData.category || ''}
+          value={habilityData.category}
           onChange={(value) => handleInputChange("category", value)}
         />
 
@@ -195,6 +185,7 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
 
       {/*Tarjeta final*/}
       <SkillsDisplay habilityData={habilityData} isSubmitted={isSubmitted}/>
+
     </Layout>
   );
 };

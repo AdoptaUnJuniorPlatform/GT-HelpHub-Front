@@ -34,7 +34,7 @@ const SkillsDisplay: React.FC<SkillsDisplayProps> = ({ habilityData, isSubmitted
                 <div className={`px-3 py-1 rounded-full border ${habilityData.level === 'Medio' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
                   Medio
                 </div>
-                <div className={`px-3 py-1 rounded-full border ${habilityData.level === 'Experto' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
+                <div className={`px-3 py-1 rounded-full border ${habilityData.level === 'Avanzado' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
                   Experto
                 </div>
               </div>

@@ -260,17 +260,51 @@ export const useAuth = () => {
     }
   };
 
-  const modalNavigateHandler = () => {
-    if (isLoggedIn && !isRegistering) {
-      setTwoFaModal(false)
-      navigate('/home')
-    } else if (isRegistering && !isLoggedIn) {
-      setTwoFaModal(false)
-      navigate('/')
-    } else {
-      navigate('/home')
+  const checkProfileAndRedirect = async () => {
+    try {
+      // Verificar que el token esté en localStorage
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("Token no encontrado. La autenticación no se ha completado.");
+        return; // No redirigir hasta que el token esté presente
+      }
+  
+      // Verificar el perfil
+      const response = await axios.get('/api/helphub/profile', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+  
+      if (response.status === 200) {
+        navigate('/home'); 
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 404) {
+        // Si el perfil no existe y el usuario está autenticado, redirige a creación de perfil
+        const token = localStorage.getItem("token");
+        if (token) {
+          navigate('/register/personal-data');
+        } else {
+          console.error("Autenticación incompleta. No se puede redirigir.");
+        }
+      } else {
+        console.error("Error verificando el perfil:", error);
+      }
     }
-  }
+  };
+
+  const modalNavigateHandler = async () => {
+    setTwoFaModal(false); 
+  
+    if (isLoggedIn && !isRegistering) {
+      // Usuario autenticado pero sin perfil creado
+      await checkProfileAndRedirect(); // Verifica el perfil y redirige dependiendo de si existe perfil
+    } else if (isRegistering && !isLoggedIn) {
+      navigate('/');
+    } else {
+      // Caso por defecto: redirige al Home
+      navigate('/home');
+    }
+  };
   
   return {
     loginHandler,
@@ -288,6 +322,7 @@ export const useAuth = () => {
     setResetError,
     twoFaModal,
     setTwoFaModal,
-    modalNavigateHandler
+    modalNavigateHandler,
+    checkProfileAndRedirect,
   };
 };

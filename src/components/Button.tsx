@@ -1,17 +1,20 @@
 import React from 'react';
 
-interface BotonProps {
+interface ButtonProps {
   texto: string;
   color: string; 
   onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   className?: string;
+  disabled?: boolean;
 }
 
-const Button: React.FC<BotonProps> = ({ texto, color, onClick, className }) => {
+const Button: React.FC<ButtonProps> = ({ texto, color, onClick, className, disabled }) => {
   return (
     <button
       onClick={onClick}
-      className={`text-center ${color} ${className} text-1xl font-normal font-['Roboto'] uppercase leading-tight tracking-tight`}
+      className={`text-center ${color} ${className} text-1xl font-normal font-['Roboto'] uppercase leading-tight tracking-tight ${
+        disabled ? 'opacity-50 cursor-not-allowed' : '' }`}
+      disabled={disabled}
     >
       {texto}
     </button>

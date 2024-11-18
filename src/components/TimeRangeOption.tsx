@@ -1,15 +1,15 @@
 import React from 'react';
 
-interface HorarioOptionProps {
+interface TimeRangeOptionProps {
   text: string;
   selected: boolean;
   onClick: () => void;
 }
 
-const HorarioOption: React.FC<HorarioOptionProps> = ({ text, selected, onClick }) => {
+const TimeRangeOption: React.FC<TimeRangeOptionProps> = ({ text, selected, onClick }) => {
   return (
     <div
-      className={`px-5 py-[13px] rounded border ${selected ? 'border-[#496ceb]' : 'border-[#b7b7b7]'} justify-start items-center gap-2 flex cursor-pointer`}
+      className={`px-4 py-2 rounded border ${selected ? 'border-[#496ceb]' : 'border-[#b7b7b7]'} justify-start items-center gap-2 flex cursor-pointer`}
       onClick={onClick}
     >
       <div className="justify-start items-start gap-2 flex">
@@ -25,4 +25,4 @@ const HorarioOption: React.FC<HorarioOptionProps> = ({ text, selected, onClick }
   );
 };
 
-export default HorarioOption;
+export default TimeRangeOption;

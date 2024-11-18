@@ -1,19 +1,22 @@
 import React from 'react';
 
-interface NivelRadioButtonsProps {
+interface LevelRadioButtonsProps {
   className?: string;
   value: string;
   onChange: (value: string) => void;
 }
 
-const NivelRadioButtons: React.FC<NivelRadioButtonsProps> = ({ className, value, onChange }) => {
+const LevelRadioButtons: React.FC<LevelRadioButtonsProps> = ({ className, value, onChange }) => {
+  const handleLevelChange = (selectedValue: string) => {
+    onChange(selectedValue);
+  };
 
   return (
     <div className={`h-[45px] justify-start items-center gap-3 inline-flex ${className}`}>
       {/* Radio Button Básico */}
       <div
         className={`px-5 py-[13px] rounded border ${value === 'Básico' ? 'border-[#496ceb]' : 'border-[#b7b7b7]'} justify-start items-center gap-2 flex cursor-pointer`}
-        onClick={() => onChange('Básico')}
+        onClick={() => handleLevelChange('Básico')}
       >
         <div className="justify-start items-start gap-2 flex">
           <div className="w-[18px] h-[18px] bg-white rounded-[18px] border border-[#cfd8dc] flex items-center justify-center">
@@ -28,7 +31,7 @@ const NivelRadioButtons: React.FC<NivelRadioButtonsProps> = ({ className, value,
       {/* Radio Button Medio */}
       <div
         className={`px-5 py-[13px] rounded border ${value === 'Medio' ? 'border-[#496ceb]' : 'border-[#b7b7b7]'} justify-start items-center gap-2 flex cursor-pointer`}
-        onClick={() => onChange('Medio')}
+        onClick={() => handleLevelChange('Medio')}
       >
         <div className="justify-start items-start gap-2 flex">
           <div className="w-[18px] h-[18px] bg-white rounded-[18px] border border-[#cfd8dc] flex items-center justify-center">
@@ -43,7 +46,7 @@ const NivelRadioButtons: React.FC<NivelRadioButtonsProps> = ({ className, value,
       {/* Radio Button Avanzado */}
       <div
         className={`px-5 py-[13px] rounded border ${value === 'Avanzado' ? 'border-[#496ceb]' : 'border-[#b7b7b7]'} justify-start items-center gap-2 flex cursor-pointer`}
-        onClick={() => onChange('Avanzado')}
+        onClick={() => handleLevelChange('Avanzado')}
       >
         <div className="justify-start items-start gap-2 flex">
           <div className="w-[18px] h-[18px] relative flex items-center justify-center">
@@ -61,4 +64,4 @@ const NivelRadioButtons: React.FC<NivelRadioButtonsProps> = ({ className, value,
   );
 };
 
-export default NivelRadioButtons;
+export default LevelRadioButtons;
