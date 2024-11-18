@@ -22,6 +22,13 @@ function NewAbility() {
   });
 
   useEffect(() => {
+    if (info) {
+      setInput(info);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [info]);
+
+  useEffect(() => {
     if (id) {
       const fetchData = async () => {
         try {
@@ -41,6 +48,7 @@ function NewAbility() {
       fetchData();
     }
   }, [id]);
+  
   const sendData = async () => {
     console.log('Data to send to backend:', {
       ...input,
@@ -72,9 +80,8 @@ function NewAbility() {
     }
   }
 
-  const { handleSubmit, handleCategorySelectChange, handleInputChange, input } = useForm(sendData, info);
+  const { handleSubmit, handleCategorySelectChange, handleInputChange, input, setInput } = useForm(sendData, info);
   const { handleCategorySelect, selectedCategory } = UseSelect({ handleCategorySelectChange });
-
   return (
     <form 
       onSubmit={handleSubmit}

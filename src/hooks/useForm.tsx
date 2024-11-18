@@ -76,6 +76,7 @@ function useForm<T>(callback: (input: T) => void, defaults: T) {
 
   return {
     input,
+    setInput,
     handleInputChange,
     handleSwitchChange,
     handleCategorySelectChange,
