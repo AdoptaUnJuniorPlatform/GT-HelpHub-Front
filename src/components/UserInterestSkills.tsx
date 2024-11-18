@@ -1,11 +1,11 @@
-import { InterestSkillsProps } from "../types/types";
+import { InterestedSkillsProps } from "../types/types";
 import { AiFillCloseCircle } from "react-icons/ai";
 
-function UserInterestSkills(props: InterestSkillsProps) {
-  const { interestSkills, isEditing } = props;
+function UserInterestedSkills(props: InterestedSkillsProps) {
+  const { interestedSkills, isEditing } = props;
   return (
     <div className="w-full pr-4 py-3 flex gap-2">
-      {interestSkills.map((skill, index) => (
+      {interestedSkills.map((skill, index) => (
         <span
           key={index}
           className="flex justify-center items-center px-3 py-1 h-[2rem] text-[16px] bg-[rgba(174,174,174,0.10)] rounded-full text-sm text-black-80 leading-5 font-normal font-roboto"
@@ -23,4 +23,4 @@ function UserInterestSkills(props: InterestSkillsProps) {
   )
 }
 
-export default UserInterestSkills
+export default UserInterestedSkills
