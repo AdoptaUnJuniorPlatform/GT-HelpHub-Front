@@ -1,5 +1,5 @@
 import React from 'react';
-import { HabilityData } from '../types/RegistrationFormData';
+import { HabilityData } from '../types/AuthServiceTypes';
 
 interface SkillsDisplayProps {
   habilityData: HabilityData;
