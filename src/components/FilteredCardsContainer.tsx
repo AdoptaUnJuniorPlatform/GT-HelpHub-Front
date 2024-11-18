@@ -53,7 +53,7 @@ function FilteredCardsContainer({selectedMode, searchTerm, postalCode}: {selecte
   const currentCards = combinedDataArray?.slice(indexOfFirstCard, indexOfLastCard);
   
   return (
-    <div className="w-full h-[90rem]">
+    <div className="w-full h-[90rem] mt-10">
       <Title title="Habilidades Filtradas" />
       <div className="flex flex-wrap gap-8 mt-10 w-full">
         {currentCards.length > 0 ? (

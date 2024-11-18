@@ -1,5 +1,6 @@
 import { AuthContextProps, LoginMailRequest, RegisterRequest, ResetPasswordMailRequest } from '../types/AuthServiceTypes';
-import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
+import { getToken } from '../utils/utils';
   
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
   
@@ -9,6 +10,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const [isRegistering, setIsRegistering] = useState<boolean>(false);
   const [loginData, setLoginData] = useState<LoginMailRequest | null>(null);
   const [resetData, setResetData] = useState<ResetPasswordMailRequest | null>(null)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const isLoggedIn = useMemo(() => !!token, [token]);
   
   function clearData() {
@@ -23,6 +25,13 @@ function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('token');
     clearData();
   }
+  useEffect(() => {
+    if (getToken()) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, []);
   
   return (
     <AuthContext.Provider value={{
@@ -38,7 +47,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
       setLoginData,
       handleLogout,
       resetData,
-      setResetData 
+      setResetData,
+      isAuthenticated 
     }}
     >
       {children}

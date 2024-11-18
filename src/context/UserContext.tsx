@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
 import { UserByIdResponse } from '../types/UserServiceTypes';
 import { allUsers, userById } from '../services/UserService';
+import { useAuthContext } from './AuthContext';
 
 interface UserContextType {
   user: UserByIdResponse | null;
@@ -15,7 +16,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserByIdResponse | null>(null);
   const [users, setUsers] = useState<UserByIdResponse[] | null>(null);
-
+  const { isAuthenticated } = useAuthContext();
   const fetchUser = async () => {
     const response = await userById();
 
@@ -39,9 +40,11 @@ function UserProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    fetchUser();
-    fetchAllUsers();
-  }, []);
+    if (isAuthenticated) {
+      fetchUser();
+      fetchAllUsers();
+    }
+  }, [isAuthenticated]);
 
   return (
     <UserContext.Provider value={{ user, setUser, fetchUser, users, fetchAllUsers }}>

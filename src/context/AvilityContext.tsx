@@ -2,6 +2,7 @@ import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffe
 import { UserHabilitiesResponse, Hability } from "../types/AbilityServiceTypes";
 import { deleteHability, getAllHabilities, getUserHabilities, HabilitiesByCategory } from "../services/AbilityService";
 import axios from "axios";
+import { useAuthContext } from "./AuthContext";
 
 interface AvilityContextType {
   showEditor: boolean;
@@ -26,7 +27,7 @@ function AvilityProvider({ children }: { children: ReactNode}) {
   const [allHabilities, setAllHabilities] = useState<Hability[] | null>(null);
   const [filteredHabilities, setFilteredHabilities] = useState<Hability[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
+  const { isAuthenticated } = useAuthContext();
   const fetchUserHabilities = async () => {
     const response = await getUserHabilities();
     if ('habilities' in response) {
@@ -117,9 +118,11 @@ function AvilityProvider({ children }: { children: ReactNode}) {
   }, [allHabilities]);
 
   useEffect(() => {
-    fetchUserHabilities();
-    fetchAllHabilities();
-  }, [])
+    if (isAuthenticated) {
+      fetchUserHabilities();
+      fetchAllHabilities();
+    }
+  }, [isAuthenticated]); 
 
   return (
     <AvilityContext.Provider value={{

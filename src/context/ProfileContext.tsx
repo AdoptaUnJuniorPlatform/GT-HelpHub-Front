@@ -1,6 +1,7 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
 import { allProfiles, profileById } from "../services/ProfileService";
 import { ProfileByIdResponse } from "../types/ProfileServiceTypes";
+import { useAuthContext } from "./AuthContext";
 
 interface ProfileContextType {
   profile: ProfileByIdResponse | null;
@@ -15,7 +16,7 @@ const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 function ProfileProvider({ children }: { children: ReactNode }) {
   const [profile, setProfile] = useState<ProfileByIdResponse | null>(null)
   const [profiles, setProfiles] = useState<ProfileByIdResponse[] | null>(null);
-
+  const { isAuthenticated } = useAuthContext();
   const fetchProfile = async () => {
     const response = await profileById();
 
@@ -40,9 +41,13 @@ function ProfileProvider({ children }: { children: ReactNode }) {
   };
   
   useEffect(() => {
-    fetchProfile();
-    fetchAllProfiles();
-  }, []);
+    if (isAuthenticated) {
+
+      fetchProfile();
+      fetchAllProfiles();
+    }
+
+  }, [isAuthenticated]);
   
   return (
     <ProfileContext.Provider value={{ profile, setProfile, fetchProfile, profiles, fetchAllProfiles }}>

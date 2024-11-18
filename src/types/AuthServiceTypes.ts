@@ -50,4 +50,5 @@ export interface AuthContextProps {
   handleLogout: () => void;
   resetData: ResetPasswordMailRequest | null;
   setResetData: (data: ResetPasswordMailRequest | null) => void
+  isAuthenticated: boolean;
 }
