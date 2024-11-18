@@ -8,7 +8,7 @@ import TitleExampleModal from './TitleExampleModal';
 import DropdownCategories from './DropdownCategories';
 import SaveButton from './SaveButton';
 import SkillsDisplay from './SkillsDisplay';
-import { HabilityData } from '../types/RegistrationFormData';
+import { HabilityData } from '../types/AuthServiceTypes';;
 
 interface UserRegistrationStep4Props {
   onBackClick: () => void;
