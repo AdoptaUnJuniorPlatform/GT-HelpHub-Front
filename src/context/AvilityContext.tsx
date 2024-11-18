@@ -1,6 +1,7 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
 import { UserHabilitiesResponse, Hability } from "../types/AbilityServiceTypes";
-import { getAllHabilities, getUserHabilities, HabilitiesByCategory } from "../services/AbilityService";
+import { deleteHability, getAllHabilities, getUserHabilities, HabilitiesByCategory } from "../services/AbilityService";
+import axios from "axios";
 
 interface AvilityContextType {
   showEditor: boolean;
@@ -14,6 +15,7 @@ interface AvilityContextType {
   fetchUserHabilities: () => void;
   fetchAllHabilities: () => void;
   fetchFilteredHabilities: (category: string | null) => Promise<void>;
+  deleteHability: (id: string) => void;
 }
 
 const AvilityContext = createContext<AvilityContextType | undefined>(undefined);
@@ -60,6 +62,59 @@ function AvilityProvider({ children }: { children: ReactNode}) {
       console.error(response.error);
     }
   };
+  const handleDeleteHability = async (id: string) => {
+    try {
+      console.log('Antes de eliminar:', allHabilities, filteredHabilities);
+      const response = await deleteHability(id);
+      console.log('Respuesta del servidor:', response);
+      console.log('userHabilities:', userHabilities?.habilities);
+
+      if (response && response.includes('was removed successfully')) {
+        console.log('Habilidad eliminada exitosamente');
+
+        if (allHabilities) {
+          setAllHabilities(allHabilities.filter(hability => hability._id !== id));
+        }
+  
+        if (filteredHabilities) {
+          setFilteredHabilities(filteredHabilities.filter(hability => hability._id !== id));
+        }
+      } else if (response && response.includes && response.includes('Fail to remove')) {
+        console.error('Error: La habilidad no existe o no se pudo eliminar');
+        alert('Error: La habilidad no existe o no se pudo eliminar.');
+        
+      } else {
+        console.log('Habilidad eliminada exitosamente');
+        if (allHabilities) {
+          setAllHabilities(allHabilities.filter(hability => hability._id !== id));
+        }
+        setFilteredHabilities(filteredHabilities.filter(hability => hability._id !== id));
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error('Error de Axios:', error.message);
+      } else {
+        console.error('Error desconocido:', error);
+        alert('Hubo un error desconocido al intentar eliminar la habilidad.');
+      }
+    }   
+  };
+
+  useEffect(() => {
+    if (allHabilities) {
+      setUserHabilities((prevUserHabilities) => {
+        if (!prevUserHabilities) {
+          return { habilities: [] };
+        }
+        return {
+          ...prevUserHabilities,
+          habilities: prevUserHabilities.habilities.filter(hability =>
+            allHabilities.some(allHability => allHability._id === hability._id)
+          ),
+        };
+      });
+    }
+  }, [allHabilities]);
 
   useEffect(() => {
     fetchUserHabilities();
@@ -78,7 +133,8 @@ function AvilityProvider({ children }: { children: ReactNode}) {
       fetchAllHabilities,
       filteredHabilities,
       setFilteredHabilities,
-      fetchFilteredHabilities
+      fetchFilteredHabilities,
+      deleteHability: handleDeleteHability
     }}>
       {children}
     </AvilityContext.Provider>

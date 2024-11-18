@@ -134,3 +134,17 @@ export const HabilitiesByCategory = async(category: string | null): Promise<User
   }
 }
 
+export const deleteHability = async (id: string): Promise<string> => {
+  try {
+    const response = await axiosConfig.delete(`/api/helphub/hability/${id}`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+
+    return response.data.message;
+  } catch (error) {
+    console.error('Error al eliminar la habilidad:', error);
+    throw new Error('No se pudo eliminar la habilidad');
+  }
+};
+
+
