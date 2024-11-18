@@ -87,7 +87,8 @@ function SideBar() {
       ></div>
 
       <nav
-        className={`flex flex-col h-[96%] rounded-xl duration-1000 transition-all ease-in-out absolute z-20 ${
+        className={`flex flex-col h-[90%] rounded-xl duration-1000 transition-all ease-in-out absolute z-20 ${
+
           open ? 'w-56 top-0 duration-1000' : 'w-20'
         } group`}
       >

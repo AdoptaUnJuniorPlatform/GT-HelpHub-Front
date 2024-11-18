@@ -1,25 +1,36 @@
-import { TbDots } from "react-icons/tb";
 import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
-import { useState } from "react";
+import { useEffect } from "react";
 
-function Pagination() {
+interface PaginationProps {
+  totalItems: number;
+  itemsPerPage: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
+}
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 10;
+function Pagination({ totalItems, itemsPerPage, currentPage, onPageChange }: PaginationProps) {
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  const handlePageClick = (pageNumber : number) => {
-    setCurrentPage(pageNumber);
+  useEffect(() => {
+    // setTotalPages(Math.ceil(totalItems / itemsPerPage));
+  }, [totalItems, itemsPerPage]);
+
+  const handlePageClick = (pageNumber: number) => {
+    if (pageNumber < 1 || pageNumber > totalPages) return;
+    onPageChange(pageNumber);
   };
 
   const handlePrevious = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      const newPage = currentPage - 1;
+      onPageChange(newPage);
     }
   };
 
   const handleNext = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+      const newPage = currentPage + 1;
+      onPageChange(newPage);
     }
   };
   return (
@@ -28,34 +39,30 @@ function Pagination() {
       <button 
         onClick={handlePrevious}
         className="flex items-center justify-center px-2 py-1 border rounded w-[50px] h-[50px] transition-transform transform active:scale-90 hover:bg-gray-200"
+        disabled={currentPage === 1}
       >
         <MdArrowBackIos />
       </button>
 
-      {[1, 2, 3, 4, 5].map((page) => (
-        <button
-          key={page}
-          onClick={() => handlePageClick(page)}
-          className={`px-2 py-1 border rounded w-[50px] h-[50px] ${
-            currentPage === page ? 'bg-gray-300' : ''
-          }`}
-        >
-          {page}
-        </button>
-      ))}
-      <span className="px-2 w-[50px] h-[50px] flex items-center justify-center"><TbDots /></span>
-      <button
-        onClick={() => handlePageClick(10)}
-        className={`px-2 py-1 border rounded w-[50px] h-[50px] ${
-          currentPage === 10 ? 'bg-gray-300' : ''
-        }`}
-      >
-        10
-      </button>
+      {[...Array(totalPages).keys()].map((_, index) => {
+        const page = index + 1;
+        return (
+          <button
+            key={page}
+            onClick={() => handlePageClick(page)}
+            className={`px-2 py-1 border rounded w-[50px] h-[50px] ${
+              currentPage === page ? 'bg-gray-300' : ''
+            }`}
+          >
+            {page}
+          </button>
+        );
+      })}
 
       <button
         onClick={handleNext}
         className="flex items-center justify-center px-2 py-1 border rounded w-[50px] h-[50px] transition-transform transform active:scale-90 hover:bg-gray-200"
+        disabled={currentPage === totalPages}
       >
         <MdArrowForwardIos />
       </button>

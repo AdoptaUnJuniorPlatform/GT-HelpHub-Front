@@ -66,7 +66,6 @@ export interface AuthContextProps {
   setLoginData: (data: LoginMailRequest | null) => void;
   handleLogout: () => void;
   resetData: ResetPasswordMailRequest | null;
-  setResetData: (data: ResetPasswordMailRequest | null) => void;
   // Agrega `profileData` y `habilityData` como propiedades independientes
   profileData: ProfileData | null; 
   setProfileData: (data: ProfileData | null) => void;
@@ -76,4 +75,6 @@ export interface AuthContextProps {
   setUserId: (id: string | null) => void;
   imageId: string | null; // Nuevo campo para almacenar el id de la imagen
   setImageId: (id: string | null) => void;
+  setResetData: (data: ResetPasswordMailRequest | null) => void
+  isAuthenticated: boolean;
 }

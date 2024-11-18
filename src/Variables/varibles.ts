@@ -8,11 +8,11 @@ export const modes = ['Online', 'Presencial'];
 export const Information: InfoProps[] = [
   {
     header: "Coordinar directamente por llamada",
-    info: "No te preocupes, tu teléfono no está visible para todos los users. Solo estará visible para la persona con la que solicites un intercambio."
+    info: "No te preocupes, tu teléfono no esta visible para todos los usuarios. Solo estará visible para la persona con la que solicites un intercambio."
   }
 ];
 
-export const categories = ['Animales', 'Ayuda', 'Consultoría y asesoramiento', 'Diseño', 'Idiomas', 'Informática', 'Reparaciones', 'Salud', 'Tutorías'];
+export const categories = ['Animales', 'Ayuda', 'Consultoría', 'Diseño', 'Idiomas', 'Informática', 'Reparaciones', 'Salud', 'Tutorías', 'Otros  '];
 export const subcategories = [
   {Animales: ['Alojamiento', "Cuidado a domicilio", "Paseo de perros"],
     Ayuda: ["Cuidado de personas mayores", "Arte y creatividad"],

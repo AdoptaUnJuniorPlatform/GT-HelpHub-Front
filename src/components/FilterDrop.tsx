@@ -1,13 +1,6 @@
 import { useState } from 'react';
 import { MdArrowDropDown } from 'react-icons/md';
-
-interface FilterDropProps {
-  options: string[];
-  placeholder: string;
-  className?: string;
-  onSelect: (option: string) => void;
-  selectedOption?: string | null;
-}
+import { FilterDropProps } from '../types/types';
 
 function FilterDrop({ options, placeholder, className = "", onSelect, selectedOption }: FilterDropProps) {
   const [isOpen, setIsOpen] = useState(false);

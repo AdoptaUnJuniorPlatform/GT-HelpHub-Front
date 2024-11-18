@@ -133,7 +133,6 @@ function Register() {
             <Switch 
               onChange={handleSwitchChange}
             />
-
             <RegisterAtivate />
           </article>
         </div>

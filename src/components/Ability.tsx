@@ -1,4 +1,3 @@
-import ActiveSkills from "./ActiveSkills"
 import BlueBorderBox from "./BlueBorderBox"
 import GreenAlert from "./GreenAlert"
 import NewAbility from "./NewAbility"
@@ -8,7 +7,7 @@ function Ability() {
     <main className="flex flex-col w-full font-roboto not-italic">
       <section className="pt-10 pb-16">
         <GreenAlert 
-          title="Tienes 2 habilidades cargada"
+          title="Tienes 2 habilidades cargadas"
           text="Carga más habilidades para seguir ampliando esta comunidad"
         />
         <div className="pt-8">
@@ -16,10 +15,9 @@ function Ability() {
           <BlueBorderBox />
         </div>
       </section>
-      <section className="flex w-full gap-10">
+      <div>
         <NewAbility />
-        <ActiveSkills />
-      </section>
+      </div>
     </main>
   )
 }

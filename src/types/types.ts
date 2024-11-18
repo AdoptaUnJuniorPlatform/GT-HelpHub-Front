@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactNode } from "react";
+import { ChangeEvent, ElementType, ReactNode } from "react";
 export interface Input {
   id?:string;
   type?: 'text'| 'password' | 'email' | 'checkbox' | 'tel' | 'number' | 'button';
@@ -31,8 +31,8 @@ export interface ButtonProps {
 }
 
 export interface CardBtnBorderProps {
-  onClick?: (id?: number) => void;
-  id?: number;
+  onClick?: (id?: string) => void;
+  id?: string;
   className: string;
   label: string;
 };
@@ -72,10 +72,12 @@ export interface CardHeaderProps {
 export interface ServiceInfoProps {
   service: string;
   location: string;
+  mode:string;
 }
 
-export interface ExperienceLevelProps {
-  levels: Array<{ name: string; active: boolean }>;
+export interface CardLevelProps {
+  levels: string[] 
+  activeLevel: string;
 }
 
 export interface AvailabilityProps {
@@ -224,7 +226,27 @@ export interface GreenAlertProps {
   text: string
 }
 export interface CharacterCountTextAreaProps {
+  id: string;
+  name: string;
+  value:string;
   className?: string;
   placeholder: string;
   showLabel: boolean;
+  onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
 }
+
+export interface FilterDropProps {
+  id?: string;
+  type?: 'select'
+  name?: string;
+  value?: string;
+  options: string[];
+  placeholder: string;
+  className?: string;
+  onSelect: (option: string) => void;
+  selectedOption?: string[] | string | null;
+}
+
+export type ComponentMap = {
+  [key: string]: ElementType;
+};

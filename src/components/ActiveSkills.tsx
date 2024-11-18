@@ -1,14 +1,26 @@
-import { profiles } from "../Variables/varibles"
+import { useAvilityContext } from "../context/AvilityContext"
+import { useProfileContext } from "../context/ProfileContext";
+// import { SkillsCardProps } from "../types/AbilityServiceTypes";
 import BackButton from "./BackButton"
 import NextButton from "./NextButton"
 import SkillsCard from "./SkillsCard"
 
 function ActiveSkills() {
+  const {userHabilities = { habilities: [] }} = useAvilityContext();
+  const { profile } = useProfileContext();
+ 
+  const combinedDataArray = userHabilities?.habilities.map((userHability) => ({
+    ...userHability,
+    location: profile?.location ?? "Ubicación no disponible",
+    availability: profile?.preferredTimeRange ?? "Disponible", 
+  }));
+
+  console.log('Renderizando habilidades activas:', combinedDataArray);
   return (
     <div className="flex flex-col w-5/12 h-auto justify-start items-baseline pl-16 py-10 gap-10">
-      <h1 className="text-[32px] text-neutral-black font-medium leading-6 tracking-wide">Mis habilidades acivas:</h1>
-      {profiles.slice(0, 2).map((profile, index) => (
-        <SkillsCard key={index} profileData={profile} />
+      <h1 className="text-[32px] text-neutral-black font-medium leading-6 tracking-wide">Mis habilidades activas:</h1>
+      {combinedDataArray?.map((data) => (
+        <SkillsCard key={data._id} profileData={data} />
       ))}
       <div className="flex w-7/12 justify-evenly pt-16 gap-4">
         <BackButton 

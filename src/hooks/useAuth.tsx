@@ -14,10 +14,7 @@ export const useAuth = () => {
     newPassword: false,
     confirmPassword: false,
   });
-  const [loginError, setLoginError] = useState<{ email: boolean; password: boolean }>({
-    email: false,
-    password: false,
-  });
+  const [loginError, setLoginError] = useState<boolean>(false);
   const [registerError, setRegisterError] = useState<{ email: boolean; password: boolean; phone: boolean; }>({
     email: false,
     password: false,
@@ -38,14 +35,9 @@ export const useAuth = () => {
         setLoginData({ email: data.email, twoFa: twoFaCode });
         const loginToken = response.access_token;
         await loginUserMail ({ email: data.email, twoFa: twoFaCode });
-        setLoginError((prevState) => ({
-          ...prevState,
-          email: false,
-          password: false
-        }));
+        setLoginError(false);
   
         setToken(loginToken);
-        console.log('Login Data antes de la redirección:', { email: data.email, twoFa: twoFaCode });
         navigate('/codigo-seguridad')
   
       } else {
@@ -56,16 +48,12 @@ export const useAuth = () => {
   
       if (axios.isAxiosError(error)) {
         const errorMessage = error.response?.data?.message || 'Error desconocido';
-        if(errorMessage === "Contraseña incorrecta"){
-          setLoginError((prevState) => ({
-            ...prevState,
-            password: true
-          }));
+        if(error.status === 400 ||
+          error.status === 401)
+        {
+          setLoginError(true);
         } else if (errorMessage === "User not found"){
-          setLoginError((prevState) => ({
-            ...prevState,
-            email: true,
-          }));
+          setLoginError(true);
         }
   
       } else {

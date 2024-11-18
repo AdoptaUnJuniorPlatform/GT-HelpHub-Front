@@ -5,54 +5,33 @@ import BorderButton from "../components/BorderButton"
 import SearchBar from "../components/SearchBar"
 import SideBar from "../components/SideBar"
 import Title from "../components/Title"
-import { categories, profiles, subcategories } from "../Variables/varibles"
-import Card from "../components/Card"
-import Pagination from "../components/Pagination"
-import { useEffect, useState } from "react"
+import { categories } from "../Variables/varibles"
 import MainLayout from "../layouts/MainLayout"
 import useBorderButton from "../hooks/useBorderButton"
-
+import CardsContainer from "../components/CardsContainer"
+import { useAvilityContext } from "../context/AvilityContext"
+import FilteredCardsContainer from "../components/FilteredCardsContainer"
+import { useState } from "react"
+import InputText from "../components/InputText"
 
 function Home() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null); 
-  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null); 
-  const [filteredSubcategories, setFilteredSubcategories] = useState<string[]>([]); 
-  const [cardsToShow, setCardsToShow] = useState(profiles.length);
-  const { selectedBorderButton, handleBorderButtonClick } = useBorderButton("TODOS", ["TODOS", "ONLINE", "PRESENCIAL"]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const { selectedBorderButton, handleBorderButtonClick, convertMode } = useBorderButton("TODOS", ["TODOS", "ONLINE", "PRESENCIAL"]);
+  const { selectedCategory, setSelectedCategory,fetchFilteredHabilities } = useAvilityContext();
 
- 
-  function handleCategorySelect(category: string) {
-    setSelectedCategory(category); 
-    setSelectedSubcategory(null); 
-
-    const subcategoryList = subcategories[0][category as keyof typeof subcategories[0]] || [];
-    setFilteredSubcategories(subcategoryList.length > 0 ? subcategoryList : ['Sin subcategorías']);
-  }
-
-  function handleSubcategorySelect(subcategory: string) {
-    if (subcategory !== 'Sin subcategorías') {
-      setSelectedSubcategory(subcategory);
-    }
-  }
-
-  const updateCardsToShow = () => {
-    const width = window.innerWidth;
-    if (width >= 1690) {
-      setCardsToShow(4);
-    } else if (width >= 1450) {
-      setCardsToShow(3); 
-    } else if (width >= 998) {
-      setCardsToShow(2); 
-    } else {
-      setCardsToShow(1);
-    }
+  const categorySelectHandler = (category: string) => {
+    setSelectedCategory(category);
+    fetchFilteredHabilities(category);
   };
 
-  useEffect(() => {
-    updateCardsToShow();
-    window.addEventListener('resize', updateCardsToShow);
-    return () => window.removeEventListener('resize', updateCardsToShow);
-  }, []);
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handlePostalCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPostalCode(e.target.value);  // Actualiza el estado del código postal
+  };
 
   return (
     <MainLayout>
@@ -62,7 +41,7 @@ function Home() {
           showInitial={false}
         />
         <div className="mt-4 ">
-          <SearchBar />
+          <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange}/>
         </div>
       </div>
       <div className="flex justify-end items-center w-full">
@@ -83,23 +62,16 @@ function Home() {
                 placeholder="Categoría" 
                 options={categories} 
                 className="w-full sm:w-[45%] lg:w-[15rem]" 
-                onSelect={handleCategorySelect}
+                onSelect={categorySelectHandler}
                 selectedOption={selectedCategory} 
               />
 
-              <FilterDrop 
-                placeholder="Sub categoría" 
-                options={filteredSubcategories} 
-                className="w-[15rem] ml-0 lg:ml-2" 
-                onSelect={handleSubcategorySelect}
-                selectedOption={selectedSubcategory}
-              />
-                  
-              <FilterDrop
+              <InputText
+                id="location"
+                name="location"
+                value={postalCode}
                 placeholder="Ubicación (CP)"
-                options={categories} 
-                className="w-full lg:w-[23rem] ml-20"
-                onSelect={() => {}}
+                onChange={handlePostalCodeChange}
               />
 
             </div>
@@ -125,33 +97,17 @@ function Home() {
               />
             </div>
           </div>
-
-          <div className="flex flex-col w-full mt-5">
-            <Title title="Categorías y habilidades" className="sm:text-4xl lg:text-[55px] mt-11 tracking-tight" />
-            <div className="mt-11 w-full">
-              <Title title="Animales" />
-              <div className="flex flex-wrap gap-8 mt-10 w-full">
-                {profiles.slice(0, cardsToShow).map((profile, index) => (
-                  <Card key={index} profileData={profile} />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col">
-            <div className="mt-14">
-              <Title title="Tutorías" />
-              <div className="flex flex-wrap gap-8 mt-10 w-full">
-                {profiles.slice(0, cardsToShow).map((profile, index) => (
-                  <Card key={index} profileData={profile} />
-                ))}
-              </div>
-            </div>
-          </div>
+          {(selectedCategory || selectedBorderButton !== "TODOS"  || postalCode) ? (
+            <FilteredCardsContainer 
+              searchTerm={searchTerm}
+              selectedMode={convertMode(selectedBorderButton)}
+              postalCode={postalCode}
+            />
+          ) : (
+            <CardsContainer />
+          )
+          }
         </div>
-      </div>
-      <div className="flex justify-center items-center pt-12 pb-20">
-        <Pagination/>
       </div>
     </MainLayout>
   );
