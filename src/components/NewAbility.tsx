@@ -10,16 +10,19 @@ import ActiveSkills from "./ActiveSkills"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { HabilityErrorResponse, HabilityRequest, HabilityResponse } from "../types/AbilityServiceTypes"
+import { useAvilityContext } from "../context/AvilityContext"
 
 function NewAbility() {
   const { id } = useParams<{ id: string }>();
-  const [info, setInfo] = useState<HabilityRequest>({
+  const {setUserHabilities} = useAvilityContext();
+  const initialState = {
     title: "",
     level: "",
     mode: "",
     description: "",
-    category: [],
-  });
+    category: []
+  }
+  const [info, setInfo] = useState<HabilityRequest>(initialState);
 
   useEffect(() => {
     if (info) {
@@ -64,15 +67,26 @@ function NewAbility() {
         });
       }
 
-      if (typeof response === "string") {
+      if (typeof response === "string" ) {
         console.log("Operación exitosa:", response);
-        alert(`Habilidad ${id ? "editada" : "creada"} exitosamente.`);
+        alert("Habilidad editada exitosamente.");
       } else if ("error" in response) {
         console.error("Error en la operación:", response.error);
         alert(`Error: ${response.error}`);
       } else {
-        console.error("Respuesta inesperada del servidor.");
-        alert("Hubo un problema en la operación. Intenta nuevamente.");
+        alert("Habilidad creada exitosamente")
+        setUserHabilities((prev) => {
+          console.log("Estado previo:", prev);
+        
+          const updatedHabilities = id
+            ? (prev?.habilities || []).map((hability) =>
+              hability._id === id ? { ...hability, ...input } : hability
+            )
+            : [...(prev?.habilities || []), response];
+        
+          return { habilities: updatedHabilities };
+        });
+        setInput(initialState)
       }
     } catch (error) {
       console.error("Error al procesar la habilidad:", error);

@@ -1,6 +1,5 @@
 import { useAvilityContext } from "../context/AvilityContext"
 import { useProfileContext } from "../context/ProfileContext";
-// import { SkillsCardProps } from "../types/AbilityServiceTypes";
 import BackButton from "./BackButton"
 import NextButton from "./NextButton"
 import SkillsCard from "./SkillsCard"

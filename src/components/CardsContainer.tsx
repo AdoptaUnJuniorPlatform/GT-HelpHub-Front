@@ -61,7 +61,7 @@ const CardsContainer = () => {
           </div>
         );
       })}
-      <div className="flex justify-center items-center pt-12 pb-20">
+      <div className="flex justify-center items-center pt-12 pb-20 w-full">
         <Pagination 
           totalItems={totalCategories}
           itemsPerPage={categoriesPerPage}

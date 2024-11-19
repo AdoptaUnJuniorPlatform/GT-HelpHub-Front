@@ -2,6 +2,7 @@ import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffe
 import { allProfiles, profileById } from "../services/ProfileService";
 import { ProfileByIdResponse } from "../types/ProfileServiceTypes";
 import { useAuthContext } from "./AuthContext";
+import { getToken } from "../utils/utils";
 
 interface ProfileContextType {
   profile: ProfileByIdResponse | null;
@@ -18,35 +19,37 @@ function ProfileProvider({ children }: { children: ReactNode }) {
   const [profiles, setProfiles] = useState<ProfileByIdResponse[] | null>(null);
   const { isAuthenticated } = useAuthContext();
   const fetchProfile = async () => {
-    const response = await profileById();
+    if (getToken()) {
+      const response = await profileById();
+    
+      if ('error' in response) {
 
-    if ('error' in response) {
-
-      setProfile(null);
-      console.error('Error al obtener perfil:', response.error);
-    } else {
-
-      setProfile(response as ProfileByIdResponse);
+        setProfile(null);
+        console.error('Error al obtener perfil:', response.error);
+      } else {
+  
+        setProfile(response as ProfileByIdResponse);
+      }
     }
   };
 
   const fetchAllProfiles = async () => {
-    const result = await allProfiles();
-
-    if ("error" in result) {
-      setProfiles(null);
-    } else {
-      setProfiles(result);
+    if (getToken()) {
+      const result = await allProfiles();
+  
+      if ("error" in result) {
+        setProfiles(null);
+      } else {
+        setProfiles(result);
+      }
     }
   };
   
   useEffect(() => {
     if (isAuthenticated) {
-
       fetchProfile();
       fetchAllProfiles();
     }
-
   }, [isAuthenticated]);
   
   return (

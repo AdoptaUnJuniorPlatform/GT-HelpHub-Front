@@ -8,6 +8,7 @@ interface AvilityContextType {
   showEditor: boolean;
   setShowEditor: Dispatch<SetStateAction<boolean>>;
   userHabilities: UserHabilitiesResponse | null;
+  setUserHabilities: Dispatch<SetStateAction<UserHabilitiesResponse | null>>;
   allHabilities: Hability[] | null;
   filteredHabilities: Hability[] | null;
   setFilteredHabilities: Dispatch<SetStateAction<Hability[]>>;
@@ -129,6 +130,7 @@ function AvilityProvider({ children }: { children: ReactNode}) {
       showEditor,
       setShowEditor,
       userHabilities,
+      setUserHabilities,
       fetchUserHabilities,
       allHabilities,
       selectedCategory,
