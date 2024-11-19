@@ -34,9 +34,9 @@ function Card(props: { profileData: CardProps }) {
       <CardDescription description={description} />
       <div className="border-b border-[rgba(174,174,174,0.10)] w-full">
         <CardSkills>
-          {category.map((ctgry) => (
+          {category.map((ctgry, index) => (
             <span
-              key={_id}
+              key={`${category}-${_id}-${index}`}
               className="flex justify-center items-center px-3 py-1 h-[1.4rem] text-[12px] border border-black-80 rounded-full text-sm text-black-80"
             >
               {ctgry}

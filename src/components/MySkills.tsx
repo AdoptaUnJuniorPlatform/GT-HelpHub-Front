@@ -32,7 +32,7 @@ function MySkills() {
       <div className="flex w-full">
         <div className="flex flex-wrap gap-8 mt-10 w-full">
           {combinedDataArray?.map((data) => (
-            <SkillsCard key={data._id} profileData={data} />
+            <SkillsCard key={`${data.user_id}-${data._id}`} profileData={data} />
           ))}
         </div>
       </div>
