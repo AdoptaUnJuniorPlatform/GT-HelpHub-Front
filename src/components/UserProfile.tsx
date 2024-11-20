@@ -4,6 +4,7 @@ import Edit from "./Edit"
 import UserAvailability from "./UserAvailability"
 import UserDescription from "./UserDescription"
 import UserInterestedSkills from "./UserInterestSkills"
+import { useAuthContext } from "../context/AuthContext";
 
 interface UserProfileProps {
   profile: {
@@ -17,6 +18,7 @@ interface UserProfileProps {
 }
 
 function UserProfile({ profile }: UserProfileProps) {
+  const { userId } = useAuthContext();
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => {
@@ -28,7 +30,7 @@ function UserProfile({ profile }: UserProfileProps) {
       <div className="flex justify-start items-start gap-10">
         <div className="flex flex-col items-center gap-9">
           <ProfileImg 
-            profilePicture={profile.profilePicture} 
+            userId={userId}
             className="w-[13.9rem] h-[13.9rem] rounded-lg overflow-hidden"
           />
           <h2 className="text-3xl font-medium leading-6 tracking-wide">{`${profile.nameUser} ${profile.surnameUser}`}</h2>
