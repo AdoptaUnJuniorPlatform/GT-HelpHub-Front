@@ -53,10 +53,8 @@ function Profile() {
     fetchProfileAndUser();
   }, []);
   
-  // Verificar que tanto `profile` como `user` no sean null antes de combinarlos
   if (!profile || !user) return <div>Cargando perfil...</div>;
   
-  // Combinar datos de perfil y usuario
   const combinedProfile = {
     ...profile,
     nameUser: user?.nameUser || "", 

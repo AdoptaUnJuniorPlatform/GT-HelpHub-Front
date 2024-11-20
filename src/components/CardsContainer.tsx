@@ -6,6 +6,8 @@ import { useProfileContext } from "../context/ProfileContext";
 import { useUserContext } from "../context/UserContext";
 import Pagination from "./Pagination";
 import { useState } from "react";
+import { useProfileImages } from "../hooks/useProfileImages";
+
 
 const CardsContainer = () => {
   const { allHabilities } = useAvilityContext();
@@ -16,6 +18,9 @@ const CardsContainer = () => {
   const cardsToShow = 3;
   const categoriesPerPage = 2;
   const totalCategories = categories.length;
+
+  const userIds = allHabilities?.map((ability) => ability.user_id) ?? [];
+  const profilePictures = useProfileImages(userIds);
 
   const indexOfLastCategory = currentPage * categoriesPerPage;
   const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
@@ -34,7 +39,7 @@ const CardsContainer = () => {
         location: userProfile?.location ?? "Ubicación no disponible",
         availability: userProfile?.preferredTimeRange ?? "Disponible",
         userFullName: `${userData?.nameUser ?? "Nombre no disponible"} ${userData?.surnameUser ?? "Apellido no disponible"}`,
-        profilePicture: userProfile?.profilePicture ?? "default-photo.jpg",
+        profilePicture: profilePictures[ability.user_id] ?? "default-photo.jpg",
       };
     }) ?? [];
 

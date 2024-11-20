@@ -118,6 +118,10 @@ export interface ProfileData {
   description: string;
   skills: string[];
   interestSkills?: string[];
+  _id?: string;
+  id_user?: string;
+  userId?: string;
+  user_id?: string;
 }
 
 export type PaginationProps = {

@@ -70,9 +70,9 @@ export interface AuthContextProps {
   setProfileData: (data: ProfileData | null) => void;
   habilityData: HabilityData | null;
   setHabilityData: (data: HabilityData | null) => void;
-  userId: string | null;
+  userId: string;
   setUserId: (id: string | null) => void;
-  imageId: string | null; 
+  imageId: string; 
   setImageId: (id: string | null) => void;
   setResetData: (data: ResetPasswordMailRequest | null) => void
   isAuthenticated: boolean;
