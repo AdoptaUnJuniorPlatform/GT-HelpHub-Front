@@ -164,7 +164,7 @@ function Register() {
           />
           {registerError.password
             ? <p className="error">La contraseña no cumple con los requisitos. Debe incluir al menos 12 caracteres, una letra mayúscula y un número.</p> 
-            : <p className="font-poppins font-normal text-[14px] w-full">La contraseña debe incluir al menos 6 caracteres, una letra mayúscula , un número y un símbolo.</p>}
+            : <p className="font-poppins font-normal text-[14px] w-full">La contraseña debe incluir al menos 12 caracteres, una letra mayúscula , un número y un símbolo.</p>}
 
         </div>
 

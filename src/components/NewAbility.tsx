@@ -174,7 +174,7 @@ function NewAbility() {
           />
         </div>
       </div>
-      <ActiveSkills />
+      <ActiveSkills/>
     </form>
   )
 }
