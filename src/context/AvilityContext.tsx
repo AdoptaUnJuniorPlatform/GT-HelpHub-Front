@@ -25,7 +25,7 @@ const AvilityContext = createContext<AvilityContextType | undefined>(undefined);
 function AvilityProvider({ children }: { children: ReactNode}) {
   const [showEditor, setShowEditor] = useState<boolean>(false);
   const [userHabilities, setUserHabilities] = useState<UserHabilitiesResponse | null>(null);
-  const [allHabilities, setAllHabilities] = useState<Hability[] | null>(null);
+  const [allHabilities, setAllHabilities] = useState<Hability[] | null>([]);
   const [filteredHabilities, setFilteredHabilities] = useState<Hability[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const { isAuthenticated } = useAuthContext();
@@ -120,9 +120,10 @@ function AvilityProvider({ children }: { children: ReactNode}) {
 
   useEffect(() => {
     if (isAuthenticated) {
+      console.log('Fetching habilities...');
       fetchUserHabilities();
       fetchAllHabilities();
-    }
+    } return
   }, [isAuthenticated]); 
 
   return (

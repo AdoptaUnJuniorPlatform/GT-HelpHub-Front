@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAvilityContext } from '../context/AvilityContext';
 import { useProfileContext } from '../context/ProfileContext';
 import { useUserContext } from '../context/UserContext';
@@ -9,7 +9,7 @@ import { Hability } from '../types/AbilityServiceTypes';
 
 function FilteredCardsContainer({selectedMode, searchTerm, postalCode}: {selectedMode: string; searchTerm: string; postalCode: string}) {
   const { allHabilities, selectedCategory } = useAvilityContext();
-  const { profiles } = useProfileContext();
+  const { profiles, setPostalCodeError } = useProfileContext();
   const { users } = useUserContext();
   
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,6 +30,14 @@ function FilteredCardsContainer({selectedMode, searchTerm, postalCode}: {selecte
       : true;
     return matchesMode && matchesCategory && matchesSearchTerm && matchesLocation;
   }) ?? [];
+
+  useEffect(() => {
+    if (postalCode && filteredAbilities.length === 0) {
+      setPostalCodeError(true);
+    } else {
+      setPostalCodeError(false);
+    }
+  }, [postalCode, filteredAbilities]);
 
   const combinedDataArray = filteredAbilities.map((ability) => {
     const userProfile = profilesMap.get(ability.user_id);

@@ -8,6 +8,8 @@ interface ProfileContextType {
   profile: ProfileByIdResponse | null;
   profiles: ProfileByIdResponse[] | null;
   setProfile: Dispatch<SetStateAction<ProfileByIdResponse | null>>;
+  postalCodeError: boolean;
+  setPostalCodeError: (value: boolean) => void;
   fetchProfile: () => void;
   fetchAllProfiles: () => void;
 }
@@ -17,6 +19,8 @@ const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 function ProfileProvider({ children }: { children: ReactNode }) {
   const [profile, setProfile] = useState<ProfileByIdResponse | null>(null)
   const [profiles, setProfiles] = useState<ProfileByIdResponse[] | null>(null);
+  const [postalCodeError, setPostalCodeError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { isAuthenticated } = useAuthContext();
   const fetchProfile = async () => {
     if (getToken()) {
@@ -46,14 +50,23 @@ function ProfileProvider({ children }: { children: ReactNode }) {
   };
   
   useEffect(() => {
-    if (isAuthenticated) {
-      fetchProfile();
-      fetchAllProfiles();
-    }
+    const initialize = async () => {
+      if (isAuthenticated) {
+        await fetchProfile();
+        await fetchAllProfiles();
+      }
+      setIsLoading(false);
+    };
+  
+    initialize();
   }, [isAuthenticated]);
+
+  if (isLoading) {
+    return <div>Cargando datos...</div>;
+  }
   
   return (
-    <ProfileContext.Provider value={{ profile, setProfile, fetchProfile, profiles, fetchAllProfiles }}>
+    <ProfileContext.Provider value={{ profile, setProfile, fetchProfile, profiles, fetchAllProfiles, postalCodeError, setPostalCodeError }}>
       {children}
     </ProfileContext.Provider>
   );

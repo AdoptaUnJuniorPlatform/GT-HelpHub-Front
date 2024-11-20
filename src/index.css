@@ -15,6 +15,10 @@
   @apply transition-transform transform active:scale-90 hover:bg-[#1945e3ea]
 }
 
+.error {
+  @apply font-roboto text-sm not-italic font-normal leading-5 text-red-500 px-2 py-1
+}
+
 .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;

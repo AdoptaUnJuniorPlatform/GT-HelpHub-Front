@@ -34,7 +34,7 @@ function SideBar() {
     },
     {
       name: 'Mensajes',
-      link: '#',
+      link: '/mensajes',
       position: 'top',
       icon: <MdOutlineMarkEmailUnread />,
     },

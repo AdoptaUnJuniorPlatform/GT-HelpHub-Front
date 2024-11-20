@@ -13,12 +13,14 @@ import { useAvilityContext } from "../context/AvilityContext"
 import FilteredCardsContainer from "../components/FilteredCardsContainer"
 import { useState } from "react"
 import InputText from "../components/InputText"
+import { useProfileContext } from "../context/ProfileContext"
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const { selectedBorderButton, handleBorderButtonClick, convertMode } = useBorderButton("TODOS", ["TODOS", "ONLINE", "PRESENCIAL"]);
   const { selectedCategory, setSelectedCategory,fetchFilteredHabilities } = useAvilityContext();
+  const {setPostalCodeError} = useProfileContext();
 
   const categorySelectHandler = (category: string) => {
     setSelectedCategory(category);
@@ -30,7 +32,11 @@ function Home() {
   };
 
   const handlePostalCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPostalCode(e.target.value);  // Actualiza el estado del código postal
+    const value = e.target.value;
+    setPostalCode(value);
+    if (!value.trim()) {
+      setPostalCodeError(false);
+    }
   };
 
   return (
@@ -56,7 +62,7 @@ function Home() {
         <div className="flex flex-col w-full ml-[12rem] mt-12">
           <Title title="Filtros" className="tracking-[0.01em] z-0 pb-4" />
           <div className="flex w-full h-auto justify-between">
-            <div className="flex  w-full items-center">
+            <div className="flex w-full items-start">
                 
               <FilterDrop 
                 placeholder="Categoría" 

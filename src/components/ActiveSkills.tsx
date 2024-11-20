@@ -16,11 +16,14 @@ function ActiveSkills() {
 
   console.log('Renderizando habilidades activas:', combinedDataArray);
   return (
-    <div className="flex flex-col w-5/12 h-auto justify-start items-baseline pl-16 py-10 gap-10">
-      <h1 className="text-[32px] text-neutral-black font-medium leading-6 tracking-wide">Mis habilidades activas:</h1>
-      {combinedDataArray?.map((data, index) => (
-        <SkillsCard key={`${data._id}-${index}`} profileData={data} />
-      ))}
+    <div className="flex flex-col w-5/12 justify-between items-baseline pl-16 py-10 gap-10">
+      <div className="flex flex-col gap-10">
+        <h1 className="text-[32px] text-neutral-black font-medium leading-6 tracking-wide">Mis habilidades activas:</h1>
+        {combinedDataArray?.map((data, index) => (
+          <SkillsCard key={`${data._id}-${index}`} profileData={data} />
+        ))}
+
+      </div>
       <div className="flex w-7/12 justify-evenly pt-16 gap-4">
         <BackButton 
           type="button" 
