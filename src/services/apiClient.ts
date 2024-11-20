@@ -1,6 +1,7 @@
 import axios from 'axios';
 import axiosConfig from './axiosConfig';
 import { ProfileData, HabilityData } from '../types/AuthServiceTypes';
+import { mapUserId } from "../utils/mapFieldNames";
 
 
 // Función para crear el perfil
@@ -45,7 +46,9 @@ export const fetchUserIdByEmail = async (email: string): Promise<string | null> 
   try {
     const response = await axios.get(`/api/helphub/user/${email}`);
     const user = response.data[0]; 
-    return user ? user._id : null; 
+    
+    const mappedUser = mapUserId(user);
+    return mappedUser?.userId ?? null;
   } catch (error) {
     console.error("Error fetching user ID:", error);
     return null;
@@ -78,7 +81,9 @@ export const fetchImageByUSerId = async (userId: string): Promise<string | null>
   try {
     const response = await axios.get(`/api/helphub/upload-service/profile-imagebyUser/${userId}`);
     const image = response.data[0]; 
-    return image ? image._id : null; 
+    
+    const mappedUser = mapUserId(image);
+    return mappedUser?.userId ?? null;  
   } catch (error) {
     console.error("Error fetching image ID:", error);
     return null;
@@ -108,8 +113,3 @@ export const fetchProfileImage = async (userId: string): Promise<string | null> 
     throw error;
   }
 };
-
-
-
-
-
