@@ -250,3 +250,8 @@ export interface FilterDropProps {
 export type ComponentMap = {
   [key: string]: ElementType;
 };
+
+export interface InboxMenuProps {
+  title: string;
+  numSms: number;
+}
