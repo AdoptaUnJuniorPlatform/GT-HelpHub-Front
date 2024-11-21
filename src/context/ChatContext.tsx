@@ -3,8 +3,10 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 interface ChatContextProps {
   openSms: boolean;
   openRequest: boolean;
+  openRequestTab: boolean;
   handleOpenSmsClick: () => void;
   handleOpenRequestClick: () => void;
+  handleOpenRequestTabClick: () => void;
 }
 
 const ChatContext = createContext<ChatContextProps | undefined>(undefined);
@@ -12,10 +14,12 @@ const ChatContext = createContext<ChatContextProps | undefined>(undefined);
 function ChatProvider({ children }: { children: ReactNode }) {
   const [openSms, setOpenSms] = useState(true);
   const [openRequest, setOpenRequest] = useState(false);
+  const [openRequestTab, setOpenRequestTab] = useState(false)
 
   const handleOpenSmsClick = () => {
     setOpenSms(true);
     setOpenRequest(false);
+    setOpenRequestTab(false)
   };
 
   const handleOpenRequestClick = () => {
@@ -23,8 +27,12 @@ function ChatProvider({ children }: { children: ReactNode }) {
     setOpenSms(false);
   };
 
+  const handleOpenRequestTabClick = () => {
+    setOpenRequestTab(true)
+  }
+
   return (
-    <ChatContext.Provider value={{ openSms, openRequest, handleOpenSmsClick, handleOpenRequestClick }}>
+    <ChatContext.Provider value={{ openSms, openRequest, openRequestTab, handleOpenSmsClick, handleOpenRequestClick, handleOpenRequestTabClick }}>
       {children}
     </ChatContext.Provider>
   );
