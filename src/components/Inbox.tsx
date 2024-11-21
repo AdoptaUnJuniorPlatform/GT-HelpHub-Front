@@ -11,7 +11,7 @@ function Inbox() {
         <InboxMenu title="Mensajes" numSms={3} onClick={handleOpenSmsClick} openSms={openSms}/>
         <InboxMenu title="Solicitud de intercambio" numSms={2} onClick={handleOpenRequestClick} openRequest={openRequest}/>
       </div>
-      <InboxContacts />
+      <InboxContacts/>
     </div>
   )
 }
