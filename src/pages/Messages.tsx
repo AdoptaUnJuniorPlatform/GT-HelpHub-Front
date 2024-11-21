@@ -4,6 +4,7 @@ import SideBar from "../components/SideBar";
 import MainLayout from "../layouts/MainLayout";
 
 function Messages() {
+
   return (
     <MainLayout>
       <section className="flex w-full min-h-[100rem] gap-2">

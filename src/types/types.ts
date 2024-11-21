@@ -254,4 +254,7 @@ export type ComponentMap = {
 export interface InboxMenuProps {
   title: string;
   numSms: number;
+  openSms?: boolean;
+  openRequest?: boolean;
+  onClick: () => void;
 }
