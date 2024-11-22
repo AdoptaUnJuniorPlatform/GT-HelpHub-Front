@@ -5,12 +5,7 @@ import ChatBoxInput from "./ChatBoxInput";
 import { useState } from "react";
 import ChatMessage from "./ChatMessage";
 import ProfileImg from "./ProfileImg";
-
-type Message = {
-  id: number;
-  content: string;
-  sender: "user" | "other";
-};
+import { Message } from "../types/types";
 
 function ChatBox() {
   const {openRequestTab} = useChatContext();
@@ -30,10 +25,11 @@ function ChatBox() {
 
   return (
     <>
-      <section className="flex flex-col justify-between w-full h-full border border-black-50 rounded-xl bg-white font-roboto">
+      <section className={`flex flex-col justify-between w-full h-full border-black-50  bg-white font-roboto ${openRequestTab? "rounded-none border-x-[1px]" : "rounded-xl border"}`}>
         <ChatBoxHeader />
         <div className="flex flex-col justify-end flex-1  overflow-auto px-10 py-5">
-          {messages.map((message, index) => {
+          {!openRequestTab && 
+          messages.map((message, index) => {
             const isLastInBlock =
               index === messages.length - 1 ||
               messages[index + 1].sender !== message.sender;
@@ -59,7 +55,8 @@ function ChatBox() {
                 )}
               </div>
             );
-          })}
+          }
+          )}
         </div>
         {!openRequestTab && <ChatBoxInput onSendMessage={addMessage}/>}
       </section>

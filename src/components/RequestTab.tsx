@@ -6,7 +6,7 @@ import Ratings from "./Ratings"
 
 function RequestTab() {
   return (
-    <aside className="flex flex-col justify-between top-0 right-0 w-[27rem] h-full border-l border-b border-black-50 bg-white">
+    <aside className="flex flex-col font-roboto justify-between top-0 right-0 w-[27rem] h-full border-black-50 bg-white">
       <article>
         <figure className="flex flex-col items-center justify-center w-full pt-16">
           <ProfileImg

@@ -258,3 +258,9 @@ export interface InboxMenuProps {
   openRequest?: boolean;
   onClick: () => void;
 }
+
+export interface Message {
+  id: number;
+  content: string;
+  sender: "user" | "other";
+};
