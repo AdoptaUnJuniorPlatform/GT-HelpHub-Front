@@ -193,3 +193,10 @@ export const mockNotifications: Notification[] = [
     imageUser: "https://s3-alpha-sig.figma.com/img/957a/9171/1abea02b1ea90a2145b69535c0452819?Expires=1730678400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mQH1uoe7Huj8XRbD8QQdtbQm0nyuwjmTgoQhLj99HuBpEs1DfiobdW29mbIWZIGO2K7e84WYmLFFtCJW~2VQoVP8WNQo1khnTph8qz1u6OXSaMtPfNtKrwuGhdLmMAeX8SbGdfMHqxqp5WvRTQQnkVmBldP147JALwUpPD~3Dn9xFdGIeERBZ7F1eO~LpmZBQRVLm2pEI-YcGU3I4If71oVbRCMg05jhOqVusiWdJaDT4xaqo2lgBH78AIUTVDnp7iExh4iB-0fTRTigsGPbNOh-l2Gvko6~Sr-dplrZbTgwuUtlZUTCCbfBo-rJ4k7w21P5dcrV6CeLshbghvm55w__"
   }
 ];
+
+export const userContacts = [
+  { id: 1, name: "Lidia Soriano", message: "Muchas Gracias", src: "https://i.pinimg.com/736x/d2/54/d9/d254d9cfca7c55d54020c02ed217c995.jpg" },
+  { id: 2, name: "Evangelina Segovia", message: "No lo sé", src: "https://s3-alpha-sig.figma.com/img/6e80/21fd/38569a2272c6003acd9c11c8afc0c70f?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WYsTqOJfEWURNbR3E-3Cpj1gBEqjOVFacs9oCd~qkvpbgQ3JAZMKkkiGx~kRn~NkCrTE-jbBJm663oix1kaWITq36LYxdoi2SCNTCwyBSm8EMfcW0y1I2C2biS5mQ9MWrStD1LGCN3-geGjFZA7gEZlSEXKHaer5ztQ0wXpbT~q7b4aQFIKJ1H9Ehu~8K-2aBCN8vFbjP1IefJqYmXSS8M9OTVeyTS~B3zgx3P2SpeZY2PVyRBtvhEHS4DtNd6tHiw6SinFC6dL8fTpLeaxj6uoKiWWjCElY8fm3cXYq2ruEwgt5MFDJcufnl04bKeh7l8zl02ydYjS4IxyFSq20tQ__" },
+  { id: 3, name: "Estela Naiad", message: "¿Puedes?", src: "https://i.pinimg.com/736x/34/b7/b8/34b7b8ee4e4170f410f06b965156a4ec.jpg" },
+  { id: 4, name: "Andrés Castro", message: "¡Hola!", src: "https://i.pinimg.com/736x/4c/40/f9/4c40f9cd5ad2ce1b015fca62d7088336.jpg" },
+];

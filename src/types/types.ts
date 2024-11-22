@@ -264,3 +264,12 @@ export interface Message {
   content: string;
   sender: "user" | "other";
 };
+
+export interface InboxContactProps {
+  id: number;
+  src: string;
+  name: string;
+  message: string;
+  selected: number | null;
+  setSelected: (id: number) => void;
+}
