@@ -1,12 +1,13 @@
 import React from 'react';
-import { HabilityData } from '../types/AuthServiceTypes';
+import { HabilityData, ProfileData } from '../types/AuthServiceTypes';
 
 interface SkillsDisplayProps {
   habilityData: HabilityData;
   isSubmitted: boolean;
+  profileData: ProfileData;
 }
 
-const SkillsDisplay: React.FC<SkillsDisplayProps> = ({ habilityData, isSubmitted }) => {
+const SkillsDisplay: React.FC<SkillsDisplayProps> = ({ habilityData, isSubmitted, profileData }) => {
   return (
     
     <div className="ml-[-60px] w-[730px] h-auto px-[30px] py-[17px] bg-[#f6f5f4] mt-8 flex-col justify-start items-start gap-3.5 inline-flex">
@@ -42,11 +43,12 @@ const SkillsDisplay: React.FC<SkillsDisplayProps> = ({ habilityData, isSubmitted
             <div className="w-full border-t border-[#aeaeae]/10 mt-3 py-1">
               <div className="text-left text-[#434242] text-[16px] font-normal">Modalidad</div>
               <div className="flex gap-2 mt-2">
-                <div className={`px-3 py-1 rounded-full border ${habilityData.mode === 'Online' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
-                  Online
-                </div>
-                <div className={`px-3 py-1 rounded-full border ${habilityData.mode === 'Presencial' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
-                  Presencial
+                <div className="text-[#434242] text-[16px] mt-2">
+                  {habilityData.mode === 'Presencial' ? (
+                    <span>{profileData.location}</span>
+                  ) : (
+                    <span>Online</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -59,6 +61,7 @@ const SkillsDisplay: React.FC<SkillsDisplayProps> = ({ habilityData, isSubmitted
               </div>
             </div>
           </div>
+        
         </>
       ) : (
         <div className="self-stretch text-[#434242] text-xl font-normal font-['Roboto']">
