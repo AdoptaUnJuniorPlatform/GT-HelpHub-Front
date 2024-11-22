@@ -6,15 +6,16 @@ import ChatBoxInput from "./ChatBoxInput";
 function ChatBox() {
   const {openRequestTab} = useChatContext();
   return (
-    <section className="flex flex-col justify-between w-full h-full border border-black-50 rounded-lg bg-white font-roboto">
-      <ChatBoxHeader />
-      <div>
-        {/* Chats */}
-      </div>
-      {!openRequestTab && <ChatBoxInput />}
-      
+    <>
+      <section className="flex flex-col justify-between w-full h-full border border-black-50 rounded-lg bg-white font-roboto">
+        <ChatBoxHeader />
+        <div className="flex-1 overflow-auto">
+          {/* Chats */}
+        </div>
+        {!openRequestTab && <ChatBoxInput />}
+      </section>
       {openRequestTab && <RequestTab />}
-    </section>
+    </>
   )
 }
 

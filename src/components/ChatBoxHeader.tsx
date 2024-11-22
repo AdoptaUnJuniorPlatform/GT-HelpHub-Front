@@ -1,8 +1,10 @@
 import { TbRefresh } from "react-icons/tb"
 import ProfileImg from "./ProfileImg"
 import PrimaryButton from "./PrimaryButton"
+import { useChatContext } from "../context/ChatContext"
 
 function ChatBoxHeader() {
+  const {openRequestTab} = useChatContext();
   return (
     <div className="flex items-center justify-between border-b-[1px] border-black-50 py-5 px-10">
       <div className="flex items-center gap-10">
@@ -21,9 +23,11 @@ function ChatBoxHeader() {
         </div>
       </div>
       <div className="min-w-2/12">
-        <PrimaryButton 
-          className="h-10 bg-celeste-100 hover:bg-[#3259e8]"
-          label="Finalizar intercambio"/>
+        {!openRequestTab && (
+          <PrimaryButton 
+            className="h-10 bg-celeste-100 hover:bg-[#3259e8]"
+            label="Finalizar intercambio"/>
+        )}
       </div>
     </div>
   )

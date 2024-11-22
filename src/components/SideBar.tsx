@@ -15,7 +15,7 @@ import { useChatContext } from "../context/ChatContext";
 function SideBar() {
   const [open, setOpen] = useState<boolean>(false);
   const [showNotifications, setShowNotifications] = useState<boolean>(false);
-  const {openRequestTab} = useChatContext();
+  const {handleCloseRequestTabClick} = useChatContext();
   const location = useLocation();
   const isHome = location.pathname === '/home';
   const { handleLogout } = useAuthContext();
@@ -71,6 +71,7 @@ function SideBar() {
 
   const handleMenuClick = () => {
     setShowNotifications(false);
+    handleCloseRequestTabClick();
     setOpen(!open);
   };
 
@@ -88,11 +89,9 @@ function SideBar() {
         onClick={closeSidebarAndNotifications}
       ></div>
 
-      <nav
-        className={`flex flex-col h-[90%] rounded-xl duration-1000 transition-all ease-in-out absolute mt-7 z-20 ${openRequestTab? "h-[135%]" : "h-[90%]"} ${
-
-          open ? 'w-56 top-0 duration-1000' : 'w-24'
-        } group`}
+      <nav className={`flex flex-col rounded-xl duration-1000 transition-all ease-in-out absolute mt-7 z-20 h-[90%] ${
+        open ? 'w-56 top-0 duration-1000' : 'w-24'
+      } group`}
       >
         <section
           className={`h-[6.5rem] flex justify-center items-center bg-white rounded-t-xl transition-all duration-700 ${

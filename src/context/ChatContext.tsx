@@ -7,6 +7,7 @@ interface ChatContextProps {
   handleOpenSmsClick: () => void;
   handleOpenRequestClick: () => void;
   handleOpenRequestTabClick: () => void;
+  handleCloseRequestTabClick: () => void;
 }
 
 const ChatContext = createContext<ChatContextProps | undefined>(undefined);
@@ -31,8 +32,12 @@ function ChatProvider({ children }: { children: ReactNode }) {
     setOpenRequestTab(true)
   }
 
+  const handleCloseRequestTabClick = () => {
+    setOpenRequestTab(false)
+  }
+
   return (
-    <ChatContext.Provider value={{ openSms, openRequest, openRequestTab, handleOpenSmsClick, handleOpenRequestClick, handleOpenRequestTabClick }}>
+    <ChatContext.Provider value={{ openSms, openRequest, openRequestTab, handleOpenSmsClick, handleOpenRequestClick, handleOpenRequestTabClick, handleCloseRequestTabClick }}>
       {children}
     </ChatContext.Provider>
   );

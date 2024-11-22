@@ -10,7 +10,7 @@ function MainLayout({ children } : { children: ReactNode }) {
   return (
     <>
       <main className={`flex flex-col justify-center items-center w-full min-h-dvh ${isSMS? 'bg-neutral-gray' : 'bg-white'}`}>
-        <section className={`w-[90%]  ${openRequestTab? "" : "relative"}`}>
+        <section className={`w-[100%] relative  ${openRequestTab? "pl-20 pr-0" : "px-20"}`}>
           {children}
         </section>
         <Footer />
