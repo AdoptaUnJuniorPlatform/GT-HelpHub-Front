@@ -30,7 +30,7 @@ function ChatBox() {
       <section className={`flex flex-col justify-between w-full h-full border-black-50  bg-white font-roboto ${openRequestTab? "rounded-none border-x-[1px]" : "rounded-xl border"}`}>
         <ChatBoxHeader />
         <div className="flex flex-col justify-end flex-1  overflow-auto px-10 py-5">
-          {userContacts.length === 0 ? (
+          {userContacts.length === 0 && !openRequestTab ? (
             <ChatBoxEmpty />
           ) : (
             !openRequestTab && 

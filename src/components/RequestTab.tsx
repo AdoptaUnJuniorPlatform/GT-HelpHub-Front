@@ -5,6 +5,7 @@ import ProfileImg from "./ProfileImg"
 import Ratings from "./Ratings"
 
 function RequestTab() {
+  const skills = ["Tutorías", "Diseño", "Animales", "Otros", "Idiomas", "Ayuda"]
   return (
     <aside className="flex flex-col font-roboto justify-between top-0 right-0 w-[27rem] h-full border-black-50 bg-white">
       <article>
@@ -15,10 +16,26 @@ function RequestTab() {
           <h1 className="text-[34px] text-neutral-black font-bold leading-normal tracking-wide">Jorge Quintero</h1>
           <Ratings reviews={15}/>
         </figure>
-        <div className="w-full">
-          <ChatAccordition title="Sobre mí" content="info"/>
-          <ChatAccordition title="Disponibilidad" content="info"/>
-          <ChatAccordition title="Mis habilidades activas" content="info"/>
+        <div className="w-full text-[#878787]">
+          <ChatAccordition title="Sobre mí" content={<p className="text-base font-normal leading-6 tracking-wide text-black-80">Soy una artista que ama pintar, tengo 8 años de experiencia enseñando y pintando. Además  me encantan los animales y las artes en general.</p>}/>
+          <ChatAccordition title="Disponibilidad" content={
+            <ul className="list-disc pl-5">
+              <li>8:00hs a 14:00hs</li>
+              <li>Sábado y domingo</li>
+            </ul>
+          }/>
+          <ChatAccordition title="Mis habilidades activas" content={
+            <div className="flex justify-center flex-wrap gap-2 w-full">
+              {skills.map((skill, index) => (
+                <span
+                  key={index}
+                  className="flex items-center justify-center px-2 py-2 min-w-[76px] h-6 gap-1 border border-[#878787] rounded-[30px] text-sm text-black-80"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          }/>
         </div>
       </article>
       <div className="flex flex-col items-center">

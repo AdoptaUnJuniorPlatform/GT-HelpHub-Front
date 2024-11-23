@@ -1,6 +1,6 @@
 import { InfoProps, Notification, ProfileData } from "../types/types";
 
-export const regex = /^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@(gmail|yahoo|outlook|hotmail|icloud|aol|protonmail)\.(com|org|net|edu|gov|mil|info|co|co\.uk|us|io)$/;
+export const regex = /^[\w]+([.][\w]+)*@(gmail|yahoo|outlook|hotmail|icloud|aol|protonmail)\.(com|org|net|edu|gov|mil|info|co(\.uk)?|us|io)$/;
 
 export const levels = ['Básico', 'Medio', 'Avanzado'];
 export const modes = ['Online', 'Presencial'];

@@ -18,7 +18,7 @@ function Accordion({title, content}: { title: string; content: ReactNode }) {
         <span className='text-base text-black-80'>{isOpen ? <IoMdArrowDropdown size={25}/> : <IoMdArrowDropright size={25}/>}</span>
       </button>
       {isOpen && 
-      <div className="px-4 py-3 bg-[rgba(246,246,246,0.70)] border-t-[1px] border-[#E2E2E2]">
+      <div className="px-6 py-3 bg-[rgba(246,246,246,0.70)] border-t-[1px] border-[#E2E2E2]">
         {content}
       </div>}
     </div>
