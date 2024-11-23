@@ -7,16 +7,12 @@ import ChatMessage from "./ChatMessage";
 import ProfileImg from "./ProfileImg";
 import { Message } from "../types/types";
 import ChatBoxEmpty from "./ChatBoxEmpty";
-import { userContacts } from "../Variables/varibles";
+import { mensajes, userContacts } from "../Variables/varibles";
 
 function ChatBox() {
   const {openRequestTab} = useChatContext();
 
-  const [messages, setMessages] = useState<Message[]>([
-    { id: 1, content: "Sí! Me ha salido todo muy bien!", sender: "other" },
-    { id: 2, content: "Qué bueno que te pude ayudar!", sender: "user" },
-    { id: 3, content: "Me alegra mucho!", sender: "user" },
-  ]);
+  const [messages, setMessages] = useState<Message[]>(mensajes);
 
   const addMessage = (content: string, sender: "user" | "other") => {
     setMessages((prev) => [

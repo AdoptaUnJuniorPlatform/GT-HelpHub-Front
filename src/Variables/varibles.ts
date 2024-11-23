@@ -1,4 +1,4 @@
-import { InfoProps, Notification, ProfileData } from "../types/types";
+import { InfoProps, Message, Notification, ProfileData } from "../types/types";
 
 export const regex = /^[\w]+([.][\w]+)*@(gmail|yahoo|outlook|hotmail|icloud|aol|protonmail)\.(com|org|net|edu|gov|mil|info|co(\.uk)?|us|io)$/;
 
@@ -200,3 +200,9 @@ export const userContacts = [
   { id: 3, name: "Estela Naiad", message: "¿Puedes?", src: "https://i.pinimg.com/736x/34/b7/b8/34b7b8ee4e4170f410f06b965156a4ec.jpg" },
   { id: 4, name: "Andrés Castro", message: "¡Hola!", src: "https://i.pinimg.com/736x/4c/40/f9/4c40f9cd5ad2ce1b015fca62d7088336.jpg" },
 ];
+
+export const mensajes: Message[] = [
+  { id: 1, content: "Sí! Me ha salido todo muy bien!", sender: "other" },
+  { id: 2, content: "Qué bueno que te pude ayudar!", sender: "user" },
+  { id: 3, content: "Me alegra mucho!", sender: "user" },
+]

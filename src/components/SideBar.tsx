@@ -5,7 +5,7 @@ import Logo from "./Logo";
 import { VscBellDot } from "react-icons/vsc";
 import { RxExit } from "react-icons/rx";
 import Notifications from "./Notifications";
-import { mockNotifications, profiles } from "../Variables/varibles";
+import { mensajes, mockNotifications, profiles } from "../Variables/varibles";
 import ProfileImg from "./ProfileImg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
@@ -90,7 +90,7 @@ function SideBar() {
       ></div>
 
       <nav className={`flex flex-col rounded-xl duration-1000 transition-all ease-in-out absolute mt-7 z-20 h-[90%] ${
-        open ? 'w-56 top-0 duration-1000' : 'w-24'
+        open ? 'w-60 top-0 duration-1000' : 'w-24'
       } group`}
       >
         <section
@@ -107,7 +107,7 @@ function SideBar() {
         </section>
 
         <section className="flex-col bg-violeta-100 h-full rounded-b-xl w-full flex justify-between items-center">
-          <ul className="flex flex-col items-center w-[80%] mt-7">
+          <ul className="flex flex-col items-center w-[75%] mt-7">
             {sideBarMenu
               .filter((menu) => menu.position === 'top')
               .map((menu, index) => (
@@ -134,6 +134,9 @@ function SideBar() {
                       {menu.name === 'Notificación' && mockNotifications.length > 0 && (
                         <span className="absolute top-[0.12rem] right-[0.12rem] w-[11.5px] h-[11.5px] bg-red-500 rounded-full"></span>
                       )}
+                      {menu.name === 'Mensajes' && mensajes.length > 0 && (
+                        <span className="absolute flex justify-center items-center top-[0.01rem] right-[0.01rem] w-[14px] h-[14px] bg-pink-100 rounded-full text-[9px] font-medium">1</span>
+                      ) }
                     </p>
                     <p
                       className={`text-base font-semibold ml-3 origin-left duration-1000 ${
