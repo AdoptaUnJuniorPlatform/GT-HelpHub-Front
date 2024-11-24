@@ -1,7 +1,6 @@
 import axios from 'axios';
 import axiosConfig from './axiosConfig';
 import { ProfileData, HabilityData } from '../types/AuthServiceTypes';
-import { mapUserId } from "../utils/mapFieldNames";
 
 // Función para crear el perfil
 export const createProfile = async (profileData: ProfileData) => {
@@ -10,6 +9,9 @@ export const createProfile = async (profileData: ProfileData) => {
     return response;
   } catch (error) {
     console.error('Error creating profile:', error);
+    if (axios.isAxiosError(error)) {
+      console.error('Detalles del error (Axios):', error.response?.data);
+    }
     throw error;
   }
 };
@@ -18,6 +20,7 @@ export const createProfile = async (profileData: ProfileData) => {
 export const createHability = async (habilityData: HabilityData) => {
   try {
     const response = await axiosConfig.post('/api/helphub/hability', habilityData);
+    console.log("Datos enviados a createHability:", habilityData);
     return response;
   } catch (error) {
     console.error('Error creating hability:', error);
@@ -40,58 +43,66 @@ export const fetchUserProfile = async (token: string): Promise<ProfileData | nul
   }
 };
 
-//Función para obtener el UserId
+// Función para obtener el UserId directamente del endpoint
 export const fetchUserIdByEmail = async (email: string): Promise<string | null> => {
   try {
     const response = await axios.get(`/api/helphub/user/${email}`);
     const user = response.data[0]; 
-    
-    const mappedUser = mapUserId(user);
-    return mappedUser?.userId ?? null;
+    return user ? user._id : null; 
   } catch (error) {
     console.error("Error fetching user ID:", error);
-    return null;
+    return null; 
   }
 };
 
 // Función para subir la imagen de perfil
-export const uploadProfileImage = async (file: File, userId: string): Promise<{ imageUrl: string }> => {
+export const uploadProfileImage = async (file: File, userId: string): Promise<void> => {
   const formData = new FormData();
-  const token = localStorage.getItem('token');
-  formData.append('image_profile', file);
-  formData.append('id_user', userId); 
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("No se encontró un token válido. No se puede subir la imagen.");
+  }
+
+  formData.append("image_profile", file);
+  formData.append("id_user", userId);
 
   try {
     const response = await axios.post('/api/helphub/upload-service/upload-profileImage', formData, {
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     });
-    return response.data; 
+
+    if (response.status === 201) {
+      console.info("Imagen de perfil subida con éxito.");
+    } else {
+      throw new Error(`Error inesperado al subir la imagen. Código de estado: ${response.status}`);
+    }
   } catch (error) {
-    console.error("Error uploading profile image:", error);
-    throw error;
+    console.error("Error al subir la imagen de perfil:", error);
+    throw new Error("No se pudo subir la imagen de perfil. Intenta de nuevo.");
   }
 };
 
-//Función para obtener el ImageId
-export const fetchImageByUSerId = async (userId: string): Promise<string | null> => {
+// Función para obtener el ImageId por UserId
+export const fetchImageByUserId = async (id_user: string): Promise<string | null> => {
   try {
-    const response = await axios.get(`/api/helphub/upload-service/profile-imagebyUser/${userId}`);
+    const response = await axios.get(`/api/helphub/upload-service/profile-imageByUser/${id_user}`);
     const image = response.data[0]; 
 
-    const mappedUser = mapUserId(image);
-    return mappedUser?.userId ?? null;  
+    return image ? image.id_user : null;
   } catch (error) {
     console.error("Error fetching image ID:", error);
-    return null;
+    return null; 
   }
 };
 
 //Función para mostrar la imagen del usuario(con o sin perfil)
 export const fetchProfileImage = async (userId: string): Promise<string | null> => {
-  const token = localStorage.getItem("token"); 
+  const token = localStorage.getItem("token");
+  
   try {
     const response = await axios.get(`/api/helphub/upload-service/profile-imageByUser/${userId}`, {
       headers: {
@@ -104,10 +115,12 @@ export const fetchProfileImage = async (userId: string): Promise<string | null> 
     const imageUrl = URL.createObjectURL(response.data);
     return imageUrl;
   } catch (error: unknown) {
-    if (axios.isAxiosError(error) && error.response?.status === 404) {
-      console.warn("No se encontró una imagen de perfil para el usuario.");
-      return null; 
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 404) {
+        return null; 
+      }
     }
+
     console.error("Error obteniendo la imagen de perfil:", error);
     throw error;
   }
