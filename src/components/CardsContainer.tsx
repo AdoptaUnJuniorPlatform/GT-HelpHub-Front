@@ -56,7 +56,7 @@ const CardsContainer = () => {
         const currentProfiles = categoryProfiles.slice(0, cardsToShow);
 
         return (
-          <div key={category} className="mt-11 w-full">
+          <div key={category} className="mt-11 w-full h-[35rem]">
             <Title title={category} />
             <div className="flex flex-wrap gap-8 mt-10 w-full">
               {currentProfiles?.slice(0, cardsToShow).map((profile) => (
@@ -66,7 +66,7 @@ const CardsContainer = () => {
           </div>
         );
       })}
-      <div className="flex justify-center items-center pt-12 pb-20">
+      <div className="flex justify-center items-center pt-24 pb-20 w-full">
         <Pagination 
           totalItems={totalCategories}
           itemsPerPage={categoriesPerPage}

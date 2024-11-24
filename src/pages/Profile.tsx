@@ -26,7 +26,6 @@ function Profile() {
     { HABILIDADES: MySkills, VALORACIONES: MyReviews}
   );
   const { showEditor } = useAvilityContext();
-  console.log(showEditor)
 
   useEffect(() => {
     const fetchProfileAndUser = async () => {

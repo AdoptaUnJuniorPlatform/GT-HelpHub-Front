@@ -6,6 +6,7 @@ import { AuthProvider } from './context/AuthContext.tsx'
 import { AvilityProvider } from './context/AvilityContext.tsx'
 import { ProfileProvider } from './context/ProfileContext.tsx'
 import { UserProvider } from './context/UserContext.tsx'
+import { ChatProvider } from './context/ChatContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -13,7 +14,9 @@ createRoot(document.getElementById('root')!).render(
       <AvilityProvider>
         <ProfileProvider>
           <UserProvider>
-            <App />
+            <ChatProvider>
+              <App />
+            </ChatProvider>
           </UserProvider>
         </ProfileProvider>
       </AvilityProvider>
