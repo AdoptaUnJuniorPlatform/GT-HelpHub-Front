@@ -31,41 +31,40 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigate();
 
-  // Función para manejar la selección de categorías
   const handleCategorySelect = (selectedCategories: string[]) => {
-    // Actualizar `interestedSkills` dentro de `profileData`
     updateProfileData({
       ...profileData,
       interestedSkills: selectedCategories,
     });
   };
 
-  // Verifica que haya al menos una categoría seleccionada
   const hasSelectedCategories = profileData?.interestedSkills?.length > 0;
 
-  // Función para manejar la creación de perfil y habilidad
   const handleSubmitProfileAndHability = async () => {
     if (!hasSelectedCategories) {
       alert('Por favor, selecciona al menos una categoría antes de continuar.');
       return;
     }
     try {
-      // Asegura que haya una imagen
+      console.log('Datos que se enviarán a createProfile:', profileData);
+      if (!userId) {
+        alert('El usuario no tiene un ID válido. Por favor, inicia sesión nuevamente.');
+        return;
+      }
       let profilePicture: string = profileData.profilePicture || ""; 
-      if (!profilePicture && userId) {
+      if (!profilePicture) {
         const imageUrl = await fetchProfileImage(userId); 
         if (imageUrl) {
           profilePicture = imageUrl; 
         } else {
           alert('No se encontró una imagen de perfil. Por favor, sube una antes de continuar.');
-          return; // Detener el flujo si no hay imagen
+          return; 
         }
       }
 
-      // Preparar el perfil con la imagen incluida
       const profileDataWithImage = {
         ...profileData,
-        profilePicture: profilePicture || "", 
+        profilePicture, 
       };
 
       const profileResponse = await createProfile(profileDataWithImage);
@@ -83,7 +82,6 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
     }
   };
 
-  // Función para cerrar el modal y redirigir al perfil
   const closeModal = () => {
     setIsModalVisible(false);
     onNextClick();

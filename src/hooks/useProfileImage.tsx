@@ -1,30 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { fetchProfileImage } from "../services/apiClient";
 
-export const useProfileImage = (userId: string | null) => {
+export const useProfileImage = (userId: string | null, disableLoad: boolean = false) => {
   const [profilePicture, setProfilePicture] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+
+  const loadProfilePicture = useCallback(async () => {
+    if (!userId || disableLoad) {
+      setProfilePicture(""); 
+      setError(null);
+      return;
+    }
+
+    try {
+      const imageUrl = await fetchProfileImage(userId);
+      setProfilePicture(imageUrl || ""); 
+      setError(null);
+    } catch (err) {
+      setError("Error al cargar la imagen de perfil.");
+      console.error("Error loading profile picture:", err);
+    }
+  }, [userId, disableLoad]); 
 
   useEffect(() => {
-    const loadProfilePicture = async () => {
-      if (!userId) {
-        console.warn("User ID is not provided.");
-        return;
-      }
-
-      try {
-        const imageUrl = await fetchProfileImage(userId);
-        if (imageUrl) {
-          setProfilePicture(imageUrl);
-        } else {
-          console.warn("No profile picture found for the user.");
-        }
-      } catch (err) {
-        console.error("Error loading profile picture:", err);
-      }
-    };
-
     loadProfilePicture();
-  }, [userId]);
+  }, [loadProfilePicture]); 
 
-  return { profilePicture };
+  return { profilePicture, error };
 };

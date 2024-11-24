@@ -6,7 +6,9 @@ import Title from './Title';
 import Card from './Card';
 import Pagination from './Pagination';
 import { Hability } from '../types/AbilityServiceTypes';
+import { useProfileImages } from '../hooks/useProfileImages';
 import { RiUserSearchFill } from 'react-icons/ri';
+
 
 function FilteredCardsContainer({selectedMode, searchTerm, postalCode}: {selectedMode: string; searchTerm: string; postalCode: string}) {
   const { allHabilities, selectedCategory } = useAvilityContext();
@@ -32,6 +34,8 @@ function FilteredCardsContainer({selectedMode, searchTerm, postalCode}: {selecte
     return matchesMode && matchesCategory && matchesSearchTerm && matchesLocation;
   }) ?? [];
 
+  const userIds = Array.from(new Set(filteredAbilities.map((id) => id?.user_id).filter((id): id is string => !!id))); 
+  const profilePictures = useProfileImages(userIds);
   useEffect(() => {
     if (postalCode && filteredAbilities.length === 0) {
       setPostalCodeError(true);
@@ -49,7 +53,7 @@ function FilteredCardsContainer({selectedMode, searchTerm, postalCode}: {selecte
       location: userProfile?.location ?? "Ubicación no disponible",
       availability: userProfile?.preferredTimeRange ?? "Disponible",
       userFullName: `${userData?.nameUser ?? "Nombre no disponible"} ${userData?.surnameUser ?? "Apellido no disponible"}`,
-      profilePicture: userProfile?.profilePicture ?? "default-photo.jpg",
+      profilePicture: profilePictures[ability.user_id] ?? "default-photo.jpg",
     };
   });
   

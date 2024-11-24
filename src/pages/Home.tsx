@@ -37,6 +37,7 @@ function Home() {
     if (!value.trim()) {
       setPostalCodeError(false);
     }
+
   };
 
   return (

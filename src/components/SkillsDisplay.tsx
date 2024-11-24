@@ -1,14 +1,14 @@
 import React from 'react';
-import { HabilityData } from '../types/AuthServiceTypes';
+import { HabilityData, ProfileData } from '../types/AuthServiceTypes';
 
 interface SkillsDisplayProps {
   habilityData: HabilityData;
   isSubmitted: boolean;
+  profileData: ProfileData;
 }
 
-const SkillsDisplay: React.FC<SkillsDisplayProps> = ({ habilityData, isSubmitted }) => {
+const SkillsDisplay: React.FC<SkillsDisplayProps> = ({ habilityData, isSubmitted, profileData }) => {
   return (
-    
     <div className="ml-[-60px] w-[730px] h-auto px-[30px] py-[17px] bg-[#f6f5f4] mt-8 flex-col justify-start items-start gap-3.5 inline-flex">
       <div className="self-stretch h-[24px] text-[#434242] text-[25px] font-medium font-['Roboto'] tracking-tight">Mis habilidades</div>
       <div className="self-stretch border-t border-[#aeaeae]/30 mt-1 mb-1"></div>
@@ -21,9 +21,17 @@ const SkillsDisplay: React.FC<SkillsDisplayProps> = ({ habilityData, isSubmitted
           <div className="w-full h-auto bg-[#fbfbff] rounded-md shadow-md flex flex-col items-start p-5">
             <div className="w-full flex justify-between items-center">
               <div className="text-[#434242] text-[20px] font-medium font-['Roboto']">{habilityData.title}</div>
-              <button className="w-[34px] h-[31px] bg-[#496ceb] rounded-[5px] flex items-center justify-center text-white">
-                ✏️
-              </button>
+            </div>
+            <div className="w-full border-t border-[#aeaeae]/10 mt-3 py-1">
+              <div className="flex gap-2 mt-2">
+                <div className="text-[#434242] text-[16px] mt-2">
+                  {habilityData.mode === 'Presencial' ? (
+                    <span>{profileData.location}</span>
+                  ) : (
+                    <span>Online</span>
+                  )}
+                </div>
+              </div>
             </div>
             <div className="w-full border-t border-[#aeaeae]/10 mt-3 py-1">
               <div className="text-left text-[#434242] text-[16px] font-normal">Nivel</div>
@@ -36,17 +44,6 @@ const SkillsDisplay: React.FC<SkillsDisplayProps> = ({ habilityData, isSubmitted
                 </div>
                 <div className={`px-3 py-1 rounded-full border ${habilityData.level === 'Avanzado' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
                   Experto
-                </div>
-              </div>
-            </div>
-            <div className="w-full border-t border-[#aeaeae]/10 mt-3 py-1">
-              <div className="text-left text-[#434242] text-[16px] font-normal">Modalidad</div>
-              <div className="flex gap-2 mt-2">
-                <div className={`px-3 py-1 rounded-full border ${habilityData.mode === 'Online' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
-                  Online
-                </div>
-                <div className={`px-3 py-1 rounded-full border ${habilityData.mode === 'Presencial' ? 'bg-[#496ceb] text-white' : 'bg-neutral-50 text-[#696868]'}`}>
-                  Presencial
                 </div>
               </div>
             </div>

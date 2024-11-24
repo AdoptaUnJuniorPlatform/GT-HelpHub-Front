@@ -8,7 +8,7 @@ import { ProfileData, HabilityData } from '../types/AuthServiceTypes';
 import { useAuthContext } from '../context/AuthContext'; 
 
 const RegistrationProcess: React.FC = () => {
-  const { profileData, setProfileData, habilityData, setHabilityData } = useAuthContext(); // Usa el contexto para acceder a profileData y habilityData
+  const { profileData, setProfileData, habilityData, setHabilityData } = useAuthContext(); 
   const [currentStep, setCurrentStep] = useState(1);
 
   const defaultProfileData: ProfileData = {
@@ -97,6 +97,7 @@ const RegistrationProcess: React.FC = () => {
             currentStep={currentStep}
             habilityData={habilityDataToPass}
             updateHabilityData={updateHabilityData}
+            profileData={profileDataToPass}
           />
         );
       case 5:
