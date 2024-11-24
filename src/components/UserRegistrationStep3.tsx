@@ -25,7 +25,6 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
   const [selectedHorario, setSelectedHorario] = useState<string | null>(profileData.preferredTimeRange || null);
   const [selectedDays, setSelectedDays] = useState<string[]>(profileData.selectedDays || []);
 
-  // Definimos los horarios aquí
   const availableTimeRanges = [
     { id: 1, timeRange: '08:00 a 14:00' },
     { id: 2, timeRange: '17:00 a 21:00' },
