@@ -78,6 +78,7 @@ function ResetPassword() {
                     onChange={handleInputChange}
                     className={`loginInput w-10/12 h-[2.5rem] border-blue-gray-100 ${resetMailError ? 'outline-red-500 border-red-500' :  'outline-violeta-100'}`}
                   />
+                  {resetMailError && <p className="error">El correo no está registrado. Revisa la dirección.</p>}
                   <PrimaryButton 
                     label="Restablecer contraseña"
                     className="bg-violeta-100 font-medium mt-5"

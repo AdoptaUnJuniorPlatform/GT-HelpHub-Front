@@ -10,7 +10,6 @@ import { useAuth } from "../hooks/useAuth"
 import Switch from "../components/Switch"
 import Title from "../components/Title"
 import useForm from "../hooks/useForm"
-import Note from "../components/Note"
 import { regex } from "../Variables/varibles"
 import AuthLayout from "../layouts/AuthLayout"
 
@@ -163,7 +162,9 @@ function Register() {
             className={`w-[400px] h-[2.5rem]  border-blue-gray-100 ${registerError.password ? 'outline-red-500 border-red-500' : 'outline-violeta-100'}`} 
             positionStyles="right-4 top-[70%]"
           />
-          <Note className={`${registerError.password ? 'text-red-500' : 'text-blue-gray-500'} transition-colors duration-200`}/>
+          {registerError.password
+            ? <p className="error">La contraseña no cumple con los requisitos. Debe incluir al menos 12 caracteres, una letra mayúscula y un número.</p> 
+            : <p className="font-poppins font-normal text-[14px] w-full">La contraseña debe incluir al menos 12 caracteres, una letra mayúscula , un número y un símbolo.</p>}
 
         </div>
 

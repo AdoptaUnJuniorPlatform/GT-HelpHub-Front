@@ -30,15 +30,15 @@ export const userById = async (): Promise<UserByIdResponse | UserByIdErrorRespon
 export const allUsers = async (): Promise<UserByIdResponse[] | UserByIdErrorResponse> => {
   try {
     const response = await axiosConfig.get('/api/helphub/user/allUsers');
-    return response.data; // Retorna los datos de los usuarios si la solicitud es exitosa
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return {
-        error: error.message || 'Error desconocido', // Mensaje del error de Axios
+        error: error.message || 'Error desconocido',
       };
     }
     return {
-      error: 'Error en la llamada a la API', // Mensaje genérico en caso de otros errores
+      error: 'Error en la llamada a la API',
     };
   }
 };

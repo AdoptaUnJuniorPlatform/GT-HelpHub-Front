@@ -1,56 +1,62 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { allProfiles, profileById } from "../services/ProfileService";
-import { ProfileByIdResponse } from "../types/ProfileServiceTypes";
+import { ProfileByIdResponse, ProfileContextType } from "../types/ProfileServiceTypes";
 import { useAuthContext } from "./AuthContext";
+import { getToken } from "../utils/utils";
 
-interface ProfileContextType {
-  profile: ProfileByIdResponse | null;
-  profiles: ProfileByIdResponse[] | null;
-  setProfile: Dispatch<SetStateAction<ProfileByIdResponse | null>>;
-  fetchProfile: () => void;
-  fetchAllProfiles: () => void;
-}
-  
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
   
 function ProfileProvider({ children }: { children: ReactNode }) {
   const [profile, setProfile] = useState<ProfileByIdResponse | null>(null)
   const [profiles, setProfiles] = useState<ProfileByIdResponse[] | null>(null);
+  const [postalCodeError, setPostalCodeError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { isAuthenticated } = useAuthContext();
   const fetchProfile = async () => {
-    const response = await profileById();
+    if (getToken()) {
+      const response = await profileById();
+    
+      if ('error' in response) {
 
-    if ('error' in response) {
-
-      setProfile(null);
-      console.error('Error al obtener perfil:', response.error);
-    } else {
-
-      setProfile(response as ProfileByIdResponse);
+        setProfile(null);
+        console.error('Error al obtener perfil:', response.error);
+      } else {
+  
+        setProfile(response as ProfileByIdResponse);
+      }
     }
   };
 
   const fetchAllProfiles = async () => {
-    const result = await allProfiles();
-
-    if ("error" in result) {
-      setProfiles(null);
-    } else {
-      setProfiles(result);
+    if (getToken()) {
+      const result = await allProfiles();
+  
+      if ("error" in result) {
+        setProfiles(null);
+      } else {
+        setProfiles(result);
+      }
     }
   };
   
   useEffect(() => {
-    if (isAuthenticated) {
-
-      fetchProfile();
-      fetchAllProfiles();
-    }
-
+    const initialize = async () => {
+      if (isAuthenticated) {
+        await fetchProfile();
+        await fetchAllProfiles();
+      }
+      setIsLoading(false);
+    };
+  
+    initialize();
   }, [isAuthenticated]);
+
+  if (isLoading) {
+    return <div>Cargando datos...</div>;
+  }
   
   return (
-    <ProfileContext.Provider value={{ profile, setProfile, fetchProfile, profiles, fetchAllProfiles }}>
+    <ProfileContext.Provider value={{ profile, setProfile, fetchProfile, profiles, fetchAllProfiles, postalCodeError, setPostalCodeError }}>
       {children}
     </ProfileContext.Provider>
   );

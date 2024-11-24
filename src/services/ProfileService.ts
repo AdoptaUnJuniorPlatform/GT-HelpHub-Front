@@ -1,24 +1,13 @@
 import { ProfileByIdErrorResponse, ProfileByIdResponse } from "../types/ProfileServiceTypes";
 import axiosConfig from "./axiosConfig";
-import { getToken, getUserIdFromToken } from "../utils/utils";
+import { getUserIdFromToken } from "../utils/utils";
 
 export const profileById = async (): Promise<ProfileByIdResponse | ProfileByIdErrorResponse> => {
+
   try {
     const id = getUserIdFromToken();
-    const token = getToken();
-
-    if (!id || !token) {
-      throw new Error("No token or user ID found");
-    }
-  
     const response = await axiosConfig.get(
-      `/api/helphub/profile/byUserId/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+      `/api/helphub/profile/byUserId/${id}`);
 
     if (response.data.error) {
       return { error: response.data.error, details: response.data.details };
@@ -36,13 +25,7 @@ export const profileById = async (): Promise<ProfileByIdResponse | ProfileByIdEr
 
 export const allProfiles = async (): Promise<ProfileByIdResponse[] | ProfileByIdErrorResponse> => {
   try {
-    const token = getToken();
-
-    const response = await axiosConfig.get("/api/helphub/profile/allProfiles", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axiosConfig.get("/api/helphub/profile/allProfiles");
 
     if (response.data.error) {
       return { error: response.data.error, details: response.data.details };

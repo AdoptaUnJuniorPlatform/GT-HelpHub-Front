@@ -38,7 +38,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
     } else {
       setIsAuthenticated(false);
     }
-  }, []);
+  }, [token]);
   
   return (
     <AuthContext.Provider value={{

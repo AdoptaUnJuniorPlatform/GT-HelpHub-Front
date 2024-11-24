@@ -1,13 +1,16 @@
+import { useAvilityContext } from "../context/AvilityContext"
 import BlueBorderBox from "./BlueBorderBox"
 import GreenAlert from "./GreenAlert"
 import NewAbility from "./NewAbility"
 
 function Ability() {
+  const {userHabilities} = useAvilityContext();
+  const number = userHabilities?.habilities.length
   return (
     <main className="flex flex-col w-full font-roboto not-italic">
       <section className="pt-10 pb-16">
         <GreenAlert 
-          title="Tienes 2 habilidades cargadas"
+          title={`Tienes ${number} ${number === 1 ? "habilidad cargada" : "habilidades cargadas"}`}
           text="Carga más habilidades para seguir ampliando esta comunidad"
         />
         <div className="pt-8">
