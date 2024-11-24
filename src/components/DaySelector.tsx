@@ -18,7 +18,6 @@ const DaySelector: React.FC<DaySelectorProps> = ({ selectedDays, onDaySelect }) 
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // Manejador para seleccionar/deseleccionar días
   const toggleDaySelection = (day: string) => {
     const isSelected = selectedDays.includes(day);
     if (isSelected) {
@@ -33,7 +32,7 @@ const DaySelector: React.FC<DaySelectorProps> = ({ selectedDays, onDaySelect }) 
       {/* Contenedor del botón que abre el desplegable */}
       <div
         className="h-[40px] bg-[#fbfbff] rounded-md border border-[#aeaeae]/10 flex items-center justify-between px-4 cursor-pointer"
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}  // Toggle del dropdown
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}  
       >
         {/* Texto de "Seleccionar días" */}
         <div className="text-[#696868] text-sm font-normal font-['Roboto'] leading-normal tracking-wide">
