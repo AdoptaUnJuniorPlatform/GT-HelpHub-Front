@@ -52,8 +52,6 @@ export const getAllHabilities = async(): Promise<UserHabilitiesResponse | UserBy
   
   } catch (error) {
     console.error("Error al hacer la solicitud:", error);
- 
-    alert("Hubo un problema al obtener las habilidades del usuario. Intenta nuevamente más tarde.");
     return { 
       error: "Hubo un problema al obtener las habilidades del usuario. Intenta nuevamente más tarde." 
     };
@@ -61,7 +59,7 @@ export const getAllHabilities = async(): Promise<UserHabilitiesResponse | UserBy
 
 }
 
-export const HabilitiesByCategory = async(category: string | null): Promise<UserHabilitiesResponse | UserByIdErrorResponse> => {
+export const HabilitiesByCategory = async(category: string | null): Promise<UserHabilitiesResponse | UserByIdErrorResponse > => {
   try {
     const response = await axiosConfig.get(
       `/api/helphub/hability/category-habilities/${category}`);
@@ -71,12 +69,10 @@ export const HabilitiesByCategory = async(category: string | null): Promise<User
     return { habilities: response.data };
   
   } catch (error) {
-    console.error("Error al hacer la solicitud:", error);
- 
-    alert("Hubo un problema al obtener las categorias. Intenta nuevamente más tarde.");
+    console.error("Error al hacer la solicitud:", error);   
     return { 
       error: "Hubo un problema al obtener las categorias. Intenta nuevamente más tarde." 
-    };
+    }
   }
 }
 

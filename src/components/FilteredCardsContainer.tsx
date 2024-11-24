@@ -6,6 +6,7 @@ import Title from './Title';
 import Card from './Card';
 import Pagination from './Pagination';
 import { Hability } from '../types/AbilityServiceTypes';
+import { RiUserSearchFill } from 'react-icons/ri';
 
 function FilteredCardsContainer({selectedMode, searchTerm, postalCode}: {selectedMode: string; searchTerm: string; postalCode: string}) {
   const { allHabilities, selectedCategory } = useAvilityContext();
@@ -62,28 +63,41 @@ function FilteredCardsContainer({selectedMode, searchTerm, postalCode}: {selecte
   
   const quantity = filteredAbilities.length
   return (
-    <div className="w-full h-[90rem] mt-10">
-      <Title title={` ${quantity} ${quantity === 1 ? "habilidad encontrada" : "habilidades encontradas"}`} />
-      <div className="flex flex-wrap gap-8 mt-10 w-full">
-        {currentCards.length > 0 ? (
-          currentCards.map((profile) => (
-            <Card key={profile._id} profileData={profile} />
-          ))
-        ) : (
-          <p>No hay habilidades que coincidan con la categoría seleccionada.</p>
-        )}
+    <>
+      <Title 
+        className='mt-5 text-sm'
+        title={quantity === 0 
+          ? "" 
+          : `¡Enhorabuena! Hay ${quantity === 1 ? "una habilidad que podría interesarte" : `${quantity} habilidades que podrían interesarte`}.`}
+      />
+      <div className="flex items-start justify-center w-full flex-wrap">
+        <div className="flex items-start flex-wrap gap-8 mt-10 w-full h-[90rem] ">
+          {currentCards.length > 0 ? (
+            currentCards.map((profile) => (
+              <Card key={profile._id} profileData={profile} />
+            ))
+          ) : (
+            <div className='flex flex-col items-start gap-3'>
+              <p className='font-roboto font-medium text-lg leading-5 tracking-wide'>Lo sentimos, no encontramos coincidencias con lo que necesitas.</p>
+              <div className='flex gap-3'>
+                <p className='font-roboto font-medium text-lg leading-5 tracking-wide'>¿Te gustaría probar otra búsqueda?</p>
+                <RiUserSearchFill size={18}/>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="flex justify-center items-center pt-12 pb-20">
+          {combinedDataArray.length > cardsToShow && (
+            <Pagination 
+              totalItems={combinedDataArray.length} 
+              itemsPerPage={cardsToShow} 
+              currentPage={currentPage} 
+              onPageChange={handlePageChange} 
+            />
+          )}
+        </div>
       </div>
-      <div className="flex justify-center items-center pt-12 pb-20">
-        {combinedDataArray.length > cardsToShow && (
-          <Pagination 
-            totalItems={combinedDataArray.length} 
-            itemsPerPage={cardsToShow} 
-            currentPage={currentPage} 
-            onPageChange={handlePageChange} 
-          />
-        )}
-      </div>
-    </div>
+    </>
   );
 }
 

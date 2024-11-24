@@ -92,7 +92,7 @@ function SideBar() {
         onClick={closeSidebarAndNotifications}
       ></div>
 
-      <nav className={`flex flex-col rounded-xl duration-1000 transition-all ease-in-out absolute mt-7 z-20 h-[90%] ${
+      <nav className={`flex flex-col rounded-xl duration-1000 transition-all ease-in-out absolute mt-7 z-20 h-[85%] ${
         open ? 'w-60 top-0 duration-1000' : 'w-24'
       } group`}
       >

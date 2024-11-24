@@ -104,7 +104,6 @@ function AvilityProvider({ children }: { children: ReactNode}) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log('Fetching habilities...');
       fetchUserHabilities();
       fetchAllHabilities();
     } return

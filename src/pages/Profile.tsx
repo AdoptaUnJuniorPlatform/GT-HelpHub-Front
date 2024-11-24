@@ -19,7 +19,6 @@ function Profile() {
     { HABILIDADES: MySkills, VALORACIONES: MyReviews}
   );
   const { showEditor } = useAvilityContext();
-  console.log(showEditor)
   return (
     <>
       <MainLayout>

@@ -9,7 +9,6 @@ function useForm<T>(callback: (input: T) => void, defaults: T) {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     callback(input);
-    console.log('Formulario enviado con los datos:', input)
   };
 
   const handleInputChange = (event: FormEventType, index?: number) => {

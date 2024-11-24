@@ -13,8 +13,6 @@ function ActiveSkills() {
     location: profile?.location ?? "Ubicación no disponible",
     availability: profile?.preferredTimeRange ?? "Disponible", 
   }));
-
-  console.log('Renderizando habilidades activas:', combinedDataArray);
   return (
     <div className="flex flex-col w-5/12 justify-between items-baseline pl-16 py-10 gap-10">
       <div className="flex flex-col gap-10">

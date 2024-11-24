@@ -131,7 +131,7 @@ export const mockNotifications: Notification[] = [
     user: "Laura González",
     message: "La cadena de favores está llegando a su fin. Cuéntanos tu experiencia.",
     date: "12:44 pm",
-    imageUser: "https://s3-alpha-sig.figma.com/img/e770/1743/70f48b588224adfd9d1c4c3ae9b06873?Expires=1730678400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=B72LHQPNYQ~ipcoK16EJi27PP0IZXA0Mb~0ZeZk4GUfVDk3dPhEE8xhSm9YVaRL8jxXs6ev2oi9ck8fq6uaLQeK~hP~WrE44qXgPYa-1kzh27aUDZFcU4XMf3rF4v5P47WB0zgY4pIIq8QL~Hg05PzaMm3TfiWmKOMkJr1e4MNQiPHiJUY7dpQ76bvTaVVDUNEuAqFY4Fe~5F0I8~zx-aOnnKAyhWKDjTz3zaob2EDX9Vf4VZhKycPrIPPba0O11yzLSWnM905AEEfSFdZI9B9LZMrpaXefxXRyBYYwBxvQRco5ucnD5kByoD5znmUMmJRBW-fc3Yzb4DNp~v45jJA__" 
+    imageUser: "https://s3-alpha-sig.figma.com/img/e770/1743/70f48b588224adfd9d1c4c3ae9b06873?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=nsJIoP6yzS28wgpZEWKOOXxDSGRMzgJ5O6OknMP4QD51gAZcS7iwXs7AXfeBjog23dMHpW4l855llwJemFo27PDwEZgxY5DEMpGHEJuX-M7Rm2749nPGArvgT34gH6JpVfXJI2IWpjyHG3EqPWZdffwBXC1I~8KHfiPg5haFvnPHNqyniHt~v4Kp~ejMqHwZ1Y4AZYinmxjidE0Fb118RVPvu-RrUiLmU1rBRuUVwZqMQHP4VkMg-7QvVlVfmoRt0EEg1iRTW7jLLszBn0A2oZoA3ExfLV~fHOGee1kI51aXwC9w53OuDvjjI3DMZFj6i0GDFSjzEJl98VDkzObiGw__" 
   },
   {
     id: 2,
@@ -139,7 +139,7 @@ export const mockNotifications: Notification[] = [
     user: "Alberto Zuñiga",
     message: "ha enviado una solicitud.",
     date: "01:30 pm",
-    imageUser: "https://s3-alpha-sig.figma.com/img/d2b4/7434/0cf0b35e03856e3b9d399657ad1a7ec4?Expires=1730678400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=eZbbl1okwjAsCqY4gF0K0yvGAn8SYLPARtQYqwttFuVz8jW2z7K7QxY93b1q4CYh6N~8QwYtU9u5wWoZqZ~HakP3ucHZLYUSujqF8Nlx00HsLkib4bMzIfQdW3y~kFU3R1HKUMwdHfh~GGbdLjLw4o6cDrXCURgb5ldDeK1LZIZ7xzIIioxO-Vj2TjGcFGLbTSVOZIF6KlD78ckffK-lc3X~FdlfcaOA~-yiYhzq6kgcDuwKkC53~H9jtpLniW1pk4N7~a0x6kPs6gOD7XrDnurRPRfxCmW1JnhtP-wzfMXVDe6WDr7PYjS7pmsPrCVX70AKwCmC8oCoV~Oa6XeJEQ__"
+    imageUser: "https://s3-alpha-sig.figma.com/img/d2b4/7434/0cf0b35e03856e3b9d399657ad1a7ec4?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=nuteueLjZfmHbwP4UZk1pPzg7PmxMmdm7gztw0cxH~AyhdYA5uFURSP83f6zt~6rYMDVr0hANA2KejbaU0THU1PZXdTEeVANfyPJmgpVzJ57MuWEE1zWpkJ1Kcl27rdajK7Kkzww0CDcON7QR~81juaJLKyoZgJLN1voRSs7kZS~cZvWfhiRK0rXXlbJ8jQ95fCOTi9cq7Siw2NQ~ILDiG-8RqwlHCnottkTmCEOnQGeEoQhvZ8ln5ANOt3W3LVk7mKxGSualRdtQxWzY7iW69uSv2zg75LCYl3zqhibyLZroj0kZoI1JAosliuJZL0ghWMnS12gWaC0HArvM0Q8Ow__"
   },
   {
     id: 3,
@@ -147,7 +147,7 @@ export const mockNotifications: Notification[] = [
     user: "Valeska Jara",
     message: "El intercambio ha comenzado. Envía tu primer mensaje y conoce a la otra persona.",
     date: "10:15 am",
-    imageUser: "https://s3-alpha-sig.figma.com/img/31da/64df/8cc5a1429050e1445737d4cff167a519?Expires=1730678400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WbdVozXdGhWuBoSoCgFAjZLEH2CsS3opWdQVEcU8BvSNjch0FMskyve0BY-HmdSKKhqUv6UVZKPk3e6GhF6EgEkI0848gBMZ7n4TRaMZOIKKqyvZ0zWx4GIQIRrb7sDfnp~i4ahmzu~WIcFwMy1-GXPpg-JM7dZm20-M6ueMECJmyZOVpBCaUIyb5exSYVgOZ6SU~jOPFmUvynCVusiC8TSwcpxDTXdqh3FYksC1hHpKtRcl~sY3TAHaZoGo2-f88QrvwwzP6AMnfrQTTPKK4s9IWesrVUbPRcMK-87-q2joYNqK32mwd4xn38eEV~dpxjxklPI5KSHOu54bpzQ88w__"
+    imageUser: "https://s3-alpha-sig.figma.com/img/31da/64df/8cc5a1429050e1445737d4cff167a519?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=EXwuWlpkLjQI2dprdP4dvyIcYWiQJwU2GlMUhEamDhfN3Bj-nRhkkvwcplHaepgEcv8PSy5xQbKLroqxbjiTs3DFepNkwuct-odtgDMBMnHsu16YGm85oSEVRyrXNdNmI5ggph13XoN97AsuWSr6xw~0jZ48i4BkKaTUezNa7EoY2Wcql59YVwmdllk3N7IqUPRSk93Gwmd8xwZz6Tp6QaM4QL549elMk8rG1PeoLm43CJ5M7vCKvaTMIRcOS1i1oDwQw7IZwOwVz4t9rSosFJ8nrT6igOLQVpEE9tVCs6Nq9IN1Vc5Sh8bVHdu6qE1nq3ia1SYmh9Qw4b3YHlFPGA__"
   },
   {
     id: 4,
@@ -155,7 +155,7 @@ export const mockNotifications: Notification[] = [
     user: "Andrés Castro",
     message: "Lo sentimos, busca otras habilidades para intercambiar.",
     date: "11:20 am",
-    imageUser: "https://s3-alpha-sig.figma.com/img/56ba/d462/2730638ef64135973f6dd27e6cb23301?Expires=1730678400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=i6Elm37jMKhZyISJaWZxb29963ITD0ietbXHdjee4y3pfjN7~lMR8iTY6pSe2uUN6CnO0BHET1P~2frK4FcZYNTWEMU9E33V29cOg5RPz0ZY6k6-qwi-mzzlxDFFd0OHJQidhwR615vZtBV35KUvk-3LKOnEkC~IQhlOGmPe9VPvlzCHW2ItsmXkxhZRy6iXuQnJb0rsUvufWYZJdJr-aVR6kbCz0kyGR3zScBxtAZOEtUOHjZgZ0BMTajpG4yPsIaXhEX9GqOjUU2k7hAYuaRiE6F~VYN2en3n1SOZPyEV7uO9v2RrFJP12YY3b2-G8PZC~bK~vNtZVPLYoq2dV5w__"
+    imageUser: "https://s3-alpha-sig.figma.com/img/56ba/d462/2730638ef64135973f6dd27e6cb23301?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=pSiTvOG6pZtbAd-w~p0Sp2fvAKt4g22V9s1HuPaVdAvR0zQbrMcqYdS3gf740PqNUkffSn9CosA3~7I3RhitVMXrRqArtgcgfhMbYZAeoIxDPXSn3kAT7vAIYLUYgPrnnuJA-Y~J5OGuIGbP38uvVZ5NGtk5kDqRVg91yzwbFkOtG3m8Ng168OrBrH99ofwSTDU3gHBU5Z-YpITtqwo4uWUYO9xChVvRYFYlEzkn~mpYE-G7heVOZ-ljTdEAAkgSU8ySgIaGfb-r54eC4xUpOjRguEeDrMjvat~8Tw4bBHhYkbMoP5z9n0kQlt3doFUb1oZpy1JOZWTdyIBiBFIrCA__"
   },
   {
     id: 5,
@@ -163,7 +163,7 @@ export const mockNotifications: Notification[] = [
     user: "Estela Naiad",
     message: "Has rechazado la solicitud de intercambio.",
     date: "09:50 am",
-    imageUser: "https://s3-alpha-sig.figma.com/img/957a/9171/1abea02b1ea90a2145b69535c0452819?Expires=1730678400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=mQH1uoe7Huj8XRbD8QQdtbQm0nyuwjmTgoQhLj99HuBpEs1DfiobdW29mbIWZIGO2K7e84WYmLFFtCJW~2VQoVP8WNQo1khnTph8qz1u6OXSaMtPfNtKrwuGhdLmMAeX8SbGdfMHqxqp5WvRTQQnkVmBldP147JALwUpPD~3Dn9xFdGIeERBZ7F1eO~LpmZBQRVLm2pEI-YcGU3I4If71oVbRCMg05jhOqVusiWdJaDT4xaqo2lgBH78AIUTVDnp7iExh4iB-0fTRTigsGPbNOh-l2Gvko6~Sr-dplrZbTgwuUtlZUTCCbfBo-rJ4k7w21P5dcrV6CeLshbghvm55w__"
+    imageUser: "https://s3-alpha-sig.figma.com/img/957a/9171/1abea02b1ea90a2145b69535c0452819?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=getS0XQl70XvBn1v9jkztS5SanemxNVIQFcj2GqXqoh-mmCG23vsbworV5TWfWAZZaAAR5INshlG0-TavGMMr21jGrTx6L5IItwBQFmrnwy8u~aLMccrUbMtW9Jvrk1hqzW0PvjMECCBp31zkGBG9-mIskyqhGGZH08JhCKXMqjBrvqwF8ly0DLvgavCxqYdf~q4~H1nAts-gqiUi4oN79CcBFYicmxpxfPvBU9U1yrcruUzC20vp2C2Z1cM7C8mlhIUSVIPDDRAqc-2PUAU1s2ZIgVFRvOYAJHkGIHTnK5hhV1g6aL9XnQQq2Dq3DvOXrvTvgh~XDDsoRAbHUJcGA__"
   }
 ];
 
