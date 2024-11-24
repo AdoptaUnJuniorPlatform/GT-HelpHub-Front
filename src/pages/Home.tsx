@@ -30,7 +30,7 @@ function Home() {
   };
 
   const handlePostalCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPostalCode(e.target.value);  // Actualiza el estado del código postal
+    setPostalCode(e.target.value); 
   };
 
   return (
