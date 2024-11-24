@@ -11,7 +11,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const [loginData, setLoginData] = useState<LoginMailRequest | null>(null);
   const [resetData, setResetData] = useState<ResetPasswordMailRequest | null>(null)
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  // Estados separados para profileData y habilityData
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
   const [habilityData, setHabilityData] = useState<HabilityData | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
@@ -33,8 +32,18 @@ function AuthProvider({ children }: { children: ReactNode }) {
     clearData();
   }
   useEffect(() => {
-    if (getToken()) {
+    const token = getToken(); 
+  
+    if (token) {
       setIsAuthenticated(true);
+  
+      const storedUserId = localStorage.getItem("userId");
+     
+      if (storedUserId) {
+        setUserId(storedUserId); 
+      } else {
+        console.error("No se encontró el userId en el almacenamiento local.");
+      }
     } else {
       setIsAuthenticated(false);
     }
