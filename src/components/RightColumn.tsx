@@ -38,8 +38,8 @@ const RightColumn: React.FC<RightColumnProps> = ({ onBackClick, onNextClick, ste
         <div
           className={`absolute ${
             currentStep === 4 
-              ? (isSubmitted ? 'top-[1530px] bottom-8' : 'top-[1420px] bottom-8') // Step 4 con condicional de isSubmitted
-              : 'top-[575px]' // Otros pasos
+              ? (isSubmitted ? 'top-[1530px] bottom-8' : 'top-[1420px] bottom-8') 
+              : 'top-[575px]'
           } left-[-55px] bottom-20 w-full flex justify-between px-16`}
         >
           <Button 
