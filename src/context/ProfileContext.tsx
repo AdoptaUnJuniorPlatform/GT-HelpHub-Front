@@ -1,19 +1,9 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { allProfiles, profileById } from "../services/ProfileService";
-import { ProfileByIdResponse } from "../types/ProfileServiceTypes";
+import { ProfileByIdResponse, ProfileContextType } from "../types/ProfileServiceTypes";
 import { useAuthContext } from "./AuthContext";
 import { getToken } from "../utils/utils";
 
-interface ProfileContextType {
-  profile: ProfileByIdResponse | null;
-  profiles: ProfileByIdResponse[] | null;
-  setProfile: Dispatch<SetStateAction<ProfileByIdResponse | null>>;
-  postalCodeError: boolean;
-  setPostalCodeError: (value: boolean) => void;
-  fetchProfile: () => void;
-  fetchAllProfiles: () => void;
-}
-  
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
   
 function ProfileProvider({ children }: { children: ReactNode }) {

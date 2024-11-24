@@ -41,10 +41,6 @@ export interface Country {
   code: string;
   dialCode: string;
 }
-export interface InfoProps {
-  header?: string;
-  info: string;
-}
 
 export interface SwitchProps {
   initialState?: boolean;

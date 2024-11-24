@@ -41,7 +41,7 @@ function Home() {
 
   return (
     <MainLayout>
-      <div className="flex items-center justify-between h-[10vh] w-full">
+      <div className="flex items-center justify-between h-[10vh] w-full mt-5">
         <Logo 
           className="ml-2 "
           showInitial={false}

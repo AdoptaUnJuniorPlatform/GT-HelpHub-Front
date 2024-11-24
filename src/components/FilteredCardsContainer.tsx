@@ -60,9 +60,10 @@ function FilteredCardsContainer({selectedMode, searchTerm, postalCode}: {selecte
   const indexOfFirstCard = indexOfLastCard - cardsToShow;
   const currentCards = combinedDataArray?.slice(indexOfFirstCard, indexOfLastCard);
   
+  const quantity = filteredAbilities.length
   return (
     <div className="w-full h-[90rem] mt-10">
-      <Title title="Habilidades Filtradas" />
+      <Title title={` ${quantity} ${quantity === 1 ? "habilidad encontrada" : "habilidades encontradas"}`} />
       <div className="flex flex-wrap gap-8 mt-10 w-full">
         {currentCards.length > 0 ? (
           currentCards.map((profile) => (

@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface UserByIdResponse {
   _id: string;
   email: string;
@@ -14,4 +16,12 @@ export interface UserByIdResponse {
 export interface UserByIdErrorResponse {
   error: string;
   details?: string;
+}
+
+export interface UserContextType {
+  user: UserByIdResponse | null;
+  users: UserByIdResponse[] | null;
+  setUser: Dispatch<SetStateAction<UserByIdResponse | null>>;
+  fetchUser: () => void;
+  fetchAllUsers: () => Promise<void>;
 }

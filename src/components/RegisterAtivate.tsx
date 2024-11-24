@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import MoreInfo from "./MoreInfo";
-import { Information } from "../Variables/varibles";
 import { HiInformationCircle } from "react-icons/hi";
 
 function RegisterAtivate() {
@@ -38,8 +37,8 @@ function RegisterAtivate() {
           {showPopover && (
             <article className="absolute top-4 right-40 font-poppins">
               <MoreInfo
-                header={Information[0].header}
-                info={Information[0].info}
+                header="Coordinar directamente por llamada"
+                info="No te preocupes, tu teléfono no esta visible para todos los usuarios. Solo estará visible para la persona con la que solicites un intercambio."
               />
             </article>
           )}

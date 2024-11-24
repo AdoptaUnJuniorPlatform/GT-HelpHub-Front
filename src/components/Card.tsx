@@ -1,30 +1,30 @@
-// import { useState } from "react";
 import CardAvailability from "./CardAvailability";
 import CardDescription from "./CardDescription";
 import CardHeader from "./CardHeader";
 import CardInfo from "./CardInfo";
 import CardLevel from "./CardLevel";
 import CardSkills from "./CardSkills";
-// import SeeMore from "./SeeMore";
+import SeeMore from "./SeeMore";
 import CardLayout from "../layouts/CardLayout";
 import CardBtnBorder from "./CardBtnBorder";
 import CardBtnPrimary from "./CardBtnPrimary";
 import { CardProps } from "../types/AbilityServiceTypes";
 import { levels } from "../Variables/varibles";
+import { useState } from "react";
 
 function Card(props: { profileData: CardProps }) {
   const { profileData } = props;
   const { _id, profilePicture, userFullName, category, location, level, availability, description, title, mode } = profileData;
 
-  // const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <CardLayout>
       <CardHeader photo={profilePicture} name={userFullName} />
@@ -47,7 +47,7 @@ function Card(props: { profileData: CardProps }) {
       <div className="flex gap-2 text-[0.9em] justify-end w-full px-4 py-4">
         <CardBtnBorder 
           label="Ver más" 
-          // onClick={handleOpen} 
+          onClick={handleOpen} 
           id={_id} 
           className="w-[6rem]"
         />
@@ -56,11 +56,10 @@ function Card(props: { profileData: CardProps }) {
           className="w-[10.5rem]"
         />
       </div>
-      {/* <SeeMore 
+      <SeeMore 
         isOpen={open} 
         onClose={handleClose} 
-        profileData={profileData}
-      /> */}
+      />
     </CardLayout>
 
   );

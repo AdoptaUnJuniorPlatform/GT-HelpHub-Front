@@ -10,12 +10,14 @@ import ProfileImg from "./ProfileImg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { useChatContext } from "../context/ChatContext";
+import { useAvilityContext } from "../context/AvilityContext";
 
 
 function SideBar() {
   const [open, setOpen] = useState<boolean>(false);
   const [showNotifications, setShowNotifications] = useState<boolean>(false);
   const {handleCloseRequestTabClick} = useChatContext();
+  const {setShowEditor} = useAvilityContext();
   const location = useLocation();
   const isHome = location.pathname === '/home';
   const { handleLogout } = useAuthContext();
@@ -72,6 +74,7 @@ function SideBar() {
   const handleMenuClick = () => {
     setShowNotifications(false);
     handleCloseRequestTabClick();
+    setShowEditor(false);
     setOpen(!open);
   };
 

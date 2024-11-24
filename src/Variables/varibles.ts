@@ -1,33 +1,15 @@
-import { InfoProps, Message, Notification, ProfileData } from "../types/types";
+import { Message, Notification, ProfileData } from "../types/types";
 
 export const regex = /^[\w]+([.][\w]+)*@(gmail|yahoo|outlook|hotmail|icloud|aol|protonmail)\.(com|org|net|edu|gov|mil|info|co(\.uk)?|us|io)$/;
 
 export const levels = ['Básico', 'Medio', 'Avanzado'];
 export const modes = ['Online', 'Presencial'];
 
-export const Information: InfoProps[] = [
-  {
-    header: "Coordinar directamente por llamada",
-    info: "No te preocupes, tu teléfono no esta visible para todos los usuarios. Solo estará visible para la persona con la que solicites un intercambio."
-  }
-];
-
 export const categories = ['Animales', 'Ayuda', 'Consultoría', 'Diseño', 'Idiomas', 'Informática', 'Reparaciones', 'Salud', 'Tutorías', 'Otros  '];
-export const subcategories = [
-  {Animales: ['Alojamiento', "Cuidado a domicilio", "Paseo de perros"],
-    Ayuda: ["Cuidado de personas mayores", "Arte y creatividad"],
-    Diseño: ["Arte y creatividad", "Diseño digital"],
-    Idiomas: ["Inglés", "Español", "Francés"],
-    Salud: ["Fitness", "Cuidado personal"],
-    Tutorías: ["Matemáticas", "Física", "Química", "Biología"]
-  }
-]
-export const subCategories = ['Alojamiento', "Cuidado a domicilio", "Paseo de perros", "Cuidado de personas mayores", "Arte y creatividad", "Diseño digital", "Inglés", "Español", "Francés", "Fitness", "Química", "Biología"]
-
 export const profiles: ProfileData[] = [
   {
     id: 1,
-    photo: "https://s3-alpha-sig.figma.com/img/b470/47e7/35553aca826d2fa7e62735cacf60e054?Expires=1731888000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=bvfBI-53mILClVb~BwTGs25cPzeZhQu9u3jwoHnK654YqzhphiLhEevXiI9HEOVhUA1dE3Y4CSQ9aCGS2VnX28ONrKKuZ0gXKJNGP1pLjQq6W3HbrizoD~1wunaWykTRIXkw2tIHjVR6tCG90x22XxnJMIvrb0AlAV4~zYuXAD1~70b-VFka7UeuwOh9ExBUP9nqwg9WsTd4ysJq49-28mOSjb8VSYpf-4OWZsth4IbvzL4XhNYXmoJJvLnHTv0UbyAwQyIqZ1vS12sRrLhkGV2Ra8KZnkmghORF7U92M~FCZpViXkvDl2ZX1ThGjBSaMOh2TRvm0Vd99LuE2a7V5g__",
+    photo: "https://s3-alpha-sig.figma.com/img/b470/47e7/35553aca826d2fa7e62735cacf60e054?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=aQjVG6pdYCSHhpTbTU0eYBy2o0X695Vvi5wQ2Ebeaix~Hn-aXb6tlftkcMBPcSNtsGERVGB-nn9k7w47rVuMrdBpYl-1duEQTKmWmm6aQBnxrMVJGntA4hMT0eM8ngy0FcKApti87VYuYRVusTlc~F0I09EYb--e0z3peWhQDThRe53FnHZ6LG0lp93Mp5Ht34ISMh06mkwRA6LYvxkToW5pNmjz3pBe1Pfb63Ff8elquR60Df1QXofx0CC90QZ97UCQWW2YW8AZzn~pkm--LLX~i7f12-NwEMl7iE~BOZOIJP4tnPUR-l7eoYhx52UDy6NQnujpkihd2t9z21os9A__ ",
     name: "Juanita Perez",
     service: "Cuidado de animales",
     location: "14011 Córdoba, Córdoba provincia",
@@ -44,25 +26,16 @@ export const profiles: ProfileData[] = [
         review: 'Juanita me ayudó mucho a aprender a pintar un cuadro para mi familia', 
         givenSkill: 'Cocina',
         recivedSkill: 'Pintura',
-        photo: 'https://s3-alpha-sig.figma.com/img/5494/b2cb/c5e7f6247f500b1c1d0013e023d455ae?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=oMDP~SxLWSvBJhZSe0OzeuYNqmeYbFnmVfN7AuHi8D11btp1o-vKcS91H-EZNFtFLK2P0ZZVGpkIJ2T26o9SHr3uzeCd1sCCGnMTsjP4GSdzmf60XTW-O8yN0s5AbOU-4iGbjSzyHkcuJk5XrKYZj7~QvNJmLLqqsBUlpmveZHrB2Rd-sgOPVRSQ0A2BdUcu3MLL23kl2Nxc7FjVe34U~pYee7q~MB12~1X3k9q9j1axO6v8Bc8NJLHXMTiaX4AVuDUk~pLP1AXdM~hf29UuKDVBFioXWwMk066fbiBMFPduQwu7Z2YioIKab89gs6eTsvf9gTyC2VGx5QeCeONl4A__' },
-      { name: 'Evy', 
-        city: 'Madrid',
-        givenSkill: 'Salud',
-        recivedSkill: 'Idiomas', 
-        review: 'Juanita tiene una paciencia infinita y te explica muy bien todos los procesos para iniciar en este bonito arte', 
-        photo: 'https://s3-alpha-sig.figma.com/img/a349/cdde/1776791dadd99c32bef907e5d7c0f4e8?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=EAq921R~RBFPrZSSR3~WRvx7AxZ76ArDeNvF00GIP9LL36cM4b~nQk2rLx9euYurMucfDpQYDDzJLTS-Ac4iEQV5v2oAY0BAFfyY0nikgVUsIqzvV1nUsMHK1H1tdFqF1DLbpWXR64hDKI3~UEQKTeLHNEQAQEgUG8ksPYsYUIbq8ohB~zWcNgwyxM02eXDYWcf97UyUbM98h98H1V5JOOVsGRPwdBgagl-l7hz6N8u43k12hIyQqsg2DAt5qcowQM94-KJfmgN4tE7IRf3X6jDmUgsiNTZgB6WhSuyme7Egqa~sF0-9iOG8QtOEshl7-cGG2w-sRMdb2R0Ofmixxg__' },
-      { name: 'Ely', 
-        city: 'Madrid', 
-        review: 'Una gran maestra muy dedicada y educada',
-        givenSkill: 'Animales',
-        recivedSkill: 'Tutorias',  
-        photo: 'https://s3-alpha-sig.figma.com/img/24f1/7eb6/c73b9a48db63e19cb69ac9a12339e6b8?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=MD36jntuE-3zExqe4PTtDD~v8n-7B7cRm2NFOGcXozv2l-zYY58bHBJ625gLlRKUkTtSYatiTOWeA6lMmaxV2CtFFxU9oYkTfpV~FeQh3Fy2DLkAd3aer-X3NaYyhGEX9QxyWKVLtByxU5SW1h4I7LdJGYzmiUHc0-w8of9MsO3GdXtA17M0uS~6cd1-fa4BxTtiQTozqnj8YsZs5OXHKON5VtZLA85zp8t75cNy~0cmH-232CUrUXCBboeTNXKEYkMoKDslIFYXicy6q3stjuGP5QD-u~QYtn8zugKu2jq4stnBpfj2IOAqSonwKkb5tWEhxVxM4QVlF9e~6v5JNg__' },
+        photo: 'https://s3-alpha-sig.figma.com/img/5494/b2cb/c5e7f6247f500b1c1d0013e023d455ae?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=REUEIWGri6QgbdhgJiK6RsglzeFGI25~VVQjFYvM0wm~EHSP5iHT7YKhdU4~~l7TKpLODqUj~aG0RNkG8qrt6BOdpmGe~wDA0Eu40L8pGatqqxaRfEWEcFyx62njF50~KBvDZCOenIMyAFjuI8cJ8kkshgwW1R3ngdvkRA-vnbHwBW2f9qwAyN0yTk1lw3Ye2JKLihNVCPjtPJjPcq1GmQfkLfetGS56pOvK253tSUxtsPMqyh008qB1qyaqkLEfZMTDgNZwvJmXLOpu3gUHOccaQHpxVQ3whMQYPHTUEMh-UQxJCOuPObcF3aA7pUyR5Kk~KaIL28dtGyVqXNpQNQ__' },
+      { name: 'Evy', city: 'Madrid', review: 'Juanita tiene una paciencia infinita y te explica muy bien todos los procesos para iniciar en este bonito arte', photo: 'https://s3-alpha-sig.figma.com/img/a349/cdde/1776791dadd99c32bef907e5d7c0f4e8?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=la0ov8Dvigh2sp6QgFz7E5pcnCDhCoHrLtcWy3WJWzOK6AKqE1U7XJY8q9VLVouG0CkCopKc9xKz4R~BdqZrgj3pVYIWNwk0M7vy2NrnbgQktCJydN-4~OQNogTNcWbEpwLuh-IBQzeP0d2EjMv9DnFDkyGtXvFjX5p9tsKOgPlEurdRuSYlH76~YGRoAfLvr2TUVJvTrSDl83tzcKzn9CJnxpKQMhkLvuIR6OXSkmv8SaQ6iYS4Mb4mbhbEPk8Cv5GRO2x9at0LrzgjUB8vF5zILGXs4WZE5l4bHA9pBdjUzWCjVoTc4XFznyJ9YivC3T3O2rfcvl9T0ez4PGaGug__' },
+      { name: 'Ely', city: 'Madrid', review: 'Una gran maestra muy dedicada y educada', photo: 'https://s3-alpha-sig.figma.com/img/31da/64df/8cc5a1429050e1445737d4cff167a519?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=EXwuWlpkLjQI2dprdP4dvyIcYWiQJwU2GlMUhEamDhfN3Bj-nRhkkvwcplHaepgEcv8PSy5xQbKLroqxbjiTs3DFepNkwuct-odtgDMBMnHsu16YGm85oSEVRyrXNdNmI5ggph13XoN97AsuWSr6xw~0jZ48i4BkKaTUezNa7EoY2Wcql59YVwmdllk3N7IqUPRSk93Gwmd8xwZz6Tp6QaM4QL549elMk8rG1PeoLm43CJ5M7vCKvaTMIRcOS1i1oDwQw7IZwOwVz4t9rSosFJ8nrT6igOLQVpEE9tVCs6Nq9IN1Vc5Sh8bVHdu6qE1nq3ia1SYmh9Qw4b3YHlFPGA__' }
+      ,
       { name: 'Laura García', 
         city: 'Madrid', 
         review: 'Las clases de pintura al óleo han sido absolutamente maravillosas. La técnica y paciencia que he podido desarrollar en cada sesión han superado mis expectativas, ¡es realmente inspirador! Además, el intercambio de habilidades de cocina vegetariana ha sido todo un acierto. He aprendido a preparar recetas deliciosas y sorprendentes, y me ha motivado a explorar aún más en la cocina. Este intercambio ha sido una experiencia enriquecedora en muchos sentidos, desde la creatividad artística hasta el descubrimiento de nuevos sabores. ¡Muy recomendado!"',
         givenSkill: 'Animales',
         recivedSkill: 'Tutorias',  
-        photo: 'https://s3-alpha-sig.figma.com/img/9cce/b03b/9fc0ca1876d1c41c54d00f55bac718e2?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=MPZYr2Y83TQ5zI97WBaRbiy0Y9tZths7K7FJC2Sy242ftjeOShOWu5sifFLCYcQsuwfHyTjWFwvBE2x15U~OhAqzQUNA79KQo153nj7Q617ukWg8IpXTaKMn0cICf8IUTpEQhe~f904TcyUUTrSUrOdygcseT9QH9Rl1X5KYYGhFWdjBWCzszbYK1t5cTDd0XR2qQydXG08QvBKrJYurCJm~DzqbP5QAfAq3IIvEpy1P8Bmj6P9DNIJ50WVpIJaFbmNJ6jsM-QENGzEcZ8TebVqUVFHcK4jE5IIsTwF9UJDcF1iPicu8jMHkH5aSv0f6WZIH5P1cPFnYLkF4lLEfRA__'}
+        photo: 'https://s3-alpha-sig.figma.com/img/9cce/b03b/9fc0ca1876d1c41c54d00f55bac718e2?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=iJYsRXy4mORTsHjUD9a-N~-9A-u8Hh7WMq3Vc7CVk6rDwO0Db6TyJ~NCLvzFudOXErAgyGBDheMVSEAG2ADDYO-vEuJoHI9TkBrjmNbwDa-G5ZypzKy2d1-Ok26xO-jYBb9kpFN8xSoasA9WD6LHFPXLEWg50qYYnphuypo4kh5l8NdOy7VGEtlGE7w~IRSbH2k~UWoHeHUTitV--1B9ce1KFNqjVVP715am1M6TOn~037QdNzgh6yzCgy0Cctn1kptP3D92ulyHDISdgdq1S3prljnEbZf4uVYy0cD7rmwxnQEKliqUPjk3SSLBYlqcP4-igUihiRkPob1w5Rsnvg__'}
     ],
     availability: "9:00hs a 14:00hs",
     description: "Tengo una amplia experiencia en cuidar animales, he trabajado en una guardería de mascotas por 2 años.",
@@ -71,7 +44,7 @@ export const profiles: ProfileData[] = [
   },
   {
     id: 2,
-    photo: "https://s3-alpha-sig.figma.com/img/579b/b647/277f60d43c33a8814c60a8b79d718888?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Z4Mdz1DpyM8qwlZaOJCe9TyeDtg2Q5S7hXqKsWElm6RdH4aqAF2CgCEoPc1TCfy-yERPqaMrJjOCYKPktUNOstL3cDLJ80ifTGtaEebOd90BI2LTZHq2~X1AFLl3OPU5v1doNZVTqyXnbnBTqZ86JDKAhRe8Llok1ImO1Bbicn-yCQCZaFpbsVZWyEUQUA55Vdk7foTeU-LOIrsfkxtmoDFtQJhS60~vt83FwjcwIzoMOv~6EiVIwXzdI3NvHDn~jLyQ-oUZVlfU4BONgYEnKQSNe33Lz7mXgOUbBXn60ZVXMJjCxNBTVZIzX-ZphRiWXpdelVCqMjb5J2Jeh25GZQ__",
+    photo: "https://s3-alpha-sig.figma.com/img/579b/b647/277f60d43c33a8814c60a8b79d718888?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JM~fwyZG-V-hYyE38O9Q7KwBbtYWRVs8mFNt~Bp-hBWxfBhoGrqfxNLuhZanhaqMJWlE-kHwlMHdysds2wBkSYErltjYu~CRjCxV6VqbRa3GaNkMp0rC~kF-URmVoWxCHCgX2biNXCt-~ImBsOeTSQp9mphlIR7i7aBvgO3yfrNDQZaPZbmaa12l4afAikglKPvp4UG8mw2cSWfKjgU~1hHnOsC0u88OVQ-BHx6bdW2x8S6P5mb-6FzEkBaSRGdsJhkLpFr2mKK-ICa0kUbJ~OjwcFKtplrZmp3mQt4U9nMSnmzUsd2LcH2b7J7Wllqk-swtG890Xo5Km1~26-G52w__",
     name: "Aina Pons",
     service: "Paseo de animales",
     location: "14011 Córdoba, Córdoba provincia",
@@ -98,7 +71,7 @@ export const profiles: ProfileData[] = [
   },
   {
     id: 3,
-    photo: "https://s3-alpha-sig.figma.com/img/753a/bba2/19d1091e26612340e3d9e9d9b8183d7e?Expires=1731888000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=NHuJSOiSexEORzWlHMPcmCuXYbc1ZjnNqqvaYbr8eHM-tAELMZmolU2XEfDzLzjTMzwuZyQGGYwFTkqI765mze6vmb547rEPRwDZreWHOxcOmMq1KWWF-3XF0WOjqNpTGD7pnzaJigDro4sPo2GJWpgNL31AOawTRG0D4g8oEBFj-sPkSQ~o5rsIdE8YOkjRcX77hTiZcN1DORdeMMeRZnktMMl34pe8qDfLCucmAuoVUnWYM8be1KwZFmq8bk3v2cKKWE0O-5-UAaqrvFTruyBTKJ7JWSDrxQB~eBdm3D2y4h34pOgOplP4iZiADZT1CQZHty7HzFPuRlflVd~SuQ__",
+    photo: "https://s3-alpha-sig.figma.com/img/753a/bba2/19d1091e26612340e3d9e9d9b8183d7e?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=DkTwnKZM1IrZ9d9FCcp4FGPIqVgmFAwmGUGvEZp7g1G0EfJ~vkc7NjonyyuZw5rfLswN5gsukTugDt78YP0M39sTYFQqlm3De2pxeiJUIqqCB3YIvPp3Zq1Go-TXzE1EAzvc~292NW5ck-Hu6bgBNaKpYKXUdq1~BCLhZGhz0BhCvFwe5ng-5drANb-W2YAglK3M5mtyvKtTC5bpBuELcxWNB4qctojc76SziaWLNMkoe0uCquEIe1ea76vXgKU9pm7JvAW1wpEljupfnRNF9N5YV5QQ2tax6W24AkpIVo-JC4K6wmLenjwR7WskYL-iZh8cOJJYruouFlxxLUlwYQ__",
     name: "Aaron Moreno",
     service: "Consejos de animales",
     location: "Online",
@@ -115,17 +88,17 @@ export const profiles: ProfileData[] = [
         review: 'Juanita me ayudó mucho a aprender a pintar un cuadro para mi familia', 
         givenSkill: 'Cocina',
         recivedSkill: 'Pintura',
-        photo: 'https://s3-alpha-sig.figma.com/img/5494/b2cb/c5e7f6247f500b1c1d0013e023d455ae?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=bQ8b8ObI4Lt8tckV9FC8FJxsgy~uqoYOSxVZU9l1aam8vzJcdZ1TwNJPMbEHkpfL-CaKupKx0gGBhyVu8ZrrY9p29vs8Odao7Qz26OjaIeG8nWtHs0TMJTKI5dgG5PCowcfOKKhf-Ew~bAgQ8mns3S0FCvzgz7nM7JRCemZA-jb9LlTNZiS4RGKcYHqNFLKiFt7F2PwnV6EV9EFKGjHHRXZahhra7G4f9tJckJtUQZa9wYe8TgWqlotUWEbmcSQqGtLbnvE3PKJ7GXbgxhONeFeuRzmc3sE2e1f2eh-MHf~sXN0nb84Ep0Cm50o2z4jgOnEeYVblbdimY393Hnegkw_' },
-      { name: 'Evy', city: 'Madrid', review: 'Juanita tiene una paciencia infinita y te explica muy bien todos los procesos para iniciar en este bonito arte', photo: 'https://s3-alpha-sig.figma.com/img/a349/cdde/1776791dadd99c32bef907e5d7c0f4e8?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=j0XHYwba39Ar0xib3zGh9ufqtYMEKIodlexSnBnM6KK0OUUyG4TcDO6kUM0ydn4vdSzkICZyHWn4~i5sLqkqddM3rOV20mtYb9ePwupAYPw6H~wCOxLiDV8qbZr-pGW0Pm1OgdlCssgBl0evpYJ-FuMidZdejmNre2Lc4VtU9rLZ6Cx-lcjqMgHhGdheBjO-tWE795zwthRRK~HtAsGUtXPwwWxfY5ot-3uzS-tYWalW3954ee10mE4m8u5Pn8m8joFejpPwaXzUCAI6An94CPs31Kevxdqu13tUPOw0ZTSR9~I8BirfdLdkdrNovrNLU3rDYFEBf~SRTS7JDj24yg__' },
-      { name: 'Ely', city: 'Madrid', review: 'Una gran maestra muy dedicada y educada', photo: 'https://s3-alpha-sig.figma.com/img/31da/64df/8cc5a1429050e1445737d4cff167a519?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=B1QnYrsyHmb8-wKPhZ6DN9CHv6uqTXVLUbV-YJfT4AGtsNSXPEfX2ojQ~urn5VZdZukaF4bha-bftGkxZZCxpZ1np~vrf2xcFCwObMNTQDjt649kBQYlSbI5~25JkIg1hjxh9OUtljxaBUweBGtpjW6DtHQbEwvQfT1l48QdkfpxegDjnrqBs1K48Z5ObdPHfHmLae2eWbeR6bpg~8ZYrGp3lwIoYy-R41Vkk1N1LRjwKd5vfCFoHRCjNYv6JGtDQ-sCQei8sitMFm4CtnxW3I~a5S5lNjRJrFRIwkTB7~Mg3Xleu2FRMEmyLAnSUcRQTQ~Ur8CfbwhZUrz7UiTvtg__' }
+        photo: 'https://s3-alpha-sig.figma.com/img/5494/b2cb/c5e7f6247f500b1c1d0013e023d455ae?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=REUEIWGri6QgbdhgJiK6RsglzeFGI25~VVQjFYvM0wm~EHSP5iHT7YKhdU4~~l7TKpLODqUj~aG0RNkG8qrt6BOdpmGe~wDA0Eu40L8pGatqqxaRfEWEcFyx62njF50~KBvDZCOenIMyAFjuI8cJ8kkshgwW1R3ngdvkRA-vnbHwBW2f9qwAyN0yTk1lw3Ye2JKLihNVCPjtPJjPcq1GmQfkLfetGS56pOvK253tSUxtsPMqyh008qB1qyaqkLEfZMTDgNZwvJmXLOpu3gUHOccaQHpxVQ3whMQYPHTUEMh-UQxJCOuPObcF3aA7pUyR5Kk~KaIL28dtGyVqXNpQNQ__' },
+      { name: 'Evy', city: 'Madrid', review: 'Juanita tiene una paciencia infinita y te explica muy bien todos los procesos para iniciar en este bonito arte', photo: 'https://s3-alpha-sig.figma.com/img/a349/cdde/1776791dadd99c32bef907e5d7c0f4e8?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=la0ov8Dvigh2sp6QgFz7E5pcnCDhCoHrLtcWy3WJWzOK6AKqE1U7XJY8q9VLVouG0CkCopKc9xKz4R~BdqZrgj3pVYIWNwk0M7vy2NrnbgQktCJydN-4~OQNogTNcWbEpwLuh-IBQzeP0d2EjMv9DnFDkyGtXvFjX5p9tsKOgPlEurdRuSYlH76~YGRoAfLvr2TUVJvTrSDl83tzcKzn9CJnxpKQMhkLvuIR6OXSkmv8SaQ6iYS4Mb4mbhbEPk8Cv5GRO2x9at0LrzgjUB8vF5zILGXs4WZE5l4bHA9pBdjUzWCjVoTc4XFznyJ9YivC3T3O2rfcvl9T0ez4PGaGug__' },
+      { name: 'Ely', city: 'Madrid', review: 'Una gran maestra muy dedicada y educada', photo: 'https://s3-alpha-sig.figma.com/img/31da/64df/8cc5a1429050e1445737d4cff167a519?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=EXwuWlpkLjQI2dprdP4dvyIcYWiQJwU2GlMUhEamDhfN3Bj-nRhkkvwcplHaepgEcv8PSy5xQbKLroqxbjiTs3DFepNkwuct-odtgDMBMnHsu16YGm85oSEVRyrXNdNmI5ggph13XoN97AsuWSr6xw~0jZ48i4BkKaTUezNa7EoY2Wcql59YVwmdllk3N7IqUPRSk93Gwmd8xwZz6Tp6QaM4QL549elMk8rG1PeoLm43CJ5M7vCKvaTMIRcOS1i1oDwQw7IZwOwVz4t9rSosFJ8nrT6igOLQVpEE9tVCs6Nq9IN1Vc5Sh8bVHdu6qE1nq3ia1SYmh9Qw4b3YHlFPGA__' }
     ],
     availability: "17:00hs a 21:00hs",
     description: "Tengo 3 años de estudios en medicina veterinaria, por lo cual puedo dar recomendaciones  a los dueños de mascotas",
     skills: ["Animales"]
   },
   { id: 4,
-    photo: "https://randomuser.me/api/portraits/women/79.jpg",
-    name: "María Delgado",
+    photo: "https://s3-alpha-sig.figma.com/img/24f1/7eb6/c73b9a48db63e19cb69ac9a12339e6b8?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JFfR~5hsZnOlKjXaFH8kr86n2BzaB7Sq-D2shsLoNYHxgs~ZcvOcd-z~an9p6Xs5-p46fheUCSJMNRfLvwnMMSrZY~FYe8ejgFl2dnoEUFjSB0SmsWNemiP37oO9h7jKgDc1B8G3ULn~Q7rwZcvYVph8KGvSEvrE7-g-oBLtBFa7RJJLcpMyEPxg2QynF9XqUldiJ2MKfbFP37-qxhVNs7Hv1~wHi4eC~2P5udXN6ynW9pVMCkFbLBpdphgZ-aPCgJeaFlIrnzC2XAr1E1SS3TzCnASznXBlr5ObAWKlM41ghfy81p7V3Hv3gY0I8NsSsSQsgjE9G0-VmU7okCR4nw__",
+    name: "Maria Nuria Salinas",
     service: "Aseo de animales",
     location: "08001 Barcelona, España",
     rating: 5,
