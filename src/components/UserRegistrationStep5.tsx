@@ -47,8 +47,12 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
     }
     try {
       console.log('Datos que se enviarán a createProfile:', profileData);
+      if (!userId) {
+        alert('El usuario no tiene un ID válido. Por favor, inicia sesión nuevamente.');
+        return;
+      }
       let profilePicture: string = profileData.profilePicture || ""; 
-      if (!profilePicture && userId) {
+      if (!profilePicture) {
         const imageUrl = await fetchProfileImage(userId); 
         if (imageUrl) {
           profilePicture = imageUrl; 
@@ -60,7 +64,7 @@ const UserRegistrationStep5: React.FC<UserRegistrationStep5Props> = ({
 
       const profileDataWithImage = {
         ...profileData,
-        profilePicture: profilePicture || "", 
+        profilePicture, 
       };
 
       const profileResponse = await createProfile(profileDataWithImage);
