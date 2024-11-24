@@ -12,8 +12,8 @@ import { useAuthContext } from "../context/AuthContext";
 import { useChatContext } from "../context/ChatContext";
 import { useAvilityContext } from "../context/AvilityContext";
 
-
 function SideBar() {
+  const { userId } = useAuthContext();
   const [open, setOpen] = useState<boolean>(false);
   const [showNotifications, setShowNotifications] = useState<boolean>(false);
   const {handleCloseRequestTabClick} = useChatContext();
@@ -47,7 +47,7 @@ function SideBar() {
       link: '/profile',
       position: 'bottom',
       icon: <ProfileImg 
-        src={profiles[0].photo} 
+        userId={userId} 
         className="w-[3.25rem] h-[3.25rem] rounded-lg overflow-hidden shadow-[4px_4px_4px_0_rgba(0,0,0,0.25)]" 
       />,
     },

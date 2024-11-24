@@ -1,9 +1,16 @@
+import { useProfileImage } from "../hooks/useProfileImage";
 
-function ProfileImg({ src, className }: { src: string, className?: string }) {
+interface ProfileImgProps {
+  userId: string;
+  className?: string;
+}
+
+function ProfileImg({ userId, className }: ProfileImgProps) {
+  const { profilePicture } = useProfileImage(userId);
   return (
     <div className={className}>
       <img
-        src={src}
+        src={profilePicture}
         alt="Perfil"
         className={`w-full h-full object-cover`}
       />      

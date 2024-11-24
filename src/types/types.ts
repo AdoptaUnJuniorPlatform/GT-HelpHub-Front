@@ -88,8 +88,8 @@ export interface SkillsProps {
   skills: string[];
 }
 
-export interface InterestSkillsProps {
-  interestSkills: string[];
+export interface InterestedSkillsProps {
+  interestedSkills: string[];
   isEditing: boolean;
 }
 
@@ -114,6 +114,10 @@ export interface ProfileData {
   description: string;
   skills: string[];
   interestSkills?: string[];
+  _id?: string;
+  id_user?: string;
+  userId?: string;
+  user_id?: string;
 }
 
 export type PaginationProps = {
