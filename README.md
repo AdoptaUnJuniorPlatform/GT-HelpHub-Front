@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="src/assets/LogoHHReadme.png" alt="Logo del Proyecto" width="300">
-</p>
-
 # HelpHub: "Uniendo talentos, creando comunidad" | Frontend
 
 HelpHub es una plataforma de **intercambio de habilidades comunitarias**, diseñada como una iniciativa sin ánimo de lucro.
@@ -189,14 +185,4 @@ Desarrollado y mantenido por:
 - **María Laura Luraschi** - Cybersecurity Analyst  
   [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/marialauraluraschi)
   [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/malalu/)
-
-
-
-
-
-
-
-
-
-
 

@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Definición del componente individual de categoría
 interface CategoryProps {
   label: string;
   isSelected: boolean;
@@ -22,27 +21,22 @@ const Category: React.FC<CategoryProps> = ({ label, isSelected, onClick }) => {
   );
 };
 
-// Props para el componente contenedor de categorías
 interface CategoriesProps {
   selectedCategories: string[];
   onSelectCategories: (selectedCategories: string[]) => void;
 }
 
-// Lista de nombres de categorías
 const categoryList = [
   'Animales', 'Ayuda', 'Consultoría', 'Diseño', 
   'Idiomas', 'Informática', 'Reparaciones', 
   'Salud', 'Tutorías', 'Otros'
 ];
 
-// Componente contenedor para todas las categorías
 const Categories: React.FC<CategoriesProps> = ({ selectedCategories, onSelectCategories }) => {
 
-  // Maneja el clic en una categoría
   const handleCategoryClick = (label: string) => {
     let updatedCategories;
     if (selectedCategories.includes(label)) {
-      // Desmarcar la categoría si ya está seleccionada
       updatedCategories = selectedCategories.filter(item => item !== label);
     } else {
       updatedCategories = [...selectedCategories, label];

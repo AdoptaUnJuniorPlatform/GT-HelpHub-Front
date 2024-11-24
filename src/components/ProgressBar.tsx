@@ -7,7 +7,7 @@ interface ProgressBarProps {
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ steps, currentStep }) => {
   const visibleSteps = steps.map((step, index) => {
-    const isVisible = Math.abs(index + 1 - currentStep) <= 1; // Solo mostrar el actual, anterior y siguiente
+    const isVisible = Math.abs(index + 1 - currentStep) <= 1; 
     return { step, index: index + 1, isVisible };
   });
   
@@ -15,7 +15,6 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ steps, currentStep }) => {
     <div className="absolute w-full top-1 flex left-[-45px] items-center justify-around px-20 mt-6 mb-6">
       {/* Iteramos sobre los pasos filtrados */}
       {visibleSteps.map(({ step, index, isVisible }) => {
-        // Solo mostrar si el paso es visible
         if (!isVisible) return null;
 
         const isActive = index === currentStep;
