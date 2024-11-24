@@ -8,7 +8,7 @@ import TitleExampleModal from './TitleExampleModal';
 import DropdownCategories from './DropdownCategories';
 import SaveButton from './SaveButton';
 import SkillsDisplay from './SkillsDisplay';
-import { HabilityData } from '../types/AuthServiceTypes';;
+import { HabilityData, ProfileData } from '../types/AuthServiceTypes';;
 
 interface UserRegistrationStep4Props {
   onBackClick: () => void;
@@ -17,6 +17,7 @@ interface UserRegistrationStep4Props {
   currentStep: number;
   habilityData: HabilityData;
   updateHabilityData: (data: HabilityData) => void;
+  profileData: ProfileData;
 }
 
 const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
@@ -26,6 +27,7 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
   currentStep,
   habilityData,
   updateHabilityData,
+  profileData,
 }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isTitleTipsModalOpen, setIsTitleTipsModalOpen] = useState(false);
@@ -184,7 +186,7 @@ const UserRegistrationStep4: React.FC<UserRegistrationStep4Props> = ({
       </div>
 
       {/*Tarjeta final*/}
-      <SkillsDisplay habilityData={habilityData} isSubmitted={isSubmitted}/>
+      <SkillsDisplay habilityData={habilityData} isSubmitted={isSubmitted} profileData={profileData}/>
 
     </Layout>
   );
