@@ -31,15 +31,13 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   
-  // Verificar si ya existe una imagen de perfil
   useEffect(() => {
     const loadProfileImage = async () => {
       if (userId) {
         try {
           const imageUrl = await fetchProfileImage(userId);
           if (imageUrl) {
-            setPreviewUrl(imageUrl); // Muestra la imagen si existe
-            // Retrasa el alert para que se cargue primero la imagen
+            setPreviewUrl(imageUrl); 
             setTimeout(() => {
               alert(
                 "Ya tienes una imagen de perfil cargada. Puedes continuar con el proceso o modificarla más tarde desde tu perfil."
@@ -55,33 +53,36 @@ const UserRegistrationStep2: React.FC<UserRegistrationStep2Props> = ({
     loadProfileImage();
   }, [userId]);
 
-  // Manejador del cambio del archivo
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (previewUrl) {
       return;
     }
-  
     const file = event.target.files?.[0];
     if (file && userId) {
       try {
         const simulatedUrl = URL.createObjectURL(file);
         setPreviewUrl(simulatedUrl);
+
+        await uploadProfileImage(file, userId);
+
+        const response = await fetchProfileImage(userId);
   
-        const response = await uploadProfileImage(file, userId);
-        if (response.imageUrl) {
-          setPreviewUrl(response.imageUrl);
+        if (response) {
+          setPreviewUrl(response);
           updateProfileData({
             ...profileData,
-            profilePicture: response.imageUrl,
+            profilePicture: response, 
           });
-          alert("Imagen subida exitosamente");
+          alert("Imagen subida y cargada exitosamente.");
+        } else {
+          throw new Error("No se pudo recuperar la imagen después de subirla.");
         }
       } catch (error) {
-        console.error("Error subiendo la imagen:", error);
-        alert("Hubo un problema al subir la imagen. Inténtalo de nuevo.");
+        console.error("Error manejando la imagen de perfil:", error);
+        alert("Hubo un problema al subir o cargar la imagen. Intenta nuevamente.");
       }
     }
-  };  
+  };
  
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible); 
