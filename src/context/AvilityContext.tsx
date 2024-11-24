@@ -1,30 +1,15 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
-import { UserHabilitiesResponse, Hability } from "../types/AbilityServiceTypes";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { UserHabilitiesResponse, Hability, AvilityContextType } from "../types/AbilityServiceTypes";
 import { deleteHability, getAllHabilities, getUserHabilities, HabilitiesByCategory } from "../services/AbilityService";
 import axios from "axios";
 import { useAuthContext } from "./AuthContext";
-
-interface AvilityContextType {
-  showEditor: boolean;
-  setShowEditor: Dispatch<SetStateAction<boolean>>;
-  userHabilities: UserHabilitiesResponse | null;
-  allHabilities: Hability[] | null;
-  filteredHabilities: Hability[] | null;
-  setFilteredHabilities: Dispatch<SetStateAction<Hability[]>>;
-  selectedCategory: string | null;
-  setSelectedCategory: Dispatch<SetStateAction<string | null>>; 
-  fetchUserHabilities: () => void;
-  fetchAllHabilities: () => void;
-  fetchFilteredHabilities: (category: string | null) => Promise<void>;
-  deleteHability: (id: string) => void;
-}
 
 const AvilityContext = createContext<AvilityContextType | undefined>(undefined);
 
 function AvilityProvider({ children }: { children: ReactNode}) {
   const [showEditor, setShowEditor] = useState<boolean>(false);
   const [userHabilities, setUserHabilities] = useState<UserHabilitiesResponse | null>(null);
-  const [allHabilities, setAllHabilities] = useState<Hability[] | null>(null);
+  const [allHabilities, setAllHabilities] = useState<Hability[] | null>([]);
   const [filteredHabilities, setFilteredHabilities] = useState<Hability[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const { isAuthenticated } = useAuthContext();
@@ -121,7 +106,7 @@ function AvilityProvider({ children }: { children: ReactNode}) {
     if (isAuthenticated) {
       fetchUserHabilities();
       fetchAllHabilities();
-    }
+    } return
   }, [isAuthenticated]); 
 
   return (
@@ -129,6 +114,7 @@ function AvilityProvider({ children }: { children: ReactNode}) {
       showEditor,
       setShowEditor,
       userHabilities,
+      setUserHabilities,
       fetchUserHabilities,
       allHabilities,
       selectedCategory,

@@ -11,6 +11,7 @@ import Ability from "../components/Ability"
 import MySkills from "../components/MySkills"
 import MyReviews from "../components/MyReviews"
 import ProtectedRoutes from "./ProtectedRoutes"
+import Messages from "../pages/Messages"
 
 function RoutesIndex() {
   return (
@@ -29,6 +30,7 @@ function RoutesIndex() {
       <Route path="/reseteo" element={<ResetPassword />}>
         <Route path="nueva-contraseña" element={<NewPassword />} />      
       </Route>
+      <Route path="/mensajes" element={<ProtectedRoutes element={<Messages />} />} /> 
     </Routes>
   )
 }

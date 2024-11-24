@@ -1,15 +1,9 @@
-import { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
-import { UserByIdResponse } from '../types/UserServiceTypes';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { UserByIdResponse, UserContextType } from '../types/UserServiceTypes';
 import { allUsers, userById } from '../services/UserService';
 import { useAuthContext } from './AuthContext';
 
-interface UserContextType {
-  user: UserByIdResponse | null;
-  users: UserByIdResponse[] | null;
-  setUser: Dispatch<SetStateAction<UserByIdResponse | null>>;
-  fetchUser: () => void;
-  fetchAllUsers: () => Promise<void>;
-}
+
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 

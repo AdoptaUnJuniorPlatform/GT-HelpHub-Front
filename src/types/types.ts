@@ -41,10 +41,6 @@ export interface Country {
   code: string;
   dialCode: string;
 }
-export interface InfoProps {
-  header?: string;
-  info: string;
-}
 
 export interface SwitchProps {
   initialState?: boolean;
@@ -254,3 +250,26 @@ export interface FilterDropProps {
 export type ComponentMap = {
   [key: string]: ElementType;
 };
+
+export interface InboxMenuProps {
+  title: string;
+  numSms: number;
+  openSms?: boolean;
+  openRequest?: boolean;
+  onClick: () => void;
+}
+
+export interface Message {
+  id: number;
+  content: string;
+  sender: "user" | "other";
+};
+
+export interface InboxContactProps {
+  id: number;
+  src: string;
+  name: string;
+  message: string;
+  selected: number | null;
+  setSelected: (id: number) => void;
+}

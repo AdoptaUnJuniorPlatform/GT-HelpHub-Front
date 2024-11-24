@@ -24,7 +24,7 @@ function RadioSelector({ options, value, onChange, name }: RadioSelectorProps): 
             value={option}
             checked={value === option}
             onChange={onChange}
-            className="hidden"
+            className="h-0 w-0"
           />
           <span
             className={`w-6 h-6 mr-2 rounded-full border-2 flex items-center justify-center ${
@@ -32,7 +32,7 @@ function RadioSelector({ options, value, onChange, name }: RadioSelectorProps): 
             }`}
           >
             {value === option && (
-              <span className="w-5 h-5 bg-celeste-100 rounded-full border-2 border-neutral-gray"></span>
+              <span className="w-5 h-5 bg-celeste-100 rounded-full border-2 border-neutral-gray z-10"></span>
             )}
           </span>
           {option}

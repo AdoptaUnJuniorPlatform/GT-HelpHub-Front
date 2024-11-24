@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAvilityContext } from "../context/AvilityContext";
 
 function useBackButton() {
   const location = useLocation();
   const navigate = useNavigate();
   const [showForm, setShowForm] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-
+  const {setShowEditor} = useAvilityContext();
   const decodedPathname = decodeURIComponent(location.pathname);
+  const isHability = decodedPathname.includes('crear-habilidades') || decodedPathname.includes('editar-habilidades/:id')
 
   useEffect(() => {
     if (decodedPathname.includes('nueva-contraseña')) {
@@ -39,6 +41,9 @@ function useBackButton() {
     } else if (location.pathname === ('/reseteo')){
       navigate('/')
 
+    } else if (isHability){
+      navigate('/profile')
+      setShowEditor(false)
     } else {
       if (window.history.length > 1) {
         navigate(-1);

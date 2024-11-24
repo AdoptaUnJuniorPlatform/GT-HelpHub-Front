@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface AbilityRequestBody {
   title: string;
   level: string;
@@ -49,4 +51,21 @@ export interface SkillsCardProps extends Hability {
 export interface CardProps extends SkillsCardProps {
   userFullName: string
   profilePicture: string
+}
+
+
+export interface AvilityContextType {
+  showEditor: boolean;
+  setShowEditor: Dispatch<SetStateAction<boolean>>;
+  userHabilities: UserHabilitiesResponse | null;
+  setUserHabilities: Dispatch<SetStateAction<UserHabilitiesResponse | null>>;
+  allHabilities: Hability[] | null;
+  filteredHabilities: Hability[] | null;
+  setFilteredHabilities: Dispatch<SetStateAction<Hability[]>>;
+  selectedCategory: string | null;
+  setSelectedCategory: Dispatch<SetStateAction<string | null>>; 
+  fetchUserHabilities: () => void;
+  fetchAllHabilities: () => void;
+  fetchFilteredHabilities: (category: string | null) => Promise<void>;
+  deleteHability: (id: string) => void;
 }

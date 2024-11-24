@@ -17,7 +17,7 @@ function FilterDrop({ options, placeholder, className = "", onSelect, selectedOp
   return (
     <div className={`relative w-[11.2rem] h-[3.7rem] text-base not-italic font-normal leading-6 tracking-wide ${className}`}>
       <div
-        className="flex justify-between items-center h-[3.7rem] px-4 py-2 border-[1px] border-[#B8B8B8] rounded-md bg-[#FBFBFF] cursor-pointer"
+        className="flex justify-between items-center h-[3.7rem] px-4 py-2 border-[1px] border-[#B8B8B8] rounded-md bg-white cursor-pointer"
         onClick={toggleDropdown}
       >
         <span className="text-gray-600">{selectedOption || placeholder}</span>

@@ -83,6 +83,7 @@ function NewPassword() {
           className={`loginInput ${resetError.code ? 'outline-red-500 border-red-500' : 'outline-violeta-100'}`}
           placeholder="Código"
         />
+        {resetError.code && <p className="error">El código ingresado no es válido o ha expirado. Puedes comprobarlo e intentarlo otra vez.</p>}
         <UserInput
           id="newPassword"
           type="password"
@@ -103,6 +104,7 @@ function NewPassword() {
           placeholder="Confirmar nueva contraseña"
           positionStyles="top-[22px] right-[15px]"
         />
+        {resetError.confirmPassword && <p className="error">Las contraseñas no coinciden. Vuelve a intentarlo.</p>}
       </div>
       <div className="absolute flex w-full justify-evenly bottom-0">
         <BackButton

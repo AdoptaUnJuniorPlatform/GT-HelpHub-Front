@@ -6,7 +6,7 @@ function CardDescription(props: DescriptionProps) {
   const location = useLocation();
   const isLogin = location.pathname === "/"
   return (
-    <div className={`px-4 py-1 border-b border-[rgba(174,174,174,0.10)] ${isLogin ? 'overflow-y-scroll login-scroll' : ''}`}>
+    <div className={`flex items-center px-4 py-1 border-b  border-[rgba(174,174,174,0.10)] ${isLogin ? 'overflow-y-scroll login-scroll' : 'overflow-auto scrollbar-hide h-[6rem]'}`}>
       <p className="text-sm text-[#B8B8B8]">{description}</p>
     </div>
   );
