@@ -31,7 +31,7 @@ const UserRegistrationStep3: React.FC<UserRegistrationStep3Props> = ({
     { id: 2, timeRange: '17:00 a 21:00' },
     { id: 3, timeRange: '08:00 a 17:00' },
     { id: 4, timeRange: '15:00 a 17:00' },
-    { id: 5, timeRange: 'Flexibilidad Horaria' },
+    { id: 5, timeRange: 'Horario flexible' },
   ];
 
   const handleSelectHorario = (timeRange: string) => {
