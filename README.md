@@ -88,8 +88,10 @@ Antes de comenzar con el desarrollo o ejecución del frontend web, asegúrate de
 - **Vite:** Herramienta de desarrollo incluida en el proyecto para optimizar el tiempo de carga y la compilación de la aplicación.
 - **React:** La biblioteca principal utilizada para construir la interfaz de usuario.
 - **TypeScript:** Aunque TypeScript se incluye como dependencia en el proyecto, puedes instalarlo globalmente si deseas ejecutar comandos como `tsc` fuera del proyecto:
+
   ```bash
   npm install -g typescript
+  ```
 - **Git:** Necesario para clonar el repositorio y gestionar versiones del código.
 - **Acceso al Backend:** Asegúrate de tener el backend en funcionamiento, ya que el frontend depende de sus endpoints para mostrar datos.
 - **MongoDB:** Aunque el frontend no interactúa directamente con la base de datos, el proyecto utiliza MongoDB a través del backend. Instala MongoDB en tu máquina local desde MongoDB Community Server. Opcionalmente, descarga e instala MongoDB Compass para una interfaz gráfica que facilite la visualización y manipulación de datos.
@@ -176,9 +178,17 @@ Cuyos talentos, esfuerzo y colaboración han sido claves para superar los retos 
 
 Desarrollado y mantenido por:
 
-- **[Gloria Rangel](https://github.com/NorimNori)** - [LinkedIn](https://www.linkedin.com/in/gloria-rangel-06b960306/)
-- **[Reyes Morales](https://github.com/ReyesMorales)** - [LinkedIn](https://www.linkedin.com/in/reyes-morales-dguez/)
-- **[María Laura Luraschi](https://github.com/marialauraluraschi)** - [LinkedIn](https://www.linkedin.com/in/malalu/)
+- **Gloria Rangel** - Frontend Developer  
+  [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/NorimNori)
+  [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/gloria-rangel-06b960306/)
+
+- **Reyes Morales** - Frontend Developer  
+  [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/ReyesMorales)
+  [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/reyes-morales-dguez/)
+
+- **María Laura Luraschi** - Cybersecurity Analyst  
+  [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/marialauraluraschi)
+  [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/malalu/)
 
 
 
